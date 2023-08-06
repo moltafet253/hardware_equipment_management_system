@@ -4,18 +4,19 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('blacklists', function (Blueprint $table) {
+        Schema::create('assistances', function (Blueprint $table) {
             $table->id();
-            $table->string('ip_address');
-            $table->integer('attempts_count')->default(10);
-            $table->tinyInteger('active')->default(1);
+            $table->string('name');
+            $table->integer('place')->default(0)->comment('0 For Qom - 1 For States');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -24,6 +25,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('blacklists');
+        Schema::dropIfExists('assistances');
     }
 };

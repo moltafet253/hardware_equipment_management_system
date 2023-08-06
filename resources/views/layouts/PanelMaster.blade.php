@@ -127,11 +127,8 @@
                                         $userInfo=\Illuminate\Support\Facades\DB::table('users')
                                                 ->where('username', session('username'))
                                                 ->first();
-                                           echo 'کد '.$userInfo->username.' | '. $userInfo->name
+                                           echo $userInfo->username.' | '. $userInfo->name . ' '. $userInfo->family
                                     @endphp
-                                </p>
-                                <p class="pt-2 text-cu-light">
-                                    خوش آمدید
                                 </p>
                             </div>
                             <li class="menu-item" id="dashboard">
@@ -397,9 +394,10 @@
 </div>
 
 <footer class="bg-gray-800 text-gray-300 py-4 px-8">
-    <div class="max-w-3xl mx-auto text-center">
+    <div class="max-w-4xl mx-auto text-center">
             <span>کلیه حقوق مادی این سامانه متعلق به
                 {{ env('APP_PERSIAN_NAME') }}
+                مرکز فناوری اطلاعات حوزه های علمیه کشور
                 می باشد.</span>
     </div>
 </footer>
