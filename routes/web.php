@@ -1,17 +1,11 @@
 <?php
 
-use App\Http\Controllers\Catalogs\Car;
-use App\Http\Controllers\ContractorController;
+use App\Http\Controllers\Catalogs\BrandController;
+use App\Http\Controllers\Catalogs\MotherboardController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\LoadController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\OrganizationController;
-use App\Http\Controllers\ReportController;
-use App\Http\Controllers\RiderController;
 use App\Http\Controllers\SearchController;
-use App\Http\Controllers\TariffController;
 use App\Http\Controllers\UserManager;
-use App\Http\Controllers\WeighbridgeController;
 use App\Http\Middleware\CheckLoginMiddleware;
 use App\Http\Middleware\MenuMiddleware;
 use App\Http\Middleware\NTCPMiddleware;
@@ -60,7 +54,6 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
         //Search Route
         Route::get('/Search', [SearchController::class, 'search'])->name('Search');
         Route::middleware('roleAuthorization:1')->group(function () {
-
             //User Manager
             Route::get('/UserManager', [UserManager::class, 'index'])->name('UserManager');
             Route::get('/GetUserInfo', [UserManager::class, 'getUserInfo'])->name('GetUserInfo');
@@ -69,7 +62,16 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
             Route::Post('/ChangeUserActivationStatus', [UserManager::class, 'changeUserActivationStatus'])->name('ChangeUserActivationStatus');
             Route::Post('/ChangeUserNTCP', [UserManager::class, 'ChangeUserNTCP'])->name('ChangeUserNTCP');
             Route::Post('/ResetPassword', [UserManager::class, 'ResetPassword'])->name('ResetPassword');
+
+            //Catalogs
+            Route::get('/MotherboardCatalog', [MotherboardController::class, 'index'])->name('MotherboardCatalog');
+            Route::post('/newMotherboard', [MotherboardController::class, 'newMotherboard'])->name('newMotherboard');
+            Route::get('/Brands', [BrandController::class, 'index'])->name('Brands');
+            Route::post('/newBrand', [BrandController::class, 'newBrand'])->name('newBrand');
+
         });
+
+
         Route::middleware('roleAuthorization:2')->group(function () {
         });
 
