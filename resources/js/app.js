@@ -334,7 +334,6 @@ $(document).ready(function () {
             }
         });
     });
-
     //NTCP Status In User Manager
     $(document).on('click', '.ntcp', function (e) {
         const username = $(this).data('ntcp-username');
@@ -387,7 +386,6 @@ $(document).ready(function () {
             }
         });
     });
-
     //Reset Password In User Manager
     $(document).on('click', '.rp', function (e) {
         const username = $(this).data('rp-username');
@@ -423,16 +421,13 @@ $(document).ready(function () {
             }
         });
     });
-
     //Showing Or Hiding Modal
     $('#new-user-button, #cancel-new-user').on('click', function () {
         toggleModal(newUserModal.id);
     });
-
     $('#edit-user-button, #cancel-edit-user').on('click', function () {
         toggleModal(editUserModal.id);
     });
-
     //New User
     $('#new-user').submit(function (e) {
         e.preventDefault();
@@ -486,7 +481,6 @@ $(document).ready(function () {
             });
         }
     });
-
     //Getting User Information
     $('#userIdForEdit').change(function (e) {
         e.preventDefault();
@@ -507,7 +501,6 @@ $(document).ready(function () {
             });
         }
     });
-
     //Edit User
     $('#edit-user').submit(function (e) {
         e.preventDefault();
@@ -654,15 +647,12 @@ $(document).ready(function () {
                     }
                 });
             });
-
             $('#new-brand-button, #cancel-new-brand').on('click', function () {
                 toggleModal(newBrandModal.id);
             });
-
             $('.absolute.inset-0.bg-gray-500.opacity-75').on('click', function () {
                 toggleModal(newBrandModal.id)
             });
-
             $('#new-brand').on('submit', function (e) {
                 e.preventDefault();
                 let name=document.getElementById('name');
@@ -702,6 +692,9 @@ $(document).ready(function () {
                         }
                     });
                 }
+            });
+            $('.BrandControl').on('click', function () {
+                toggleModal(editBrandModal.id);
             });
             break;
     }
