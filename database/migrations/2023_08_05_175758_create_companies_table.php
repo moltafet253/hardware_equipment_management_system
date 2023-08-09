@@ -15,11 +15,11 @@ return new class extends Migration
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('products');
+            $table->json('products');
             $table->timestamps();
             $table->softDeletes();
         });
-        $query = "INSERT INTO companies (id,name,products) VALUES (0,'ONBOARD','ONBOARD'); ";
+        $query = "INSERT INTO companies (id,name,products) VALUES (0,'ONBOARD','[\"ONBOARD\"]'); ";
         DB::statement($query);
     }
 

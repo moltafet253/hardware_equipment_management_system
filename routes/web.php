@@ -64,10 +64,13 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
             Route::Post('/ResetPassword', [UserManager::class, 'ResetPassword'])->name('ResetPassword');
 
             //Catalogs
-            Route::get('/MotherboardCatalog', [MotherboardController::class, 'index'])->name('MotherboardCatalog');
-            Route::post('/newMotherboard', [MotherboardController::class, 'newMotherboard'])->name('newMotherboard');
             Route::get('/Brands', [BrandController::class, 'index'])->name('Brands');
             Route::post('/newBrand', [BrandController::class, 'newBrand'])->name('newBrand');
+            Route::get('/getBrandInfo', [BrandController::class, 'getBrandInfo'])->name('getBrandInfo');
+            Route::post('/editBrand', [BrandController::class, 'editBrand'])->name('editBrand');
+
+            Route::get('/MotherboardCatalog', [MotherboardController::class, 'index'])->name('MotherboardCatalog');
+            Route::post('/newMotherboard', [MotherboardController::class, 'newMotherboard'])->name('newMotherboard');
 
         });
 

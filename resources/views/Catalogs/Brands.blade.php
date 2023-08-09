@@ -17,7 +17,7 @@
                             <div
                                 class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center  sm:block sm:p-0">
                                 <div class="fixed inset-0 transition-opacity" aria-hidden="true">
-                                    <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+                                    <div class="absolute inset-0 bg-gray-500 opacity-75 add"></div>
                                 </div>
                                 <div
                                     class="inline-block align-bottom bg-white rounded-lg text-right overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:w-full sm:max-w-[550px]">
@@ -74,35 +74,35 @@
                         </form>
                     </div>
                     <div class="fixed z-10 inset-0 overflow-y-auto hidden" id="editBrandModal">
-                        <form id="new-brand">
+                        <form id="edit-brand">
                             @csrf
                             <div
                                 class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center  sm:block sm:p-0">
                                 <div class="fixed inset-0 transition-opacity" aria-hidden="true">
-                                    <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+                                    <div class="absolute inset-0 bg-gray-500 opacity-75 edit"></div>
                                 </div>
                                 <div
                                     class="inline-block align-bottom bg-white rounded-lg text-right overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:w-full sm:max-w-[550px]">
                                     <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                                         <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
-                                            تعریف برند جدید
+                                            ویرایش برند
                                         </h3>
                                         <div class="mt-4">
                                             <div class="flex flex-col items-right mb-4">
-                                                <label for="name"
+                                                <label for="editedName"
                                                        class="block text-gray-700 text-sm font-bold mb-2">نام
                                                     برند*:</label>
-                                                <input type="text" id="name" name="name" autocomplete="off"
+                                                <input type="text" id="editedName" name="editedName" autocomplete="off"
                                                        class="border rounded-md w-full mb-4 px-3 py-2 text-right"
                                                        placeholder="نام برند را به انگلیسی وارد کنید">
                                             </div>
                                             <div class="mb-4">
-                                                <label for="products"
+                                                <label for="editedProducts"
                                                        class="block text-gray-700 text-sm font-bold mb-2">نوع
                                                     محصول*:</label>
-                                                <select id="products[]" class="border rounded-md w-full px-3 py-2 h-72"
+                                                <select id="editedProducts[]" class="border rounded-md w-full px-3 py-2 h-72"
                                                         multiple
-                                                        name="products[]">
+                                                        name="editedProducts[]">
                                                     <option value="Case">Case</option>
                                                     <option value="Motherboard">Motherboard</option>
                                                     <option value="Monitor">Monitor</option>
@@ -122,11 +122,12 @@
                                         </div>
                                     </div>
                                     <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                                        <input type="hidden" name="companyID" id="companyID" value="">
                                         <button type="submit"
                                                 class="px-4 py-2 mr-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300">
-                                            ثبت برند جدید
+                                            ویرایش برند
                                         </button>
-                                        <button id="cancel-new-brand" type="button"
+                                        <button id="cancel-edit-brand" type="button"
                                                 class="mt-3 w-full inline-flex justify-center px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring focus:border-blue-300 sm:mt-0 sm:w-auto">
                                             انصراف
                                         </button>

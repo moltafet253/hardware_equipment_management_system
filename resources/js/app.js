@@ -634,11 +634,11 @@ $(document).ready(function () {
                         work: 'BrandCatalogSearch'
                     },
                     success: function (data) {
-                        var a=1;
+                        var a = 1;
                         var tableBody = $('.datasheet tbody');
                         tableBody.empty();
                         data.forEach(function (brand) {
-                            var row = '<tr class="bg-white">'+'<td class="px-6 py-4">' + a++ + '</td>'+'<td class="px-6 py-4">' + brand.name + '</td>'+'<td class="px-6 py-4">' + brand.products + '</td>'+'</tr>';
+                            var row = '<tr class="bg-white">' + '<td class="px-6 py-4">' + a++ + '</td>' + '<td class="px-6 py-4">' + brand.name + '</td>' + '<td class="px-6 py-4">' + brand.products + '</td>' + '</tr>';
                             tableBody.append(row);
                         });
                     },
@@ -650,15 +650,18 @@ $(document).ready(function () {
             $('#new-brand-button, #cancel-new-brand').on('click', function () {
                 toggleModal(newBrandModal.id);
             });
-            $('.absolute.inset-0.bg-gray-500.opacity-75').on('click', function () {
+            $('.absolute.inset-0.bg-gray-500.opacity-75.add').on('click', function () {
                 toggleModal(newBrandModal.id)
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.edit').on('click', function () {
+                toggleModal(editBrandModal.id)
             });
             $('#new-brand').on('submit', function (e) {
                 e.preventDefault();
-                let name=document.getElementById('name');
-                if (!hasOnlyEnglishCharacters(name.value)){
+                let name = document.getElementById('name');
+                if (!hasOnlyEnglishCharacters(name.value)) {
                     swalFire('خطا!', 'نام شرکت نمی تواند فارسی باشد.', 'error', 'تلاش مجدد');
-                }else {
+                } else {
                     Swal.fire({
                         title: 'آیا مطمئن هستید؟',
                         text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
@@ -694,6 +697,71 @@ $(document).ready(function () {
                 }
             });
             $('.BrandControl').on('click', function () {
+                $.ajax({
+                    type: 'GET',
+                    url: '/getBrandInfo',
+                    data: {
+                        id: $(this).data('id')
+                    },
+                    success: function (response) {
+                        companyID.value=response.id;
+                        editedName.value = response.name;
+                        let products=response.products;
+                        let slplittedproducts=products.split('|');
+                        let selectElement = document.getElementById('editedProducts[]');
+                        for (var i = 0; i < selectElement.options.length; i++) {
+                            selectElement.options[i].selected = false;
+                        }
+                        for (var i = 0; i < selectElement.options.length; i++) {
+                            if (slplittedproducts.includes(selectElement.options[i].value)) {
+                                selectElement.options[i].selected = true;
+                            }
+                        }
+                    }
+                });
+            });
+            $('#edit-brand').on('submit', function (e) {
+                e.preventDefault();
+                let name = document.getElementById('editedName');
+                if (!hasOnlyEnglishCharacters(name.value)) {
+                    swalFire('خطا!', 'نام شرکت نمی تواند فارسی باشد.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST',
+                                url: '/editBrand',
+                                data: data,
+                                success: function (response) {
+                                    console.log(response);
+                                    if (response.errors) {
+                                        if (response.errors.nameIsNull) {
+                                            swalFire('خطا!', response.errors.nameIsNull[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.repeatedName) {
+                                            swalFire('خطا!', response.errors.repeatedName[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.productIsNull) {
+                                            swalFire('خطا!', response.errors.productIsNull[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        swalFire('عملیات ویرایش شرکت موفقیت آمیز بود!', response.message.companyEdited[0], 'success', 'بستن');
+                                        toggleModal(editBrandModal.id);
+                                    }
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+            $('.BrandControl,#cancel-edit-brand').on('click', function () {
                 toggleModal(editBrandModal.id);
             });
             break;
