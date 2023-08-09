@@ -33,6 +33,11 @@
                                                 <input type="text" id="name" name="name" autocomplete="off"
                                                        class="border rounded-md w-full mb-4 px-3 py-2 text-right"
                                                        placeholder="نام کاربر">
+                                                <label for="family"
+                                                       class="block text-gray-700 text-sm font-bold mb-2">نام خانوادگی*:</label>
+                                                <input type="text" id="family" name="family" autocomplete="off"
+                                                       class="border rounded-md w-full mb-4 px-3 py-2 text-right"
+                                                       placeholder="نام خانوادگی کاربر">
                                             </div>
                                             <div class="mb-4">
                                                 <label for="username"
@@ -66,14 +71,8 @@
                                                         name="type">
                                                     <option value="" disabled selected>انتخاب کنید</option>
                                                     <option value="1">ادمین کل</option>
-                                                    <option value="2">مدیر شهرداری</option>
-                                                    <option value="3">معاون شهرداری</option>
-                                                    <option value="4">کارشناس مسئول شهرداری</option>
-                                                    <option value="5">کارشناس شهرداری</option>
-                                                    <option value="6">سازمان</option>
-                                                    <option value="7">باسکول</option>
-                                                    <option value="8">پیمانکار</option>
-                                                    <option value="9">راننده</option>
+                                                    <option value="2">کارشناس ستاد</option>
+                                                    <option value="3">کارشناس فناوری استان</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -137,6 +136,11 @@
                                                        autocomplete="off"
                                                        class="border rounded-md w-full mb-4 px-3 py-2 text-right"
                                                        placeholder="نام کاربر">
+                                                <label for="editedFamily"
+                                                       class="block text-gray-700 text-sm font-bold mb-2">نام خانوادگی*:</label>
+                                                <input type="text" id="editedFamily" name="editedFamily" autocomplete="off"
+                                                       class="border rounded-md w-full mb-4 px-3 py-2 text-right"
+                                                       placeholder="نام خانوادگی کاربر">
                                             </div>
                                             <div class="mb-4">
                                                 <label for="editedType"
@@ -146,14 +150,8 @@
                                                         name="editedType">
                                                     <option value="" disabled selected>انتخاب کنید</option>
                                                     <option value="1">ادمین کل</option>
-                                                    <option value="2">مدیر شهرداری</option>
-                                                    <option value="3">معاون شهرداری</option>
-                                                    <option value="4">کارشناس مسئول شهرداری</option>
-                                                    <option value="5">کارشناس شهرداری</option>
-                                                    <option value="6">سازمان</option>
-                                                    <option value="7">باسکول</option>
-                                                    <option value="8">پیمانکار</option>
-                                                    <option value="9">راننده</option>
+                                                    <option value="2">کارشناس ستاد</option>
+                                                    <option value="3">کارشناس فناوری استان</option>
                                                 </select>
                                             </div>
                                         </div>

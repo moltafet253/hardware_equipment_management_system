@@ -432,6 +432,7 @@ $(document).ready(function () {
     $('#new-user').submit(function (e) {
         e.preventDefault();
         var name = document.getElementById('name').value;
+        var family = document.getElementById('family').value;
         var username = document.getElementById('username').value;
         var password = document.getElementById('password').value;
         var repeat_password = document.getElementById('repeat-password').value;
@@ -439,8 +440,12 @@ $(document).ready(function () {
 
         if (name.length === 0) {
             swalFire('خطا!', 'نام وارد نشده است.', 'error', 'تلاش مجدد');
+        } else if (family.length === 0) {
+            swalFire('خطا!', 'نام وارد نشده است.', 'error', 'تلاش مجدد');
         } else if (!hasOnlyPersianCharacters(name)) {
             swalFire('خطا!', 'نام نمی تواند مقدار غیر از کاراکتر فارسی یا عدد داشته باشد.', 'error', 'تلاش مجدد');
+        }else if (!hasOnlyPersianCharacters(family)) {
+            swalFire('خطا!', 'نام خانوادگی نمی تواند مقدار غیر از کاراکتر فارسی یا عدد داشته باشد.', 'error', 'تلاش مجدد');
         } else if (username.length === 0) {
             swalFire('خطا!', 'نام کاربری وارد نشده است.', 'error', 'تلاش مجدد');
         } else if (password.length === 0) {
@@ -496,6 +501,7 @@ $(document).ready(function () {
                 success: function (response) {
                     userEditDiv.hidden = false;
                     editedName.value = response.name;
+                    editedFamily.value = response.family;
                     editedType.value = response.type;
                 }
             });
@@ -506,11 +512,16 @@ $(document).ready(function () {
         e.preventDefault();
         var userID = userIdForEdit.value;
         var name = editedName.value;
+        var family= editedFamily.value;
         var type = editedType.value;
 
         if (name.length === 0) {
             swalFire('خطا!', 'نام وارد نشده است.', 'error', 'تلاش مجدد');
+        }else if (family.length === 0) {
+            swalFire('خطا!', 'نام خانوادگی وارد نشده است.', 'error', 'تلاش مجدد');
         } else if (!hasOnlyPersianCharacters(name)) {
+            swalFire('خطا!', 'نام نمی تواند مقدار غیر از کاراکتر فارسی یا عدد داشته باشد.', 'error', 'تلاش مجدد');
+        }else if (!hasOnlyPersianCharacters(family)) {
             swalFire('خطا!', 'نام نمی تواند مقدار غیر از کاراکتر فارسی یا عدد داشته باشد.', 'error', 'تلاش مجدد');
         } else if (userID.length === 0) {
             swalFire('خطا!', 'کاربر انتخاب نشده است.', 'error', 'تلاش مجدد');
@@ -706,7 +717,6 @@ $(document).ready(function () {
                     success: function (response) {
                         companyID.value = response.id;
                         editedName.value = response.name;
-                        let products = response.products;
                         let selectElement = document.getElementById('editedProducts[]');
                         for (let i = 0; i < selectElement.options.length; i++) {
                             let option = selectElement.options[i];
@@ -751,7 +761,7 @@ $(document).ready(function () {
                                             swalFire('خطا!', response.errors.productIsNull[0], 'error', 'تلاش مجدد');
                                         }
                                     } else if (response.success) {
-                                        swalFire('عملیات ویرایش شرکت موفقیت آمیز بود!', response.message.companyEdited[0], 'success', 'بستن');
+                                        swalFire('ویرایش شرکت موفقیت آمیز بود!', response.message.companyEdited[0], 'success', 'بستن');
                                         toggleModal(editBrandModal.id);
                                     }
                                 }

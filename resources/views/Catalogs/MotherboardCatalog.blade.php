@@ -65,14 +65,8 @@
                                                         name="type">
                                                     <option value="" disabled selected>انتخاب کنید</option>
                                                     <option value="1">ادمین کل</option>
-                                                    <option value="2">مدیر شهرداری</option>
-                                                    <option value="3">معاون شهرداری</option>
-                                                    <option value="4">کارشناس مسئول شهرداری</option>
-                                                    <option value="5">کارشناس شهرداری</option>
-                                                    <option value="6">سازمان</option>
-                                                    <option value="7">باسکول</option>
-                                                    <option value="8">پیمانکار</option>
-                                                    <option value="9">راننده</option>
+                                                    <option value="2">کارشناس ستاد</option>
+                                                    <option value="3">کارشناس فناوری استان</option>
                                                 </select>
                                             </div>
                                         </div>

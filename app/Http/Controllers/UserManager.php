@@ -84,6 +84,7 @@ class UserManager extends Controller
             return $this->alerts(false, 'userFounded', 'نام کاربری تکراری وارد شده است.');
         }
         $name = $request->input('name');
+        $family = $request->input('family');
         $username = $request->input('username');
         $password = $request->input('password');
         $type = $request->input('type');
@@ -92,35 +93,17 @@ class UserManager extends Controller
                 $subject = 'ادمین کل';
                 break;
             case 2:
-                $subject = 'مدیر شهرداری';
+                $subject = 'کارشناس ستاد';
                 break;
             case 3:
-                $subject = 'معاون شهرداری';
-                break;
-            case 4:
-                $subject = 'کارشناس مسئول شهرداری';
-                break;
-            case 5:
-                $subject = 'کارشناس شهرداری';
-                break;
-            case 6:
-                $subject = 'سازمان';
-                break;
-            case 7:
-                $subject = 'باسکول';
-                break;
-            case 8:
-                $subject = 'پیمانکار';
-                break;
-            case 9:
-                $subject = 'راننده';
+                $subject = 'کارشناس فناوری استان';
                 break;
         }
         $lastUserId=User::first()->orderBy('id','desc')->value('id');
         $user = new User();
-        $user->id=($lastUserId)+1;
         $user->name = $name;
-        $user->username = ($lastUserId)+1;
+        $user->family = $family;
+        $user->username = $username;
         $user->password = bcrypt($password);
         $user->type = $type;
         $user->subject = $subject;
@@ -133,40 +116,24 @@ class UserManager extends Controller
     {
         $userID = $request->input('userIdForEdit');
         $name = $request->input('editedName');
+        $family = $request->input('editedFamily');
         $type = $request->input('editedType');
         switch ($type) {
             case 1:
                 $subject = 'ادمین کل';
                 break;
             case 2:
-                $subject = 'مدیر شهرداری';
+                $subject = 'کارشناس ستاد';
                 break;
             case 3:
-                $subject = 'معاون شهرداری';
-                break;
-            case 4:
-                $subject = 'کارشناس مسئول شهرداری';
-                break;
-            case 5:
-                $subject = 'کارشناس شهرداری';
-                break;
-            case 6:
-                $subject = 'سازمان';
-                break;
-            case 7:
-                $subject = 'باسکول';
-                break;
-            case 8:
-                $subject = 'پیمانکار';
-                break;
-            case 9:
-                $subject = 'راننده';
+                $subject = 'کارشناس فناوری استان';
                 break;
         }
 
         $user = User::find($userID);
         if ($user) {
             $user->name = $name;
+            $user->family = $family;
             $user->type = $type;
             $user->subject = $subject;
             $user->save();
