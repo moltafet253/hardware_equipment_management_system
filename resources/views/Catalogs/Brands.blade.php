@@ -55,6 +55,7 @@
                                                     <option value="ODD">ODD</option>
                                                     <option value="Power">Power</option>
                                                     <option value="VOIP">VOIP</option>
+                                                    <option value="Printer">Printer</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -117,6 +118,7 @@
                                                     <option value="ODD">ODD</option>
                                                     <option value="Power">Power</option>
                                                     <option value="VOIP">VOIP</option>
+                                                    <option value="Printer">Printer</option>
                                                 </select>
                                             </div>
                                         </div>

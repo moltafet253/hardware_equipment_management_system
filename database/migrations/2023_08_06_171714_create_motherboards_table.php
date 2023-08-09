@@ -17,7 +17,9 @@ return new class extends Migration
             $table->unsignedBigInteger('company_id');
             $table->foreign('company_id')->references('id')->on('companies');
             $table->string('model');
-            $table->integer('generation');
+            $table->string('generation',50);
+            $table->string('ram_slot_generation',5);
+            $table->integer('cpu_slot_type');
             $table->integer('cpu_slots_number');
             $table->integer('ram_slots_number');
             $table->timestamps();

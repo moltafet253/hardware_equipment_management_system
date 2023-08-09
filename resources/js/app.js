@@ -60,20 +60,10 @@ function hasNumber(text) {
 }
 
 $(document).ready(function () {
-    //Get The Current Date And Time
-    if (window.location.pathname !== '/login' && window.location.pathname !== '/') {
-        // $.ajax({
-        //     type: 'GET',
-        //     url: '/date',
-        //     success: function (response) {
-        //         headerTime.innerText = "امروز: " + response;
-        //     },
-        //     error: function (xhr, textStatus, errorThrown) {
-        //         console.log(xhr);
-        //     }
-        // });
-    }
-
+    const inputs = document.querySelectorAll('input');
+    inputs.forEach(input => input.value = "");
+    const selectors = document.querySelectorAll('select');
+    selectors.forEach(select => select.value = "");
     //Check Login Form
     $('#loginForm').submit(function (e) {
         e.preventDefault();
@@ -334,6 +324,7 @@ $(document).ready(function () {
             }
         });
     });
+
     //NTCP Status In User Manager
     $(document).on('click', '.ntcp', function (e) {
         const username = $(this).data('ntcp-username');
@@ -386,6 +377,7 @@ $(document).ready(function () {
             }
         });
     });
+
     //Reset Password In User Manager
     $(document).on('click', '.rp', function (e) {
         const username = $(this).data('rp-username');
@@ -421,6 +413,7 @@ $(document).ready(function () {
             }
         });
     });
+
     //Showing Or Hiding Modal
     $('#new-user-button, #cancel-new-user').on('click', function () {
         toggleModal(newUserModal.id);
@@ -428,6 +421,7 @@ $(document).ready(function () {
     $('#edit-user-button, #cancel-edit-user').on('click', function () {
         toggleModal(editUserModal.id);
     });
+
     //New User
     $('#new-user').submit(function (e) {
         e.preventDefault();
@@ -486,6 +480,7 @@ $(document).ready(function () {
             });
         }
     });
+
     //Getting User Information
     $('#userIdForEdit').change(function (e) {
         e.preventDefault();
@@ -507,6 +502,7 @@ $(document).ready(function () {
             });
         }
     });
+
     //Edit User
     $('#edit-user').submit(function (e) {
         e.preventDefault();
@@ -583,6 +579,13 @@ $(document).ready(function () {
                 toggleModal(newMotherboardModal.id);
             });
 
+            $('.absolute.inset-0.bg-gray-500.opacity-75.add').on('click', function () {
+                toggleModal(newMotherboardModal.id)
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.edit').on('click', function () {
+                toggleModal(editBrandModal.id)
+            });
+
             $('#new-motherboard').on('submit', function (e) {
                 e.preventDefault();
                 Swal.fire({
@@ -602,32 +605,6 @@ $(document).ready(function () {
                             data: data,
                             success: function (response) {
                                 console.log(response);
-                                // if (response.success) {
-                                // swalFire('عملیات موفقیت آمیز بود!', response.message.carAdded[0], 'success', 'بستن');
-                                // var tableBody = $('.datasheet');
-                                // var row = '<tr class="bg-white">' +
-                                //     '<td class="px-6 py-4">' + rider.nationalCode + '</td>' +
-                                //     '<td class="px-6 py-4">' + rider.Name + ' ' + rider.Family + '</td>' +
-                                //     '<td class="px-6 py-4">' + carInfoResponse + '</td>' +
-                                //     '<td class="px-6 py-4">' + contInfoResponse + '</td>' +
-                                //     '<td class="px-6 py-4">' +
-                                //     '<button type="button" data-nationalcode="' + rider.nationalCode + '" ' +
-                                //     'class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300 editriderbutton">' +
-                                //     'جزئیات و ویرایش' +
-                                //     '</button>' +
-                                //     '</td>' +
-                                //     '</tr>';
-                                //
-                                // tableBody.append(row);
-                                // } else {
-                                //     if (response.errors.nameIsNull) {
-                                //         swalFire('خطا!', response.errors.nameIsNull[0], 'error', 'تلاش مجدد');
-                                //     } else if (response.errors.repeatedName) {
-                                //         swalFire('خطا!', response.errors.repeatedName[0], 'error', 'تلاش مجدد');
-                                //     } else {
-                                //         location.reload();
-                                //     }
-                                // }
                             }
                         });
                     }
@@ -698,7 +675,7 @@ $(document).ready(function () {
                                             swalFire('خطا!', response.errors.productIsNull[0], 'error', 'تلاش مجدد');
                                         }
                                     } else if (response.success) {
-                                        swalFire('عملیات ثبت شرکت موفقیت آمیز بود!', response.message.companyAdded[0], 'success', 'بستن');
+                                        swalFire('عملیات ثبت برند موفقیت آمیز بود!', response.message.companyAdded[0], 'success', 'بستن');
                                         toggleModal(newBrandModal.id);
                                     }
                                 }
@@ -761,7 +738,7 @@ $(document).ready(function () {
                                             swalFire('خطا!', response.errors.productIsNull[0], 'error', 'تلاش مجدد');
                                         }
                                     } else if (response.success) {
-                                        swalFire('ویرایش شرکت موفقیت آمیز بود!', response.message.companyEdited[0], 'success', 'بستن');
+                                        swalFire('ویرایش برند موفقیت آمیز بود!', response.message.companyEdited[0], 'success', 'بستن');
                                         toggleModal(editBrandModal.id);
                                     }
                                 }

@@ -17,7 +17,7 @@
                             <div
                                 class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center  sm:block sm:p-0">
                                 <div class="fixed inset-0 transition-opacity" aria-hidden="true">
-                                    <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+                                    <div class="absolute inset-0 bg-gray-500 opacity-75 add"></div>
                                 </div>
                                 <div
                                     class="inline-block align-bottom bg-white rounded-lg text-right overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:w-full sm:max-w-[550px]">
@@ -26,47 +26,97 @@
                                             تعریف مادربورد جدید
                                         </h3>
                                         <div class="mt-4">
+                                            <div class="mb-4">
+                                                <label for="brand"
+                                                       class="block text-gray-700 text-sm font-bold mb-2">برند:</label>
+                                                <select id="brand" class="border rounded-md w-full px-3 py-2"
+                                                        name="brand">
+                                                    <option value="" disabled selected>انتخاب کنید</option>
+                                                    @php
+                                                        $brands=\App\Models\Catalogs\Company::
+                                                        where('name','!=','ONBOARD')
+                                                        ->whereJsonContains('products', ['Motherboard'])
+                                                        ->orderBy('name')->get();
+                                                        @endphp
+                                                    @foreach($brands as $brand)
+                                                        <option value="{{ $brand->id }}">{{$brand->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="flex flex-col items-right mb-2">
+                                                <label for="model"
+                                                       class="block text-gray-700 text-sm font-bold mb-2">مدل*:</label>
+                                                <input type="text" id="model" name="model" autocomplete="off"
+                                                       class="border rounded-md w-full mb-2 px-3 py-2 text-right"
+                                                       placeholder="مدل را به انگلیسی وارد کنید">
+                                            </div>
                                             <div class="flex flex-col items-right mb-4">
-                                                <label for="name"
-                                                       class="block text-gray-700 text-sm font-bold mb-2">نام*:</label>
-                                                <input type="text" id="name" name="name" autocomplete="off"
-                                                       class="border rounded-md w-full mb-4 px-3 py-2 text-right"
-                                                       placeholder="نام کاربر">
+                                                <label for="mb_gen"
+                                                       class="block text-gray-700 text-sm font-bold mb-2">نسل مادربورد*:</label>
+                                                <select id="mb_gen" class="border rounded-md w-full px-3 py-2"
+                                                        name="mb_gen">
+                                                    <option value="" disabled selected>انتخاب کنید</option>
+                                                    <option value="ATX">ATX</option>
+                                                    <option value="E-ATX">E-ATX</option>
+                                                    <option value="Mini-ITX">Mini-ITX</option>
+                                                    <option value="Micro-ATX">Micro-ATX</option>
+                                                </select>
                                             </div>
                                             <div class="mb-4">
-                                                <label for="username"
-                                                       class="block text-gray-700 text-sm font-bold mb-2">نام
-                                                    کاربری*:</label>
-                                                <input type="text" id="username" name="username" autocomplete="off"
-                                                       class="border rounded-md w-full px-3 py-2 text-left"
-                                                       placeholder="نام کاربری">
+                                                <label for="ram_slot_gen"
+                                                       class="block text-gray-700 text-sm font-bold mb-2">نسل اسلات رم*:</label>
+                                                <select id="ram_slot_gen" class="border rounded-md w-full px-3 py-2"
+                                                        name="ram_slot_gen">
+                                                    <option value="" disabled selected>انتخاب کنید</option>
+                                                    <option value="DDR1">DDR1</option>
+                                                    <option value="DDR2">DDR2</option>
+                                                    <option value="DDR3">DDR3</option>
+                                                    <option value="DDR4">DDR4</option>
+                                                    <option value="DDR5">DDR5</option>
+                                                </select>
                                             </div>
                                             <div class="flex flex-col mb-4">
-                                                <label for="password"
-                                                       class="block text-gray-700 text-sm font-bold mb-2">رمز
-                                                    عبور*:</label>
-                                                <input type="password" autocomplete="new-password" name="password"
-                                                       id="password"
-                                                       class="border rounded-md w-full mb-4 px-3 py-2 text-left"
-                                                       placeholder="رمزعبور">
-                                                <label for="repeat-password"
-                                                       class="block text-gray-700 text-sm font-bold mb-2">تکرار رمز
-                                                    عبور*:</label>
-                                                <input type="password" autocomplete="new-password"
-                                                       name="repeat-password" id="repeat-password"
-                                                       class="border rounded-md w-full px-3 py-2 text-left"
-                                                       placeholder="تکرار رمزعبور">
-                                            </div>
-                                            <div class="mb-4">
-                                                <label for="type"
-                                                       class="block text-gray-700 text-sm font-bold mb-2">نقش
-                                                    کاربر:</label>
-                                                <select id="type" class="border rounded-md w-full px-3 py-2"
-                                                        name="type">
+                                                <label for="cpu_slot_type"
+                                                       class="block text-gray-700 text-sm font-bold mb-2">نوع سوکت پردازنده*:</label>
+                                                <select id="cpu_slot_type" class="border rounded-md w-full px-3 py-2"
+                                                        name="cpu_slot_type">
                                                     <option value="" disabled selected>انتخاب کنید</option>
-                                                    <option value="1">ادمین کل</option>
-                                                    <option value="2">کارشناس ستاد</option>
-                                                    <option value="3">کارشناس فناوری استان</option>
+                                                    <option value="771">771</option>
+                                                    <option value="775">775</option>
+                                                    <option value="1150">1150</option>
+                                                    <option value="1151">1151</option>
+                                                    <option value="1155">1155</option>
+                                                    <option value="1156">1156</option>
+                                                    <option value="1200">1200</option>
+                                                    <option value="1248">1248</option>
+                                                    <option value="1356">1356</option>
+                                                    <option value="1567">1567</option>
+                                                    <option value="1700">1700</option>
+                                                    <option value="1851">1851</option>
+                                                    <option value="2011">2011</option>
+                                                    <option value="2066">2066</option>
+                                                    <option value="3647">3647</option>
+                                                    <option value="4189">4189</option>
+                                                    <option value="4677">4677</option>
+                                                    <option value="7529">7529</option>
+                                                </select>
+                                            </div>
+                                            <div class="flex flex-col mb-4">
+                                                <label for="cpu_slot_num"
+                                                       class="block text-gray-700 text-sm font-bold mb-2">تعداد سوکت پردازنده*:</label>
+                                                <select id="cpu_slot_num" class="border rounded-md w-full px-3 py-2"
+                                                        name="cpu_slot_num">
+                                                    <option selected value="1">1</option>
+                                                    <option value="2">2</option>
+                                                </select>
+                                            </div>
+                                            <div class="flex flex-col mb-4">
+                                                <label for="ram_slot_num"
+                                                       class="block text-gray-700 text-sm font-bold mb-2">تعداد سوکت رم*:</label>
+                                                <select id="ram_slot_num" class="border rounded-md w-full px-3 py-2"
+                                                        name="ram_slot_num">
+                                                    <option selected value="2">2</option>
+                                                    <option value="4">4</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -74,7 +124,7 @@
                                     <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                                         <button type="submit"
                                                 class="px-4 py-2 mr-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300">
-                                            ثبت کاربر جدید
+                                            ثبت مادربورد جدید
                                         </button>
                                         <button id="cancel-new-motherboard" type="button"
                                                 class="mt-3 w-full inline-flex justify-center px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring focus:border-blue-300 sm:mt-0 sm:w-auto">
@@ -86,34 +136,48 @@
                         </div>
                     </div>
                 </form>
-                <div class=" mb-4 flex items-center">
-                    <label for="search-car-catalog-code" class="block font-bold text-gray-700">جستجو در مدل:</label>
-                    <input id="search-car-catalog-code" autocomplete="off"
-                           placeholder="لطفا مدل مادربورد را وارد نمایید."
-                           type="text" name="search-car-catalog-code"
-                           class="ml-4 mt-1 px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"/>
-                </div>
+{{--                <div class=" mb-4 flex items-center">--}}
+{{--                    <label for="search-car-catalog-code" class="block font-bold text-gray-700">جستجو در مدل:</label>--}}
+{{--                    <input id="search-car-catalog-code" autocomplete="off"--}}
+{{--                           placeholder="لطفا مدل مادربورد را وارد نمایید."--}}
+{{--                           type="text" name="search-car-catalog-code"--}}
+{{--                           class="ml-4 mt-1 px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"/>--}}
+{{--                </div>--}}
                 <table class="w-full border-collapse rounded-lg overflow-hidden text-center datasheet">
                     <thead>
                     <tr class="bg-gradient-to-r from-blue-400 to-purple-500 items-center text-center text-white">
                         <th class="px-6 py-3  font-bold ">ردیف</th>
                         <th class="px-6 py-3  font-bold ">نام سازنده</th>
                         <th class="px-6 py-3  font-bold ">مدل</th>
-                        <th class="px-6 py-3  font-bold ">نسل مادربورد</th>
-                        <th class="px-6 py-3  font-bold ">تعداد اسلات cpu</th>
-                        <th class="px-6 py-3  font-bold ">تعداد اسلات ram</th>
+                        <th class="px-6 py-3  font-bold ">نسل</th>
+                        <th class="px-6 py-3  font-bold ">نسل اسلات رم</th>
+                        <th class="px-6 py-3  font-bold ">نوع سوکت پردازنده</th>
+                        <th class="px-6 py-3  font-bold ">تعداد اسلات پردازنده</th>
+                        <th class="px-6 py-3  font-bold ">تعداد اسلات رم</th>
+                        <th class="px-6 py-3  font-bold ">عملیات</th>
                     </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-300">
-                    @php $row=1 @endphp
                     @foreach ($mbList as $mb)
                         <tr class="bg-white">
-                            <td class="px-6 py-4">{{ $row++ }}</td>
-                            <td class="px-6 py-4">{{ $mb->company_id }}</td>
+                            <td class="px-6 py-4">{{ $loop->iteration }}</td>
+                            <td class="px-6 py-4">
+                                @php
+                                $motherboardInfo=\App\Models\Catalogs\Company::find($mb->company_id)
+                                @endphp
+                                {{ $motherboardInfo->name }}</td>
                             <td class="px-6 py-4">{{ $mb->model }}</td>
                             <td class="px-6 py-4">{{ $mb->generation }}</td>
+                            <td class="px-6 py-4">{{ $mb->ram_slot_generation }}</td>
+                            <td class="px-6 py-4">LGA {{ $mb->cpu_slot_type }}</td>
                             <td class="px-6 py-4">{{ $mb->cpu_slots_number }}</td>
                             <td class="px-6 py-4">{{ $mb->ram_slots_number }}</td>
+                            <td class="px-6 py-4">
+                                <button type="submit" data-id="{{ $brand->id }}"
+                                        class="px-4 py-2 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 BrandControl">
+                                    جزئیات و ویرایش
+                                </button>
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>
