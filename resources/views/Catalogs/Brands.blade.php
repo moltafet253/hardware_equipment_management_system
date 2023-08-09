@@ -158,9 +158,16 @@
                     @php $row=1 @endphp
                     @foreach ($brandList as $brand)
                         <tr class="bg-white">
-                            <td class="px-6 py-4">{{ $row++ }}</td>
+                            <td class="px-6 py-4">{{ $loop->iteration }}</td>
                             <td class="px-6 py-4">{{ $brand->name }}</td>
-                            <td class="px-6 py-4">{{ $brand->products }}</td>
+                            <td class="px-6 py-4">
+                                @foreach ($brand->products as $product)
+                                    {{ $product }}
+                                    @unless ($loop->last)
+                                        |
+                                    @endunless
+                                @endforeach
+                            </td>
                             <td class="px-6 py-4">
                                 <button type="submit" data-id="{{ $brand->id }}"
                                         class="px-4 py-2 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 BrandControl">
@@ -169,6 +176,7 @@
                             </td>
                         </tr>
                     @endforeach
+
                     </tbody>
                 </table>
 

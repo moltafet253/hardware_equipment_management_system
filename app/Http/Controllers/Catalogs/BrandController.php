@@ -70,6 +70,12 @@ class BrandController extends \App\Http\Controllers\Controller
     public function index()
     {
         $brandList = Company::where('name', '!=', 'ONBOARD')->orderBy('name', 'asc')->paginate(20);
+
+        $brandList->each(function ($brand) {
+            $brand->products = json_decode($brand->products);
+        });
+
         return view('Catalogs.Brands', ['brandList' => $brandList]);
     }
+
 }

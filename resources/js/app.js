@@ -704,17 +704,16 @@ $(document).ready(function () {
                         id: $(this).data('id')
                     },
                     success: function (response) {
-                        companyID.value=response.id;
+                        companyID.value = response.id;
                         editedName.value = response.name;
-                        let products=response.products;
-                        let slplittedproducts=products.split('|');
+                        let products = response.products;
                         let selectElement = document.getElementById('editedProducts[]');
-                        for (var i = 0; i < selectElement.options.length; i++) {
-                            selectElement.options[i].selected = false;
-                        }
-                        for (var i = 0; i < selectElement.options.length; i++) {
-                            if (slplittedproducts.includes(selectElement.options[i].value)) {
-                                selectElement.options[i].selected = true;
+                        for (let i = 0; i < selectElement.options.length; i++) {
+                            let option = selectElement.options[i];
+                            if (response.products.includes(option.value)) {
+                                option.selected = true;
+                            } else {
+                                option.selected = false;
                             }
                         }
                     }
