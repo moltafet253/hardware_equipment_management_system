@@ -59,11 +59,15 @@ function hasNumber(text) {
     return /\d/.test(text);
 }
 
-$(document).ready(function () {
+function resetFields(){
     const inputs = document.querySelectorAll('input');
     inputs.forEach(input => input.value = "");
     const selectors = document.querySelectorAll('select');
     selectors.forEach(select => select.value = "");
+}
+
+$(document).ready(function () {
+    resetFields();
     //Check Login Form
     $('#loginForm').submit(function (e) {
         e.preventDefault();
@@ -472,8 +476,8 @@ $(document).ready(function () {
                         swalFire('خطا!', response.errors.userFounded[0], 'error', 'تلاش مجدد');
                     } else if (response.success) {
                         swalFire('عملیات موفقیت آمیز بود!', response.message.userAdded[0], 'success', 'بستن');
-                        name = '';
                         toggleModal(newUserModal.id);
+                        resetFields();
                     }
 
                 }
@@ -540,6 +544,7 @@ $(document).ready(function () {
                     } else if (response.success) {
                         swalFire('عملیات موفقیت آمیز بود!', response.message.userEdited[0], 'success', 'بستن');
                         toggleModal(editUserModal.id);
+                        resetFields();
                     }
 
                 }
@@ -603,8 +608,12 @@ $(document).ready(function () {
                             type: 'POST',
                             url: '/newMotherboard',
                             data: data,
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            },
                             success: function (response) {
                                 console.log(response);
+                                resetFields();
                             }
                         });
                     }
@@ -664,6 +673,9 @@ $(document).ready(function () {
                             $.ajax({
                                 type: 'POST',
                                 url: '/newBrand',
+                                headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                },
                                 data: data,
                                 success: function (response) {
                                     if (response.errors) {
@@ -677,6 +689,7 @@ $(document).ready(function () {
                                     } else if (response.success) {
                                         swalFire('عملیات ثبت برند موفقیت آمیز بود!', response.message.companyAdded[0], 'success', 'بستن');
                                         toggleModal(newBrandModal.id);
+                                        resetFields();
                                     }
                                 }
                             });
@@ -727,6 +740,9 @@ $(document).ready(function () {
                                 type: 'POST',
                                 url: '/editBrand',
                                 data: data,
+                                headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                },
                                 success: function (response) {
                                     console.log(response);
                                     if (response.errors) {
@@ -740,6 +756,7 @@ $(document).ready(function () {
                                     } else if (response.success) {
                                         swalFire('ویرایش برند موفقیت آمیز بود!', response.message.companyEdited[0], 'success', 'بستن');
                                         toggleModal(editBrandModal.id);
+                                        resetFields();
                                     }
                                 }
                             });
