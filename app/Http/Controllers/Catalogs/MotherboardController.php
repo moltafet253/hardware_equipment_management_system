@@ -97,7 +97,6 @@ class MotherboardController extends Controller
         $this->logActivity('Motherboard Edited =>' . $MBID , request()->ip(), request()->userAgent(), session('id'));
         return $this->success(true, 'motherboardEdited', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
-
     public function getMotherboardInfo(Request $request)
     {
         $mbID=$request->input('id');

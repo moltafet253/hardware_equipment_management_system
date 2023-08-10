@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CaseController;
 use App\Http\Controllers\Catalogs\BrandController;
 use App\Http\Controllers\Catalogs\MotherboardController;
 use App\Http\Controllers\DashboardController;
@@ -73,6 +74,12 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
             Route::post('/newMotherboard', [MotherboardController::class, 'newMotherboard'])->name('newMotherboard');
             Route::get('/getMotherboardInfo', [MotherboardController::class, 'getMotherboardInfo'])->name('getMotherboardInfo');
             Route::post('/editMotherboard', [MotherboardController::class, 'editMotherboard'])->name('editMotherboard');
+
+            Route::get('/CaseCatalog', [CaseController::class, 'index'])->name('CaseCatalog');
+            Route::post('/newCase', [CaseController::class, 'newCase'])->name('newCase');
+            Route::get('/getCaseInfo', [CaseController::class, 'getCaseInfo'])->name('getCaseInfo');
+            Route::post('/editCase', [CaseController::class, 'editCase'])->name('editCase');
+
 
         });
 

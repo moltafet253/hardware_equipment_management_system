@@ -12,7 +12,7 @@
                 </button>
                 <form id="new-motherboard">
                     @csrf
-                    <div class="mt-4 mb-4 flex items-center">
+                    <div class="mb-4 flex items-center">
                         <div class="fixed z-10 inset-0 overflow-y-auto hidden" id="newMotherboardModal">
                             <div
                                 class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center  sm:block sm:p-0">
@@ -138,7 +138,7 @@
                 </form>
                 <form id="edit-motherboard">
                     @csrf
-                    <div class="mt-4 mb-4 flex items-center">
+                    <div class="mb-4 flex items-center">
                         <div class="fixed z-10 inset-0 overflow-y-auto hidden" id="editMotherboardModal">
                             <div
                                 class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center  sm:block sm:p-0">

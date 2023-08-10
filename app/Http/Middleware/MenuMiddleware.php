@@ -28,8 +28,12 @@ class MenuMiddleware
                             'link' => '',
                             'childs' => [
                                 1 => [
-                                    'title' => 'برندها',
+                                    'title' => 'برند',
                                     'link' => '/Brands'
+                                ],
+                                3 => [
+                                    'title' => 'کیس',
+                                    'link' => '/CaseCatalog'
                                 ],
                                 2 => [
                                     'title' => 'مادربورد',
