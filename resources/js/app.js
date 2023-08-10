@@ -59,7 +59,7 @@ function hasNumber(text) {
     return /\d/.test(text);
 }
 
-function resetFields(){
+function resetFields() {
     const inputs = document.querySelectorAll('input');
     inputs.forEach(input => input.value = "");
     const selectors = document.querySelectorAll('select');
@@ -80,6 +80,9 @@ $(document).ready(function () {
             type: 'POST',
             url: url,
             data: data,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            },
             success: function (response) {
                 if (response.success) {
                     window.location.href = response.redirect;
@@ -442,7 +445,7 @@ $(document).ready(function () {
             swalFire('خطا!', 'نام وارد نشده است.', 'error', 'تلاش مجدد');
         } else if (!hasOnlyPersianCharacters(name)) {
             swalFire('خطا!', 'نام نمی تواند مقدار غیر از کاراکتر فارسی یا عدد داشته باشد.', 'error', 'تلاش مجدد');
-        }else if (!hasOnlyPersianCharacters(family)) {
+        } else if (!hasOnlyPersianCharacters(family)) {
             swalFire('خطا!', 'نام خانوادگی نمی تواند مقدار غیر از کاراکتر فارسی یا عدد داشته باشد.', 'error', 'تلاش مجدد');
         } else if (username.length === 0) {
             swalFire('خطا!', 'نام کاربری وارد نشده است.', 'error', 'تلاش مجدد');
@@ -512,16 +515,16 @@ $(document).ready(function () {
         e.preventDefault();
         var userID = userIdForEdit.value;
         var name = editedName.value;
-        var family= editedFamily.value;
+        var family = editedFamily.value;
         var type = editedType.value;
 
         if (name.length === 0) {
             swalFire('خطا!', 'نام وارد نشده است.', 'error', 'تلاش مجدد');
-        }else if (family.length === 0) {
+        } else if (family.length === 0) {
             swalFire('خطا!', 'نام خانوادگی وارد نشده است.', 'error', 'تلاش مجدد');
         } else if (!hasOnlyPersianCharacters(name)) {
             swalFire('خطا!', 'نام نمی تواند مقدار غیر از کاراکتر فارسی یا عدد داشته باشد.', 'error', 'تلاش مجدد');
-        }else if (!hasOnlyPersianCharacters(family)) {
+        } else if (!hasOnlyPersianCharacters(family)) {
             swalFire('خطا!', 'نام نمی تواند مقدار غیر از کاراکتر فارسی یا عدد داشته باشد.', 'error', 'تلاش مجدد');
         } else if (userID.length === 0) {
             swalFire('خطا!', 'کاربر انتخاب نشده است.', 'error', 'تلاش مجدد');
@@ -588,7 +591,10 @@ $(document).ready(function () {
                 toggleModal(newMotherboardModal.id)
             });
             $('.absolute.inset-0.bg-gray-500.opacity-75.edit').on('click', function () {
-                toggleModal(editBrandModal.id)
+                toggleModal(editMotherboardModal.id)
+            });
+            $('.MotherboardControl,#cancel-edit-motherboard').on('click', function () {
+                toggleModal(editMotherboardModal.id);
             });
 
             $('#new-motherboard').on('submit', function (e) {
@@ -612,8 +618,97 @@ $(document).ready(function () {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                             },
                             success: function (response) {
+                                if (response.errors) {
+                                    if (response.errors.nullBrand) {
+                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullCPUSlotNumbers) {
+                                        swalFire('خطا!', response.errors.nullCPUSlotNumbers[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullRAMSlotNumbers) {
+                                        swalFire('خطا!', response.errors.nullRAMSlotNumbers[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullModel) {
+                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullCPUSlotType) {
+                                        swalFire('خطا!', response.errors.nullCPUSlotType[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullRamSlotGeneration) {
+                                        swalFire('خطا!', response.errors.nullRamSlotGeneration[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullGeneration) {
+                                        swalFire('خطا!', response.errors.nullGeneration[0], 'error', 'تلاش مجدد');
+                                    }
+                                } else if (response.success) {
+                                    swalFire('ویرایش مادربورد موفقیت آمیز بود!', response.message.motherboardEdited[0], 'success', 'بستن');
+                                    toggleModal(newMotherboardModal.id);
+                                    resetFields();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+
+            $('.MotherboardControl').on('click', function () {
+                $.ajax({
+                    type: 'GET',
+                    url: '/getMotherboardInfo',
+                    data: {
+                        id: $(this).data('id')
+                    },
+                    success: function (response) {
+                        if (response) {
+                            mb_id.value = response.id;
+                            brandForEdit.value = response.company_id;
+                            modelForEdit.value = response.model;
+                            mb_genForEdit.value = response.generation;
+                            ram_slot_genForEdit.value = response.ram_slot_generation;
+                            cpu_slot_typeForEdit.value = response.cpu_slot_type;
+                            cpu_slot_numForEdit.value = response.cpu_slots_number;
+                            ram_slot_numForEdit.value = response.ram_slots_number;
+                        }
+                    }
+                });
+            });
+            $('#edit-motherboard').on('submit', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var form = $(this);
+                        var data = form.serialize();
+                        $.ajax({
+                            type: 'POST',
+                            url: '/editMotherboard',
+                            data: data,
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            },
+                            success: function (response) {
                                 console.log(response);
-                                resetFields();
+                                if (response.errors) {
+                                    if (response.errors.nullBrand) {
+                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullCPUSlotNumbers) {
+                                        swalFire('خطا!', response.errors.nullCPUSlotNumbers[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullRAMSlotNumbers) {
+                                        swalFire('خطا!', response.errors.nullRAMSlotNumbers[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullModel) {
+                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullCPUSlotType) {
+                                        swalFire('خطا!', response.errors.nullCPUSlotType[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullRamSlotGeneration) {
+                                        swalFire('خطا!', response.errors.nullRamSlotGeneration[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullGeneration) {
+                                        swalFire('خطا!', response.errors.nullGeneration[0], 'error', 'تلاش مجدد');
+                                    }
+                                } else if (response.success) {
+                                    swalFire('ویرایش مادربورد موفقیت آمیز بود!', response.message.motherboardEdited[0], 'success', 'بستن');
+                                    toggleModal(editMotherboardModal.id);
+                                    resetFields();
+                                }
                             }
                         });
                     }
@@ -652,6 +747,9 @@ $(document).ready(function () {
             });
             $('.absolute.inset-0.bg-gray-500.opacity-75.edit').on('click', function () {
                 toggleModal(editBrandModal.id)
+            });
+            $('.BrandControl,#cancel-edit-brand').on('click', function () {
+                toggleModal(editBrandModal.id);
             });
             $('#new-brand').on('submit', function (e) {
                 e.preventDefault();
@@ -763,9 +861,6 @@ $(document).ready(function () {
                         }
                     });
                 }
-            });
-            $('.BrandControl,#cancel-edit-brand').on('click', function () {
-                toggleModal(editBrandModal.id);
             });
             break;
     }

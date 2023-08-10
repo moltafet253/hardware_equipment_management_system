@@ -11,4 +11,13 @@ class Motherboard extends Model
     use HasFactory,SoftDeletes;
     protected $table='motherboards';
     protected $hidden=['created_at','updated_at','deleted_at'];
+    protected $fillable = [
+        'company_id',
+        'model',
+        'generation',
+        'ram_slot_generation',
+        'cpu_slot_type',
+        'cpu_slots_number',
+        'ram_slots_number'
+    ];
 }

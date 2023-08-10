@@ -71,6 +71,8 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
 
             Route::get('/MotherboardCatalog', [MotherboardController::class, 'index'])->name('MotherboardCatalog');
             Route::post('/newMotherboard', [MotherboardController::class, 'newMotherboard'])->name('newMotherboard');
+            Route::get('/getMotherboardInfo', [MotherboardController::class, 'getMotherboardInfo'])->name('getMotherboardInfo');
+            Route::post('/editMotherboard', [MotherboardController::class, 'editMotherboard'])->name('editMotherboard');
 
         });
 
