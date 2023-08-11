@@ -11,4 +11,8 @@ class CopyMachine extends Model
     use HasFactory,SoftDeletes;
     protected $table='copy_machines';
     protected $hidden=['created_at','updated_at','deleted_at'];
+    protected $fillable=[
+        'company_id',
+        'model'
+    ];
 }

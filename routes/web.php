@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Catalogs\BrandController;
 use App\Http\Controllers\Catalogs\CaseController;
+use App\Http\Controllers\Catalogs\CopyMachineController;
 use App\Http\Controllers\Catalogs\CPUController;
 use App\Http\Controllers\Catalogs\GraphicCardController;
 use App\Http\Controllers\Catalogs\HarddiskController;
@@ -13,6 +14,7 @@ use App\Http\Controllers\Catalogs\PowerController;
 use App\Http\Controllers\Catalogs\PrinterController;
 use App\Http\Controllers\Catalogs\RAMController;
 use App\Http\Controllers\Catalogs\ScannerController;
+use App\Http\Controllers\Catalogs\VOIPController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SearchController;
@@ -139,6 +141,16 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
             Route::post('/newScanner', [ScannerController::class, 'newScanner'])->name('newScanner');
             Route::get('/getScannerInfo', [ScannerController::class, 'getScannerInfo'])->name('getScannerInfo');
             Route::post('/editScanner', [ScannerController::class, 'editScanner'])->name('editScanner');
+
+            Route::get('/CopyMachineCatalog', [CopyMachineController::class, 'index'])->name('CopyMachineCatalog');
+            Route::post('/newCopyMachine', [CopyMachineController::class, 'newCopyMachine'])->name('newCopyMachine');
+            Route::get('/getCopyMachineInfo', [CopyMachineController::class, 'getCopyMachineInfo'])->name('getCopyMachineInfo');
+            Route::post('/editCopyMachine', [CopyMachineController::class, 'editCopyMachine'])->name('editCopyMachine');
+
+            Route::get('/VOIPCatalog', [VOIPController::class, 'index'])->name('VOIPCatalog');
+            Route::post('/newVOIP', [VOIPController::class, 'newVOIP'])->name('newVOIP');
+            Route::get('/getVOIPInfo', [VOIPController::class, 'getVOIPInfo'])->name('getVOIPInfo');
+            Route::post('/editVOIP', [VOIPController::class, 'editVOIP'])->name('editVOIP');
 
 
         });
