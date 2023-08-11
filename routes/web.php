@@ -6,6 +6,7 @@ use App\Http\Controllers\Catalogs\CPUController;
 use App\Http\Controllers\Catalogs\GraphicCardController;
 use App\Http\Controllers\Catalogs\HarddiskController;
 use App\Http\Controllers\Catalogs\MotherboardController;
+use App\Http\Controllers\Catalogs\NetworkCardController;
 use App\Http\Controllers\Catalogs\ODDController;
 use App\Http\Controllers\Catalogs\PowerController;
 use App\Http\Controllers\Catalogs\RAMController;
@@ -115,6 +116,11 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
             Route::post('/newODD', [ODDController::class, 'newODD'])->name('newODD');
             Route::get('/getODDInfo', [ODDController::class, 'getODDInfo'])->name('getODDInfo');
             Route::post('/editODD', [ODDController::class, 'editODD'])->name('editODD');
+
+            Route::get('/NetworkCardCatalog', [NetworkCardController::class, 'index'])->name('NetworkCardCatalog');
+            Route::post('/newNetworkCard', [NetworkCardController::class, 'newNetworkCard'])->name('newNetworkCard');
+            Route::get('/getNetworkCardInfo', [NetworkCardController::class, 'getNetworkCardInfo'])->name('getNetworkCardInfo');
+            Route::post('/editNetworkCard', [NetworkCardController::class, 'editNetworkCard'])->name('editNetworkCard');
 
 
         });

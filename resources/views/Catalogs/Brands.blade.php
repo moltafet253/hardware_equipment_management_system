@@ -115,7 +115,6 @@
                                                     <option value="Copy Machine">Copy Machine</option>
                                                     <option value="Scanner">Scanner</option>
                                                     <option value="LAN/WLAN Card">LAN/WLAN Card</option>
-                                                    <option value="Network Card">Network Card</option>
                                                     <option value="ODD">ODD</option>
                                                     <option value="Power">Power</option>
                                                     <option value="VOIP">VOIP</option>
