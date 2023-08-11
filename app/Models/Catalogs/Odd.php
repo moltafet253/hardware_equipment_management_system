@@ -11,4 +11,9 @@ class Odd extends Model
     use HasFactory,SoftDeletes;
     protected $table='odds';
     protected $hidden=['created_at','updated_at','deleted_at'];
+    protected $fillable = [
+        'company_id',
+        'model',
+        'connectivity_type',
+    ];
 }

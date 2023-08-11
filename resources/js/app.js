@@ -862,7 +862,7 @@ $(document).ready(function () {
                                 if (response.errors) {
                                     if (response.errors.nullBrand) {
                                         swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    }  else if (response.errors.nullModel) {
+                                    } else if (response.errors.nullModel) {
                                         swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
@@ -915,7 +915,7 @@ $(document).ready(function () {
                                 if (response.errors) {
                                     if (response.errors.nullBrand) {
                                         swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    }  else if (response.errors.nullModel) {
+                                    } else if (response.errors.nullModel) {
                                         swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
@@ -968,7 +968,7 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
                                     } else if (response.errors.nullModel) {
                                         swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
-                                    }else if (response.errors.nullGeneration) {
+                                    } else if (response.errors.nullGeneration) {
                                         swalFire('خطا!', response.errors.nullGeneration[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
@@ -1022,9 +1022,9 @@ $(document).ready(function () {
                                 if (response.errors) {
                                     if (response.errors.nullBrand) {
                                         swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    }  else if (response.errors.nullModel) {
+                                    } else if (response.errors.nullModel) {
                                         swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
-                                    }else if (response.errors.nullGeneration) {
+                                    } else if (response.errors.nullGeneration) {
                                         swalFire('خطا!', response.errors.nullGeneration[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
@@ -1077,11 +1077,11 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
                                     } else if (response.errors.nullModel) {
                                         swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
-                                    }else if (response.errors.nullType) {
+                                    } else if (response.errors.nullType) {
                                         swalFire('خطا!', response.errors.nullType[0], 'error', 'تلاش مجدد');
-                                    }else if (response.errors.nullFrequency) {
+                                    } else if (response.errors.nullFrequency) {
                                         swalFire('خطا!', response.errors.nullFrequency[0], 'error', 'تلاش مجدد');
-                                    }else if (response.errors.nullSize) {
+                                    } else if (response.errors.nullSize) {
                                         swalFire('خطا!', response.errors.nullSize[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
@@ -1137,13 +1137,13 @@ $(document).ready(function () {
                                 if (response.errors) {
                                     if (response.errors.nullBrand) {
                                         swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    }  else if (response.errors.nullModel) {
+                                    } else if (response.errors.nullModel) {
                                         swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
-                                    }else if (response.errors.nullType) {
+                                    } else if (response.errors.nullType) {
                                         swalFire('خطا!', response.errors.nullType[0], 'error', 'تلاش مجدد');
-                                    }else if (response.errors.nullFrequency) {
+                                    } else if (response.errors.nullFrequency) {
                                         swalFire('خطا!', response.errors.nullFrequency[0], 'error', 'تلاش مجدد');
-                                    }else if (response.errors.nullSize) {
+                                    } else if (response.errors.nullSize) {
                                         swalFire('خطا!', response.errors.nullSize[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
@@ -1196,7 +1196,7 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
                                     } else if (response.errors.nullModel) {
                                         swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
-                                    }else if (response.errors.nullVoltage) {
+                                    } else if (response.errors.nullVoltage) {
                                         swalFire('خطا!', response.errors.nullVoltage[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
@@ -1252,7 +1252,7 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
                                     } else if (response.errors.nullModel) {
                                         swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
-                                    }else if (response.errors.nullVoltage) {
+                                    } else if (response.errors.nullVoltage) {
                                         swalFire('خطا!', response.errors.nullVoltage[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
@@ -1305,7 +1305,7 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
                                     } else if (response.errors.nullModel) {
                                         swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
-                                    }else if (response.errors.nullRamSize) {
+                                    } else if (response.errors.nullRamSize) {
                                         swalFire('خطا!', response.errors.nullRamSize[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
@@ -1361,7 +1361,7 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
                                     } else if (response.errors.nullModel) {
                                         swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
-                                    }else if (response.errors.nullRamSize) {
+                                    } else if (response.errors.nullRamSize) {
                                         swalFire('خطا!', response.errors.nullRamSize[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
@@ -1414,11 +1414,11 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
                                     } else if (response.errors.nullModel) {
                                         swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
-                                    }else if (response.errors.nullType) {
+                                    } else if (response.errors.nullType) {
                                         swalFire('خطا!', response.errors.nullType[0], 'error', 'تلاش مجدد');
-                                    }else if (response.errors.nullCapacity) {
+                                    } else if (response.errors.nullCapacity) {
                                         swalFire('خطا!', response.errors.nullCapacity[0], 'error', 'تلاش مجدد');
-                                    }else if (response.errors.nullConnectivityType) {
+                                    } else if (response.errors.nullConnectivityType) {
                                         swalFire('خطا!', response.errors.nullConnectivityType[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
@@ -1474,18 +1474,127 @@ $(document).ready(function () {
                                 if (response.errors) {
                                     if (response.errors.nullBrand) {
                                         swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    }  else if (response.errors.nullModel) {
+                                    } else if (response.errors.nullModel) {
                                         swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
-                                    }else if (response.errors.nullType) {
+                                    } else if (response.errors.nullType) {
                                         swalFire('خطا!', response.errors.nullType[0], 'error', 'تلاش مجدد');
-                                    }else if (response.errors.nullCapacity) {
+                                    } else if (response.errors.nullCapacity) {
                                         swalFire('خطا!', response.errors.nullCapacity[0], 'error', 'تلاش مجدد');
-                                    }else if (response.errors.nullConnectivityType) {
+                                    } else if (response.errors.nullConnectivityType) {
                                         swalFire('خطا!', response.errors.nullConnectivityType[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
                                     swalFire('ویرایش هارد موفقیت آمیز بود!', response.message.harddiskEdited[0], 'success', 'بستن');
                                     toggleModal(editHarddiskModal.id);
+                                    resetFields();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+            break;
+        case '/ODDCatalog':
+            $('#new-ODD-button, #cancel-ODD-case').on('click', function () {
+                toggleModal(newODDModal.id);
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.add').on('click', function () {
+                toggleModal(newODDModal.id)
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.edit').on('click', function () {
+                toggleModal(editODDModal.id)
+            });
+            $('.ODDControl,#cancel-edit-ODD').on('click', function () {
+                toggleModal(editODDModal.id);
+            });
+            $('#new-ODD').on('submit', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var form = $(this);
+                        var data = form.serialize();
+                        $.ajax({
+                            type: 'POST',
+                            url: '/newODD',
+                            data: data,
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            },
+                            success: function (response) {
+                                if (response.errors) {
+                                    if (response.errors.nullBrand) {
+                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullModel) {
+                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullConnectivityType) {
+                                        swalFire('خطا!', response.errors.nullGeneration[0], 'error', 'تلاش مجدد');
+                                    }
+                                } else if (response.success) {
+                                    swalFire('ثبت اطلاعات درایو نوری موفقیت آمیز بود!', response.message.ODDAdded[0], 'success', 'بستن');
+                                    toggleModal(newODDModal.id);
+                                    resetFields();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+            $('.ODDControl').on('click', function () {
+                $.ajax({
+                    type: 'GET',
+                    url: '/getODDInfo',
+                    data: {
+                        id: $(this).data('id')
+                    },
+                    success: function (response) {
+                        if (response) {
+                            ODD_id.value = response.id;
+                            brandForEdit.value = response.company_id;
+                            modelForEdit.value = response.model;
+                            connectivity_typeForEdit.value = response.connectivity_type;
+                        }
+                    }
+                });
+            });
+            $('#edit-ODD').on('submit', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var form = $(this);
+                        var data = form.serialize();
+                        $.ajax({
+                            type: 'POST',
+                            url: '/editODD',
+                            data: data,
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            },
+                            success: function (response) {
+                                if (response.errors) {
+                                    if (response.errors.nullBrand) {
+                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullModel) {
+                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                    }  else if (response.errors.nullConnectivityType) {
+                                        swalFire('خطا!', response.errors.nullGeneration[0], 'error', 'تلاش مجدد');
+                                    }
+                                } else if (response.success) {
+                                    swalFire('ویرایش درایو نوری موفقیت آمیز بود!', response.message.ODDEdited[0], 'success', 'بستن');
+                                    toggleModal(editODDModal.id);
                                     resetFields();
                                 }
                             }

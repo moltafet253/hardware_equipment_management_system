@@ -153,7 +153,7 @@
                                                 <svg
                                                     class="ml-3 flex-shrink-0 w-5 h-5  transition duration-75 text-cu-light group-hover:text-cu-light dark:group-hover:text-gray-700"
                                                     aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                                    fill="currentColor" viewBox="0 0 25 25">
+                                                    fill="currentColor" viewBox="0 0 20 20">
                                                     @if(@$menu['path1'])
 
                                                         <path
@@ -184,7 +184,7 @@
                                                                 class="w-5 h-5 dark:text-white transition duration-75 dark:group-hover:text-gray-700"
                                                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                                                 fill="currentColor"
-                                                                viewBox="0 0 22 21">
+                                                                viewBox="0 0 25 25">
                                                                 <path
                                                                     d="{{ @$child['path1'] }}"></path>
                                                                 <path
@@ -210,7 +210,6 @@
                                                 <li class="menu-item" id="userControl">
                                                     <a href="{{ $menu['link'] }}"
                                                        class="flex items-center p-3 my-2 text-cu-light rounded-s-full dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-
                                                         @if(@$menu['path1'])
                                                             <svg
                                                                 class="w-5 h-5 dark:text-white transition duration-75 dark:group-hover:text-gray-700"
@@ -221,15 +220,15 @@
                                                                 <path
                                                                     d="{{ $menu['path1'] }}"></path>
                                                                 <path
-                                                                    d="{{ $menu['path2'] }}"></path>
+                                                                    d="{{ @$menu['path2'] }}"></path>
                                                                 <path
-                                                                    d="{{ $menu['path3'] }}"></path>
+                                                                    d="{{ @$menu['path3'] }}"></path>
                                                                 <path
-                                                                    d="{{ $menu['path4'] }}"></path>
+                                                                    d="{{ @$menu['path4'] }}"></path>
                                                                 <path
-                                                                    d="{{ $menu['path5'] }}"></path>
+                                                                    d="{{ @$menu['path5'] }}"></path>
                                                                 <path
-                                                                    d="{{ $menu['path6'] }}"></path>
+                                                                    d="{{ @$menu['path6'] }}"></path>
                                                             </svg>
                                                         @endif
                                                         <span class=" mr-3 ">

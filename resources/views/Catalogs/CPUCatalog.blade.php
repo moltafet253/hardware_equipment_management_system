@@ -35,7 +35,7 @@
                                                     @php
                                                         $brands=\App\Models\Catalogs\Company::
                                                         where('name','!=','ONBOARD')
-                                                        ->whereJsonContains('products', ['RAM'])
+                                                        ->whereJsonContains('products', ['CPU'])
                                                         ->orderBy('name')->get();
                                                     @endphp
                                                     @foreach($brands as $brand)
@@ -103,7 +103,7 @@
                                                     @php
                                                         $brands=\App\Models\Catalogs\Company::
                                                         where('name','!=','ONBOARD')
-                                                        ->whereJsonContains('products', ['RAM'])
+                                                        ->whereJsonContains('products', ['CPU'])
                                                         ->orderBy('name')->get();
                                                     @endphp
                                                     @foreach($brands as $brand)

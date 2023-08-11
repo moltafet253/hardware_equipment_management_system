@@ -6,6 +6,7 @@ use App\Http\Controllers\Catalogs\CPUController;
 use App\Http\Controllers\Catalogs\GraphicCardController;
 use App\Http\Controllers\Catalogs\HarddiskController;
 use App\Http\Controllers\Catalogs\MotherboardController;
+use App\Http\Controllers\Catalogs\ODDController;
 use App\Http\Controllers\Catalogs\PowerController;
 use App\Http\Controllers\Catalogs\RAMController;
 use App\Http\Controllers\DashboardController;
@@ -109,6 +110,11 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
             Route::post('/newHarddisk', [HarddiskController::class, 'newHarddisk'])->name('newHarddisk');
             Route::get('/getHarddiskInfo', [HarddiskController::class, 'getHarddiskInfo'])->name('getHarddiskInfo');
             Route::post('/editHarddisk', [HarddiskController::class, 'editHarddisk'])->name('editHarddisk');
+
+            Route::get('/ODDCatalog', [ODDController::class, 'index'])->name('ODDCatalog');
+            Route::post('/newODD', [ODDController::class, 'newODD'])->name('newODD');
+            Route::get('/getODDInfo', [ODDController::class, 'getODDInfo'])->name('getODDInfo');
+            Route::post('/editODD', [ODDController::class, 'editODD'])->name('editODD');
 
 
         });
