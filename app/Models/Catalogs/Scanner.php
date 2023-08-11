@@ -11,4 +11,8 @@ class Scanner extends Model
     use HasFactory,SoftDeletes;
     protected $table='scanners';
     protected $hidden=['created_at','updated_at','deleted_at'];
+    protected $fillable=[
+        'company_id',
+        'model'
+    ];
 }

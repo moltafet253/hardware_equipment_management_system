@@ -12,6 +12,7 @@ use App\Http\Controllers\Catalogs\ODDController;
 use App\Http\Controllers\Catalogs\PowerController;
 use App\Http\Controllers\Catalogs\PrinterController;
 use App\Http\Controllers\Catalogs\RAMController;
+use App\Http\Controllers\Catalogs\ScannerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SearchController;
@@ -133,6 +134,11 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
             Route::post('/newPrinter', [PrinterController::class, 'newPrinter'])->name('newPrinter');
             Route::get('/getPrinterInfo', [PrinterController::class, 'getPrinterInfo'])->name('getPrinterInfo');
             Route::post('/editPrinter', [PrinterController::class, 'editPrinter'])->name('editPrinter');
+
+            Route::get('/ScannerCatalog', [ScannerController::class, 'index'])->name('ScannerCatalog');
+            Route::post('/newScanner', [ScannerController::class, 'newScanner'])->name('newScanner');
+            Route::get('/getScannerInfo', [ScannerController::class, 'getScannerInfo'])->name('getScannerInfo');
+            Route::post('/editScanner', [ScannerController::class, 'editScanner'])->name('editScanner');
 
 
         });

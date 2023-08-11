@@ -1862,7 +1862,7 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
-                                    swalFire('ثبت اطلاعات کیس موفقیت آمیز بود!', response.message.printerAdded[0], 'success', 'بستن');
+                                    swalFire('ثبت اطلاعات پرینتر موفقیت آمیز بود!', response.message.printerAdded[0], 'success', 'بستن');
                                     toggleModal(newPrinterModal.id);
                                     resetFields();
                                 }
@@ -1915,8 +1915,112 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
-                                    swalFire('ویرایش کیس موفقیت آمیز بود!', response.message.printerEdited[0], 'success', 'بستن');
+                                    swalFire('ویرایش پرینتر موفقیت آمیز بود!', response.message.printerEdited[0], 'success', 'بستن');
                                     toggleModal(editPrinterModal.id);
+                                    resetFields();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+            break;
+        case '/ScannerCatalog':
+            $('#new-scanner-button, #cancel-new-printer').on('click', function () {
+                toggleModal(newScannerModal.id);
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.add').on('click', function () {
+                toggleModal(newScannerModal.id)
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.edit').on('click', function () {
+                toggleModal(editScannerModal.id)
+            });
+            $('.ScannerControl,#cancel-edit-scanner').on('click', function () {
+                toggleModal(editScannerModal.id);
+            });
+            $('#new-scanner').on('submit', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var form = $(this);
+                        var data = form.serialize();
+                        $.ajax({
+                            type: 'POST',
+                            url: '/newScanner',
+                            data: data,
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            },
+                            success: function (response) {
+                                if (response.errors) {
+                                    if (response.errors.nullBrand) {
+                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullModel) {
+                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                    }
+                                } else if (response.success) {
+                                    swalFire('ثبت اطلاعات اسکنر موفقیت آمیز بود!', response.message.scannerAdded[0], 'success', 'بستن');
+                                    toggleModal(newScannerModal.id);
+                                    resetFields();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+            $('.ScannerControl').on('click', function () {
+                $.ajax({
+                    type: 'GET',
+                    url: '/getScannerInfo',
+                    data: {
+                        id: $(this).data('id')
+                    },
+                    success: function (response) {
+                        if (response) {
+                            scanner_id.value = response.id;
+                            brandForEdit.value = response.company_id;
+                            modelForEdit.value = response.model;
+                        }
+                    }
+                });
+            });
+            $('#edit-scanner').on('submit', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var form = $(this);
+                        var data = form.serialize();
+                        $.ajax({
+                            type: 'POST',
+                            url: '/editScanner',
+                            data: data,
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            },
+                            success: function (response) {
+                                if (response.errors) {
+                                    if (response.errors.nullBrand) {
+                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullModel) {
+                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                    }
+                                } else if (response.success) {
+                                    swalFire('ویرایش اسکنر موفقیت آمیز بود!', response.message.scannerEdited[0], 'success', 'بستن');
+                                    toggleModal(editScannerModal.id);
                                     resetFields();
                                 }
                             }
