@@ -11,4 +11,11 @@ class Harddisk extends Model
     use HasFactory,SoftDeletes;
     protected $table='harddisks';
     protected $hidden=['created_at','updated_at','deleted_at'];
+    protected $fillable = [
+        'company_id',
+        'model',
+        'capacity',
+        'type',
+        'connectivity_type',
+    ];
 }

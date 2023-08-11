@@ -1365,8 +1365,127 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullRamSize[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
-                                    swalFire('ویرایش کارت گرافیک موفقیت آمیز بود!', response.message.graphiccardrEdited[0], 'success', 'بستن');
+                                    swalFire('ویرایش کارت گرافیک موفقیت آمیز بود!', response.message.graphiccardEdited[0], 'success', 'بستن');
                                     toggleModal(editGraphicCardModal.id);
+                                    resetFields();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+            break;
+        case '/HarddiskCatalog':
+            $('#new-harddisk-button, #cancel-new-harddisk').on('click', function () {
+                toggleModal(newHarddiskModal.id);
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.add').on('click', function () {
+                toggleModal(newHarddiskModal.id)
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.edit').on('click', function () {
+                toggleModal(editHarddiskModal.id)
+            });
+            $('.HarddiskControl,#cancel-edit-harddisk').on('click', function () {
+                toggleModal(editHarddiskModal.id);
+            });
+            $('#new-harddisk').on('submit', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var form = $(this);
+                        var data = form.serialize();
+                        $.ajax({
+                            type: 'POST',
+                            url: '/newHarddisk',
+                            data: data,
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            },
+                            success: function (response) {
+                                if (response.errors) {
+                                    if (response.errors.nullBrand) {
+                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullModel) {
+                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                    }else if (response.errors.nullType) {
+                                        swalFire('خطا!', response.errors.nullType[0], 'error', 'تلاش مجدد');
+                                    }else if (response.errors.nullCapacity) {
+                                        swalFire('خطا!', response.errors.nullCapacity[0], 'error', 'تلاش مجدد');
+                                    }else if (response.errors.nullConnectivityType) {
+                                        swalFire('خطا!', response.errors.nullConnectivityType[0], 'error', 'تلاش مجدد');
+                                    }
+                                } else if (response.success) {
+                                    swalFire('ثبت اطلاعات هارد موفقیت آمیز بود!', response.message.harddiskAdded[0], 'success', 'بستن');
+                                    toggleModal(newHarddiskModal.id);
+                                    resetFields();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+            $('.HarddiskControl').on('click', function () {
+                $.ajax({
+                    type: 'GET',
+                    url: '/getHarddiskInfo',
+                    data: {
+                        id: $(this).data('id')
+                    },
+                    success: function (response) {
+                        if (response) {
+                            harddisk_id.value = response.id;
+                            brandForEdit.value = response.company_id;
+                            modelForEdit.value = response.model;
+                            typeForEdit.value = response.type;
+                            capacityForEdit.value = response.capacity;
+                            connectivity_typeForEdit.value = response.connectivity_type;
+                        }
+                    }
+                });
+            });
+            $('#edit-Harddisk').on('submit', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var form = $(this);
+                        var data = form.serialize();
+                        $.ajax({
+                            type: 'POST',
+                            url: '/editHarddisk',
+                            data: data,
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            },
+                            success: function (response) {
+                                if (response.errors) {
+                                    if (response.errors.nullBrand) {
+                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                    }  else if (response.errors.nullModel) {
+                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                    }else if (response.errors.nullType) {
+                                        swalFire('خطا!', response.errors.nullType[0], 'error', 'تلاش مجدد');
+                                    }else if (response.errors.nullCapacity) {
+                                        swalFire('خطا!', response.errors.nullCapacity[0], 'error', 'تلاش مجدد');
+                                    }else if (response.errors.nullConnectivityType) {
+                                        swalFire('خطا!', response.errors.nullConnectivityType[0], 'error', 'تلاش مجدد');
+                                    }
+                                } else if (response.success) {
+                                    swalFire('ویرایش هارد موفقیت آمیز بود!', response.message.harddiskEdited[0], 'success', 'بستن');
+                                    toggleModal(editHarddiskModal.id);
                                     resetFields();
                                 }
                             }

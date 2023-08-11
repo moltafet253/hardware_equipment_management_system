@@ -55,6 +55,10 @@ class MenuMiddleware
                                     'title' => 'کارت گرافیک',
                                     'link' => '/GraphicCardCatalog'
                                 ],
+                                8 => [
+                                    'title' => 'هارد',
+                                    'link' => '/HarddiskCatalog'
+                                ],
                             ]
                         ],
                         2 => [
