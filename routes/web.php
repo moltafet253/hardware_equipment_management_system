@@ -4,6 +4,7 @@ use App\Http\Controllers\Catalogs\BrandController;
 use App\Http\Controllers\Catalogs\CaseController;
 use App\Http\Controllers\Catalogs\CPUController;
 use App\Http\Controllers\Catalogs\MotherboardController;
+use App\Http\Controllers\Catalogs\PowerController;
 use App\Http\Controllers\Catalogs\RAMController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
@@ -91,6 +92,11 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
             Route::post('/newRAM', [RAMController::class, 'newRAM'])->name('newRAM');
             Route::get('/getRAMInfo', [RAMController::class, 'getRAMInfo'])->name('getRAMInfo');
             Route::post('/editRAM', [RAMController::class, 'editRAM'])->name('editRAM');
+
+            Route::get('/PowerCatalog', [PowerController::class, 'index'])->name('PowerCatalog');
+            Route::post('/newPower', [PowerController::class, 'newPower'])->name('newPower');
+            Route::get('/getPowerInfo', [PowerController::class, 'getPowerInfo'])->name('getPowerInfo');
+            Route::post('/editPower', [PowerController::class, 'editPower'])->name('editPower');
 
 
         });

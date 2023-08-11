@@ -47,6 +47,10 @@ class MenuMiddleware
                                     'title' => 'رم',
                                     'link' => '/RAMCatalog'
                                 ],
+                                6 => [
+                                    'title' => 'منبع تغذیه',
+                                    'link' => '/PowerCatalog'
+                                ],
                             ]
                         ],
                         2 => [
