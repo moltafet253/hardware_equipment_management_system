@@ -3,7 +3,7 @@
 @section('content')
     <main class="flex-1 bg-gray-100 py-6 px-8 ">
         <div class=" mx-auto lg:mr-72">
-            <h1 class="text-2xl font-bold mb-4">مدیریت پرسنل</h1>
+            <h1 class="text-2xl font-bold mb-4">مدیریت اطلاعات</h1>
             <div class="flex">
                 <button id="new-person-button" type="button"
                         class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300">

@@ -155,20 +155,10 @@
                                                     aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                                     fill="currentColor" viewBox="0 0 20 20">
                                                     @if(@$menu['path1'])
-
                                                         <path
                                                             d="{{ $menu['path1'] }}"></path>
                                                         <path
                                                             d="{{ @$menu['path2'] }}"></path>
-                                                        <path
-                                                            d="{{ @$menu['path3'] }}"></path>
-                                                        <path
-                                                            d="{{ @$menu['path4'] }}"></path>
-                                                        <path
-                                                            d="{{ @$menu['path5'] }}"></path>
-                                                        <path
-                                                            d="{{ @$menu['path6'] }}"></path>
-
                                                     @endif
                                                 </svg>
                                                 {{ $menu['title'] }}
@@ -188,18 +178,8 @@
                                                                 <path
                                                                     d="{{ @$child['path1'] }}"></path>
                                                                 <path
-                                                                    d="{{ @$child['path1'] }}"></path>
-                                                                @if(@$child['path3'])
-                                                                    <path
-                                                                        d="{{ $child['path3'] }}"></path>
-                                                                @endif
-                                                                @if(@$child['path4'])
-                                                                    <path
-                                                                        d="{{ $child['path4'] }}"></path>
-                                                                @endif
-
+                                                                    d="{{ @$child['path2'] }}"></path>
                                                             </svg>
-
                                                             {{ $child['title'] }}</a>
                                                     </li>
                                                     <li>
