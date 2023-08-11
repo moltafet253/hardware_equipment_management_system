@@ -10,6 +10,7 @@ use App\Http\Controllers\Catalogs\MotherboardController;
 use App\Http\Controllers\Catalogs\NetworkCardController;
 use App\Http\Controllers\Catalogs\ODDController;
 use App\Http\Controllers\Catalogs\PowerController;
+use App\Http\Controllers\Catalogs\PrinterController;
 use App\Http\Controllers\Catalogs\RAMController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
@@ -124,9 +125,14 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
             Route::post('/editNetworkCard', [NetworkCardController::class, 'editNetworkCard'])->name('editNetworkCard');
 
             Route::get('/MonitorCatalog', [MonitorController::class, 'index'])->name('MonitorCatalog');
-            Route::post('/newMonitor', [MonitorController::class, 'newMonitor'])->name('newMonitorCard');
+            Route::post('/newMonitor', [MonitorController::class, 'newMonitor'])->name('newMonitor');
             Route::get('/getMonitorInfo', [MonitorController::class, 'getMonitorInfo'])->name('getMonitorInfo');
             Route::post('/editMonitor', [MonitorController::class, 'editMonitor'])->name('editMonitor');
+
+            Route::get('/PrinterCatalog', [PrinterController::class, 'index'])->name('PrinterCatalog');
+            Route::post('/newPrinter', [PrinterController::class, 'newPrinter'])->name('newPrinter');
+            Route::get('/getPrinterInfo', [PrinterController::class, 'getPrinterInfo'])->name('getPrinterInfo');
+            Route::post('/editPrinter', [PrinterController::class, 'editPrinter'])->name('editPrinter');
 
 
         });

@@ -25,7 +25,6 @@ class CaseController extends \App\Http\Controllers\Controller
         $this->logActivity('Case Added =>' . $MB->id, \request()->ip(), \request()->userAgent(), \session('id'));
         return $this->success(true, 'caseAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
-
     public function editCase(Request $request)
     {
         $CaseID = $request->input('case_id');
@@ -47,7 +46,6 @@ class CaseController extends \App\Http\Controllers\Controller
         $this->logActivity('Case Edited =>' . $CaseID, \request()->ip(), \request()->userAgent(), \session('id'));
         return $this->success(true, 'caseEdited', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
-
     public function getCaseInfo(Request $request)
     {
         $caseID = $request->input('id');
@@ -55,7 +53,6 @@ class CaseController extends \App\Http\Controllers\Controller
             return Cases::find($caseID);
         }
     }
-
     public function index()
     {
         $caseList = Cases::orderBy('company_id', 'asc')->paginate(20);
