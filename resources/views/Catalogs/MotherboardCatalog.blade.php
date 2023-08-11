@@ -37,7 +37,7 @@
                                                         where('name','!=','ONBOARD')
                                                         ->whereJsonContains('products', ['Motherboard'])
                                                         ->orderBy('name')->get();
-                                                        @endphp
+                                                    @endphp
                                                     @foreach($brands as $brand)
                                                         <option value="{{ $brand->id }}">{{$brand->name}}</option>
                                                     @endforeach
@@ -52,7 +52,8 @@
                                             </div>
                                             <div class="flex flex-col items-right mb-4">
                                                 <label for="mb_gen"
-                                                       class="block text-gray-700 text-sm font-bold mb-2">نسل مادربورد*:</label>
+                                                       class="block text-gray-700 text-sm font-bold mb-2">نسل
+                                                    مادربورد*:</label>
                                                 <select id="mb_gen" class="border rounded-md w-full px-3 py-2"
                                                         name="mb_gen">
                                                     <option value="" disabled selected>انتخاب کنید</option>
@@ -64,7 +65,8 @@
                                             </div>
                                             <div class="mb-4">
                                                 <label for="ram_slot_gen"
-                                                       class="block text-gray-700 text-sm font-bold mb-2">نسل اسلات رم*:</label>
+                                                       class="block text-gray-700 text-sm font-bold mb-2">نسل اسلات
+                                                    رم*:</label>
                                                 <select id="ram_slot_gen" class="border rounded-md w-full px-3 py-2"
                                                         name="ram_slot_gen">
                                                     <option value="" disabled selected>انتخاب کنید</option>
@@ -77,7 +79,8 @@
                                             </div>
                                             <div class="flex flex-col mb-4">
                                                 <label for="cpu_slot_type"
-                                                       class="block text-gray-700 text-sm font-bold mb-2">نوع سوکت پردازنده*:</label>
+                                                       class="block text-gray-700 text-sm font-bold mb-2">نوع سوکت
+                                                    پردازنده*:</label>
                                                 <select id="cpu_slot_type" class="border rounded-md w-full px-3 py-2"
                                                         name="cpu_slot_type">
                                                     <option value="" disabled selected>انتخاب کنید</option>
@@ -103,7 +106,8 @@
                                             </div>
                                             <div class="flex flex-col mb-4">
                                                 <label for="cpu_slot_num"
-                                                       class="block text-gray-700 text-sm font-bold mb-2">تعداد سوکت پردازنده*:</label>
+                                                       class="block text-gray-700 text-sm font-bold mb-2">تعداد سوکت
+                                                    پردازنده*:</label>
                                                 <select id="cpu_slot_num" class="border rounded-md w-full px-3 py-2"
                                                         name="cpu_slot_num">
                                                     <option selected value="1">1</option>
@@ -112,7 +116,8 @@
                                             </div>
                                             <div class="flex flex-col mb-4">
                                                 <label for="ram_slot_num"
-                                                       class="block text-gray-700 text-sm font-bold mb-2">تعداد سوکت رم*:</label>
+                                                       class="block text-gray-700 text-sm font-bold mb-2">تعداد سوکت
+                                                    رم*:</label>
                                                 <select id="ram_slot_num" class="border rounded-md w-full px-3 py-2"
                                                         name="ram_slot_num">
                                                     <option selected value="2">2</option>
@@ -163,7 +168,7 @@
                                                         where('name','!=','ONBOARD')
                                                         ->whereJsonContains('products', ['Motherboard'])
                                                         ->orderBy('name')->get();
-                                                        @endphp
+                                                    @endphp
                                                     @foreach($brands as $brand)
                                                         <option value="{{ $brand->id }}">{{$brand->name}}</option>
                                                     @endforeach
@@ -172,13 +177,15 @@
                                             <div class="flex flex-col items-right mb-2">
                                                 <label for="modelForEdit"
                                                        class="block text-gray-700 text-sm font-bold mb-2">مدل*:</label>
-                                                <input type="text" id="modelForEdit" name="modelForEdit" autocomplete="off"
+                                                <input type="text" id="modelForEdit" name="modelForEdit"
+                                                       autocomplete="off"
                                                        class="border rounded-md w-full mb-2 px-3 py-2 text-right"
                                                        placeholder="مدل را به انگلیسی وارد کنید">
                                             </div>
                                             <div class="flex flex-col items-right mb-4">
                                                 <label for="mb_genForEdit"
-                                                       class="block text-gray-700 text-sm font-bold mb-2">نسل مادربورد*:</label>
+                                                       class="block text-gray-700 text-sm font-bold mb-2">نسل
+                                                    مادربورد*:</label>
                                                 <select id="mb_genForEdit" class="border rounded-md w-full px-3 py-2"
                                                         name="mb_genForEdit">
                                                     <option value="" disabled selected>انتخاب کنید</option>
@@ -190,8 +197,10 @@
                                             </div>
                                             <div class="mb-4">
                                                 <label for="ram_slot_genForEdit"
-                                                       class="block text-gray-700 text-sm font-bold mb-2">نسل اسلات رم*:</label>
-                                                <select id="ram_slot_genForEdit" class="border rounded-md w-full px-3 py-2"
+                                                       class="block text-gray-700 text-sm font-bold mb-2">نسل اسلات
+                                                    رم*:</label>
+                                                <select id="ram_slot_genForEdit"
+                                                        class="border rounded-md w-full px-3 py-2"
                                                         name="ram_slot_genForEdit">
                                                     <option value="" disabled selected>انتخاب کنید</option>
                                                     <option value="DDR1">DDR1</option>
@@ -203,8 +212,10 @@
                                             </div>
                                             <div class="flex flex-col mb-4">
                                                 <label for="cpu_slot_typeForEdit"
-                                                       class="block text-gray-700 text-sm font-bold mb-2">نوع سوکت پردازنده*:</label>
-                                                <select id="cpu_slot_typeForEdit" class="border rounded-md w-full px-3 py-2"
+                                                       class="block text-gray-700 text-sm font-bold mb-2">نوع سوکت
+                                                    پردازنده*:</label>
+                                                <select id="cpu_slot_typeForEdit"
+                                                        class="border rounded-md w-full px-3 py-2"
                                                         name="cpu_slot_typeForEdit">
                                                     <option value="" disabled selected>انتخاب کنید</option>
                                                     <option value="771">771</option>
@@ -229,8 +240,10 @@
                                             </div>
                                             <div class="flex flex-col mb-4">
                                                 <label for="cpu_slot_numForEdit"
-                                                       class="block text-gray-700 text-sm font-bold mb-2">تعداد سوکت پردازنده*:</label>
-                                                <select id="cpu_slot_numForEdit" class="border rounded-md w-full px-3 py-2"
+                                                       class="block text-gray-700 text-sm font-bold mb-2">تعداد سوکت
+                                                    پردازنده*:</label>
+                                                <select id="cpu_slot_numForEdit"
+                                                        class="border rounded-md w-full px-3 py-2"
                                                         name="cpu_slot_numForEdit">
                                                     <option selected value="1">1</option>
                                                     <option value="2">2</option>
@@ -238,8 +251,10 @@
                                             </div>
                                             <div class="flex flex-col mb-4">
                                                 <label for="ram_slot_numForEdit"
-                                                       class="block text-gray-700 text-sm font-bold mb-2">تعداد سوکت رم*:</label>
-                                                <select id="ram_slot_numForEdit" class="border rounded-md w-full px-3 py-2"
+                                                       class="block text-gray-700 text-sm font-bold mb-2">تعداد سوکت
+                                                    رم*:</label>
+                                                <select id="ram_slot_numForEdit"
+                                                        class="border rounded-md w-full px-3 py-2"
                                                         name="ram_slot_numForEdit">
                                                     <option selected value="2">2</option>
                                                     <option value="4">4</option>
@@ -283,7 +298,7 @@
                             <td class="px-6 py-4">{{ $loop->iteration }}</td>
                             <td class="px-6 py-4">
                                 @php
-                                $motherboardInfo=\App\Models\Catalogs\Company::find($mb->company_id)
+                                    $motherboardInfo=\App\Models\Catalogs\Company::find($mb->company_id)
                                 @endphp
                                 {{ $motherboardInfo->name }}</td>
                             <td class="px-6 py-4">{{ $mb->model }}</td>

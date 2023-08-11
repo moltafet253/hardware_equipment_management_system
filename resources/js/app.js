@@ -928,7 +928,7 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
-                                    swalFire('ویرایش مادربورد موفقیت آمیز بود!', response.message.caseEdited[0], 'success', 'بستن');
+                                    swalFire('ویرایش کیس موفقیت آمیز بود!', response.message.caseEdited[0], 'success', 'بستن');
                                     toggleModal(editCaseModal.id);
                                     resetFields();
                                 }
@@ -981,7 +981,7 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullGeneration[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
-                                    swalFire('ثبت اطلاعات کیس موفقیت آمیز بود!', response.message.cpuAdded[0], 'success', 'بستن');
+                                    swalFire('ثبت اطلاعات پردازنده موفقیت آمیز بود!', response.message.cpuAdded[0], 'success', 'بستن');
                                     toggleModal(newCPUModal.id);
                                     resetFields();
                                 }
@@ -1037,8 +1037,127 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullGeneration[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
-                                    swalFire('ویرایش مادربورد موفقیت آمیز بود!', response.message.cpuEdited[0], 'success', 'بستن');
+                                    swalFire('ویرایش پردازنده موفقیت آمیز بود!', response.message.cpuEdited[0], 'success', 'بستن');
                                     toggleModal(editCPUModal.id);
+                                    resetFields();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+            break;
+        case '/RAMCatalog':
+            $('#new-ram-button, #cancel-new-ram').on('click', function () {
+                toggleModal(newRAMModal.id);
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.add').on('click', function () {
+                toggleModal(newRAMModal.id)
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.edit').on('click', function () {
+                toggleModal(editRAMModal.id)
+            });
+            $('.RAMControl,#cancel-edit-ram').on('click', function () {
+                toggleModal(editRAMModal.id);
+            });
+            $('#new-ram').on('submit', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var form = $(this);
+                        var data = form.serialize();
+                        $.ajax({
+                            type: 'POST',
+                            url: '/newRAM',
+                            data: data,
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            },
+                            success: function (response) {
+                                if (response.errors) {
+                                    if (response.errors.nullBrand) {
+                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullModel) {
+                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                    }else if (response.errors.nullType) {
+                                        swalFire('خطا!', response.errors.nullType[0], 'error', 'تلاش مجدد');
+                                    }else if (response.errors.nullFrequency) {
+                                        swalFire('خطا!', response.errors.nullFrequency[0], 'error', 'تلاش مجدد');
+                                    }else if (response.errors.nullSize) {
+                                        swalFire('خطا!', response.errors.nullSize[0], 'error', 'تلاش مجدد');
+                                    }
+                                } else if (response.success) {
+                                    swalFire('ثبت اطلاعات رم موفقیت آمیز بود!', response.message.ramAdded[0], 'success', 'بستن');
+                                    toggleModal(newRAMModal.id);
+                                    resetFields();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+            $('.RAMControl').on('click', function () {
+                $.ajax({
+                    type: 'GET',
+                    url: '/getRAMInfo',
+                    data: {
+                        id: $(this).data('id')
+                    },
+                    success: function (response) {
+                        if (response) {
+                            ram_id.value = response.id;
+                            brandForEdit.value = response.company_id;
+                            modelForEdit.value = response.model;
+                            typeForEdit.value = response.type;
+                            sizeForEdit.value = response.size;
+                            frequencyForEdit.value = response.frequency;
+                        }
+                    }
+                });
+            });
+            $('#edit-ram').on('submit', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var form = $(this);
+                        var data = form.serialize();
+                        $.ajax({
+                            type: 'POST',
+                            url: '/editRAM',
+                            data: data,
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            },
+                            success: function (response) {
+                                if (response.errors) {
+                                    if (response.errors.nullBrand) {
+                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                    }  else if (response.errors.nullModel) {
+                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                    }else if (response.errors.nullType) {
+                                        swalFire('خطا!', response.errors.nullType[0], 'error', 'تلاش مجدد');
+                                    }else if (response.errors.nullFrequency) {
+                                        swalFire('خطا!', response.errors.nullFrequency[0], 'error', 'تلاش مجدد');
+                                    }else if (response.errors.nullSize) {
+                                        swalFire('خطا!', response.errors.nullSize[0], 'error', 'تلاش مجدد');
+                                    }
+                                } else if (response.success) {
+                                    swalFire('ویرایش رم موفقیت آمیز بود!', response.message.ramEdited[0], 'success', 'بستن');
+                                    toggleModal(editRAMModal.id);
                                     resetFields();
                                 }
                             }

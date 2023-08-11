@@ -43,6 +43,10 @@ class MenuMiddleware
                                     'title' => 'پردازنده',
                                     'link' => '/CPUCatalog'
                                 ],
+                                5 => [
+                                    'title' => 'رم',
+                                    'link' => '/RAMCatalog'
+                                ],
                             ]
                         ],
                         2 => [

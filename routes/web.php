@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\CaseController;
 use App\Http\Controllers\Catalogs\BrandController;
+use App\Http\Controllers\Catalogs\CaseController;
+use App\Http\Controllers\Catalogs\CPUController;
 use App\Http\Controllers\Catalogs\MotherboardController;
-use App\Http\Controllers\CPUController;
+use App\Http\Controllers\Catalogs\RAMController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SearchController;
@@ -86,10 +87,13 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
             Route::get('/getCPUInfo', [CPUController::class, 'getCPUInfo'])->name('getCPUInfo');
             Route::post('/editCPU', [CPUController::class, 'editCPU'])->name('editCPU');
 
+            Route::get('/RAMCatalog', [RAMController::class, 'index'])->name('RAMCatalog');
+            Route::post('/newRAM', [RAMController::class, 'newRAM'])->name('newRAM');
+            Route::get('/getRAMInfo', [RAMController::class, 'getRAMInfo'])->name('getRAMInfo');
+            Route::post('/editRAM', [RAMController::class, 'editRAM'])->name('editRAM');
+
 
         });
-
-
         Route::middleware('roleAuthorization:2')->group(function () {
         });
 

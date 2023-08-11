@@ -11,4 +11,11 @@ class Ram extends Model
     use HasFactory,SoftDeletes;
     protected $table='rams';
     protected $hidden=['created_at','updated_at','deleted_at'];
+    protected $fillable = [
+        'company_id',
+        'model',
+        'type',
+        'size',
+        'frequency'
+    ];
 }

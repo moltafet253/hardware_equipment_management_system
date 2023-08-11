@@ -101,7 +101,8 @@
                                                 <label for="editedProducts"
                                                        class="block text-gray-700 text-sm font-bold mb-2">نوع
                                                     محصول*:</label>
-                                                <select id="editedProducts[]" class="border rounded-md w-full px-3 py-2 h-72"
+                                                <select id="editedProducts[]"
+                                                        class="border rounded-md w-full px-3 py-2 h-72"
                                                         multiple
                                                         name="editedProducts[]">
                                                     <option value="Case">Case</option>
@@ -140,13 +141,13 @@
                     </div>
                 </div>
 
-{{--                <div class=" mb-4 flex items-center">--}}
-{{--                    <label for="search-brand-catalog-code" class="block font-bold text-gray-700">جستجو در برند:</label>--}}
-{{--                    <input id="search-brand-catalog-name" autocomplete="off"--}}
-{{--                           placeholder="نام برند را وارد نمایید."--}}
-{{--                           type="text" name="search-brand-catalog-name"--}}
-{{--                           class="ml-4 mt-1 px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"/>--}}
-{{--                </div>--}}
+                {{--                <div class=" mb-4 flex items-center">--}}
+                {{--                    <label for="search-brand-catalog-code" class="block font-bold text-gray-700">جستجو در برند:</label>--}}
+                {{--                    <input id="search-brand-catalog-name" autocomplete="off"--}}
+                {{--                           placeholder="نام برند را وارد نمایید."--}}
+                {{--                           type="text" name="search-brand-catalog-name"--}}
+                {{--                           class="ml-4 mt-1 px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"/>--}}
+                {{--                </div>--}}
                 <table class="w-full border-collapse rounded-lg overflow-hidden text-center datasheet">
                     <thead>
                     <tr class="bg-gradient-to-r from-blue-400 to-purple-500 items-center text-center text-white">

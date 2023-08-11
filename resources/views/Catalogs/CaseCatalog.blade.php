@@ -37,7 +37,7 @@
                                                         where('name','!=','ONBOARD')
                                                         ->whereJsonContains('products', ['Case'])
                                                         ->orderBy('name')->get();
-                                                        @endphp
+                                                    @endphp
                                                     @foreach($brands as $brand)
                                                         <option value="{{ $brand->id }}">{{$brand->name}}</option>
                                                     @endforeach
@@ -94,7 +94,7 @@
                                                         where('name','!=','ONBOARD')
                                                         ->whereJsonContains('products', ['Case'])
                                                         ->orderBy('name')->get();
-                                                        @endphp
+                                                    @endphp
                                                     @foreach($brands as $brand)
                                                         <option value="{{ $brand->id }}">{{$brand->name}}</option>
                                                     @endforeach
@@ -103,7 +103,8 @@
                                             <div class="flex flex-col items-right mb-2">
                                                 <label for="modelForEdit"
                                                        class="block text-gray-700 text-sm font-bold mb-2">مدل*:</label>
-                                                <input type="text" id="modelForEdit" name="modelForEdit" autocomplete="off"
+                                                <input type="text" id="modelForEdit" name="modelForEdit"
+                                                       autocomplete="off"
                                                        class="border rounded-md w-full mb-2 px-3 py-2 text-right"
                                                        placeholder="مدل را به انگلیسی وارد کنید">
                                             </div>
