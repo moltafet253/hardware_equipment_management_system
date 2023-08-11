@@ -3,6 +3,7 @@
 use App\Http\Controllers\CaseController;
 use App\Http\Controllers\Catalogs\BrandController;
 use App\Http\Controllers\Catalogs\MotherboardController;
+use App\Http\Controllers\CPUController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SearchController;
@@ -53,8 +54,8 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
     Route::middleware(NTCPMiddleware::class)->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
         //Search Route
-        Route::get('/Search', [SearchController::class, 'search'])->name('Search');
         Route::middleware('roleAuthorization:1')->group(function () {
+            Route::get('/Search', [SearchController::class, 'search'])->name('Search');
             //User Manager
             Route::get('/UserManager', [UserManager::class, 'index'])->name('UserManager');
             Route::get('/GetUserInfo', [UserManager::class, 'getUserInfo'])->name('GetUserInfo');
@@ -79,6 +80,11 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
             Route::post('/newCase', [CaseController::class, 'newCase'])->name('newCase');
             Route::get('/getCaseInfo', [CaseController::class, 'getCaseInfo'])->name('getCaseInfo');
             Route::post('/editCase', [CaseController::class, 'editCase'])->name('editCase');
+
+            Route::get('/CPUCatalog', [CPUController::class, 'index'])->name('CPUCatalog');
+            Route::post('/newCPU', [CPUController::class, 'newCPU'])->name('newCPU');
+            Route::get('/getCPUInfo', [CPUController::class, 'getCPUInfo'])->name('getCPUInfo');
+            Route::post('/editCPU', [CPUController::class, 'editCPU'])->name('editCPU');
 
 
         });

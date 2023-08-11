@@ -31,13 +31,17 @@ class MenuMiddleware
                                     'title' => 'برند',
                                     'link' => '/Brands'
                                 ],
-                                3 => [
+                                2 => [
                                     'title' => 'کیس',
                                     'link' => '/CaseCatalog'
                                 ],
-                                2 => [
+                                3 => [
                                     'title' => 'مادربورد',
                                     'link' => '/MotherboardCatalog'
+                                ],
+                                4 => [
+                                    'title' => 'پردازنده',
+                                    'link' => '/CPUCatalog'
                                 ],
                             ]
                         ],

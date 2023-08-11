@@ -556,293 +556,7 @@ $(document).ready(function () {
     });
 
     switch (window.location.pathname) {
-        case '/MotherboardCatalog':
-            // $('#search-car-catalog-code, #search-car-catalog-name').on('input', function () {
-            //     var codeValue = $('#search-car-catalog-code').val();
-            //     var nameValue = $('#search-car-catalog-name').val();
-            //     $.ajax({
-            //         url: '/Search',
-            //         type: 'GET',
-            //         data: {
-            //             code: codeValue,
-            //             name: nameValue,
-            //             work: 'CarCatalogSearch'
-            //         },
-            //         success: function (data) {
-            //             var tableBody = $('.w-full.border-collapse.rounded-lg.overflow-hidden.text-center tbody');
-            //             tableBody.empty();
-            //
-            //             data.forEach(function (car) {
-            //                 var row = '<tr class="bg-white"><td class="px-6 py-4">' + car.CarCode + '</td><td class="px-6 py-4">' + car.CarName + '</td></tr>';
-            //                 tableBody.append(row);
-            //             });
-            //         },
-            //         error: function () {
-            //             console.log('خطا در ارتباط با سرور');
-            //         }
-            //     });
-            // });
 
-            $('#new-motherboard-button, #cancel-new-motherboard').on('click', function () {
-                toggleModal(newMotherboardModal.id);
-            });
-            $('.absolute.inset-0.bg-gray-500.opacity-75.add').on('click', function () {
-                toggleModal(newMotherboardModal.id)
-            });
-            $('.absolute.inset-0.bg-gray-500.opacity-75.edit').on('click', function () {
-                toggleModal(editMotherboardModal.id)
-            });
-            $('.MotherboardControl,#cancel-edit-motherboard').on('click', function () {
-                toggleModal(editMotherboardModal.id);
-            });
-            $('#new-motherboard').on('submit', function (e) {
-                e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST',
-                            url: '/newMotherboard',
-                            data: data,
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            },
-                            success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullBrand) {
-                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullCPUSlotNumbers) {
-                                        swalFire('خطا!', response.errors.nullCPUSlotNumbers[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullRAMSlotNumbers) {
-                                        swalFire('خطا!', response.errors.nullRAMSlotNumbers[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullModel) {
-                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullCPUSlotType) {
-                                        swalFire('خطا!', response.errors.nullCPUSlotType[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullRamSlotGeneration) {
-                                        swalFire('خطا!', response.errors.nullRamSlotGeneration[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullGeneration) {
-                                        swalFire('خطا!', response.errors.nullGeneration[0], 'error', 'تلاش مجدد');
-                                    }
-                                } else if (response.success) {
-                                    swalFire('ثبت مادربورد موفقیت آمیز بود!', response.message.motherboardAdded[0], 'success', 'بستن');
-                                    toggleModal(newMotherboardModal.id);
-                                    resetFields();
-                                }
-                            }
-                        });
-                    }
-                });
-            });
-            $('.MotherboardControl').on('click', function () {
-                $.ajax({
-                    type: 'GET',
-                    url: '/getMotherboardInfo',
-                    data: {
-                        id: $(this).data('id')
-                    },
-                    success: function (response) {
-                        if (response) {
-                            mb_id.value = response.id;
-                            brandForEdit.value = response.company_id;
-                            modelForEdit.value = response.model;
-                            mb_genForEdit.value = response.generation;
-                            ram_slot_genForEdit.value = response.ram_slot_generation;
-                            cpu_slot_typeForEdit.value = response.cpu_slot_type;
-                            cpu_slot_numForEdit.value = response.cpu_slots_number;
-                            ram_slot_numForEdit.value = response.ram_slots_number;
-                        }
-                    }
-                });
-            });
-            $('#edit-motherboard').on('submit', function (e) {
-                e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST',
-                            url: '/editMotherboard',
-                            data: data,
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            },
-                            success: function (response) {
-                                console.log(response);
-                                if (response.errors) {
-                                    if (response.errors.nullBrand) {
-                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullCPUSlotNumbers) {
-                                        swalFire('خطا!', response.errors.nullCPUSlotNumbers[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullRAMSlotNumbers) {
-                                        swalFire('خطا!', response.errors.nullRAMSlotNumbers[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullModel) {
-                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullCPUSlotType) {
-                                        swalFire('خطا!', response.errors.nullCPUSlotType[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullRamSlotGeneration) {
-                                        swalFire('خطا!', response.errors.nullRamSlotGeneration[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullGeneration) {
-                                        swalFire('خطا!', response.errors.nullGeneration[0], 'error', 'تلاش مجدد');
-                                    }
-                                } else if (response.success) {
-                                    swalFire('ویرایش مادربورد موفقیت آمیز بود!', response.message.motherboardEdited[0], 'success', 'بستن');
-                                    toggleModal(editMotherboardModal.id);
-                                    resetFields();
-                                }
-                            }
-                        });
-                    }
-                });
-            });
-            break;
-        case '/CaseCatalog':
-            // $('#search-car-catalog-code, #search-car-catalog-name').on('input', function () {
-            //     var codeValue = $('#search-car-catalog-code').val();
-            //     var nameValue = $('#search-car-catalog-name').val();
-            //     $.ajax({
-            //         url: '/Search',
-            //         type: 'GET',
-            //         data: {
-            //             code: codeValue,
-            //             name: nameValue,
-            //             work: 'CarCatalogSearch'
-            //         },
-            //         success: function (data) {
-            //             var tableBody = $('.w-full.border-collapse.rounded-lg.overflow-hidden.text-center tbody');
-            //             tableBody.empty();
-            //
-            //             data.forEach(function (car) {
-            //                 var row = '<tr class="bg-white"><td class="px-6 py-4">' + car.CarCode + '</td><td class="px-6 py-4">' + car.CarName + '</td></tr>';
-            //                 tableBody.append(row);
-            //             });
-            //         },
-            //         error: function () {
-            //             console.log('خطا در ارتباط با سرور');
-            //         }
-            //     });
-            // });
-
-            $('#new-case-button, #cancel-new-case').on('click', function () {
-                toggleModal(newCaseModal.id);
-            });
-            $('.absolute.inset-0.bg-gray-500.opacity-75.add').on('click', function () {
-                toggleModal(newCaseModal.id)
-            });
-            $('.absolute.inset-0.bg-gray-500.opacity-75.edit').on('click', function () {
-                toggleModal(editCaseModal.id)
-            });
-            $('.CaseControl,#cancel-edit-case').on('click', function () {
-                toggleModal(editCaseModal.id);
-            });
-            $('#new-case').on('submit', function (e) {
-                e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST',
-                            url: '/newCase',
-                            data: data,
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            },
-                            success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullBrand) {
-                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    }  else if (response.errors.nullModel) {
-                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
-                                    }
-                                } else if (response.success) {
-                                    swalFire('ثبت اطلاعات کیس موفقیت آمیز بود!', response.message.caseAdded[0], 'success', 'بستن');
-                                    toggleModal(newCaseModal.id);
-                                    resetFields();
-                                }
-                            }
-                        });
-                    }
-                });
-            });
-            $('.CaseControl').on('click', function () {
-                $.ajax({
-                    type: 'GET',
-                    url: '/getCaseInfo',
-                    data: {
-                        id: $(this).data('id')
-                    },
-                    success: function (response) {
-                        if (response) {
-                            case_id.value = response.id;
-                            brandForEdit.value = response.company_id;
-                            modelForEdit.value = response.model;
-                        }
-                    }
-                });
-            });
-            $('#edit-case').on('submit', function (e) {
-                e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST',
-                            url: '/editCase',
-                            data: data,
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            },
-                            success: function (response) {
-                                console.log(response);
-                                if (response.errors) {
-                                    if (response.errors.nullBrand) {
-                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    }  else if (response.errors.nullModel) {
-                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
-                                    }
-                                } else if (response.success) {
-                                    swalFire('ویرایش مادربورد موفقیت آمیز بود!', response.message.caseEdited[0], 'success', 'بستن');
-                                    toggleModal(editCaseModal.id);
-                                    resetFields();
-                                }
-                            }
-                        });
-                    }
-                });
-            });
-            break;
         case '/Brands':
             $('#search-brand-catalog-name').on('input', function () {
                 var nameValue = $('#search-brand-catalog-name').val();
@@ -989,6 +703,348 @@ $(document).ready(function () {
                         }
                     });
                 }
+            });
+            break;
+        case '/MotherboardCatalog':
+            $('#new-motherboard-button, #cancel-new-motherboard').on('click', function () {
+                toggleModal(newMotherboardModal.id);
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.add').on('click', function () {
+                toggleModal(newMotherboardModal.id)
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.edit').on('click', function () {
+                toggleModal(editMotherboardModal.id)
+            });
+            $('.MotherboardControl,#cancel-edit-motherboard').on('click', function () {
+                toggleModal(editMotherboardModal.id);
+            });
+            $('#new-motherboard').on('submit', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var form = $(this);
+                        var data = form.serialize();
+                        $.ajax({
+                            type: 'POST',
+                            url: '/newMotherboard',
+                            data: data,
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            },
+                            success: function (response) {
+                                if (response.errors) {
+                                    if (response.errors.nullBrand) {
+                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullCPUSlotNumbers) {
+                                        swalFire('خطا!', response.errors.nullCPUSlotNumbers[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullRAMSlotNumbers) {
+                                        swalFire('خطا!', response.errors.nullRAMSlotNumbers[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullModel) {
+                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullCPUSlotType) {
+                                        swalFire('خطا!', response.errors.nullCPUSlotType[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullRamSlotGeneration) {
+                                        swalFire('خطا!', response.errors.nullRamSlotGeneration[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullGeneration) {
+                                        swalFire('خطا!', response.errors.nullGeneration[0], 'error', 'تلاش مجدد');
+                                    }
+                                } else if (response.success) {
+                                    swalFire('ثبت مادربورد موفقیت آمیز بود!', response.message.motherboardAdded[0], 'success', 'بستن');
+                                    toggleModal(newMotherboardModal.id);
+                                    resetFields();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+            $('.MotherboardControl').on('click', function () {
+                $.ajax({
+                    type: 'GET',
+                    url: '/getMotherboardInfo',
+                    data: {
+                        id: $(this).data('id')
+                    },
+                    success: function (response) {
+                        if (response) {
+                            mb_id.value = response.id;
+                            brandForEdit.value = response.company_id;
+                            modelForEdit.value = response.model;
+                            mb_genForEdit.value = response.generation;
+                            ram_slot_genForEdit.value = response.ram_slot_generation;
+                            cpu_slot_typeForEdit.value = response.cpu_slot_type;
+                            cpu_slot_numForEdit.value = response.cpu_slots_number;
+                            ram_slot_numForEdit.value = response.ram_slots_number;
+                        }
+                    }
+                });
+            });
+            $('#edit-motherboard').on('submit', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var form = $(this);
+                        var data = form.serialize();
+                        $.ajax({
+                            type: 'POST',
+                            url: '/editMotherboard',
+                            data: data,
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            },
+                            success: function (response) {
+                                if (response.errors) {
+                                    if (response.errors.nullBrand) {
+                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullCPUSlotNumbers) {
+                                        swalFire('خطا!', response.errors.nullCPUSlotNumbers[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullRAMSlotNumbers) {
+                                        swalFire('خطا!', response.errors.nullRAMSlotNumbers[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullModel) {
+                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullCPUSlotType) {
+                                        swalFire('خطا!', response.errors.nullCPUSlotType[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullRamSlotGeneration) {
+                                        swalFire('خطا!', response.errors.nullRamSlotGeneration[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullGeneration) {
+                                        swalFire('خطا!', response.errors.nullGeneration[0], 'error', 'تلاش مجدد');
+                                    }
+                                } else if (response.success) {
+                                    swalFire('ویرایش مادربورد موفقیت آمیز بود!', response.message.motherboardEdited[0], 'success', 'بستن');
+                                    toggleModal(editMotherboardModal.id);
+                                    resetFields();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+            break;
+        case '/CaseCatalog':
+            $('#new-case-button, #cancel-new-case').on('click', function () {
+                toggleModal(newCaseModal.id);
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.add').on('click', function () {
+                toggleModal(newCaseModal.id)
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.edit').on('click', function () {
+                toggleModal(editCaseModal.id)
+            });
+            $('.CaseControl,#cancel-edit-case').on('click', function () {
+                toggleModal(editCaseModal.id);
+            });
+            $('#new-case').on('submit', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var form = $(this);
+                        var data = form.serialize();
+                        $.ajax({
+                            type: 'POST',
+                            url: '/newCase',
+                            data: data,
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            },
+                            success: function (response) {
+                                if (response.errors) {
+                                    if (response.errors.nullBrand) {
+                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                    }  else if (response.errors.nullModel) {
+                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                    }
+                                } else if (response.success) {
+                                    swalFire('ثبت اطلاعات کیس موفقیت آمیز بود!', response.message.caseAdded[0], 'success', 'بستن');
+                                    toggleModal(newCaseModal.id);
+                                    resetFields();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+            $('.CaseControl').on('click', function () {
+                $.ajax({
+                    type: 'GET',
+                    url: '/getCaseInfo',
+                    data: {
+                        id: $(this).data('id')
+                    },
+                    success: function (response) {
+                        if (response) {
+                            case_id.value = response.id;
+                            brandForEdit.value = response.company_id;
+                            modelForEdit.value = response.model;
+                        }
+                    }
+                });
+            });
+            $('#edit-case').on('submit', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var form = $(this);
+                        var data = form.serialize();
+                        $.ajax({
+                            type: 'POST',
+                            url: '/editCase',
+                            data: data,
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            },
+                            success: function (response) {
+                                if (response.errors) {
+                                    if (response.errors.nullBrand) {
+                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                    }  else if (response.errors.nullModel) {
+                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                    }
+                                } else if (response.success) {
+                                    swalFire('ویرایش مادربورد موفقیت آمیز بود!', response.message.caseEdited[0], 'success', 'بستن');
+                                    toggleModal(editCaseModal.id);
+                                    resetFields();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+            break;
+        case '/CPUCatalog':
+            $('#new-cpu-button, #cancel-cpu-case').on('click', function () {
+                toggleModal(newCPUModal.id);
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.add').on('click', function () {
+                toggleModal(newCPUModal.id)
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.edit').on('click', function () {
+                toggleModal(editCPUModal.id)
+            });
+            $('.CPUControl,#cancel-edit-case').on('click', function () {
+                toggleModal(editCPUModal.id);
+            });
+            $('#new-cpu').on('submit', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var form = $(this);
+                        var data = form.serialize();
+                        $.ajax({
+                            type: 'POST',
+                            url: '/newCPU',
+                            data: data,
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            },
+                            success: function (response) {
+                                if (response.errors) {
+                                    if (response.errors.nullBrand) {
+                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullModel) {
+                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                    }else if (response.errors.nullGeneration) {
+                                        swalFire('خطا!', response.errors.nullGeneration[0], 'error', 'تلاش مجدد');
+                                    }
+                                } else if (response.success) {
+                                    swalFire('ثبت اطلاعات کیس موفقیت آمیز بود!', response.message.cpuAdded[0], 'success', 'بستن');
+                                    toggleModal(newCPUModal.id);
+                                    resetFields();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+            $('.CPUControl').on('click', function () {
+                $.ajax({
+                    type: 'GET',
+                    url: '/getCPUInfo',
+                    data: {
+                        id: $(this).data('id')
+                    },
+                    success: function (response) {
+                        if (response) {
+                            cpu_id.value = response.id;
+                            brandForEdit.value = response.company_id;
+                            modelForEdit.value = response.model;
+                            generationForEdit.value = response.generation;
+                        }
+                    }
+                });
+            });
+            $('#edit-cpu').on('submit', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var form = $(this);
+                        var data = form.serialize();
+                        $.ajax({
+                            type: 'POST',
+                            url: '/editCPU',
+                            data: data,
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            },
+                            success: function (response) {
+                                if (response.errors) {
+                                    if (response.errors.nullBrand) {
+                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                    }  else if (response.errors.nullModel) {
+                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                    }else if (response.errors.nullGeneration) {
+                                        swalFire('خطا!', response.errors.nullGeneration[0], 'error', 'تلاش مجدد');
+                                    }
+                                } else if (response.success) {
+                                    swalFire('ویرایش مادربورد موفقیت آمیز بود!', response.message.cpuEdited[0], 'success', 'بستن');
+                                    toggleModal(editCPUModal.id);
+                                    resetFields();
+                                }
+                            }
+                        });
+                    }
+                });
             });
             break;
     }
