@@ -16,7 +16,9 @@ use App\Http\Controllers\Catalogs\RAMController;
 use App\Http\Controllers\Catalogs\ScannerController;
 use App\Http\Controllers\Catalogs\VOIPController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EquipmentController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PersonController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\UserManager;
 use App\Http\Middleware\CheckLoginMiddleware;
@@ -151,6 +153,16 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
             Route::post('/newVOIP', [VOIPController::class, 'newVOIP'])->name('newVOIP');
             Route::get('/getVOIPInfo', [VOIPController::class, 'getVOIPInfo'])->name('getVOIPInfo');
             Route::post('/editVOIP', [VOIPController::class, 'editVOIP'])->name('editVOIP');
+
+            Route::get('/Equipment', [EquipmentController::class, 'index'])->name('Equipment');
+            Route::post('/newEquipment', [EquipmentController::class, 'newVOIP'])->name('newEquipment');
+            Route::get('/getEquipments', [EquipmentController::class, 'getVOIPInfo'])->name('getEquipments');
+            Route::post('/editEquipment', [EquipmentController::class, 'editVOIP'])->name('editEquipment');
+
+            Route::get('/Person', [PersonController::class, 'index'])->name('Person');
+            Route::post('/newPerson', [PersonController::class, 'newPerson'])->name('newPerson');
+            Route::get('/getPersonInfo', [PersonController::class, 'getPersonInfo'])->name('getPersonInfo');
+            Route::post('/editPerson', [PersonController::class, 'editPerson'])->name('editPerson');
 
 
         });
