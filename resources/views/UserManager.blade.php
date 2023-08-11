@@ -34,7 +34,8 @@
                                                        class="border rounded-md w-full mb-4 px-3 py-2 text-right"
                                                        placeholder="نام کاربر">
                                                 <label for="family"
-                                                       class="block text-gray-700 text-sm font-bold mb-2">نام خانوادگی*:</label>
+                                                       class="block text-gray-700 text-sm font-bold mb-2">نام
+                                                    خانوادگی*:</label>
                                                 <input type="text" id="family" name="family" autocomplete="off"
                                                        class="border rounded-md w-full mb-4 px-3 py-2 text-right"
                                                        placeholder="نام خانوادگی کاربر">
@@ -137,8 +138,10 @@
                                                        class="border rounded-md w-full mb-4 px-3 py-2 text-right"
                                                        placeholder="نام کاربر">
                                                 <label for="editedFamily"
-                                                       class="block text-gray-700 text-sm font-bold mb-2">نام خانوادگی*:</label>
-                                                <input type="text" id="editedFamily" name="editedFamily" autocomplete="off"
+                                                       class="block text-gray-700 text-sm font-bold mb-2">نام
+                                                    خانوادگی*:</label>
+                                                <input type="text" id="editedFamily" name="editedFamily"
+                                                       autocomplete="off"
                                                        class="border rounded-md w-full mb-4 px-3 py-2 text-right"
                                                        placeholder="نام خانوادگی کاربر">
                                             </div>
@@ -174,7 +177,8 @@
             </div>
             <div class="bg-white rounded shadow p-6 flex flex-col items-center">
                 <div class=" mb-4 flex w-full">
-                    <label for="search-Username-UserManager" class="block mt-3 text-sm font-bold text-gray-700">جستجو در کد
+                    <label for="search-Username-UserManager" class="block mt-3 text-sm font-bold text-gray-700">جستجو در
+                        کد
                         کاربری:</label>
                     <input id="search-Username-UserManager" autocomplete="off"
                            placeholder="لطفا کد کاربری را وارد نمایید."
@@ -207,7 +211,7 @@
                         @foreach ($userList as $user)
                             <tr class="bg-white">
                                 <td class="px-6 py-4">{{ $user->username }}</td>
-                                <td class="px-6 py-4">{{ $user->name  }}</td>
+                                <td class="px-6 py-4">{{ $user->name . ' ' . $user->family  }}</td>
                                 <td class="px-3 py-4">{{ $user->subject }}</td>
                                 <td class="px-3 py-4">
                                     <button type="submit" data-username="{{ $user->username }}"
