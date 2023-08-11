@@ -15,7 +15,7 @@ class CaseController extends \App\Http\Controllers\Controller
             return $this->alerts(false, 'nullBrand', 'نام برند انتخاب نشده است');
         }
         if (!$model) {
-            return $this->alerts(false, 'nullModel', 'مدل انتخاب نشده است');
+            return $this->alerts(false, 'nullModel', 'مدل وارد نشده است');
         }
 
         $MB = new Cases();
@@ -35,7 +35,7 @@ class CaseController extends \App\Http\Controllers\Controller
             return $this->alerts(false, 'nullBrand', 'نام برند انتخاب نشده است');
         }
         if (!$model) {
-            return $this->alerts(false, 'nullModel', 'مدل انتخاب نشده است');
+            return $this->alerts(false, 'nullModel', 'مدل وارد نشده است');
         }
 
         $MB = Cases::find($CaseID);

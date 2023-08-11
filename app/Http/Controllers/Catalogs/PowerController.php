@@ -16,7 +16,7 @@ class PowerController extends \App\Http\Controllers\Controller
             return $this->alerts(false, 'nullBrand', 'نام برند انتخاب نشده است');
         }
         if (!$model) {
-            return $this->alerts(false, 'nullModel', 'مدل انتخاب نشده است');
+            return $this->alerts(false, 'nullModel', 'مدل وارد نشده است');
         }
         if (!$voltage) {
             return $this->alerts(false, 'nullVoltage', 'ولتاژ خروجی وارد نشده است');
@@ -30,7 +30,6 @@ class PowerController extends \App\Http\Controllers\Controller
         $this->logActivity('Power Added =>' . $Power->id, \request()->ip(), \request()->userAgent(), \session('id'));
         return $this->success(true, 'powerAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
-
     public function editPower(Request $request)
     {
         $PowerID = $request->input('power_id');
@@ -41,7 +40,7 @@ class PowerController extends \App\Http\Controllers\Controller
             return $this->alerts(false, 'nullBrand', 'نام برند انتخاب نشده است');
         }
         if (!$model) {
-            return $this->alerts(false, 'nullModel', 'مدل انتخاب نشده است');
+            return $this->alerts(false, 'nullModel', 'مدل وارد نشده است');
         }
         if (!$voltage) {
             return $this->alerts(false, 'nullVoltage', 'ولتاژ خروجی وارد نشده است');
@@ -57,7 +56,6 @@ class PowerController extends \App\Http\Controllers\Controller
         $this->logActivity('Power Edited =>' . $Power, \request()->ip(), \request()->userAgent(), \session('id'));
         return $this->success(true, 'powerEdited', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
-
     public function getPowerInfo(Request $request)
     {
         $powerID = $request->input('id');
@@ -65,7 +63,6 @@ class PowerController extends \App\Http\Controllers\Controller
             return Power::find($powerID);
         }
     }
-
     public function index()
     {
         $powerList = Power::orderBy('company_id', 'asc')->paginate(20);

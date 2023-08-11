@@ -3,6 +3,7 @@
 use App\Http\Controllers\Catalogs\BrandController;
 use App\Http\Controllers\Catalogs\CaseController;
 use App\Http\Controllers\Catalogs\CPUController;
+use App\Http\Controllers\Catalogs\GraphicCardController;
 use App\Http\Controllers\Catalogs\MotherboardController;
 use App\Http\Controllers\Catalogs\PowerController;
 use App\Http\Controllers\Catalogs\RAMController;
@@ -97,6 +98,11 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
             Route::post('/newPower', [PowerController::class, 'newPower'])->name('newPower');
             Route::get('/getPowerInfo', [PowerController::class, 'getPowerInfo'])->name('getPowerInfo');
             Route::post('/editPower', [PowerController::class, 'editPower'])->name('editPower');
+
+            Route::get('/GraphicCardCatalog', [GraphicCardController::class, 'index'])->name('GraphicCardCatalog');
+            Route::post('/newGraphicCard', [GraphicCardController::class, 'newGraphicCard'])->name('newGraphicCard');
+            Route::get('/getGraphicCardInfo', [GraphicCardController::class, 'getGraphicCardInfo'])->name('getGraphicCardInfo');
+            Route::post('/editGraphicCard', [GraphicCardController::class, 'editGraphicCard'])->name('editGraphicCard');
 
 
         });

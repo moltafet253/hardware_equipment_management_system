@@ -19,8 +19,8 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
-//        $query = "INSERT INTO companies (id,name,products) VALUES (0,'ONBOARD','[\"ONBOARD\"]'); ";
-//        DB::statement($query);
+        $query = "INSERT INTO companies (id,name,products) VALUES (0,'ONBOARD','[\"ONBOARD\"]'); ";
+        DB::statement($query);
     }
 
     /**

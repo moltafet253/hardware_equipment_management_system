@@ -51,6 +51,10 @@ class MenuMiddleware
                                     'title' => 'منبع تغذیه',
                                     'link' => '/PowerCatalog'
                                 ],
+                                7 => [
+                                    'title' => 'کارت گرافیک',
+                                    'link' => '/GraphicCardCatalog'
+                                ],
                             ]
                         ],
                         2 => [

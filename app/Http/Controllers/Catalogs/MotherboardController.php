@@ -27,7 +27,7 @@ class MotherboardController extends Controller
             return $this->alerts(false, 'nullRAMSlotNumbers', 'تعداد سوکت رم انتخاب نشده است');
         }
         if (!$model) {
-            return $this->alerts(false, 'nullModel', 'مدل انتخاب نشده است');
+            return $this->alerts(false, 'nullModel', 'مدل وارد نشده است');
         }
         if (!$cpu_slot_type) {
             return $this->alerts(false, 'nullCPUSlotType', 'نوع اسلات پردازنده انتخاب نشده است');
@@ -72,7 +72,7 @@ class MotherboardController extends Controller
             return $this->alerts(false, 'nullRAMSlotNumbers', 'تعداد سوکت رم انتخاب نشده است');
         }
         if (!$model) {
-            return $this->alerts(false, 'nullModel', 'مدل انتخاب نشده است');
+            return $this->alerts(false, 'nullModel', 'مدل وارد نشده است');
         }
         if (!$cpu_slot_type) {
             return $this->alerts(false, 'nullCPUSlotType', 'نوع اسلات پردازنده انتخاب نشده است');

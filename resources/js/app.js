@@ -1200,7 +1200,7 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullVoltage[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
-                                    swalFire('ثبت اطلاعات رم موفقیت آمیز بود!', response.message.powerAdded[0], 'success', 'بستن');
+                                    swalFire('ثبت اطلاعات منبع تغذیه موفقیت آمیز بود!', response.message.powerAdded[0], 'success', 'بستن');
                                     toggleModal(newPowerModal.id);
                                     resetFields();
                                 }
@@ -1258,6 +1258,115 @@ $(document).ready(function () {
                                 } else if (response.success) {
                                     swalFire('ویرایش منبع تغذیه موفقیت آمیز بود!', response.message.powerEdited[0], 'success', 'بستن');
                                     toggleModal(editPowerModal.id);
+                                    resetFields();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+            break;
+        case '/GraphicCardCatalog':
+            $('#new-graphiccard-button, #cancel-new-graphiccard').on('click', function () {
+                toggleModal(newGraphicCardModal.id);
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.add').on('click', function () {
+                toggleModal(newGraphicCardModal.id)
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.edit').on('click', function () {
+                toggleModal(editGraphicCardModal.id)
+            });
+            $('.GraphicCardControl,#cancel-edit-graphiccard').on('click', function () {
+                toggleModal(editGraphicCardModal.id);
+            });
+            $('#new-graphiccard').on('submit', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var form = $(this);
+                        var data = form.serialize();
+                        $.ajax({
+                            type: 'POST',
+                            url: '/newGraphicCard',
+                            data: data,
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            },
+                            success: function (response) {
+                                if (response.errors) {
+                                    if (response.errors.nullBrand) {
+                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullModel) {
+                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                    }else if (response.errors.nullRamSize) {
+                                        swalFire('خطا!', response.errors.nullRamSize[0], 'error', 'تلاش مجدد');
+                                    }
+                                } else if (response.success) {
+                                    swalFire('ثبت اطلاعات کارت گرافیک موفقیت آمیز بود!', response.message.graphiccardAdded[0], 'success', 'بستن');
+                                    toggleModal(newGraphicCardModal.id);
+                                    resetFields();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+            $('.GraphicCardControl').on('click', function () {
+                $.ajax({
+                    type: 'GET',
+                    url: '/getGraphicCardInfo',
+                    data: {
+                        id: $(this).data('id')
+                    },
+                    success: function (response) {
+                        if (response) {
+                            graphiccard_id.value = response.id;
+                            brandForEdit.value = response.company_id;
+                            modelForEdit.value = response.model;
+                            ram_sizeForEdit.value = response.ram_size;
+                        }
+                    }
+                });
+            });
+            $('#edit-graphiccard').on('submit', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var form = $(this);
+                        var data = form.serialize();
+                        $.ajax({
+                            type: 'POST',
+                            url: '/editGraphicCard',
+                            data: data,
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            },
+                            success: function (response) {
+                                if (response.errors) {
+                                    if (response.errors.nullBrand) {
+                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullModel) {
+                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                    }else if (response.errors.nullRamSize) {
+                                        swalFire('خطا!', response.errors.nullRamSize[0], 'error', 'تلاش مجدد');
+                                    }
+                                } else if (response.success) {
+                                    swalFire('ویرایش کارت گرافیک موفقیت آمیز بود!', response.message.graphiccardrEdited[0], 'success', 'بستن');
+                                    toggleModal(editGraphicCardModal.id);
                                     resetFields();
                                 }
                             }
