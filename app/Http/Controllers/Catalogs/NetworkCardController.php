@@ -23,12 +23,12 @@ class NetworkCardController extends Controller
             return $this->alerts(false, 'nullConnectivityType', 'نوع اتصال انتخاب نشده است');
         }
 
-        $ODD=new NetworkCard();
-        $ODD->company_id=$brand;
-        $ODD->model=$model;
-        $ODD->connectivity_type=$connectivity_type;
-        $ODD->save();
-        $this->logActivity('Network Card Added =>' . $ODD->id , \request()->ip(), \request()->userAgent(), \session('id'));
+        $NetworkCard=new NetworkCard();
+        $NetworkCard->company_id=$brand;
+        $NetworkCard->model=$model;
+        $NetworkCard->connectivity_type=$connectivity_type;
+        $NetworkCard->save();
+        $this->logActivity('Network Card Added =>' . $NetworkCard->id , \request()->ip(), \request()->userAgent(), \session('id'));
         return $this->success(true, 'NetworkCardAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
     public function editNetworkCard(Request $request)
@@ -47,13 +47,13 @@ class NetworkCardController extends Controller
             return $this->alerts(false, 'nullConnectivityType', 'نوع اتصال انتخاب نشده است');
         }
 
-        $ODD=NetworkCard::find($NetworkCardID);
-        $ODD->fill([
+        $NetworkCard=NetworkCard::find($NetworkCardID);
+        $NetworkCard->fill([
             'company_id' => $brand,
             'model' => $model,
             'connectivity_type' => $connectivity_type,
         ]);
-        $ODD->save();
+        $NetworkCard->save();
         $this->logActivity('Network Card Edited =>' . $NetworkCardID , \request()->ip(), \request()->userAgent(), \session('id'));
         return $this->success(true, 'NetworkCardEdited', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }

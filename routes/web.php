@@ -5,6 +5,7 @@ use App\Http\Controllers\Catalogs\CaseController;
 use App\Http\Controllers\Catalogs\CPUController;
 use App\Http\Controllers\Catalogs\GraphicCardController;
 use App\Http\Controllers\Catalogs\HarddiskController;
+use App\Http\Controllers\Catalogs\MonitorController;
 use App\Http\Controllers\Catalogs\MotherboardController;
 use App\Http\Controllers\Catalogs\NetworkCardController;
 use App\Http\Controllers\Catalogs\ODDController;
@@ -121,6 +122,11 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
             Route::post('/newNetworkCard', [NetworkCardController::class, 'newNetworkCard'])->name('newNetworkCard');
             Route::get('/getNetworkCardInfo', [NetworkCardController::class, 'getNetworkCardInfo'])->name('getNetworkCardInfo');
             Route::post('/editNetworkCard', [NetworkCardController::class, 'editNetworkCard'])->name('editNetworkCard');
+
+            Route::get('/MonitorCatalog', [MonitorController::class, 'index'])->name('MonitorCatalog');
+            Route::post('/newMonitor', [MonitorController::class, 'newMonitor'])->name('newMonitorCard');
+            Route::get('/getMonitorInfo', [MonitorController::class, 'getMonitorInfo'])->name('getMonitorInfo');
+            Route::post('/editMonitor', [MonitorController::class, 'editMonitor'])->name('editMonitor');
 
 
         });

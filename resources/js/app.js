@@ -1702,8 +1702,117 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullGeneration[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
-                                    swalFire('ویرایش درایو نوری موفقیت آمیز بود!', response.message.NetworkCardEdited[0], 'success', 'بستن');
+                                    swalFire('ویرایش کارت شبکه موفقیت آمیز بود!', response.message.NetworkCardEdited[0], 'success', 'بستن');
                                     toggleModal(editNetworkCardModal.id);
+                                    resetFields();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+            break;
+        case '/MonitorCatalog':
+            $('#new-Monitor-button, #cancel-new-Monitor').on('click', function () {
+                toggleModal(newMonitorModal.id);
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.add').on('click', function () {
+                toggleModal(newMonitorModal.id)
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.edit').on('click', function () {
+                toggleModal(editMonitorModal.id)
+            });
+            $('.MonitorControl,#cancel-edit-Monitor').on('click', function () {
+                toggleModal(editMonitorModal.id);
+            });
+            $('#new-Monitor').on('submit', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var form = $(this);
+                        var data = form.serialize();
+                        $.ajax({
+                            type: 'POST',
+                            url: '/newMonitor',
+                            data: data,
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            },
+                            success: function (response) {
+                                if (response.errors) {
+                                    if (response.errors.nullBrand) {
+                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullModel) {
+                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullSize) {
+                                        swalFire('خطا!', response.errors.nullSize[0], 'error', 'تلاش مجدد');
+                                    }
+                                } else if (response.success) {
+                                    swalFire('ثبت اطلاعات مانیتور موفقیت آمیز بود!', response.message.MonitorAdded[0], 'success', 'بستن');
+                                    toggleModal(newMonitorModal.id);
+                                    resetFields();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+            $('.MonitorControl').on('click', function () {
+                $.ajax({
+                    type: 'GET',
+                    url: '/getMonitorInfo',
+                    data: {
+                        id: $(this).data('id')
+                    },
+                    success: function (response) {
+                        if (response) {
+                            Monitor_id.value = response.id;
+                            brandForEdit.value = response.company_id;
+                            modelForEdit.value = response.model;
+                            sizeForEdit.value = response.size;
+                        }
+                    }
+                });
+            });
+            $('#edit-monitor').on('submit', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var form = $(this);
+                        var data = form.serialize();
+                        $.ajax({
+                            type: 'POST',
+                            url: '/editMonitor',
+                            data: data,
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            },
+                            success: function (response) {
+                                if (response.errors) {
+                                    if (response.errors.nullBrand) {
+                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullModel) {
+                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                    }  else if (response.errors.nullSize) {
+                                        swalFire('خطا!', response.errors.nullSize[0], 'error', 'تلاش مجدد');
+                                    }
+                                } else if (response.success) {
+                                    swalFire('ویرایش مانیتور موفقیت آمیز بود!', response.message.MonitorEdited[0], 'success', 'بستن');
+                                    toggleModal(editMonitorModal.id);
                                     resetFields();
                                 }
                             }
