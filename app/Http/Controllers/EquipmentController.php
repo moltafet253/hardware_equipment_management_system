@@ -92,6 +92,6 @@ class EquipmentController extends Controller
     public function index()
     {
         $personList = Person::orderBy('personnel_code', 'asc')->paginate(20);
-        return \view('PersonManager', ['personList' => $personList]);
+        return \view('EquipmentManager', ['personList' => $personList]);
     }
 }

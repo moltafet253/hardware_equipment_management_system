@@ -3,12 +3,8 @@
 @section('content')
     <main class="flex-1 bg-gray-100 py-6 px-8 ">
         <div class=" mx-auto lg:mr-72">
-            <h1 class="text-2xl font-bold mb-4">مدیریت اطلاعات</h1>
+            <h1 class="text-2xl font-bold">مدیریت اطلاعات تجهیزات</h1>
             <div class="flex">
-                <button id="new-person-button" type="button"
-                        class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300">
-                    پرسنل جدید
-                </button>
                 <form id="new-person">
                     @csrf
                     <div class="mt-4 mb-4 flex items-center">
@@ -112,10 +108,10 @@
                         </div>
                     </div>
                 </form>
-                <form id="edit-person">
+                <form id="edit-Equipment">
                     @csrf
                     <div class="mt-4 mb-4 flex items-center">
-                        <div class="fixed z-10 inset-0 overflow-y-auto hidden" id="editPersonModal">
+                        <div class="fixed z-10 inset-0 overflow-y-auto hidden" id="editEquipmentModal">
                             <div
                                 class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center  sm:block sm:p-0">
                                 <div class="fixed inset-0 transition-opacity" aria-hidden="true">
@@ -271,8 +267,8 @@
                                 <td class="px-3 py-4">{{ $person->room_number }}</td>
                                 <td class="px-6 py-4">
                                     <button type="submit" data-id="{{ $person->id }}"
-                                            class="px-4 py-2 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 PersonControl">
-                                        جزئیات و ویرایش
+                                            class="px-4 py-2 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 EquipmentControl">
+                                        وضعیت تجهیزات این کاربر
                                     </button>
                                 </td>
                             </tr>
