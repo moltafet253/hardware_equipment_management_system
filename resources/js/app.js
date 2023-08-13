@@ -2394,5 +2394,42 @@ $(document).ready(function () {
                 });
             });
             break;
+        case '/showEquipmentStatus':
+            $('.AddCase, #cancel-add-case').on('click', function () {
+                toggleModal(addCaseModal.id);
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.addcase').on('click', function () {
+                toggleModal(addCaseModal.id)
+            });
+            $('.AddMonitor, #cancel-add-monitor').on('click', function () {
+                toggleModal(addMonitorModal.id);
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.addmonitor').on('click', function () {
+                toggleModal(addMonitorModal.id)
+            });
+            $('.AddPrinter, #cancel-add-printer').on('click', function () {
+                toggleModal(addPrinterModal.id);
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.addprinter').on('click', function () {
+                toggleModal(addPrinterModal.id)
+            });
+            $('.AddScanner, #cancel-add-scanner').on('click', function () {
+                toggleModal(addScannerModal.id);
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.addscanner').on('click', function () {
+                toggleModal(addScannerModal.id)
+            });
+            $('.AddCopyMachine, #cancel-add-copymachine').on('click', function () {
+                toggleModal(addCopyMachineModal.id);
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.addcopymachine').on('click', function () {
+                toggleModal(addCopyMachineModal.id)
+            });
+            $('.AddVOIP, #cancel-add-voip').on('click', function () {
+                toggleModal(addVOIPModal.id);
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.addVOIP').on('click', function () {
+                toggleModal(addVOIPModal.id)
+            });
     }
 });
