@@ -164,7 +164,6 @@
                                                 {{ $menu['title'] }}
                                             </summary>
                                             <ul class="text-white w-full mr-2">
-
                                                 @foreach ($menu['childs'] as $child)
                                                     <li class="menu-item mr-8" id="{{ $child['title'] }}">
 
@@ -186,8 +185,9 @@
                                                 @endforeach
 
                                             </ul>
+
                                             @else
-                                                <li class="menu-item" id="userControl">
+                                                <li class="menu-item" id="menu{{ $menu['link'] }}">
                                                     <a href="{{ $menu['link'] }}"
                                                        class="flex items-center p-3 my-2 text-cu-light rounded-s-full dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                                                         @if(@$menu['path1'])
