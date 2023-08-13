@@ -2354,40 +2354,6 @@ $(document).ready(function () {
             });
             break;
         case '/Equipment':
-            $('#new-person-button, #cancel-new-person').on('click', function () {
-                toggleModal(newPersonModal.id);
-            });
-            $('.absolute.inset-0.bg-gray-500.opacity-75.add').on('click', function () {
-                toggleModal(newPersonModal.id)
-            });
-            $('.absolute.inset-0.bg-gray-500.opacity-75.edit').on('click', function () {
-                toggleModal(editPersonModal.id)
-            });
-            $('.EquipmentControl,#cancel-edit-person').on('click', function () {
-                toggleModal(editEquipmentModal.id);
-            });
-            $('.EquipmentControl').on('click', function () {
-                $.ajax({
-                    type: 'GET',
-                    url: '/getEquipmentInfo',
-                    data: {
-                        id: $(this).data('id')
-                    },
-                    success: function (response) {
-                        if (response) {
-                            personID.value = response.id;
-                            nameForEdit.value = response.name;
-                            familyForEdit.value = response.family;
-                            personnel_codeForEdit.value = response.personnel_code;
-                            phoneForEdit.value = response.phone;
-                            mobileForEdit.value = response.mobile;
-                            net_usernameForEdit.value = response.net_username;
-                            room_numberForEdit.value = response.room_number;
-                            assistanceForEdit.value = response.assistance;
-                        }
-                    }
-                });
-            });
             $('#edit-equipment').on('submit', function (e) {
                 e.preventDefault();
                 Swal.fire({
