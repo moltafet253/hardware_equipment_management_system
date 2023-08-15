@@ -155,6 +155,7 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
             Route::post('/editVOIP', [VOIPController::class, 'editVOIP'])->name('editVOIP');
 
             Route::get('/showEquipmentStatus', [EquipmentController::class, 'showEquipmentStatus'])->name('showEquipmentStatus');
+            Route::post('/newCase', [EquipmentController::class, 'newCase'])->name('newCase');
             Route::post('/editEquipment', [EquipmentController::class, 'editEquipment'])->name('editEquipment');
 
             Route::get('/Person', [PersonController::class, 'index'])->name('Person');

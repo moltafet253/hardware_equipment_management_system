@@ -15,13 +15,16 @@ return new class extends Migration
             $table->id();
             $table->string('name',100);
             $table->string('family',150);
-            $table->integer('personnel_code');
+            $table->integer('personnel_code')->nullable();
+            $table->string('national_code')->nullable();
             $table->string('phone',11)->nullable();
             $table->string('mobile',11)->nullable();
             $table->string('net_username')->nullable();
             $table->string('work_place',10)->default('ستاد');
             $table->unsignedBigInteger('assistance')->nullable();
             $table->foreign('assistance')->references('id')->on('assistances');
+            $table->unsignedBigInteger('establishment_place')->nullable();
+            $table->foreign('establishment_place')->references('id')->on('establishment_places');
             $table->string('room_number')->nullable();
             $table->timestamps();
             $table->softDeletes();

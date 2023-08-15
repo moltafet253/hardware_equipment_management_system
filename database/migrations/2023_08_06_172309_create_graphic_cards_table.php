@@ -22,10 +22,7 @@ return new class extends Migration
             $table->softDeletes();
         });
         $query = "INSERT INTO graphic_cards (company_id,model, ram_size) VALUES
-                                                       (1,'ONBOARD','128MB'),
-                                                       (1,'ONBOARD','256MB'),
-                                                       (1,'ONBOARD','512MB'),
-                                                       (1,'ONBOARD','1GB')
+                                                       (1,'ONBOARD','CPU')
 ; ";
         DB::statement($query);
     }

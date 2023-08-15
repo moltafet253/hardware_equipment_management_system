@@ -52,7 +52,7 @@
                                             </div>
                                             <div class="flex flex-col items-right mb-2">
                                                 <label for="type"
-                                                       class="block text-gray-700 text-sm font-bold mb-2">نوع*:</label>
+                                                       class="block text-gray-700 text-sm font-bold mb-2">نسل*:</label>
                                                 <select id="type" class="border rounded-md w-full px-3 py-2"
                                                         name="type">
                                                     <option value="" disabled selected>انتخاب کنید</option>
@@ -64,7 +64,7 @@
                                             </div>
                                             <div class="flex flex-col items-right mb-2">
                                                 <label for="size"
-                                                       class="block text-gray-700 text-sm font-bold mb-2">نسل*:</label>
+                                                       class="block text-gray-700 text-sm font-bold mb-2">ظرفیت*:</label>
                                                 <select id="size" class="border rounded-md w-full px-3 py-2"
                                                         name="size">
                                                     <option value="" disabled selected>انتخاب کنید</option>

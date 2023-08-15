@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Person;
+use App\Models\EquipmentedCase;
 use Illuminate\Http\Request;
 
 class EquipmentController extends Controller
@@ -13,40 +13,46 @@ class EquipmentController extends Controller
         return view('EquipmentStatus', ['personId' => $personId]);
     }
 
-    public function editPerson(Request $request)
+    public function newCase(Request $request)
     {
-        $PersonID=$request->input('personID');
-        $name = $request->input('nameForEdit');
-        $family = $request->input('familyForEdit');
-        $phone = $request->input('phoneForEdit');
-        $mobile = $request->input('mobileForEdit');
-        $net_username = $request->input('net_usernameForEdit');
-        $room_number = $request->input('room_numberForEdit');
-        $assistance = $request->input('assistanceForEdit');
-        if (!$name) {
-            return $this->alerts(false, 'nullName', 'نام وارد نشده است');
-        }
-        if (!$family) {
-            return $this->alerts(false, 'nullFamily', 'نام خانوادگی وارد نشده است');
-        }
-        if (!$PersonID) {
-            return $this->alerts(false, 'nullPersonnelCode', 'کد پرسنلی وارد نشده است');
-        }
+        $request->all();
+        $personID = $request->input('person');
+        $property_number = $request->input('property_number');
+        $stamp_number = $request->input('stamp_number');
+        $computer_name = $request->input('computer_name');
+        $delivery_date = $request->input('delivery_date');
+        $caseInfo = $request->input('case');
+        $motherboard = $request->input('motherboard');
+        $power = $request->input('power');
+        $cpu = $request->input('cpu');
+        $ram1 = $request->input('ram1');
+        $ram2 = $request->input('ram2');
+        $ram3 = $request->input('ram3');
+        $ram4 = $request->input('ram4');
+        $hdd1 = $request->input('hdd1');
+        $hdd2 = $request->input('hdd2');
+        $graphiccard = $request->input('graphiccard');
+        $networkcard = $request->input('networkcard');
 
-        $Person = Person::find($PersonID);
-        $Person->fill([
-            'name' => $name,
-            'family' => $family,
-            'phone' => $phone,
-            'mobile' => $mobile,
-            'net_username' => $net_username,
-            'room_number' => $room_number,
-            'assistance' => $assistance,
-        ]);
-        $Person->save();
-        $this->logActivity('Person Edited =>' . $PersonID, \request()->ip(), \request()->userAgent(), \session('id'));
-        return $this->success(true, 'personEdited', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
+        $case = new EquipmentedCase();
+        $case->person_id = $personID;
+        $case->property_number = $property_number;
+        $case->stamp_number = $stamp_number;
+        $case->computer_name = $computer_name;
+        $case->delivery_date = $delivery_date;
+        $case->case = $caseInfo;
+        $case->motherboard = $motherboard;
+        $case->power = $power;
+        $case->cpu = $cpu;
+        $case->ram1 = $ram1;
+        $case->ram2 = $ram2;
+        $case->ram3 = $ram3;
+        $case->ram4 = $ram4;
+        $case->hdd1 = $hdd1;
+        $case->hdd2 = $hdd2;
+        $case->graphic_card = $graphiccard;
+        $case->network_card = $networkcard;
+        $case->save();
     }
-
 
 }

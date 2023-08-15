@@ -60,10 +60,20 @@ function hasNumber(text) {
 }
 
 function resetFields() {
-    const inputs = document.querySelectorAll('input');
-    inputs.forEach(input => input.value = "");
+    // const inputs = document.querySelectorAll('input');
+    // inputs.forEach(input => input.value = "");
     const selectors = document.querySelectorAll('select');
     selectors.forEach(select => select.value = "");
+}
+
+function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
 
 $(document).ready(function () {
@@ -2430,6 +2440,48 @@ $(document).ready(function () {
             });
             $('.absolute.inset-0.bg-gray-500.opacity-75.addVOIP').on('click', function () {
                 toggleModal(addVOIPModal.id)
+            });
+
+
+            $('#new-case').on('submit', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var form = $(this);
+                        var data = form.serialize();
+                        var idFromLink = getParameterByName('id', window.location.href);
+                        data += "&person=" + idFromLink;
+                        $.ajax({
+                            type: 'POST',
+                            url: '/newCase',
+                            data: data,
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            },
+                            success: function (response) {
+                                console.log(response)
+                                if (response.errors) {
+                                    if (response.errors.nullName) {
+                                        swalFire('خطا!', response.errors.nullName[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullFamily) {
+                                        swalFire('خطا!', response.errors.nullFamily[0], 'error', 'تلاش مجدد');
+                                    }
+                                } else if (response.success) {
+                                    swalFire('ثبت کیس جدید موفقیت آمیز بود!', response.message.caseAdded[0], 'success', 'بستن');
+                                    // toggleModal(newPersonModal.id);
+                                    resetFields();
+                                }
+                            }
+                        });
+                    }
+                });
             });
     }
 });

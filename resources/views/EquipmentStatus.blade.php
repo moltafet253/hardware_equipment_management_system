@@ -7,43 +7,294 @@
 
     {{--    Modals--}}
     {{--    Case--}}
-    <form id="add-case">
+    <form id="new-case">
         @csrf
         <div class="mt-4 mb-4 flex items-center">
-            <div class="fixed z-10 inset-0 overflow-y-auto hidden" id="addCaseModal">
+            {{--            <div class="fixed z-10 inset-0 overflow-y-auto hidden" id="addCaseModal">--}}
+            <div class="fixed z-10 inset-0 overflow-y-auto " id="addCaseModal">
                 <div
-                    class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center  sm:block sm:p-0">
+                        class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center  sm:block sm:p-0">
                     <div class="fixed inset-0 transition-opacity" aria-hidden="true">
                         <div class="absolute inset-0 bg-gray-500 opacity-75 addcase"></div>
                     </div>
                     <div
-                        class="inline-block align-bottom bg-white rounded-lg text-right overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:w-full sm:max-w-[550px]">
+                            class="inline-block align-bottom bg-white rounded-lg text-right overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:w-full sm:max-w-[550px]">
                         <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                             <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
                                 تخصیص کیس به کاربر
                             </h3>
                             <div class="mt-4">
+                                <div class="flex">
+                                    <div class="ml-3 w-full">
+                                    <label for="property_number"
+                                           class="block text-gray-700 text-sm font-bold mb-2">کد اموال*</label>
+                                        <input type="text" id="property_number" name="property_number"
+                                               class="border rounded-md w-full mb-4 px-3 py-2 text-right "
+                                               placeholder="کد اموال را وارد کنید">
+                                    </div>
+                                    <div class="w-full">
+                                        <label for="stamp_number"
+                                               class="block text-gray-700 text-sm font-bold mb-2">کد پلمپ*</label>
+                                        <input type="text" id="stamp_number" name="stamp_number"
+                                               class="border rounded-md w-full mb-4 px-3 py-2 text-right"
+                                               placeholder="کد پلمپ را وارد کنید">
+                                    </div>
+                                </div>
+                                <div class="flex">
+                                    <div class="ml-3 w-full">
+                                    <label for="computer_name"
+                                           class="block text-gray-700 text-sm font-bold mb-2">نام کامپیوتر</label>
+                                        <input type="text" id="computer_name" name="computer_name"
+                                               class="border rounded-md w-full mb-4 px-3 py-2 text-right"
+                                               placeholder="نام کامپیوتر را وارد کنید">
+                                    </div>
+                                    <div class="w-full">
+                                        <label for="delivery_date"
+                                               class="block text-gray-700 text-sm font-bold mb-2">تاریخ تحویل</label>
+                                        <input type="text" id="delivery_date" name="delivery_date"
+                                               class="border rounded-md w-full mb-4 px-3 py-2 text-right"
+                                               placeholder="با فرمت : 1402/05/04">
+                                    </div>
+                                </div>
                                 <div class="mb-4">
-                                    <label for="assistanceForEdit"
-                                           class="block text-gray-700 text-sm font-bold mb-2">معاونت/بخش:</label>
-                                    <select id="assistanceForEdit"
-                                            class="border rounded-md w-full px-3 py-2"
-                                            name="assistanceForEdit"
-                                            title="معاونت/بخش را وارد کنید (اختیاری)">
+                                    <label for="case"
+                                           class="block text-gray-700 text-sm font-bold mb-2">کیس*</label>
+                                    <select id="case" class="border rounded-md w-full px-3 py-2" name="case">
                                         <option value="" disabled selected>انتخاب کنید</option>
                                         @php
-                                            $assistances=\App\Models\Catalogs\Assistance::orderBy('name')->get();
+                                            $cases = \App\Models\Catalogs\Cases::join('companies', 'cases.company_id', '=', 'companies.id')
+                                                ->orderBy('companies.name')
+                                                ->get(['cases.id', 'companies.name', 'cases.model']);
                                         @endphp
-                                        @foreach($assistances as $assistance)
-                                            <option
-                                                value="{{ $assistance->id }}">{{$assistance->name}}</option>
+                                        @foreach($cases as $case)
+                                            <option value="{{ $case->id }}">
+                                                {{ $case->name . ' - ' . $case->model }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-4">
+                                    <label for="motherboard"
+                                           class="block text-gray-700 text-sm font-bold mb-2">مادربورد*</label>
+                                    <select id="motherboard" class="border rounded-md w-full px-3 py-2"
+                                            name="motherboard">
+                                        <option value="" disabled selected>انتخاب کنید</option>
+                                        @php
+                                            $motherboards = \App\Models\Catalogs\Motherboard::join('companies', 'motherboards.company_id', '=', 'companies.id')
+                                                ->orderBy('companies.name')
+                                                ->get(['motherboards.id', 'companies.name', 'motherboards.model']);
+                                        @endphp
+                                        @foreach($motherboards as $motherboard)
+                                            <option value="{{ $motherboard->id }}">
+                                                {{ $motherboard->name . ' - ' . $motherboard->model }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-4">
+                                    <label for="power"
+                                           class="block text-gray-700 text-sm font-bold mb-2">منبع تغذیه*</label>
+                                    <select id="power" class="border rounded-md w-full px-3 py-2" name="power">
+                                        <option value="" disabled selected>انتخاب کنید</option>
+                                        @php
+                                            $powers = \App\Models\Catalogs\Power::join('companies', 'powers.company_id', '=', 'companies.id')
+                                                ->orderBy('companies.name')
+                                                ->get(['powers.id', 'companies.name', 'powers.model']);
+                                        @endphp
+                                        @foreach($powers as $power)
+                                            <option value="{{ $power->id }}">
+                                                {{ $power->name . ' - ' . $power->model }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-4">
+                                    <label for="cpu"
+                                           class="block text-gray-700 text-sm font-bold mb-2">پردازنده*</label>
+                                    <select id="cpu" class="border rounded-md w-full px-3 py-2" name="cpu">
+                                        <option value="" disabled selected>انتخاب کنید</option>
+                                        @php
+                                            $cpus = \App\Models\Catalogs\cpu::join('companies', 'cpus.company_id', '=', 'companies.id')
+                                                ->orderBy('companies.name')
+                                                ->get(['cpus.id', 'companies.name', 'cpus.model']);
+                                        @endphp
+                                        @foreach($cpus as $cpu)
+                                            <option value="{{ $cpu->id }}">
+                                                {{ $cpu->name . ' - ' . $cpu->model }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="flex ">
+                                    <div class="ml-3">
+                                        <label for="ram1"
+                                               class="block text-gray-700 text-sm font-bold mt-3 whitespace-nowrap">رم
+                                            1*</label>
+                                        <select id="ram1" class="border rounded-md w-full px-3 py-2" name="ram1">
+                                            <option value="" disabled selected>انتخاب کنید</option>
+                                            @php
+                                                $rams = \App\Models\Catalogs\Ram::join('companies', 'rams.company_id', '=', 'companies.id')
+                                                    ->orderBy('companies.name')
+                                                    ->get(['rams.id', 'companies.name', 'rams.model', 'rams.type', 'rams.size']);
+                                            @endphp
+                                            @foreach($rams as $ram)
+                                                <option value="{{ $ram->id }}">
+                                                    {{ $ram->name . ' - ' . $ram->model . ' - ' . $ram->type. ' - ' . $ram->size}}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label for="ram2"
+                                               class="block text-gray-700 text-sm font-bold mt-3 whitespace-nowrap">رم
+                                            2</label>
+                                        <select id="ram2" class="border rounded-md w-full px-3 py-2" name="ram2">
+                                            <option value="" selected>فاقد رم</option>
+                                            @php
+                                                $rams = \App\Models\Catalogs\Ram::join('companies', 'rams.company_id', '=', 'companies.id')
+                                                    ->orderBy('companies.name')
+                                                    ->get(['rams.id', 'companies.name', 'rams.model', 'rams.type', 'rams.size']);
+                                            @endphp
+                                            @foreach($rams as $ram)
+                                                <option value="{{ $ram->id }}">
+                                                    {{ $ram->name . ' - ' . $ram->model . ' - ' . $ram->type. ' - ' . $ram->size}}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="flex mb-4">
+                                    <div class="ml-3">
+                                        <label for="ram3"
+                                               class="block text-gray-700 text-sm font-bold mt-3 whitespace-nowrap">رم
+                                            3</label>
+                                        <select id="ram3" class="border rounded-md w-full px-3 py-2" name="ram3">
+                                            <option value="" selected>فاقد رم</option>
+                                            @php
+                                                $rams = \App\Models\Catalogs\Ram::join('companies', 'rams.company_id', '=', 'companies.id')
+                                                    ->orderBy('companies.name')
+                                                    ->get(['rams.id', 'companies.name', 'rams.model', 'rams.type', 'rams.size']);
+                                            @endphp
+                                            @foreach($rams as $ram)
+                                                <option value="{{ $ram->id }}">
+                                                    {{ $ram->name . ' - ' . $ram->model . ' - ' . $ram->type. ' - ' . $ram->size}}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label for="ram4"
+                                               class="block text-gray-700 text-sm font-bold mt-3 whitespace-nowrap">رم
+                                            4</label>
+                                        <select id="ram4" class="border rounded-md w-full px-3 py-2" name="ram4">
+                                            <option value="" selected>فاقد رم</option>
+                                            @php
+                                                $rams = \App\Models\Catalogs\Ram::join('companies', 'rams.company_id', '=', 'companies.id')
+                                                    ->orderBy('companies.name')
+                                                    ->get(['rams.id', 'companies.name', 'rams.model', 'rams.type', 'rams.size']);
+                                            @endphp
+                                            @foreach($rams as $ram)
+                                                <option value="{{ $ram->id }}">
+                                                    {{ $ram->name . ' - ' . $ram->model . ' - ' . $ram->type. ' - ' . $ram->size}}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="flex mb-4">
+                                    <div class="ml-3">
+                                    <label for="hdd1"
+                                           class="block text-gray-700 text-sm font-bold mt-3 whitespace-nowrap">هارد
+                                        1*</label>
+                                    <select id="hdd1" class="border rounded-md w-full px-3 py-2" name="hdd1">
+                                        <option value="" disabled selected>انتخاب کنید</option>
+                                        @php
+                                            $hdds = \App\Models\Catalogs\Harddisk::join('companies', 'harddisks.company_id', '=', 'companies.id')
+                                                ->where('harddisks.type','!=','External')
+                                                ->orderBy('companies.name')
+                                                ->get(['harddisks.id', 'companies.name', 'harddisks.model', 'harddisks.capacity','harddisks.connectivity_type',]);
+                                        @endphp
+                                        @foreach($hdds as $hdd)
+                                            <option value="{{ $hdd->id }}">
+                                                {{ $hdd->name . ' - ' . $hdd->model . ' - ' . $hdd->capacity. ' - ' . $hdd->connectivity_type}}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    </div>
+                                    <div>
+                                    <label for="hdd2"
+                                           class="block text-gray-700 text-sm font-bold mt-3 whitespace-nowrap">هارد
+                                        2</label>
+                                    <select id="hdd2" class="border rounded-md w-full px-3 py-2" name="hdd2">
+                                        <option value=""  selected>فاقد رم</option>
+                                        @php
+                                            $hdds = \App\Models\Catalogs\Harddisk::join('companies', 'harddisks.company_id', '=', 'companies.id')
+                                                ->where('harddisks.type','!=','External')
+                                                ->orderBy('companies.name')
+                                                ->get(['harddisks.id', 'companies.name', 'harddisks.model', 'harddisks.capacity','harddisks.connectivity_type',]);
+                                        @endphp
+                                        @foreach($hdds as $hdd)
+                                            <option value="{{ $hdd->id }}">
+                                                {{ $hdd->name . ' - ' . $hdd->model . ' - ' . $hdd->capacity. ' - ' . $hdd->connectivity_type}}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    </div>
+                                </div>
+                                <div class="mb-4">
+                                    <label for="graphiccard"
+                                           class="block text-gray-700 text-sm font-bold mb-2">کارت گرافیک*</label>
+                                    <select id="graphiccard" class="border rounded-md w-full px-3 py-2" name="graphiccard">
+                                        <option value="" selected>فاقد کارت گرافیک</option>
+                                        @php
+                                            $graphic_cards = \App\Models\Catalogs\GraphicCard::join('companies', 'graphic_cards.company_id', '=', 'companies.id')
+                                                ->orderBy('companies.name')
+                                                ->get(['graphic_cards.id', 'companies.name', 'graphic_cards.model', 'graphic_cards.ram_size']);
+                                        @endphp
+                                        @foreach($graphic_cards as $graphic_card)
+                                            <option value="{{ $graphic_card->id }}">
+                                                {{ $graphic_card->name . ' - ' . $graphic_card->model . ' - ' . $graphic_card->ram_size }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-4">
+                                    <label for="networkcard"
+                                           class="block text-gray-700 text-sm font-bold mb-2">کارت شبکه*</label>
+                                    <select id="networkcard" class="border rounded-md w-full px-3 py-2" name="networkcard">
+                                        <option value="" selected>فاقد کارت شبکه</option>
+                                        @php
+                                            $networkcards = \App\Models\Catalogs\NetworkCard::join('companies', 'network_cards.company_id', '=', 'companies.id')
+                                                ->orderBy('companies.name')
+                                                ->get(['network_cards.id', 'companies.name', 'network_cards.model', 'network_cards.connectivity_type']);
+                                        @endphp
+                                        @foreach($networkcards as $networkcard)
+                                            <option value="{{ $networkcard->id }}">
+                                                {{ $networkcard->name . ' - ' . $networkcard->model . ' - ' . $networkcard->connectivity_type }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="odd"
+                                           class="block text-gray-700 text-sm font-bold mb-2">درایو نوری*</label>
+                                    <select id="odd" class="border rounded-md w-full px-3 py-2" name="odd">
+                                        <option value="" selected>فاقد درایو نوری</option>
+                                        @php
+                                            $odds = \App\Models\Catalogs\Odd::join('companies', 'odds.company_id', '=', 'companies.id')
+                                                ->orderBy('companies.name')
+                                                ->get(['odds.id', 'companies.name', 'odds.model', 'odds.connectivity_type']);
+                                        @endphp
+                                        @foreach($odds as $odd)
+                                            <option value="{{ $odd->id }}">
+                                                {{ $odd->name . ' - ' . $odd->model . ' - ' . $odd->connectivity_type }}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                            <input type="hidden" name="personID" id="personID" value="">
                             <button type="submit"
                                     class="px-4 py-2 mr-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300">
                                 اضافه کردن
@@ -65,12 +316,12 @@
         <div class="mt-4 mb-4 flex items-center">
             <div class="fixed z-10 inset-0 overflow-y-auto hidden" id="addMonitorModal">
                 <div
-                    class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center  sm:block sm:p-0">
+                        class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center  sm:block sm:p-0">
                     <div class="fixed inset-0 transition-opacity" aria-hidden="true">
                         <div class="absolute inset-0 bg-gray-500 opacity-75 addmonitor"></div>
                     </div>
                     <div
-                        class="inline-block align-bottom bg-white rounded-lg text-right overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:w-full sm:max-w-[550px]">
+                            class="inline-block align-bottom bg-white rounded-lg text-right overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:w-full sm:max-w-[550px]">
                         <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                             <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
                                 تخصیص مانیتور به کاربر
@@ -89,7 +340,7 @@
                                         @endphp
                                         @foreach($assistances as $assistance)
                                             <option
-                                                value="{{ $assistance->id }}">{{$assistance->name}}</option>
+                                                    value="{{ $assistance->id }}">{{$assistance->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -118,12 +369,12 @@
         <div class="mt-4 mb-4 flex items-center">
             <div class="fixed z-10 inset-0 overflow-y-auto hidden" id="addPrinterModal">
                 <div
-                    class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center  sm:block sm:p-0">
+                        class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center  sm:block sm:p-0">
                     <div class="fixed inset-0 transition-opacity" aria-hidden="true">
                         <div class="absolute inset-0 bg-gray-500 opacity-75 addprinter"></div>
                     </div>
                     <div
-                        class="inline-block align-bottom bg-white rounded-lg text-right overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:w-full sm:max-w-[550px]">
+                            class="inline-block align-bottom bg-white rounded-lg text-right overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:w-full sm:max-w-[550px]">
                         <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                             <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
                                 تخصیص پرینتر به کاربر
@@ -142,7 +393,7 @@
                                         @endphp
                                         @foreach($assistances as $assistance)
                                             <option
-                                                value="{{ $assistance->id }}">{{$assistance->name}}</option>
+                                                    value="{{ $assistance->id }}">{{$assistance->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -171,12 +422,12 @@
         <div class="mt-4 mb-4 flex items-center">
             <div class="fixed z-10 inset-0 overflow-y-auto hidden" id="addScannerModal">
                 <div
-                    class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center  sm:block sm:p-0">
+                        class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center  sm:block sm:p-0">
                     <div class="fixed inset-0 transition-opacity" aria-hidden="true">
                         <div class="absolute inset-0 bg-gray-500 opacity-75 addscanner"></div>
                     </div>
                     <div
-                        class="inline-block align-bottom bg-white rounded-lg text-right overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:w-full sm:max-w-[550px]">
+                            class="inline-block align-bottom bg-white rounded-lg text-right overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:w-full sm:max-w-[550px]">
                         <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                             <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
                                 تخصیص اسکنر به کاربر
@@ -195,14 +446,14 @@
                                         @endphp
                                         @foreach($assistances as $assistance)
                                             <option
-                                                value="{{ $assistance->id }}">{{$assistance->name}}</option>
+                                                    value="{{ $assistance->id }}">{{$assistance->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                            <input type="hidden" name="personID" id="personID" value="">
+                            <input type="text" name="personID" id="personID" value="">
                             <button type="submit"
                                     class="px-4 py-2 mr-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300">
                                 اضافه کردن
@@ -224,12 +475,12 @@
         <div class="mt-4 mb-4 flex items-center">
             <div class="fixed z-10 inset-0 overflow-y-auto hidden" id="addCopyMachineModal">
                 <div
-                    class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center  sm:block sm:p-0">
+                        class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center  sm:block sm:p-0">
                     <div class="fixed inset-0 transition-opacity" aria-hidden="true">
                         <div class="absolute inset-0 bg-gray-500 opacity-75 addcopymachine"></div>
                     </div>
                     <div
-                        class="inline-block align-bottom bg-white rounded-lg text-right overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:w-full sm:max-w-[550px]">
+                            class="inline-block align-bottom bg-white rounded-lg text-right overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:w-full sm:max-w-[550px]">
                         <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                             <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
                                 تخصیص دستگاه کپی به کاربر
@@ -248,7 +499,7 @@
                                         @endphp
                                         @foreach($assistances as $assistance)
                                             <option
-                                                value="{{ $assistance->id }}">{{$assistance->name}}</option>
+                                                    value="{{ $assistance->id }}">{{$assistance->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -277,12 +528,12 @@
         <div class="mt-4 mb-4 flex items-center">
             <div class="fixed z-10 inset-0 overflow-y-auto hidden" id="addVOIPModal">
                 <div
-                    class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center  sm:block sm:p-0">
+                        class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center  sm:block sm:p-0">
                     <div class="fixed inset-0 transition-opacity" aria-hidden="true">
                         <div class="absolute inset-0 bg-gray-500 opacity-75 addVOIP"></div>
                     </div>
                     <div
-                        class="inline-block align-bottom bg-white rounded-lg text-right overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:w-full sm:max-w-[550px]">
+                            class="inline-block align-bottom bg-white rounded-lg text-right overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:w-full sm:max-w-[550px]">
                         <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                             <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
                                 تخصیص VOIP به کاربر
@@ -301,7 +552,7 @@
                                         @endphp
                                         @foreach($assistances as $assistance)
                                             <option
-                                                value="{{ $assistance->id }}">{{$assistance->name}}</option>
+                                                    value="{{ $assistance->id }}">{{$assistance->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>

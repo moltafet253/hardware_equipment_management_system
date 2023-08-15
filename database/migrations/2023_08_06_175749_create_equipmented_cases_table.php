@@ -17,7 +17,8 @@ return new class extends Migration
             $table->foreign('person_id')->references('id')->on('persons');
             $table->string('property_number');
             $table->integer('stamp_number');
-            $table->string('computer_name');
+            $table->string('computer_name')->nullable();
+            $table->string('delivery_date',20)->nullable();
             $table->unsignedBigInteger('case');
             $table->foreign('case')->references('id')->on('cases');
             $table->unsignedBigInteger('power');
@@ -34,7 +35,7 @@ return new class extends Migration
             $table->foreign('ram3')->references('id')->on('rams');
             $table->unsignedBigInteger('ram4')->nullable();
             $table->foreign('ram4')->references('id')->on('rams');
-            $table->unsignedBigInteger('graphic_card')->default(1);
+            $table->unsignedBigInteger('graphic_card')->default(1)->nullable();
             $table->foreign('graphic_card')->references('id')->on('graphic_cards');
             $table->unsignedBigInteger('hdd1');
             $table->foreign('hdd1')->references('id')->on('harddisks');
@@ -46,8 +47,8 @@ return new class extends Migration
             $table->foreign('odd')->references('id')->on('odds');
             $table->unsignedBigInteger('network_card1')->default(1);
             $table->foreign('network_card1')->references('id')->on('network_cards');
-            $table->unsignedBigInteger('network_card2')->nullable();
-            $table->foreign('network_card2')->references('id')->on('network_cards');
+//            $table->unsignedBigInteger('network_card2')->nullable();
+//            $table->foreign('network_card2')->references('id')->on('network_cards');
             $table->timestamps();
             $table->softDeletes();
         });
