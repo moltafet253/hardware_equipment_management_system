@@ -41,8 +41,6 @@ return new class extends Migration
             $table->foreign('hdd1')->references('id')->on('harddisks');
             $table->unsignedBigInteger('hdd2')->nullable();
             $table->foreign('hdd2')->references('id')->on('harddisks');
-            $table->unsignedBigInteger('hdd3')->nullable();
-            $table->foreign('hdd3')->references('id')->on('harddisks');
             $table->unsignedBigInteger('odd')->nullable();
             $table->foreign('odd')->references('id')->on('odds');
             $table->unsignedBigInteger('network_card1')->default(1);

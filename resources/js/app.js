@@ -60,8 +60,8 @@ function hasNumber(text) {
 }
 
 function resetFields() {
-    // const inputs = document.querySelectorAll('input');
-    // inputs.forEach(input => input.value = "");
+    const inputs = document.querySelectorAll('input');
+    inputs.forEach(input => input.value = "");
     const selectors = document.querySelectorAll('select');
     selectors.forEach(select => select.value = "");
 }
@@ -2363,47 +2363,6 @@ $(document).ready(function () {
                 });
             });
             break;
-        case '/Equipment':
-            $('#edit-equipment').on('submit', function (e) {
-                e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST',
-                            url: '/editPerson',
-                            data: data,
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            },
-                            success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullName) {
-                                        swalFire('خطا!', response.errors.nullName[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullFamily) {
-                                        swalFire('خطا!', response.errors.nullFamily[0], 'error', 'تلاش مجدد');
-                                    }else if (response.errors.nullPersonnelCode) {
-                                        swalFire('خطا!', response.errors.nullPersonnelCode[0], 'error', 'تلاش مجدد');
-                                    }
-                                } else if (response.success) {
-                                    swalFire('ویرایش پرسنل موفقیت آمیز بود!', response.message.personEdited[0], 'success', 'بستن');
-                                    toggleModal(editPersonModal.id);
-                                    resetFields();
-                                }
-                            }
-                        });
-                    }
-                });
-            });
-            break;
         case '/showEquipmentStatus':
             $('.AddCase, #cancel-add-case').on('click', function () {
                 toggleModal(addCaseModal.id);
@@ -2442,7 +2401,6 @@ $(document).ready(function () {
                 toggleModal(addVOIPModal.id)
             });
 
-
             $('#new-case').on('submit', function (e) {
                 e.preventDefault();
                 Swal.fire({
@@ -2468,14 +2426,238 @@ $(document).ready(function () {
                             success: function (response) {
                                 console.log(response)
                                 if (response.errors) {
-                                    if (response.errors.nullName) {
-                                        swalFire('خطا!', response.errors.nullName[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullFamily) {
-                                        swalFire('خطا!', response.errors.nullFamily[0], 'error', 'تلاش مجدد');
+                                    if (response.errors.nullPersonnelCode) {
+                                        swalFire('خطا!', response.errors.nullPersonnelCode[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullPropertyNumber) {
+                                        swalFire('خطا!', response.errors.nullPropertyNumber[0], 'error', 'تلاش مجدد');
+                                    }else if (response.errors.nullStampNumber) {
+                                        swalFire('خطا!', response.errors.nullStampNumber[0], 'error', 'تلاش مجدد');
+                                    }else if (response.errors.nullCaseInfo) {
+                                        swalFire('خطا!', response.errors.nullCaseInfo[0], 'error', 'تلاش مجدد');
+                                    }else if (response.errors.nullMotherboard) {
+                                        swalFire('خطا!', response.errors.nullMotherboard[0], 'error', 'تلاش مجدد');
+                                    }else if (response.errors.nullPower) {
+                                        swalFire('خطا!', response.errors.nullPower[0], 'error', 'تلاش مجدد');
+                                    }else if (response.errors.nullCPU) {
+                                        swalFire('خطا!', response.errors.nullCPU[0], 'error', 'تلاش مجدد');
+                                    }else if (response.errors.nullRAM) {
+                                        swalFire('خطا!', response.errors.nullRAM[0], 'error', 'تلاش مجدد');
+                                    }else if (response.errors.nullHDD) {
+                                        swalFire('خطا!', response.errors.nullHDD[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
                                     swalFire('ثبت کیس جدید موفقیت آمیز بود!', response.message.caseAdded[0], 'success', 'بستن');
-                                    // toggleModal(newPersonModal.id);
+                                    toggleModal(addCaseModal.id);
+                                    resetFields();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+            $('#new-monitor').on('submit', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var form = $(this);
+                        var data = form.serialize();
+                        var idFromLink = getParameterByName('id', window.location.href);
+                        data += "&person=" + idFromLink;
+                        $.ajax({
+                            type: 'POST',
+                            url: '/newMonitor',
+                            data: data,
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            },
+                            success: function (response) {
+                                console.log(response)
+                                if (response.errors) {
+                                    if (response.errors.nullPersonnelCode) {
+                                        swalFire('خطا!', response.errors.nullPersonnelCode[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullPropertyNumber) {
+                                        swalFire('خطا!', response.errors.nullPropertyNumber[0], 'error', 'تلاش مجدد');
+                                    }else if (response.errors.nullMonitor) {
+                                        swalFire('خطا!', response.errors.nullMonitor[0], 'error', 'تلاش مجدد');
+                                    }
+                                } else if (response.success) {
+                                    swalFire('ثبت مانیتور جدید موفقیت آمیز بود!', response.message.monitorAdded[0], 'success', 'بستن');
+                                    toggleModal(addMonitorModal.id);
+                                    resetFields();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+            $('#new-printer').on('submit', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var form = $(this);
+                        var data = form.serialize();
+                        var idFromLink = getParameterByName('id', window.location.href);
+                        data += "&person=" + idFromLink;
+                        $.ajax({
+                            type: 'POST',
+                            url: '/newPrinter',
+                            data: data,
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            },
+                            success: function (response) {
+                                console.log(response)
+                                if (response.errors) {
+                                    if (response.errors.nullPersonnelCode) {
+                                        swalFire('خطا!', response.errors.nullPersonnelCode[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullPropertyNumber) {
+                                        swalFire('خطا!', response.errors.nullPropertyNumber[0], 'error', 'تلاش مجدد');
+                                    }else if (response.errors.nullPrinter) {
+                                        swalFire('خطا!', response.errors.nullPrinter[0], 'error', 'تلاش مجدد');
+                                    }
+                                } else if (response.success) {
+                                    swalFire('ثبت پرینتر جدید موفقیت آمیز بود!', response.message.printerAdded[0], 'success', 'بستن');
+                                    toggleModal(addPrinterModal.id);
+                                    resetFields();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+            $('#new-scanner').on('submit', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var form = $(this);
+                        var data = form.serialize();
+                        var idFromLink = getParameterByName('id', window.location.href);
+                        data += "&person=" + idFromLink;
+                        $.ajax({
+                            type: 'POST',
+                            url: '/newScanner',
+                            data: data,
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            },
+                            success: function (response) {
+                                console.log(response)
+                                if (response.errors) {
+                                    if (response.errors.nullPersonnelCode) {
+                                        swalFire('خطا!', response.errors.nullPersonnelCode[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullPropertyNumber) {
+                                        swalFire('خطا!', response.errors.nullPropertyNumber[0], 'error', 'تلاش مجدد');
+                                    }else if (response.errors.nullScanner) {
+                                        swalFire('خطا!', response.errors.nullScanner[0], 'error', 'تلاش مجدد');
+                                    }
+                                } else if (response.success) {
+                                    swalFire('ثبت پرینتر جدید موفقیت آمیز بود!', response.message.scannerAdded[0], 'success', 'بستن');
+                                    toggleModal(addScannerModal.id);
+                                    resetFields();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+            $('#new-copymachine').on('submit', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var form = $(this);
+                        var data = form.serialize();
+                        var idFromLink = getParameterByName('id', window.location.href);
+                        data += "&person=" + idFromLink;
+                        $.ajax({
+                            type: 'POST',
+                            url: '/newCopyMachine',
+                            data: data,
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            },
+                            success: function (response) {
+                                console.log(response)
+                                if (response.errors) {
+                                    if (response.errors.nullPersonnelCode) {
+                                        swalFire('خطا!', response.errors.nullPersonnelCode[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullPropertyNumber) {
+                                        swalFire('خطا!', response.errors.nullPropertyNumber[0], 'error', 'تلاش مجدد');
+                                    }else if (response.errors.nullCopyMachine) {
+                                        swalFire('خطا!', response.errors.nullCopyMachine[0], 'error', 'تلاش مجدد');
+                                    }
+                                } else if (response.success) {
+                                    swalFire('ثبت دستگاه کپی جدید موفقیت آمیز بود!', response.message.copymachineAdded[0], 'success', 'بستن');
+                                    toggleModal(addCopyMachineModal.id);
+                                    resetFields();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+            $('#new-voip').on('submit', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var form = $(this);
+                        var data = form.serialize();
+                        var idFromLink = getParameterByName('id', window.location.href);
+                        data += "&person=" + idFromLink;
+                        $.ajax({
+                            type: 'POST',
+                            url: '/newVOIP',
+                            data: data,
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            },
+                            success: function (response) {
+                                console.log(response)
+                                if (response.errors) {
+                                    if (response.errors.nullPersonnelCode) {
+                                        swalFire('خطا!', response.errors.nullPersonnelCode[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullPropertyNumber) {
+                                        swalFire('خطا!', response.errors.nullPropertyNumber[0], 'error', 'تلاش مجدد');
+                                    }else if (response.errors.nullVOIP) {
+                                        swalFire('خطا!', response.errors.nullVOIP[0], 'error', 'تلاش مجدد');
+                                    }
+                                } else if (response.success) {
+                                    swalFire('ثبت VOIP جدید موفقیت آمیز بود!', response.message.VOIPAdded[0], 'success', 'بستن');
+                                    toggleModal(addVOIPModal.id);
                                     resetFields();
                                 }
                             }

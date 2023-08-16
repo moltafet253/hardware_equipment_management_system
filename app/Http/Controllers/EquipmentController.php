@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\EquipmentedCase;
+use App\Models\EquipmentedCopyMachine;
+use App\Models\EquipmentedMonitor;
+use App\Models\EquipmentedPrinter;
+use App\Models\EquipmentedScanner;
+use App\Models\EquipmentedVoip;
 use Illuminate\Http\Request;
 
 class EquipmentController extends Controller
@@ -34,6 +39,40 @@ class EquipmentController extends Controller
         $graphiccard = $request->input('graphiccard');
         $networkcard = $request->input('networkcard');
 
+        if (!$personID){
+            return $this->alerts(false, 'nullPersonnelCode', 'کد پرسنلی وارد نشده است');
+        }
+        if (!$property_number){
+            return $this->alerts(false, 'nullPropertyNumber', 'کد اموال وارد نشده است');
+        }
+        if (!$stamp_number){
+            return $this->alerts(false, 'nullStampNumber', 'شماره پلمپ وارد نشده است');
+        }
+        if (!$caseInfo){
+            return $this->alerts(false, 'nullCaseInfo', 'کیس انتخاب نشده است');
+        }
+        if (!$motherboard){
+            return $this->alerts(false, 'nullMotherboard', 'مادربورد انتخاب نشده است');
+        }
+        if (!$power){
+            return $this->alerts(false, 'nullPower', 'منبع تغذیه انتخاب نشده است');
+        }
+        if (!$cpu){
+            return $this->alerts(false, 'nullCPU', 'پردازنده انتخاب نشده است');
+        }
+        if (!$ram1){
+            return $this->alerts(false, 'nullRAM', 'رم انتخاب نشده است');
+        }
+        if (!$hdd1){
+            return $this->alerts(false, 'nullHDD', 'هارد انتخاب نشده است');
+        }
+        if (!$graphiccard){
+            $graphiccard=1;
+        }
+        if (!$networkcard){
+            $networkcard=1;
+        }
+
         $case = new EquipmentedCase();
         $case->person_id = $personID;
         $case->property_number = $property_number;
@@ -53,6 +92,145 @@ class EquipmentController extends Controller
         $case->graphic_card = $graphiccard;
         $case->network_card = $networkcard;
         $case->save();
+        $this->logActivity('Case Added =>' . $case->id, \request()->ip(), \request()->userAgent(), \session('id'));
+        return $this->success(true, 'caseAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
+
+    }
+    public function newMonitor(Request $request)
+    {
+        $request->all();
+        $personID = $request->input('person');
+        $property_number = $request->input('property_number');
+        $delivery_date = $request->input('delivery_date');
+        $monitor = $request->input('monitor');
+
+        if (!$personID){
+            return $this->alerts(false, 'nullPersonnelCode', 'کد پرسنلی وارد نشده است');
+        }
+        if (!$property_number){
+            return $this->alerts(false, 'nullPropertyNumber', 'کد اموال وارد نشده است');
+        }
+        if (!$monitor){
+            return $this->alerts(false, 'nullMonitor', 'مانیتور انتخاب نشده است');
+        }
+
+        $newmonitor = new EquipmentedMonitor();
+        $newmonitor->person_id = $personID;
+        $newmonitor->property_number = $property_number;
+        $newmonitor->delivery_date = $delivery_date;
+        $newmonitor->monitor_id = $monitor;
+        $newmonitor->save();
+        $this->logActivity('Monitor Added =>' . $newmonitor->id, \request()->ip(), \request()->userAgent(), \session('id'));
+        return $this->success(true, 'monitorAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
+
+    }
+    public function newPrinter(Request $request)
+    {
+        $request->all();
+        $personID = $request->input('person');
+        $property_number = $request->input('property_number');
+        $delivery_date = $request->input('delivery_date');
+        $printer = $request->input('printer');
+
+        if (!$personID){
+            return $this->alerts(false, 'nullPersonnelCode', 'کد پرسنلی وارد نشده است');
+        }
+        if (!$property_number){
+            return $this->alerts(false, 'nullPropertyNumber', 'کد اموال وارد نشده است');
+        }
+        if (!$printer){
+            return $this->alerts(false, 'nullPrinter', 'مانیتور انتخاب نشده است');
+        }
+
+        $newprinter = new EquipmentedPrinter();
+        $newprinter->person_id = $personID;
+        $newprinter->property_number = $property_number;
+        $newprinter->delivery_date = $delivery_date;
+        $newprinter->printer_id = $printer;
+        $newprinter->save();
+        $this->logActivity('Printer Added =>' . $newprinter->id, \request()->ip(), \request()->userAgent(), \session('id'));
+        return $this->success(true, 'printerAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
+    }
+    public function newScanner(Request $request)
+    {
+        $request->all();
+        $personID = $request->input('person');
+        $property_number = $request->input('property_number');
+        $delivery_date = $request->input('delivery_date');
+        $scanner = $request->input('scanner');
+
+        if (!$personID){
+            return $this->alerts(false, 'nullPersonnelCode', 'کد پرسنلی وارد نشده است');
+        }
+        if (!$property_number){
+            return $this->alerts(false, 'nullPropertyNumber', 'کد اموال وارد نشده است');
+        }
+        if (!$scanner){
+            return $this->alerts(false, 'nullScanner', 'اسکنر انتخاب نشده است');
+        }
+
+        $newscanner = new EquipmentedScanner();
+        $newscanner->person_id = $personID;
+        $newscanner->property_number = $property_number;
+        $newscanner->delivery_date = $delivery_date;
+        $newscanner->scanner_id = $scanner;
+        $newscanner->save();
+        $this->logActivity('Scanner Added =>' . $newscanner->id, \request()->ip(), \request()->userAgent(), \session('id'));
+        return $this->success(true, 'scannerAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
+    }
+    public function newCopyMachine(Request $request)
+    {
+        $request->all();
+        $personID = $request->input('person');
+        $property_number = $request->input('property_number');
+        $delivery_date = $request->input('delivery_date');
+        $copymachine = $request->input('copymachine');
+
+        if (!$personID){
+            return $this->alerts(false, 'nullPersonnelCode', 'کد پرسنلی وارد نشده است');
+        }
+        if (!$property_number){
+            return $this->alerts(false, 'nullPropertyNumber', 'کد اموال وارد نشده است');
+        }
+        if (!$copymachine){
+            return $this->alerts(false, 'nullCopyMachine', 'اسکنر انتخاب نشده است');
+        }
+
+        $newcopymachine = new EquipmentedCopyMachine();
+        $newcopymachine->person_id = $personID;
+        $newcopymachine->property_number = $property_number;
+        $newcopymachine->delivery_date = $delivery_date;
+        $newcopymachine->copy_machine_id = $copymachine;
+        $newcopymachine->save();
+        $this->logActivity('Copy Machine Added =>' . $newcopymachine->id, \request()->ip(), \request()->userAgent(), \session('id'));
+        return $this->success(true, 'copymachineAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
+    }
+    public function newVOIP(Request $request)
+    {
+        $request->all();
+        $personID = $request->input('person');
+        $property_number = $request->input('property_number');
+        $delivery_date = $request->input('delivery_date');
+        $VOIP = $request->input('VOIP');
+
+        if (!$personID){
+            return $this->alerts(false, 'nullPersonnelCode', 'کد پرسنلی وارد نشده است');
+        }
+        if (!$property_number){
+            return $this->alerts(false, 'nullPropertyNumber', 'کد اموال وارد نشده است');
+        }
+        if (!$VOIP){
+            return $this->alerts(false, 'nullVOIP', 'VOIP انتخاب نشده است');
+        }
+
+        $newVOIP = new EquipmentedVOIP();
+        $newVOIP->person_id = $personID;
+        $newVOIP->property_number = $property_number;
+        $newVOIP->delivery_date = $delivery_date;
+        $newVOIP->VOIP_id = $VOIP;
+        $newVOIP->save();
+        $this->logActivity('VOIP Added =>' . $newVOIP->id, \request()->ip(), \request()->userAgent(), \session('id'));
+        return $this->success(true, 'VOIPAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
 }

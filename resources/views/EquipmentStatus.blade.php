@@ -10,15 +10,14 @@
     <form id="new-case">
         @csrf
         <div class="mt-4 mb-4 flex items-center">
-            {{--            <div class="fixed z-10 inset-0 overflow-y-auto hidden" id="addCaseModal">--}}
-            <div class="fixed z-10 inset-0 overflow-y-auto " id="addCaseModal">
+            <div class="fixed z-10 inset-0 overflow-y-auto hidden" id="addCaseModal">
                 <div
-                        class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center  sm:block sm:p-0">
+                    class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center  sm:block sm:p-0">
                     <div class="fixed inset-0 transition-opacity" aria-hidden="true">
                         <div class="absolute inset-0 bg-gray-500 opacity-75 addcase"></div>
                     </div>
                     <div
-                            class="inline-block align-bottom bg-white rounded-lg text-right overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:w-full sm:max-w-[550px]">
+                        class="inline-block align-bottom bg-white rounded-lg text-right overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:w-full sm:max-w-[550px]">
                         <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                             <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
                                 تخصیص کیس به کاربر
@@ -26,8 +25,8 @@
                             <div class="mt-4">
                                 <div class="flex">
                                     <div class="ml-3 w-full">
-                                    <label for="property_number"
-                                           class="block text-gray-700 text-sm font-bold mb-2">کد اموال*</label>
+                                        <label for="property_number"
+                                               class="block text-gray-700 text-sm font-bold mb-2">کد اموال*</label>
                                         <input type="text" id="property_number" name="property_number"
                                                class="border rounded-md w-full mb-4 px-3 py-2 text-right "
                                                placeholder="کد اموال را وارد کنید">
@@ -42,8 +41,8 @@
                                 </div>
                                 <div class="flex">
                                     <div class="ml-3 w-full">
-                                    <label for="computer_name"
-                                           class="block text-gray-700 text-sm font-bold mb-2">نام کامپیوتر</label>
+                                        <label for="computer_name"
+                                               class="block text-gray-700 text-sm font-bold mb-2">نام کامپیوتر</label>
                                         <input type="text" id="computer_name" name="computer_name"
                                                class="border rounded-md w-full mb-4 px-3 py-2 text-right"
                                                placeholder="نام کامپیوتر را وارد کنید">
@@ -203,48 +202,49 @@
                                 </div>
                                 <div class="flex mb-4">
                                     <div class="ml-3">
-                                    <label for="hdd1"
-                                           class="block text-gray-700 text-sm font-bold mt-3 whitespace-nowrap">هارد
-                                        1*</label>
-                                    <select id="hdd1" class="border rounded-md w-full px-3 py-2" name="hdd1">
-                                        <option value="" disabled selected>انتخاب کنید</option>
-                                        @php
-                                            $hdds = \App\Models\Catalogs\Harddisk::join('companies', 'harddisks.company_id', '=', 'companies.id')
-                                                ->where('harddisks.type','!=','External')
-                                                ->orderBy('companies.name')
-                                                ->get(['harddisks.id', 'companies.name', 'harddisks.model', 'harddisks.capacity','harddisks.connectivity_type',]);
-                                        @endphp
-                                        @foreach($hdds as $hdd)
-                                            <option value="{{ $hdd->id }}">
-                                                {{ $hdd->name . ' - ' . $hdd->model . ' - ' . $hdd->capacity. ' - ' . $hdd->connectivity_type}}
-                                            </option>
-                                        @endforeach
-                                    </select>
+                                        <label for="hdd1"
+                                               class="block text-gray-700 text-sm font-bold mt-3 whitespace-nowrap">هارد
+                                            1*</label>
+                                        <select id="hdd1" class="border rounded-md w-full px-3 py-2" name="hdd1">
+                                            <option value="" disabled selected>انتخاب کنید</option>
+                                            @php
+                                                $hdds = \App\Models\Catalogs\Harddisk::join('companies', 'harddisks.company_id', '=', 'companies.id')
+                                                    ->where('harddisks.type','!=','External')
+                                                    ->orderBy('companies.name')
+                                                    ->get(['harddisks.id', 'companies.name', 'harddisks.model', 'harddisks.capacity','harddisks.connectivity_type',]);
+                                            @endphp
+                                            @foreach($hdds as $hdd)
+                                                <option value="{{ $hdd->id }}">
+                                                    {{ $hdd->name . ' - ' . $hdd->model . ' - ' . $hdd->capacity. ' - ' . $hdd->connectivity_type}}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                     <div>
-                                    <label for="hdd2"
-                                           class="block text-gray-700 text-sm font-bold mt-3 whitespace-nowrap">هارد
-                                        2</label>
-                                    <select id="hdd2" class="border rounded-md w-full px-3 py-2" name="hdd2">
-                                        <option value=""  selected>فاقد رم</option>
-                                        @php
-                                            $hdds = \App\Models\Catalogs\Harddisk::join('companies', 'harddisks.company_id', '=', 'companies.id')
-                                                ->where('harddisks.type','!=','External')
-                                                ->orderBy('companies.name')
-                                                ->get(['harddisks.id', 'companies.name', 'harddisks.model', 'harddisks.capacity','harddisks.connectivity_type',]);
-                                        @endphp
-                                        @foreach($hdds as $hdd)
-                                            <option value="{{ $hdd->id }}">
-                                                {{ $hdd->name . ' - ' . $hdd->model . ' - ' . $hdd->capacity. ' - ' . $hdd->connectivity_type}}
-                                            </option>
-                                        @endforeach
-                                    </select>
+                                        <label for="hdd2"
+                                               class="block text-gray-700 text-sm font-bold mt-3 whitespace-nowrap">هارد
+                                            2</label>
+                                        <select id="hdd2" class="border rounded-md w-full px-3 py-2" name="hdd2">
+                                            <option value="" selected>فاقد رم</option>
+                                            @php
+                                                $hdds = \App\Models\Catalogs\Harddisk::join('companies', 'harddisks.company_id', '=', 'companies.id')
+                                                    ->where('harddisks.type','!=','External')
+                                                    ->orderBy('companies.name')
+                                                    ->get(['harddisks.id', 'companies.name', 'harddisks.model', 'harddisks.capacity','harddisks.connectivity_type',]);
+                                            @endphp
+                                            @foreach($hdds as $hdd)
+                                                <option value="{{ $hdd->id }}">
+                                                    {{ $hdd->name . ' - ' . $hdd->model . ' - ' . $hdd->capacity. ' - ' . $hdd->connectivity_type}}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="mb-4">
                                     <label for="graphiccard"
                                            class="block text-gray-700 text-sm font-bold mb-2">کارت گرافیک*</label>
-                                    <select id="graphiccard" class="border rounded-md w-full px-3 py-2" name="graphiccard">
+                                    <select id="graphiccard" class="border rounded-md w-full px-3 py-2"
+                                            name="graphiccard">
                                         <option value="" selected>فاقد کارت گرافیک</option>
                                         @php
                                             $graphic_cards = \App\Models\Catalogs\GraphicCard::join('companies', 'graphic_cards.company_id', '=', 'companies.id')
@@ -261,7 +261,8 @@
                                 <div class="mb-4">
                                     <label for="networkcard"
                                            class="block text-gray-700 text-sm font-bold mb-2">کارت شبکه*</label>
-                                    <select id="networkcard" class="border rounded-md w-full px-3 py-2" name="networkcard">
+                                    <select id="networkcard" class="border rounded-md w-full px-3 py-2"
+                                            name="networkcard">
                                         <option value="" selected>فاقد کارت شبکه</option>
                                         @php
                                             $networkcards = \App\Models\Catalogs\NetworkCard::join('companies', 'network_cards.company_id', '=', 'companies.id')
@@ -311,48 +312,64 @@
     </form>
 
     {{--    Monitor--}}
-    <form id="add-monitor">
+    <form id="new-monitor">
         @csrf
         <div class="mt-4 mb-4 flex items-center">
+{{--            <div class="fixed z-10 inset-0 overflow-y-auto " id="addMonitorModal">--}}
             <div class="fixed z-10 inset-0 overflow-y-auto hidden" id="addMonitorModal">
                 <div
-                        class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center  sm:block sm:p-0">
+                    class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center  sm:block sm:p-0">
                     <div class="fixed inset-0 transition-opacity" aria-hidden="true">
                         <div class="absolute inset-0 bg-gray-500 opacity-75 addmonitor"></div>
                     </div>
                     <div
-                            class="inline-block align-bottom bg-white rounded-lg text-right overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:w-full sm:max-w-[550px]">
+                        class="inline-block align-bottom bg-white rounded-lg text-right overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:w-full sm:max-w-[550px]">
                         <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                             <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
                                 تخصیص مانیتور به کاربر
                             </h3>
                             <div class="mt-4">
+                                <div class="flex">
+                                    <div class="ml-3 w-full">
+                                        <label for="property_number"
+                                               class="block text-gray-700 text-sm font-bold mb-2">کد اموال*</label>
+                                        <input type="text" id="property_number" name="property_number"
+                                               class="border rounded-md w-full mb-4 px-3 py-2 text-right "
+                                               placeholder="کد اموال را وارد کنید">
+                                    </div>
+                                    <div class="w-full">
+                                        <label for="delivery_date"
+                                               class="block text-gray-700 text-sm font-bold mb-2">تاریخ تحویل</label>
+                                        <input type="text" id="delivery_date" name="delivery_date"
+                                               class="border rounded-md w-full mb-4 px-3 py-2 text-right"
+                                               placeholder="با فرمت : 1402/05/04">
+                                    </div>
+                                </div>
                                 <div class="mb-4">
-                                    <label for="assistanceForEdit"
-                                           class="block text-gray-700 text-sm font-bold mb-2">معاونت/بخش:</label>
-                                    <select id="assistanceForEdit"
-                                            class="border rounded-md w-full px-3 py-2"
-                                            name="assistanceForEdit"
-                                            title="معاونت/بخش را وارد کنید (اختیاری)">
+                                    <label for="monitor"
+                                           class="block text-gray-700 text-sm font-bold mb-2">مانیتور*</label>
+                                    <select id="monitor" class="border rounded-md w-full px-3 py-2" name="monitor">
                                         <option value="" disabled selected>انتخاب کنید</option>
                                         @php
-                                            $assistances=\App\Models\Catalogs\Assistance::orderBy('name')->get();
+                                            $monitors = \App\Models\Catalogs\Monitor::join('companies', 'monitors.company_id', '=', 'companies.id')
+                                                ->orderBy('companies.name')
+                                                ->get([ 'companies.name', 'monitors.id', 'monitors.model', 'monitors.size']);
                                         @endphp
-                                        @foreach($assistances as $assistance)
-                                            <option
-                                                    value="{{ $assistance->id }}">{{$assistance->name}}</option>
+                                        @foreach($monitors as $monitor)
+                                            <option value="{{ $monitor->id }}">
+                                                {{ $monitor->name . ' - ' . $monitor->model. ' - ' . $monitor->size.' inch' }}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                            <input type="hidden" name="personID" id="personID" value="">
                             <button type="submit"
                                     class="px-4 py-2 mr-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300">
                                 اضافه کردن
                             </button>
-                            <button id="cancel-add-monitor" type="button"
+                            <button id="cancel-add-montior" type="button"
                                     class="mt-3 w-full inline-flex justify-center px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring focus:border-blue-300 sm:mt-0 sm:w-auto">
                                 انصراف
                             </button>
@@ -364,43 +381,59 @@
     </form>
 
     {{--    Printers--}}
-    <form id="add-printer">
+    <form id="new-printer">
         @csrf
         <div class="mt-4 mb-4 flex items-center">
+            {{--            <div class="fixed z-10 inset-0 overflow-y-auto " id="addMonitorModal">--}}
             <div class="fixed z-10 inset-0 overflow-y-auto hidden" id="addPrinterModal">
                 <div
-                        class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center  sm:block sm:p-0">
+                    class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center  sm:block sm:p-0">
                     <div class="fixed inset-0 transition-opacity" aria-hidden="true">
                         <div class="absolute inset-0 bg-gray-500 opacity-75 addprinter"></div>
                     </div>
                     <div
-                            class="inline-block align-bottom bg-white rounded-lg text-right overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:w-full sm:max-w-[550px]">
+                        class="inline-block align-bottom bg-white rounded-lg text-right overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:w-full sm:max-w-[550px]">
                         <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                             <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
                                 تخصیص پرینتر به کاربر
                             </h3>
                             <div class="mt-4">
+                                <div class="flex">
+                                    <div class="ml-3 w-full">
+                                        <label for="property_number"
+                                               class="block text-gray-700 text-sm font-bold mb-2">کد اموال*</label>
+                                        <input type="text" id="property_number" name="property_number"
+                                               class="border rounded-md w-full mb-4 px-3 py-2 text-right "
+                                               placeholder="کد اموال را وارد کنید">
+                                    </div>
+                                    <div class="w-full">
+                                        <label for="delivery_date"
+                                               class="block text-gray-700 text-sm font-bold mb-2">تاریخ تحویل</label>
+                                        <input type="text" id="delivery_date" name="delivery_date"
+                                               class="border rounded-md w-full mb-4 px-3 py-2 text-right"
+                                               placeholder="با فرمت : 1402/05/04">
+                                    </div>
+                                </div>
                                 <div class="mb-4">
-                                    <label for="assistanceForEdit"
-                                           class="block text-gray-700 text-sm font-bold mb-2">معاونت/بخش:</label>
-                                    <select id="assistanceForEdit"
-                                            class="border rounded-md w-full px-3 py-2"
-                                            name="assistanceForEdit"
-                                            title="معاونت/بخش را وارد کنید (اختیاری)">
+                                    <label for="printer"
+                                           class="block text-gray-700 text-sm font-bold mb-2">پرینتر*</label>
+                                    <select id="printer" class="border rounded-md w-full px-3 py-2" name="printer">
                                         <option value="" disabled selected>انتخاب کنید</option>
                                         @php
-                                            $assistances=\App\Models\Catalogs\Assistance::orderBy('name')->get();
+                                            $printers = \App\Models\Catalogs\Printer::join('companies', 'printers.company_id', '=', 'companies.id')
+                                                ->orderBy('companies.name')
+                                                ->get([ 'companies.name', 'printers.id', 'printers.model']);
                                         @endphp
-                                        @foreach($assistances as $assistance)
-                                            <option
-                                                    value="{{ $assistance->id }}">{{$assistance->name}}</option>
+                                        @foreach($printers as $printer)
+                                            <option value="{{ $printer->id }}">
+                                                {{ $printer->name . ' - ' . $printer->model }}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                            <input type="hidden" name="personID" id="personID" value="">
                             <button type="submit"
                                     class="px-4 py-2 mr-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300">
                                 اضافه کردن
@@ -417,43 +450,59 @@
     </form>
 
     {{--    Scanners--}}
-    <form id="add-scanner">
+    <form id="new-scanner">
         @csrf
         <div class="mt-4 mb-4 flex items-center">
+            {{--            <div class="fixed z-10 inset-0 overflow-y-auto " id="addMonitorModal">--}}
             <div class="fixed z-10 inset-0 overflow-y-auto hidden" id="addScannerModal">
                 <div
-                        class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center  sm:block sm:p-0">
+                    class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center  sm:block sm:p-0">
                     <div class="fixed inset-0 transition-opacity" aria-hidden="true">
                         <div class="absolute inset-0 bg-gray-500 opacity-75 addscanner"></div>
                     </div>
                     <div
-                            class="inline-block align-bottom bg-white rounded-lg text-right overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:w-full sm:max-w-[550px]">
+                        class="inline-block align-bottom bg-white rounded-lg text-right overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:w-full sm:max-w-[550px]">
                         <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                             <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
                                 تخصیص اسکنر به کاربر
                             </h3>
                             <div class="mt-4">
+                                <div class="flex">
+                                    <div class="ml-3 w-full">
+                                        <label for="property_number"
+                                               class="block text-gray-700 text-sm font-bold mb-2">کد اموال*</label>
+                                        <input type="text" id="property_number" name="property_number"
+                                               class="border rounded-md w-full mb-4 px-3 py-2 text-right "
+                                               placeholder="کد اموال را وارد کنید">
+                                    </div>
+                                    <div class="w-full">
+                                        <label for="delivery_date"
+                                               class="block text-gray-700 text-sm font-bold mb-2">تاریخ تحویل</label>
+                                        <input type="text" id="delivery_date" name="delivery_date"
+                                               class="border rounded-md w-full mb-4 px-3 py-2 text-right"
+                                               placeholder="با فرمت : 1402/05/04">
+                                    </div>
+                                </div>
                                 <div class="mb-4">
-                                    <label for="assistanceForEdit"
-                                           class="block text-gray-700 text-sm font-bold mb-2">معاونت/بخش:</label>
-                                    <select id="assistanceForEdit"
-                                            class="border rounded-md w-full px-3 py-2"
-                                            name="assistanceForEdit"
-                                            title="معاونت/بخش را وارد کنید (اختیاری)">
+                                    <label for="scanner"
+                                           class="block text-gray-700 text-sm font-bold mb-2">اسکنر*</label>
+                                    <select id="scanner" class="border rounded-md w-full px-3 py-2" name="scanner">
                                         <option value="" disabled selected>انتخاب کنید</option>
                                         @php
-                                            $assistances=\App\Models\Catalogs\Assistance::orderBy('name')->get();
+                                            $scanners = \App\Models\Catalogs\Scanner::join('companies', 'scanners.company_id', '=', 'companies.id')
+                                                ->orderBy('companies.name')
+                                                ->get([ 'companies.name', 'scanners.id', 'scanners.model']);
                                         @endphp
-                                        @foreach($assistances as $assistance)
-                                            <option
-                                                    value="{{ $assistance->id }}">{{$assistance->name}}</option>
+                                        @foreach($scanners as $scanner)
+                                            <option value="{{ $scanner->id }}">
+                                                {{ $scanner->name . ' - ' . $scanner->model }}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                            <input type="text" name="personID" id="personID" value="">
                             <button type="submit"
                                     class="px-4 py-2 mr-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300">
                                 اضافه کردن
@@ -468,45 +517,61 @@
             </div>
         </div>
     </form>
-
+    copymachine
     {{--    Copy Machines--}}
-    <form id="add-copymachine">
+    <form id="new-copymachine">
         @csrf
         <div class="mt-4 mb-4 flex items-center">
+            {{--            <div class="fixed z-10 inset-0 overflow-y-auto " id="addMonitorModal">--}}
             <div class="fixed z-10 inset-0 overflow-y-auto hidden" id="addCopyMachineModal">
                 <div
-                        class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center  sm:block sm:p-0">
+                    class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center  sm:block sm:p-0">
                     <div class="fixed inset-0 transition-opacity" aria-hidden="true">
                         <div class="absolute inset-0 bg-gray-500 opacity-75 addcopymachine"></div>
                     </div>
                     <div
-                            class="inline-block align-bottom bg-white rounded-lg text-right overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:w-full sm:max-w-[550px]">
+                        class="inline-block align-bottom bg-white rounded-lg text-right overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:w-full sm:max-w-[550px]">
                         <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                             <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
                                 تخصیص دستگاه کپی به کاربر
                             </h3>
                             <div class="mt-4">
+                                <div class="flex">
+                                    <div class="ml-3 w-full">
+                                        <label for="property_number"
+                                               class="block text-gray-700 text-sm font-bold mb-2">کد اموال*</label>
+                                        <input type="text" id="property_number" name="property_number"
+                                               class="border rounded-md w-full mb-4 px-3 py-2 text-right "
+                                               placeholder="کد اموال را وارد کنید">
+                                    </div>
+                                    <div class="w-full">
+                                        <label for="delivery_date"
+                                               class="block text-gray-700 text-sm font-bold mb-2">تاریخ تحویل</label>
+                                        <input type="text" id="delivery_date" name="delivery_date"
+                                               class="border rounded-md w-full mb-4 px-3 py-2 text-right"
+                                               placeholder="با فرمت : 1402/05/04">
+                                    </div>
+                                </div>
                                 <div class="mb-4">
-                                    <label for="assistanceForEdit"
-                                           class="block text-gray-700 text-sm font-bold mb-2">معاونت/بخش:</label>
-                                    <select id="assistanceForEdit"
-                                            class="border rounded-md w-full px-3 py-2"
-                                            name="assistanceForEdit"
-                                            title="معاونت/بخش را وارد کنید (اختیاری)">
+                                    <label for="copymachine"
+                                           class="block text-gray-700 text-sm font-bold mb-2">دستگاه کپی*</label>
+                                    <select id="copymachine" class="border rounded-md w-full px-3 py-2" name="copymachine">
                                         <option value="" disabled selected>انتخاب کنید</option>
                                         @php
-                                            $assistances=\App\Models\Catalogs\Assistance::orderBy('name')->get();
+                                            $copyMachines = \App\Models\Catalogs\CopyMachine::join('companies', 'copy_machines.company_id', '=', 'companies.id')
+                                                ->orderBy('companies.name')
+                                                ->get([ 'companies.name', 'copy_machines.id', 'copy_machines.model']);
                                         @endphp
-                                        @foreach($assistances as $assistance)
-                                            <option
-                                                    value="{{ $assistance->id }}">{{$assistance->name}}</option>
+                                        @foreach($copyMachines as $copyMachine)
+                                            <option value="{{ $copyMachine->id }}">
+                                                {{ $copyMachine->name . ' - ' . $copyMachine->model }}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                            <input type="hidden" name="personID" id="personID" value="">
                             <button type="submit"
                                     class="px-4 py-2 mr-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300">
                                 اضافه کردن
@@ -523,43 +588,59 @@
     </form>
 
     {{--    VOIPs--}}
-    <form id="add-voip">
+    <form id="new-voip">
         @csrf
         <div class="mt-4 mb-4 flex items-center">
+            {{--            <div class="fixed z-10 inset-0 overflow-y-auto " id="addMonitorModal">--}}
             <div class="fixed z-10 inset-0 overflow-y-auto hidden" id="addVOIPModal">
                 <div
-                        class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center  sm:block sm:p-0">
+                    class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center  sm:block sm:p-0">
                     <div class="fixed inset-0 transition-opacity" aria-hidden="true">
-                        <div class="absolute inset-0 bg-gray-500 opacity-75 addVOIP"></div>
+                        <div class="absolute inset-0 bg-gray-500 opacity-75 addvoip"></div>
                     </div>
                     <div
-                            class="inline-block align-bottom bg-white rounded-lg text-right overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:w-full sm:max-w-[550px]">
+                        class="inline-block align-bottom bg-white rounded-lg text-right overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:w-full sm:max-w-[550px]">
                         <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                             <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
                                 تخصیص VOIP به کاربر
                             </h3>
                             <div class="mt-4">
+                                <div class="flex">
+                                    <div class="ml-3 w-full">
+                                        <label for="property_number"
+                                               class="block text-gray-700 text-sm font-bold mb-2">کد اموال*</label>
+                                        <input type="text" id="property_number" name="property_number"
+                                               class="border rounded-md w-full mb-4 px-3 py-2 text-right "
+                                               placeholder="کد اموال را وارد کنید">
+                                    </div>
+                                    <div class="w-full">
+                                        <label for="delivery_date"
+                                               class="block text-gray-700 text-sm font-bold mb-2">تاریخ تحویل</label>
+                                        <input type="text" id="delivery_date" name="delivery_date"
+                                               class="border rounded-md w-full mb-4 px-3 py-2 text-right"
+                                               placeholder="با فرمت : 1402/05/04">
+                                    </div>
+                                </div>
                                 <div class="mb-4">
-                                    <label for="assistanceForEdit"
-                                           class="block text-gray-700 text-sm font-bold mb-2">معاونت/بخش:</label>
-                                    <select id="assistanceForEdit"
-                                            class="border rounded-md w-full px-3 py-2"
-                                            name="assistanceForEdit"
-                                            title="معاونت/بخش را وارد کنید (اختیاری)">
+                                    <label for="VOIP"
+                                           class="block text-gray-700 text-sm font-bold mb-2">VOIP*</label>
+                                    <select id="VOIP" class="border rounded-md w-full px-3 py-2" name="VOIP">
                                         <option value="" disabled selected>انتخاب کنید</option>
                                         @php
-                                            $assistances=\App\Models\Catalogs\Assistance::orderBy('name')->get();
+                                            $VOIPs = \App\Models\Catalogs\VOIP::join('companies', 'voips.company_id', '=', 'companies.id')
+                                                ->orderBy('companies.name')
+                                                ->get([ 'companies.name', 'voips.id', 'voips.model']);
                                         @endphp
-                                        @foreach($assistances as $assistance)
-                                            <option
-                                                    value="{{ $assistance->id }}">{{$assistance->name}}</option>
+                                        @foreach($VOIPs as $VOIP)
+                                            <option value="{{ $VOIP->id }}">
+                                                {{ $VOIP->name . ' - ' . $VOIP->model }}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                            <input type="hidden" name="personID" id="personID" value="">
                             <button type="submit"
                                     class="px-4 py-2 mr-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300">
                                 اضافه کردن
@@ -581,7 +662,13 @@
                 مشخصات {{ $personInfo->name .' '. $personInfo->family}}</h1>
 
             {{--            Cases--}}
-            <h3 class="font-bold pr-5 pt-5">اطلاعات کیس</h3>
+            <div class="flex pb-3">
+                <h3 class="font-bold pr-5 pt-2 ml-3">اطلاعات کیس</h3>
+                <button type="submit"
+                        class="px-4 py-2 mr-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300 AddCase">
+                    ثبت کیس جدید
+                </button>
+            </div>
             <div class="bg-white rounded shadow flex flex-col">
                 <div class="max-w-full items-center overflow-x-auto">
                     @php
@@ -601,11 +688,141 @@
                                 <th class=" px-3 py-3  font-bold ">رم</th>
                                 <th class=" px-3 py-3  font-bold ">کارت گرافیک</th>
                                 <th class=" px-3 py-3  font-bold ">هارد</th>
-                                <th class=" px-3 py-3  font-bold ">درایو نوری</th>
-                                <th class=" px-3 py-3  font-bold ">کارت شبکه</th>
                                 <th class=" px-3 py-3  font-bold ">عملیات</th>
                             </tr>
                             </thead>
+                            <tbody>
+                            @foreach($eq_cases as $case)
+                                <tr class="even:bg-gray-300 odd:bg-white">
+                                    <td class=" px-3 py-3 "> {{ $case->property_number }}</td>
+                                    <td class=" px-3 py-3 ">{{ $case->stamp_number }}</td>
+                                    <td class=" px-3 py-3 ">{{ $case->computer_name  }}</td>
+                                    <td class=" px-3 py-3 ">
+                                        @php
+                                            $caseInfo = \App\Models\Catalogs\Cases::join('companies', 'cases.company_id', '=', 'companies.id')
+                                            ->select('cases.*', 'companies.name as company_name') // انتخاب فیلدهای مورد نیاز
+                                            ->find($case->case);
+                                        @endphp
+                                        {{ $caseInfo->company_name . ' ' . $caseInfo->model  }}
+                                    </td>
+                                    <td class=" px-3 py-3 ">
+                                        @php
+                                            $powerInfo = \App\Models\Catalogs\Power::join('companies', 'powers.company_id', '=', 'companies.id')
+                                            ->select('powers.*', 'companies.name as company_name')
+                                            ->find($case->power);
+                                        @endphp
+                                        {{ $powerInfo->company_name . ' ' . $powerInfo->model. ' ' . $powerInfo->output_voltage.'W'  }}
+                                    </td>
+                                    <td class=" px-3 py-3 ">
+                                        @php
+                                            $motherboardInfo = \App\Models\Catalogs\Motherboard::join('companies', 'motherboards.company_id', '=', 'companies.id')
+                                            ->select('motherboards.*', 'companies.name as company_name')
+                                            ->find($case->motherboard);
+                                        @endphp
+                                        {{ $motherboardInfo->company_name . ' ' . $motherboardInfo->model. ' ' . $motherboardInfo->ram_slot_generation  }}
+                                    </td>
+                                    <td class=" px-3 py-3 ">
+                                        @php
+                                            $cpuInfo = \App\Models\Catalogs\cpu::join('companies', 'cpus.company_id', '=', 'companies.id')
+                                            ->select('cpus.*', 'companies.name as company_name')
+                                            ->find($case->cpu);
+                                        @endphp
+                                        {{ $cpuInfo->company_name . ' ' . $cpuInfo->model. ' n' . $cpuInfo->generation  }}
+                                    </td>
+                                    <td class=" px-3 py-3 ">
+                                        @php
+                                            $ramInfo = \App\Models\Catalogs\ram::join('companies', 'rams.company_id', '=', 'companies.id')
+                                            ->select('rams.*', 'companies.name as company_name')
+                                            ->find($case->ram1);
+                                        @endphp
+                                        {{ $ramInfo->company_name . ' ' . $ramInfo->model. ' ' . $ramInfo->generation  }}
+
+                                        @if($case->ram2)
+                                            <br>
+                                            @php
+                                                $ramInfo = \App\Models\Catalogs\ram::join('companies', 'rams.company_id', '=', 'companies.id')
+                                                ->select('rams.*', 'companies.name as company_name')
+                                                ->find($case->ram2);
+                                            @endphp
+                                            {{ $ramInfo->company_name . ' ' . $ramInfo->model. ' ' . $ramInfo->generation  }}
+                                        @endif
+
+                                        @if($case->ram3)
+                                            <br>
+                                            @php
+                                                $ramInfo = \App\Models\Catalogs\ram::join('companies', 'rams.company_id', '=', 'companies.id')
+                                                ->select('rams.*', 'companies.name as company_name')
+                                                ->find($case->ram3);
+                                            @endphp
+                                            {{ $ramInfo->company_name . ' ' . $ramInfo->model. ' ' . $ramInfo->generation  }}
+                                        @endif
+
+                                        @if($case->ram4)
+                                            <br>
+                                            @php
+                                                $ramInfo = \App\Models\Catalogs\ram::join('companies', 'rams.company_id', '=', 'companies.id')
+                                                ->select('rams.*', 'companies.name as company_name')
+                                                ->find($case->ram4);
+                                            @endphp
+                                            {{ $ramInfo->company_name . ' ' . $ramInfo->model. ' ' . $ramInfo->generation  }}
+                                        @endif
+
+                                    </td>
+                                    <td class=" px-3 py-3 ">
+                                            @php
+                                                $graphicCardInfo = \App\Models\Catalogs\GraphicCard::join('companies', 'graphic_cards.company_id', '=', 'companies.id')
+                                                ->select('graphic_cards.*', 'companies.name as company_name')
+                                                ->find($case->graphic_card);
+                                            @endphp
+                                            {{ $graphicCardInfo->company_name . ' ' . $graphicCardInfo->model. ' ' . $graphicCardInfo->ram_size  }}
+                                    </td>
+                                    <td class=" px-3 py-3 ">
+                                        @php
+                                            $hddInfo = \App\Models\Catalogs\Harddisk::join('companies', 'harddisks.company_id', '=', 'companies.id')
+                                            ->select('harddisks.*', 'companies.name as company_name')
+                                            ->find($case->hdd1);
+                                        @endphp
+                                        {{ $hddInfo->company_name . ' ' . $hddInfo->model. ' ' . $hddInfo->capacity  }}
+
+                                        @if($case->hdd2)
+                                            <br>
+                                            @php
+                                                $hddInfo = \App\Models\Catalogs\Harddisk::join('companies', 'harddisks.company_id', '=', 'companies.id')
+                                                ->select('harddisks.*', 'companies.name as company_name')
+                                                ->find($case->hdd2);
+                                            @endphp
+                                            {{ $hddInfo->company_name . ' ' . $hddInfo->model. ' ' . $hddInfo->capacity  }}
+                                        @endif
+
+                                        @if($case->hdd3)
+                                            <br>
+                                            @php
+                                                $hddInfo = \App\Models\Catalogs\Harddisk::join('companies', 'harddisks.company_id', '=', 'companies.id')
+                                                ->select('harddisks.*', 'companies.name as company_name')
+                                                ->find($case->hdd3);
+                                            @endphp
+                                            {{ $hddInfo->company_name . ' ' . $hddInfo->model. ' ' . $hddInfo->capacity  }}
+                                        @endif
+
+                                        @if($case->hdd4)
+                                            <br>
+                                            @php
+                                                $hddInfo = \App\Models\Catalogs\Harddisk::join('companies', 'harddisks.company_id', '=', 'companies.id')
+                                                ->select('harddisks.*', 'companies.name as company_name')
+                                                ->find($case->hdd4);
+                                            @endphp
+                                            {{ $hddInfo->company_name . ' ' . $hddInfo->model. ' ' . $hddInfo->capacity  }}
+                                        @endif
+                                    </td>
+                                    <td class=" px-3 py-3 ">
+                                        <button type="submit"
+                                                class="px-4 py-2 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 EditCase">
+                                            ویرایش
+                                        </button>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
                         </table>
                     @else
                         <div class="flex p-3">
