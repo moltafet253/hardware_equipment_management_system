@@ -315,7 +315,7 @@
     <form id="new-monitor">
         @csrf
         <div class="mt-4 mb-4 flex items-center">
-{{--            <div class="fixed z-10 inset-0 overflow-y-auto " id="addMonitorModal">--}}
+            {{--            <div class="fixed z-10 inset-0 overflow-y-auto " id="addMonitorModal">--}}
             <div class="fixed z-10 inset-0 overflow-y-auto hidden" id="addMonitorModal">
                 <div
                     class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center  sm:block sm:p-0">
@@ -555,7 +555,8 @@
                                 <div class="mb-4">
                                     <label for="copymachine"
                                            class="block text-gray-700 text-sm font-bold mb-2">دستگاه کپی*</label>
-                                    <select id="copymachine" class="border rounded-md w-full px-3 py-2" name="copymachine">
+                                    <select id="copymachine" class="border rounded-md w-full px-3 py-2"
+                                            name="copymachine">
                                         <option value="" disabled selected>انتخاب کنید</option>
                                         @php
                                             $copyMachines = \App\Models\Catalogs\CopyMachine::join('companies', 'copy_machines.company_id', '=', 'companies.id')
@@ -769,12 +770,12 @@
 
                                     </td>
                                     <td class=" px-3 py-3 ">
-                                            @php
-                                                $graphicCardInfo = \App\Models\Catalogs\GraphicCard::join('companies', 'graphic_cards.company_id', '=', 'companies.id')
-                                                ->select('graphic_cards.*', 'companies.name as company_name')
-                                                ->find($case->graphic_card);
-                                            @endphp
-                                            {{ $graphicCardInfo->company_name . ' ' . $graphicCardInfo->model. ' ' . $graphicCardInfo->ram_size  }}
+                                        @php
+                                            $graphicCardInfo = \App\Models\Catalogs\GraphicCard::join('companies', 'graphic_cards.company_id', '=', 'companies.id')
+                                            ->select('graphic_cards.*', 'companies.name as company_name')
+                                            ->find($case->graphic_card);
+                                        @endphp
+                                        {{ $graphicCardInfo->company_name . ' ' . $graphicCardInfo->model. ' ' . $graphicCardInfo->ram_size  }}
                                     </td>
                                     <td class=" px-3 py-3 ">
                                         @php
@@ -837,7 +838,13 @@
             </div>
 
             {{--            Monitors--}}
-            <h3 class="font-bold pr-5 pt-5">اطلاعات مانیتور</h3>
+            <div class="flex pb-3 pt-6">
+                <h3 class="font-bold pr-5 pt-2 ml-3">اطلاعات مانیتور</h3>
+                <button type="submit"
+                        class="px-4 py-2 mr-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300 AddMonitor">
+                    ثبت مانیتور جدید
+                </button>
+            </div>
             <div class="bg-white rounded shadow flex flex-col">
                 <div class="max-w-full items-center overflow-x-auto">
                     @php
@@ -854,6 +861,33 @@
                                 <th class=" px-3 py-3  font-bold ">عملیات</th>
                             </tr>
                             </thead>
+                            <tbody>
+                            @foreach($eq_monitors as $monitors)
+                                <tr class="even:bg-gray-300 odd:bg-white">
+                                    <td class=" px-3 py-3 "> {{ $monitors->property_number }}</td>
+                                    <td class=" px-3 py-3 ">
+                                        @php
+                                            $monitorInfo = \App\Models\Catalogs\Monitor::join('companies', 'monitors.company_id', '=', 'companies.id')
+                                            ->select('monitors.*', 'companies.name as company_name')
+                                            ->find($monitors->id);
+                                        @endphp
+                                        {{ $monitorInfo->company_name  }}
+                                    </td>
+                                    <td class=" px-3 py-3 ">
+                                        {{ $monitorInfo->model   }}
+                                    </td>
+                                    <td class=" px-3 py-3 ">
+                                        {{  $monitorInfo->size  }}
+                                    </td>
+                                    <td class=" px-3 py-3 ">
+                                        <button type="submit"
+                                                class="px-4 py-2 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 EditMonitor">
+                                            ویرایش
+                                        </button>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
                         </table>
                     @else
                         <div class="flex p-3">
@@ -868,7 +902,13 @@
             </div>
 
             {{--            Printers--}}
-            <h3 class="font-bold pr-5 pt-5">اطلاعات پرینتر</h3>
+            <div class="flex pb-3 pt-6">
+                <h3 class="font-bold pr-5 pt-2 ml-3">اطلاعات پرینتر</h3>
+                <button type="submit"
+                        class="px-4 py-2 mr-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300 AddPrinter">
+                    ثبت پرینتر جدید
+                </button>
+            </div>
             <div class="bg-white rounded shadow flex flex-col">
                 <div class="max-w-full items-center overflow-x-auto">
                     @php
@@ -884,6 +924,30 @@
                                 <th class=" px-3 py-3  font-bold ">عملیات</th>
                             </tr>
                             </thead>
+                            <tbody>
+                            @foreach($eq_printers as $printers)
+                                <tr class="even:bg-gray-300 odd:bg-white">
+                                    <td class=" px-3 py-3 "> {{ $printers->property_number }}</td>
+                                    <td class=" px-3 py-3 ">
+                                        @php
+                                            $printerInfo = \App\Models\Catalogs\Printer::join('companies', 'printers.company_id', '=', 'companies.id')
+                                            ->select('printers.*', 'companies.name as company_name')
+                                            ->find($printers->id);
+                                        @endphp
+                                        {{ $printerInfo->company_name  }}
+                                    </td>
+                                    <td class=" px-3 py-3 ">
+                                        {{ $printerInfo->model }}
+                                    </td>
+                                    <td class=" px-3 py-3 ">
+                                        <button type="submit"
+                                                class="px-4 py-2 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 EditPrinter">
+                                            ویرایش
+                                        </button>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
                         </table>
                     @else
                         <div class="flex p-3">
@@ -898,7 +962,13 @@
             </div>
 
             {{--            Scanners--}}
-            <h3 class="font-bold pr-5 pt-5">اطلاعات اسکنر</h3>
+            <div class="flex pb-3 pt-6">
+                <h3 class="font-bold pr-5 pt-2 ml-3">اطلاعات اسکنر</h3>
+                <button type="submit"
+                        class="px-4 py-2 mr-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300 AddScanner">
+                    ثبت اسکنر جدید
+                </button>
+            </div>
             <div class="bg-white rounded shadow flex flex-col">
                 <div class="max-w-full items-center overflow-x-auto">
                     @php
@@ -914,6 +984,30 @@
                                 <th class=" px-3 py-3  font-bold ">عملیات</th>
                             </tr>
                             </thead>
+                            <tbody>
+                            @foreach($eq_scanners as $scanners)
+                                <tr class="even:bg-gray-300 odd:bg-white">
+                                    <td class=" px-3 py-3 "> {{ $scanners->property_number }}</td>
+                                    <td class=" px-3 py-3 ">
+                                        @php
+                                            $scannerInfo = \App\Models\Catalogs\Scanner::join('companies', 'scanners.company_id', '=', 'companies.id')
+                                            ->select('scanners.*', 'companies.name as company_name')
+                                            ->find($scanners->id);
+                                        @endphp
+                                        {{ $scannerInfo->company_name  }}
+                                    </td>
+                                    <td class=" px-3 py-3 ">
+                                        {{ $scannerInfo->model }}
+                                    </td>
+                                    <td class=" px-3 py-3 ">
+                                        <button type="submit"
+                                                class="px-4 py-2 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 EditScanner">
+                                            ویرایش
+                                        </button>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
                         </table>
                     @else
                         <div class="flex p-3">
@@ -928,7 +1022,13 @@
             </div>
 
             {{--            Copy Machines--}}
-            <h3 class="font-bold pr-5 pt-5">اطلاعات دستگاه کپی</h3>
+            <div class="flex pb-3 pt-6">
+                <h3 class="font-bold pr-5 pt-2 ml-3">اطلاعات دستگاه کپی</h3>
+                <button type="submit"
+                        class="px-4 py-2 mr-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300 AddCopyMachine">
+                    ثبت دستگاه کپی جدید
+                </button>
+            </div>
             <div class="bg-white rounded shadow flex flex-col">
                 <div class="max-w-full items-center overflow-x-auto">
                     @php
@@ -944,6 +1044,30 @@
                                 <th class=" px-3 py-3  font-bold ">عملیات</th>
                             </tr>
                             </thead>
+                            <tbody>
+                            @foreach($eq_copy_machines as $copy_machines)
+                                <tr class="even:bg-gray-300 odd:bg-white">
+                                    <td class=" px-3 py-3 "> {{ $copy_machines->property_number }}</td>
+                                    <td class=" px-3 py-3 ">
+                                        @php
+                                            $copy_machineInfo = \App\Models\Catalogs\CopyMachine::join('companies', 'copy_machines.company_id', '=', 'companies.id')
+                                            ->select('copy_machines.*', 'companies.name as company_name')
+                                            ->find($copy_machines->id);
+                                        @endphp
+                                        {{ $copy_machineInfo->company_name  }}
+                                    </td>
+                                    <td class=" px-3 py-3 ">
+                                        {{ $copy_machineInfo->model }}
+                                    </td>
+                                    <td class=" px-3 py-3 ">
+                                        <button type="submit"
+                                                class="px-4 py-2 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 EditCopyMachine">
+                                            ویرایش
+                                        </button>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
                         </table>
                     @else
                         <div class="flex p-3">
@@ -958,7 +1082,13 @@
             </div>
 
             {{--            VOIPs--}}
-            <h3 class="font-bold pr-5 pt-5">اطلاعات VOIP</h3>
+            <div class="flex pb-3 pt-6">
+                <h3 class="font-bold pr-5 pt-2 ml-3">اطلاعات VOIP</h3>
+                <button type="submit"
+                        class="px-4 py-2 mr-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300 AddVOIP">
+                    ثبت VOIP جدید
+                </button>
+            </div>
             <div class="bg-white rounded shadow flex flex-col">
                 <div class="max-w-full items-center overflow-x-auto">
                     @php
@@ -974,6 +1104,30 @@
                                 <th class=" px-3 py-3  font-bold ">عملیات</th>
                             </tr>
                             </thead>
+                            <tbody>
+                            @foreach($eq_VOIPs as $VOIPs)
+                                <tr class="even:bg-gray-300 odd:bg-white">
+                                    <td class=" px-3 py-3 "> {{ $VOIPs->property_number }}</td>
+                                    <td class=" px-3 py-3 ">
+                                        @php
+                                            $VOIPInfo = \App\Models\Catalogs\Voip::join('companies', 'voips.company_id', '=', 'companies.id')
+                                            ->select('voips.*', 'companies.name as company_name')
+                                            ->find($VOIPs->id);
+                                        @endphp
+                                        {{ $VOIPInfo->company_name  }}
+                                    </td>
+                                    <td class=" px-3 py-3 ">
+                                        {{ $VOIPInfo->model }}
+                                    </td>
+                                    <td class=" px-3 py-3 ">
+                                        <button type="submit"
+                                                class="px-4 py-2 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 EditVOIP">
+                                            ویرایش
+                                        </button>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
                         </table>
                     @else
                         <div class="flex p-3">
