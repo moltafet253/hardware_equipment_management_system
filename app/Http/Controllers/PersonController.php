@@ -18,6 +18,8 @@ class PersonController extends Controller
         $net_username = $request->input('net_username');
         $room_number = $request->input('room_number');
         $assistance = $request->input('assistance');
+        $establishment_place = $request->input('establishmentplace');
+
         if (!$name) {
             return $this->alerts(false, 'nullName', 'نام وارد نشده است');
         }
@@ -48,6 +50,7 @@ class PersonController extends Controller
         $Person->net_username = $net_username;
         $Person->room_number = $room_number;
         $Person->assistance = $assistance;
+        $Person->establishment_place = $establishment_place;
         $Person->save();
         $this->logActivity('Person Added =>' . $Person->id, \request()->ip(), \request()->userAgent(), \session('id'));
         return $this->success(true, 'PersonAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
@@ -66,6 +69,7 @@ class PersonController extends Controller
         $net_username = $request->input('net_usernameForEdit');
         $room_number = $request->input('room_numberForEdit');
         $assistance = $request->input('assistanceForEdit');
+        $establishment_place = $request->input('establishmentplaceForEdit');
         if (!$name) {
             return $this->alerts(false, 'nullName', 'نام وارد نشده است');
         }
@@ -96,6 +100,7 @@ class PersonController extends Controller
             'net_username' => $net_username,
             'room_number' => $room_number,
             'assistance' => $assistance,
+            'establishment_place' => $establishment_place
         ]);
         $Person->save();
         $this->logActivity('Person Edited =>' . $PersonID, \request()->ip(), \request()->userAgent(), \session('id'));

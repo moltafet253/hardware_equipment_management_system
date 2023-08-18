@@ -80,20 +80,12 @@
                                                        class="border rounded-md w-full mb-4 px-3 py-2"
                                                        placeholder="یوزر شبکه را وارد کنید (اختیاری)">
                                             </div>
-                                            <div class="flex flex-col mb-4">
-                                                <label for="room_number"
-                                                       class="block text-gray-700 text-sm font-bold mb-2">شماره
-                                                    اتاق:</label>
-                                                <input type="text" name="room_number" id="room_number"
-                                                       class="border rounded-md w-full mb-4 px-3 py-2"
-                                                       placeholder="شماره اتاق را وارد کنید (اختیاری)">
-                                            </div>
                                             <div class="mb-4">
                                                 <label for="assistance"
                                                        class="block text-gray-700 text-sm font-bold mb-2">معاونت/بخش:</label>
                                                 <select id="assistance" class="border rounded-md w-full px-3 py-2"
                                                         name="assistance"
-                                                        title="معاونت/بخش را وارد کنید (اختیاری)">
+                                                        title="معاونت/بخش را انتخاب کنید (اختیاری)">
                                                     <option value="" disabled selected>انتخاب کنید</option>
                                                     @php
                                                         $assistances=\App\Models\Catalogs\Assistance::orderBy('name')->get();
@@ -103,6 +95,30 @@
                                                             value="{{ $assistance->id }}">{{$assistance->name}}</option>
                                                     @endforeach
                                                 </select>
+                                            </div>
+                                            <div class="mb-4">
+                                                <label for="establishmentplace"
+                                                       class="block text-gray-700 text-sm font-bold mb-2">محل استقرار:</label>
+                                                <select id="establishmentplace" class="border rounded-md w-full px-3 py-2"
+                                                        name="establishmentplace"
+                                                        title="محل استقرار را انتخاب کنید (اختیاری)">
+                                                    <option value="" disabled selected>انتخاب کنید</option>
+                                                    @php
+                                                        $establishmentPlaces=\App\Models\EstablishmentPlace::orderBy('title')->get();
+                                                    @endphp
+                                                    @foreach($establishmentPlaces as $establishmentPlace)
+                                                        <option
+                                                            value="{{ $establishmentPlace->id }}">{{$establishmentPlace->title}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="flex flex-col mb-4">
+                                                <label for="room_number"
+                                                       class="block text-gray-700 text-sm font-bold mb-2">شماره
+                                                    اتاق:</label>
+                                                <input type="text" name="room_number" id="room_number"
+                                                       class="border rounded-md w-full mb-4 px-3 py-2"
+                                                       placeholder="شماره اتاق را وارد کنید (اختیاری)">
                                             </div>
                                         </div>
                                     </div>
@@ -194,14 +210,6 @@
                                                        class="border rounded-md w-full mb-4 px-3 py-2"
                                                        placeholder="یوزر شبکه را وارد کنید (اختیاری)">
                                             </div>
-                                            <div class="flex flex-col mb-4">
-                                                <label for="room_numberForEdit"
-                                                       class="block text-gray-700 text-sm font-bold mb-2">شماره
-                                                    اتاق:</label>
-                                                <input type="text" name="room_numberForEdit" id="room_numberForEdit"
-                                                       class="border rounded-md w-full mb-4 px-3 py-2"
-                                                       placeholder="شماره اتاق را وارد کنید (اختیاری)">
-                                            </div>
                                             <div class="mb-4">
                                                 <label for="assistanceForEdit"
                                                        class="block text-gray-700 text-sm font-bold mb-2">معاونت/بخش:</label>
@@ -218,6 +226,30 @@
                                                             value="{{ $assistance->id }}">{{$assistance->name}}</option>
                                                     @endforeach
                                                 </select>
+                                            </div>
+                                            <div class="mb-4">
+                                                <label for="establishmentplaceForEdit"
+                                                       class="block text-gray-700 text-sm font-bold mb-2">محل استقرار:</label>
+                                                <select id="establishmentplaceForEdit" class="border rounded-md w-full px-3 py-2"
+                                                        name="establishmentplaceForEdit"
+                                                        title="محل استقرار را انتخاب کنید (اختیاری)">
+                                                    <option value="" disabled selected>انتخاب کنید</option>
+                                                    @php
+                                                        $establishmentPlaces=\App\Models\EstablishmentPlace::orderBy('title')->get();
+                                                    @endphp
+                                                    @foreach($establishmentPlaces as $establishmentPlace)
+                                                        <option
+                                                            value="{{ $establishmentPlace->id }}">{{$establishmentPlace->title}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="flex flex-col mb-4">
+                                                <label for="room_numberForEdit"
+                                                       class="block text-gray-700 text-sm font-bold mb-2">شماره
+                                                    اتاق:</label>
+                                                <input type="text" name="room_numberForEdit" id="room_numberForEdit"
+                                                       class="border rounded-md w-full mb-4 px-3 py-2"
+                                                       placeholder="شماره اتاق را وارد کنید (اختیاری)">
                                             </div>
                                         </div>
                                     </div>
@@ -269,6 +301,7 @@
                             <th class=" px-3 py-3  font-bold ">شماره همراه</th>
                             <th class=" px-3 py-3  font-bold ">یوزر شبکه</th>
                             <th class=" px-3 py-3  font-bold ">معاونت</th>
+                            <th class=" px-3 py-3  font-bold ">محل استقرار</th>
                             <th class=" px-3 py-3  font-bold ">شماره اتاق</th>
                             <th class=" px-3 py-3  font-bold ">عملیات</th>
                         </tr>
@@ -286,7 +319,14 @@
                                     @php
                                         $assistanceInfo=\App\Models\Catalogs\Assistance::find($person->assistance);
                                     @endphp
-                                    {{ @$assistanceInfo->name }}</td>
+                                    {{ @$assistanceInfo->name }}
+                                </td>
+                                <td class="px-3 py-4">
+                                    @php
+                                        $establishmentPlaceInfo=\App\Models\EstablishmentPlace::find($person->establishment_place);
+                                    @endphp
+                                    {{ @$establishmentPlaceInfo->title }}
+                                </td>
                                 <td class="px-3 py-4">{{ $person->room_number }}</td>
                                 <td class="px-6 py-4">
                                     <button type="submit" data-id="{{ $person->id }}"

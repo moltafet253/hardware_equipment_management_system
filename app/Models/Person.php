@@ -21,5 +21,6 @@ class Person extends Model
         'net_username',
         'room_number',
         'assistance',
+        'establishment_place'
     ];
 }

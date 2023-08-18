@@ -2532,6 +2532,7 @@ $(document).ready(function () {
                             net_usernameForEdit.value = response.net_username;
                             room_numberForEdit.value = response.room_number;
                             assistanceForEdit.value = response.assistance;
+                            establishmentplaceForEdit.value = response.establishment_place;
                         }
                     }
                 });
