@@ -161,6 +161,7 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
             Route::post('/newScanner', [EquipmentController::class, 'newScanner'])->name('newScanner');
             Route::post('/newCopyMachine', [EquipmentController::class, 'newCopyMachine'])->name('newCopyMachine');
             Route::post('/newVOIP', [EquipmentController::class, 'newVOIP'])->name('newVOIP');
+            Route::post('/newComment', [EquipmentController::class, 'newComment'])->name('newComment');
             Route::post('/editEquipment', [EquipmentController::class, 'editEquipment'])->name('editEquipment');
 
             Route::get('/Person', [PersonController::class, 'index'])->name('Person');

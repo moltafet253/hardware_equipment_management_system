@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Catalogs\Job;
+use App\Models\Comment;
 use App\Models\EquipmentedCase;
 use App\Models\EquipmentedCopyMachine;
 use App\Models\EquipmentedMonitor;
@@ -17,7 +19,6 @@ class EquipmentController extends Controller
         $personId = $request->input('id');
         return view('EquipmentStatus', ['personId' => $personId]);
     }
-
     public function newCase(Request $request)
     {
         $request->all();
@@ -231,6 +232,50 @@ class EquipmentController extends Controller
         $newVOIP->save();
         $this->logActivity('VOIP Added =>' . $newVOIP->id, \request()->ip(), \request()->userAgent(), \session('id'));
         return $this->success(true, 'VOIPAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
+    }
+    public function newComment(Request $request)
+    {
+        $request->all();
+        $personID = $request->input('person');
+        $title = $request->input('title');
+        $jobs = $request->input('jobs');
+        $description = $request->input('description');
+        $jobNames=null;
+
+        if (!$personID){
+            return $this->alerts(false, 'nullPersonnelCode', 'کد پرسنلی وارد نشده است');
+        }
+        if (!$title){
+            return $this->alerts(false, 'nullPersonnelCode', 'موضوع وارد نشده است');
+        }
+        if (!$description){
+            return $this->alerts(false, 'nullDescription', 'توضیحات وارد نشده است');
+        }
+
+        $newComment = new Comment();
+        $newComment->person_id = $personID;
+        $newComment->title = $title;
+        if ($jobs) {
+            $newComment->jobs = json_encode($jobs);
+            $jobsArray = json_decode($newComment->jobs);
+            $jobNames = Job::whereIn('id', $jobsArray)->pluck('title')->toArray();
+            $jobNames=implode(' | ',$jobNames);
+        }
+        $newComment->description = $description;
+        $newComment->save();
+        $this->logActivity('Comment Added =>' . $newComment->id, \request()->ip(), \request()->userAgent(), \session('id'));
+
+        $newRowHtml = '<tr class="even:bg-gray-300 odd:bg-white">' .
+            '<td class=" px-3 py-3 ">' . $title . '</td>' .
+            '<td class=" px-3 py-3 ">' .$jobNames .'</td>' .
+            '<td class=" px-3 py-3 ">' . $description . '</td>' .
+            '<td class=" px-3 py-3 "><button class="px-4 py-2 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 EditComment" type="submit">ویرایش</button></td>' .
+            '</tr>';
+        return response()->json([
+            'success' => true,
+            'message' => 'کامنت با موفقیت اضافه شد. برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.',
+            'html' => $newRowHtml
+        ]);
     }
 
 }

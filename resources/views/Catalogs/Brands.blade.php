@@ -157,7 +157,6 @@
                     </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-300">
-                    @php $row=1 @endphp
                     @foreach ($brandList as $brand)
                         <tr class="bg-white">
                             <td class="px-6 py-4">{{ $loop->iteration }}</td>
