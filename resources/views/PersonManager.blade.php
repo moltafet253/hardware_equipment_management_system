@@ -12,6 +12,7 @@
                 <form id="new-person">
                     @csrf
                     <div class="mt-4 mb-4 flex items-center">
+{{--                        <div class="fixed z-10 inset-0 overflow-y-auto " id="newPersonModal">--}}
                         <div class="fixed z-10 inset-0 overflow-y-auto hidden" id="newPersonModal">
                             <div
                                 class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center  sm:block sm:p-0">
@@ -40,9 +41,17 @@
                                                        placeholder="نام خانوادگی پرسنل را وارد کنید">
                                             </div>
                                             <div class="flex flex-col mb-4">
+                                                <label for="national_code"
+                                                       class="block text-gray-700 text-sm font-bold mb-2">کد
+                                                    ملی:</label>
+                                                <input type="text" name="national_code" id="national_code"
+                                                       class="border rounded-md w-full mb-4 px-3 py-2"
+                                                       placeholder="کد ملی را وارد کنید">
+                                            </div>
+                                            <div class="flex flex-col mb-4">
                                                 <label for="personnel_code"
                                                        class="block text-gray-700 text-sm font-bold mb-2">کد
-                                                    پرسنلی*:</label>
+                                                    پرسنلی:</label>
                                                 <input type="text" name="personnel_code" id="personnel_code"
                                                        class="border rounded-md w-full mb-4 px-3 py-2"
                                                        placeholder="کد پرسنلی را وارد کنید">
@@ -145,12 +154,20 @@
                                                        placeholder="نام خانوادگی پرسنل را وارد کنید">
                                             </div>
                                             <div class="flex flex-col mb-4">
+                                                <label for="national_codeForEdit"
+                                                       class="block text-gray-700 text-sm font-bold mb-2">کد
+                                                    ملی:</label>
+                                                <input type="text" name="national_codeForEdit" id="national_codeForEdit"
+                                                       class="border rounded-md w-full mb-4 px-3 py-2"
+                                                       placeholder="کد ملی را وارد کنید">
+                                            </div>
+                                            <div class="flex flex-col mb-4">
                                                 <label for="personnel_codeForEdit"
                                                        class="block text-gray-700 text-sm font-bold mb-2">کد
                                                     پرسنلی*:</label>
-                                                <input type="text" disabled name="personnel_codeForEdit"
+                                                <input type="text"  name="personnel_codeForEdit"
                                                        id="personnel_codeForEdit"
-                                                       class="border rounded-md bg-gray-300 w-full mb-4 px-3 py-2"
+                                                       class="border rounded-md  w-full mb-4 px-3 py-2"
                                                        placeholder="کد پرسنلی را وارد کنید">
                                             </div>
                                             <div class="flex flex-col mb-4">
@@ -247,6 +264,7 @@
                         <tr class="bg-gradient-to-r from-blue-400 to-purple-500 items-center text-center text-white">
                             <th class=" px-6 py-3  font-bold ">کد پرسنلی</th>
                             <th class=" px-6 py-3  font-bold ">مشخصات</th>
+                            <th class=" px-6 py-3  font-bold ">کد ملی</th>
                             <th class=" px-3 py-3  font-bold ">شماره داخلی</th>
                             <th class=" px-3 py-3  font-bold ">شماره همراه</th>
                             <th class=" px-3 py-3  font-bold ">یوزر شبکه</th>
@@ -260,6 +278,7 @@
                             <tr class="bg-white">
                                 <td class="px-3 py-4">{{ $person->personnel_code }}</td>
                                 <td class="px-6 py-4">{{ $person->name . ' ' . $person->family  }}</td>
+                                <td class="px-3 py-4">{{ $person->national_code }}</td>
                                 <td class="px-3 py-4">{{ $person->phone }}</td>
                                 <td class="px-3 py-4">{{ $person->mobile }}</td>
                                 <td class="px-3 py-4">{{ $person->net_username }}</td>

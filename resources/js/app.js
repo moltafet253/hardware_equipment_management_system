@@ -1601,7 +1601,7 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
                                     } else if (response.errors.nullModel) {
                                         swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
-                                    }  else if (response.errors.nullConnectivityType) {
+                                    } else if (response.errors.nullConnectivityType) {
                                         swalFire('خطا!', response.errors.nullGeneration[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
@@ -1710,7 +1710,7 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
                                     } else if (response.errors.nullModel) {
                                         swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
-                                    }  else if (response.errors.nullConnectivityType) {
+                                    } else if (response.errors.nullConnectivityType) {
                                         swalFire('خطا!', response.errors.nullGeneration[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
@@ -1819,7 +1819,7 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
                                     } else if (response.errors.nullModel) {
                                         swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
-                                    }  else if (response.errors.nullSize) {
+                                    } else if (response.errors.nullSize) {
                                         swalFire('خطا!', response.errors.nullSize[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
@@ -2249,6 +2249,109 @@ $(document).ready(function () {
                 });
             });
             break;
+        case '/AssistanceCatalog':
+            $('#new-assistance-button, #cancel-new-assistance').on('click', function () {
+                toggleModal(newAssistanceModal.id);
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.add').on('click', function () {
+                toggleModal(newAssistanceModal.id)
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.edit').on('click', function () {
+                toggleModal(editAssistanceModal.id)
+            });
+            $('.AssistanceControl,#cancel-edit-assistance').on('click', function () {
+                toggleModal(editAssistanceModal.id);
+            });
+            $('#new-assistance').on('submit', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var form = $(this);
+                        var data = form.serialize();
+                        $.ajax({
+                            type: 'POST',
+                            url: '/newAssistance',
+                            data: data,
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            },
+                            success: function (response) {
+                                if (response.errors) {
+                                    if (response.errors.nullName) {
+                                        swalFire('خطا!', response.errors.nullName[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.dupName) {
+                                        swalFire('خطا!', response.errors.dupName[0], 'error', 'تلاش مجدد');
+                                    }
+                                } else if (response.success) {
+                                    swalFire('ثبت اطلاعات جدید موفقیت آمیز بود!', response.message.assistanceAdded[0], 'success', 'بستن');
+                                    toggleModal(newAssistanceModal.id);
+                                    resetFields();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+            $('.AssistanceControl').on('click', function () {
+                $.ajax({
+                    type: 'GET',
+                    url: '/getAssistanceInfo',
+                    data: {
+                        id: $(this).data('id')
+                    },
+                    success: function (response) {
+                        if (response) {
+                            assistance_id.value = response.id;
+                            nameForEdit.value = response.name;
+                        }
+                    }
+                });
+            });
+            $('#edit-assistance').on('submit', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var form = $(this);
+                        var data = form.serialize();
+                        $.ajax({
+                            type: 'POST',
+                            url: '/editAssistance',
+                            data: data,
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            },
+                            success: function (response) {
+                                if (response.errors) {
+                                    if (response.errors.nullName) {
+                                        swalFire('خطا!', response.errors.nullName[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.dupName) {
+                                        swalFire('خطا!', response.errors.dupName[0], 'error', 'تلاش مجدد');
+                                    }
+                                } else if (response.success) {
+                                    swalFire('ویرایش اطلاعات موفقیت آمیز بود!', response.message.assistanceEdited[0], 'success', 'بستن');
+                                    toggleModal(editAssistanceModal.id);
+                                    resetFields();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+            break;
         case '/Person':
             $('#new-person-button, #cancel-new-person').on('click', function () {
                 toggleModal(newPersonModal.id);
@@ -2283,18 +2386,22 @@ $(document).ready(function () {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                             },
                             success: function (response) {
+                                console.log(response);
                                 if (response.errors) {
                                     if (response.errors.nullName) {
                                         swalFire('خطا!', response.errors.nullName[0], 'error', 'تلاش مجدد');
                                     } else if (response.errors.nullFamily) {
                                         swalFire('خطا!', response.errors.nullFamily[0], 'error', 'تلاش مجدد');
-                                    }else if (response.errors.nullPersonnelCode) {
+                                    } else if (response.errors.nullPersonnelCode) {
                                         swalFire('خطا!', response.errors.nullPersonnelCode[0], 'error', 'تلاش مجدد');
-                                    }else if (response.errors.dupPersonnelCode) {
+                                    } else if (response.errors.dupPersonnelCode) {
                                         swalFire('خطا!', response.errors.dupPersonnelCode[0], 'error', 'تلاش مجدد');
+                                    }else if (response.errors.wrongNationalCode) {
+                                        swalFire('خطا!', response.errors.wrongNationalCode[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
-                                    swalFire('ثبت اطلاعات پرسنل موفقیت آمیز بود!', response.message.PersonAdded[0], 'success', 'بستن');
+                                    $('table tbody').append(response.html);
+                                    swalFire('ثبت موفقیت آمیز بود!', 'ثبت اطلاعات پرسنل موفقیت آمیز بود.', 'success', 'بستن');
                                     toggleModal(newPersonModal.id);
                                     resetFields();
                                 }
@@ -2315,6 +2422,7 @@ $(document).ready(function () {
                             personID.value = response.id;
                             nameForEdit.value = response.name;
                             familyForEdit.value = response.family;
+                            national_codeForEdit.value = response.national_code;
                             personnel_codeForEdit.value = response.personnel_code;
                             phoneForEdit.value = response.phone;
                             mobileForEdit.value = response.mobile;
@@ -2351,8 +2459,10 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullName[0], 'error', 'تلاش مجدد');
                                     } else if (response.errors.nullFamily) {
                                         swalFire('خطا!', response.errors.nullFamily[0], 'error', 'تلاش مجدد');
-                                    }else if (response.errors.nullPersonnelCode) {
+                                    } else if (response.errors.nullPersonnelCode) {
                                         swalFire('خطا!', response.errors.nullPersonnelCode[0], 'error', 'تلاش مجدد');
+                                    }else if (response.errors.nullNationalCode) {
+                                        swalFire('خطا!', response.errors.nullNationalCode[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
                                     swalFire('ویرایش پرسنل موفقیت آمیز بود!', response.message.personEdited[0], 'success', 'بستن');
@@ -2438,19 +2548,19 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullPersonnelCode[0], 'error', 'تلاش مجدد');
                                     } else if (response.errors.nullPropertyNumber) {
                                         swalFire('خطا!', response.errors.nullPropertyNumber[0], 'error', 'تلاش مجدد');
-                                    }else if (response.errors.nullStampNumber) {
+                                    } else if (response.errors.nullStampNumber) {
                                         swalFire('خطا!', response.errors.nullStampNumber[0], 'error', 'تلاش مجدد');
-                                    }else if (response.errors.nullCaseInfo) {
+                                    } else if (response.errors.nullCaseInfo) {
                                         swalFire('خطا!', response.errors.nullCaseInfo[0], 'error', 'تلاش مجدد');
-                                    }else if (response.errors.nullMotherboard) {
+                                    } else if (response.errors.nullMotherboard) {
                                         swalFire('خطا!', response.errors.nullMotherboard[0], 'error', 'تلاش مجدد');
-                                    }else if (response.errors.nullPower) {
+                                    } else if (response.errors.nullPower) {
                                         swalFire('خطا!', response.errors.nullPower[0], 'error', 'تلاش مجدد');
-                                    }else if (response.errors.nullCPU) {
+                                    } else if (response.errors.nullCPU) {
                                         swalFire('خطا!', response.errors.nullCPU[0], 'error', 'تلاش مجدد');
-                                    }else if (response.errors.nullRAM) {
+                                    } else if (response.errors.nullRAM) {
                                         swalFire('خطا!', response.errors.nullRAM[0], 'error', 'تلاش مجدد');
-                                    }else if (response.errors.nullHDD) {
+                                    } else if (response.errors.nullHDD) {
                                         swalFire('خطا!', response.errors.nullHDD[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
@@ -2492,7 +2602,7 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullPersonnelCode[0], 'error', 'تلاش مجدد');
                                     } else if (response.errors.nullPropertyNumber) {
                                         swalFire('خطا!', response.errors.nullPropertyNumber[0], 'error', 'تلاش مجدد');
-                                    }else if (response.errors.nullMonitor) {
+                                    } else if (response.errors.nullMonitor) {
                                         swalFire('خطا!', response.errors.nullMonitor[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
@@ -2534,7 +2644,7 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullPersonnelCode[0], 'error', 'تلاش مجدد');
                                     } else if (response.errors.nullPropertyNumber) {
                                         swalFire('خطا!', response.errors.nullPropertyNumber[0], 'error', 'تلاش مجدد');
-                                    }else if (response.errors.nullPrinter) {
+                                    } else if (response.errors.nullPrinter) {
                                         swalFire('خطا!', response.errors.nullPrinter[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
@@ -2576,7 +2686,7 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullPersonnelCode[0], 'error', 'تلاش مجدد');
                                     } else if (response.errors.nullPropertyNumber) {
                                         swalFire('خطا!', response.errors.nullPropertyNumber[0], 'error', 'تلاش مجدد');
-                                    }else if (response.errors.nullScanner) {
+                                    } else if (response.errors.nullScanner) {
                                         swalFire('خطا!', response.errors.nullScanner[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
@@ -2618,7 +2728,7 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullPersonnelCode[0], 'error', 'تلاش مجدد');
                                     } else if (response.errors.nullPropertyNumber) {
                                         swalFire('خطا!', response.errors.nullPropertyNumber[0], 'error', 'تلاش مجدد');
-                                    }else if (response.errors.nullCopyMachine) {
+                                    } else if (response.errors.nullCopyMachine) {
                                         swalFire('خطا!', response.errors.nullCopyMachine[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
@@ -2660,7 +2770,7 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullPersonnelCode[0], 'error', 'تلاش مجدد');
                                     } else if (response.errors.nullPropertyNumber) {
                                         swalFire('خطا!', response.errors.nullPropertyNumber[0], 'error', 'تلاش مجدد');
-                                    }else if (response.errors.nullVOIP) {
+                                    } else if (response.errors.nullVOIP) {
                                         swalFire('خطا!', response.errors.nullVOIP[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
@@ -2704,7 +2814,7 @@ $(document).ready(function () {
                                     }
                                 } else if (response.success) {
                                     $('table tbody').append(response.html);
-                                    CommentErr.hidden=true;
+                                    CommentErr.hidden = true;
                                     swalFire('ثبت کار جدید موفقیت آمیز بود!', 'کامنت با موفقیت اضافه شد.', 'success', 'بستن');
                                     toggleModal(addCommentModal.id);
                                     resetFields();

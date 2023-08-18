@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Catalogs\AssistanceController;
 use App\Http\Controllers\Catalogs\BrandController;
 use App\Http\Controllers\Catalogs\CaseController;
 use App\Http\Controllers\Catalogs\CopyMachineController;
@@ -154,6 +155,12 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
             Route::get('/getVOIPInfo', [VOIPController::class, 'getVOIPInfo'])->name('getVOIPInfo');
             Route::post('/editVOIP', [VOIPController::class, 'editVOIP'])->name('editVOIP');
 
+            Route::get('/AssistanceCatalog', [AssistanceController::class, 'index'])->name('AssistanceCatalog');
+            Route::post('/newAssistance', [AssistanceController::class, 'newAssistance'])->name('newAssistance');
+            Route::get('/getAssistanceInfo', [AssistanceController::class, 'getAssistanceInfo'])->name('getAssistanceInfo');
+            Route::post('/editAssistance', [AssistanceController::class, 'editAssistance'])->name('editAssistance');
+
+            //End Catalogs
             Route::get('/showEquipmentStatus', [EquipmentController::class, 'showEquipmentStatus'])->name('showEquipmentStatus');
             Route::post('/newCase', [EquipmentController::class, 'newCase'])->name('newCase');
             Route::post('/newMonitor', [EquipmentController::class, 'newMonitor'])->name('newMonitor');
@@ -168,8 +175,6 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
             Route::post('/newPerson', [PersonController::class, 'newPerson'])->name('newPerson');
             Route::get('/getPersonInfo', [PersonController::class, 'getPersonInfo'])->name('getPersonInfo');
             Route::post('/editPerson', [PersonController::class, 'editPerson'])->name('editPerson');
-
-
         });
         Route::middleware('roleAuthorization:2')->group(function () {
         });

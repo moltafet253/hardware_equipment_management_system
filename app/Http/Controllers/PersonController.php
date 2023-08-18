@@ -11,6 +11,7 @@ class PersonController extends Controller
     {
         $name = $request->input('name');
         $family = $request->input('family');
+        $national_code = $request->input('national_code');
         $personnel_code = $request->input('personnel_code');
         $phone = $request->input('phone');
         $mobile = $request->input('mobile');
@@ -23,18 +24,24 @@ class PersonController extends Controller
         if (!$family) {
             return $this->alerts(false, 'nullFamily', 'نام خانوادگی وارد نشده است');
         }
-        if (!$personnel_code) {
-            return $this->alerts(false, 'nullPersonnelCode', 'کد پرسنلی وارد نشده است');
+        if (!$personnel_code and !$national_code) {
+            return $this->alerts(false, 'nullPersonnelCode', 'کد پرسنلی یا کد ملی وارد نشده است');
+        }
+        if ($national_code and strlen($national_code) != 10) {
+            return $this->alerts(false, 'wrongNationalCode', 'کد ملی صحیح وارد نشده است');
         }
 
-        $check=Person::where('personnel_code',$personnel_code)->first();
-        if ($check){
-            return $this->alerts(false, 'dupPersonnelCode', 'کد پرسنلی تکراری وارد شده است');
+        if ($personnel_code and !$national_code) {
+            $check = Person::where('personnel_code', $personnel_code)->first();
+            if ($check) {
+                return $this->alerts(false, 'dupPersonnelCode', 'کد پرسنلی تکراری وارد شده است');
+            }
         }
 
         $Person = new Person();
         $Person->name = $name;
         $Person->family = $family;
+        $Person->national_code = $national_code;
         $Person->personnel_code = $personnel_code;
         $Person->phone = $phone;
         $Person->mobile = $mobile;
@@ -44,13 +51,16 @@ class PersonController extends Controller
         $Person->save();
         $this->logActivity('Person Added =>' . $Person->id, \request()->ip(), \request()->userAgent(), \session('id'));
         return $this->success(true, 'PersonAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
+
     }
 
     public function editPerson(Request $request)
     {
-        $PersonID=$request->input('personID');
+        $PersonID = $request->input('personID');
         $name = $request->input('nameForEdit');
         $family = $request->input('familyForEdit');
+        $national_code = $request->input('national_codeForEdit');
+        $personnel_code = $request->input('personnel_codeForEdit');
         $phone = $request->input('phoneForEdit');
         $mobile = $request->input('mobileForEdit');
         $net_username = $request->input('net_usernameForEdit');
@@ -65,12 +75,23 @@ class PersonController extends Controller
         if (!$PersonID) {
             return $this->alerts(false, 'nullPersonnelCode', 'کد پرسنلی وارد نشده است');
         }
+        if (!$PersonID) {
+            return $this->alerts(false, 'nullPersonnelCode', 'کد پرسنلی وارد نشده است');
+        }
+        if (!$national_code) {
+            return $this->alerts(false, 'nullNationalCode', 'کد ملی وارد نشده است');
+        }
+        if (!$personnel_code) {
+            return $this->alerts(false, 'nullPersonnelCode', 'کد پرسنلی وارد نشده است');
+        }
 
         $Person = Person::find($PersonID);
         $Person->fill([
             'name' => $name,
             'family' => $family,
             'phone' => $phone,
+            'national_code' => $national_code,
+            'personnel_code' => $personnel_code,
             'mobile' => $mobile,
             'net_username' => $net_username,
             'room_number' => $room_number,
@@ -91,7 +112,7 @@ class PersonController extends Controller
 
     public function index()
     {
-        $personList = Person::orderBy('personnel_code', 'asc')->paginate(20);
+        $personList = Person::orderBy('family', 'asc')->paginate(20);
         return \view('PersonManager', ['personList' => $personList]);
     }
 }
