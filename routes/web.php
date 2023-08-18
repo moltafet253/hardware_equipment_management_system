@@ -5,6 +5,7 @@ use App\Http\Controllers\Catalogs\BrandController;
 use App\Http\Controllers\Catalogs\CaseController;
 use App\Http\Controllers\Catalogs\CopyMachineController;
 use App\Http\Controllers\Catalogs\CPUController;
+use App\Http\Controllers\Catalogs\EstablishmentPlaceController;
 use App\Http\Controllers\Catalogs\GraphicCardController;
 use App\Http\Controllers\Catalogs\HarddiskController;
 use App\Http\Controllers\Catalogs\MonitorController;
@@ -159,6 +160,11 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
             Route::post('/newAssistance', [AssistanceController::class, 'newAssistance'])->name('newAssistance');
             Route::get('/getAssistanceInfo', [AssistanceController::class, 'getAssistanceInfo'])->name('getAssistanceInfo');
             Route::post('/editAssistance', [AssistanceController::class, 'editAssistance'])->name('editAssistance');
+
+            Route::get('/EstablishmentPlaceCatalog', [EstablishmentPlaceController::class, 'index'])->name('EstablishmentPlaceCatalog');
+            Route::post('/newEstablishmentPlace', [EstablishmentPlaceController::class, 'newEstablishmentPlace'])->name('newEstablishmentPlace');
+            Route::get('/getEstablishmentPlaceInfo', [EstablishmentPlaceController::class, 'getEstablishmentPlaceInfo'])->name('getEstablishmentPlaceInfo');
+            Route::post('/editEstablishmentPlace', [EstablishmentPlaceController::class, 'editEstablishmentPlace'])->name('editEstablishmentPlace');
 
             //End Catalogs
             Route::get('/showEquipmentStatus', [EquipmentController::class, 'showEquipmentStatus'])->name('showEquipmentStatus');

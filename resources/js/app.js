@@ -2352,6 +2352,109 @@ $(document).ready(function () {
                 });
             });
             break;
+        case '/EstablishmentPlaceCatalog':
+            $('#new-establishment-place-button, #cancel-new-establishment-place').on('click', function () {
+                toggleModal(newEstablishmentPlaceModal.id);
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.add').on('click', function () {
+                toggleModal(newEstablishmentPlaceModal.id)
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.edit').on('click', function () {
+                toggleModal(editEstablishmentPlaceModal.id)
+            });
+            $('.EstablishmentPlaceControl,#cancel-edit-establishment-place').on('click', function () {
+                toggleModal(editEstablishmentPlaceModal.id);
+            });
+            $('#new-establishment-place').on('submit', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var form = $(this);
+                        var data = form.serialize();
+                        $.ajax({
+                            type: 'POST',
+                            url: '/newEstablishmentPlace',
+                            data: data,
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            },
+                            success: function (response) {
+                                if (response.errors) {
+                                    if (response.errors.nullName) {
+                                        swalFire('خطا!', response.errors.nullName[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.dupName) {
+                                        swalFire('خطا!', response.errors.dupName[0], 'error', 'تلاش مجدد');
+                                    }
+                                } else if (response.success) {
+                                    swalFire('ثبت اطلاعات جدید موفقیت آمیز بود!', response.message.establishmentPlaceAdded[0], 'success', 'بستن');
+                                    toggleModal(newEstablishmentPlaceModal.id);
+                                    resetFields();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+            $('.EstablishmentPlaceControl').on('click', function () {
+                $.ajax({
+                    type: 'GET',
+                    url: '/getEstablishmentPlaceInfo',
+                    data: {
+                        id: $(this).data('id')
+                    },
+                    success: function (response) {
+                        if (response) {
+                            establishment_place_id.value = response.id;
+                            titleForEdit.value = response.title;
+                        }
+                    }
+                });
+            });
+            $('#edit-establishment-place').on('submit', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var form = $(this);
+                        var data = form.serialize();
+                        $.ajax({
+                            type: 'POST',
+                            url: '/editEstablishmentPlace',
+                            data: data,
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            },
+                            success: function (response) {
+                                if (response.errors) {
+                                    if (response.errors.nullName) {
+                                        swalFire('خطا!', response.errors.nullName[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.dupName) {
+                                        swalFire('خطا!', response.errors.dupName[0], 'error', 'تلاش مجدد');
+                                    }
+                                } else if (response.success) {
+                                    swalFire('ویرایش اطلاعات موفقیت آمیز بود!', response.message.establishmentPlaceEdited[0], 'success', 'بستن');
+                                    toggleModal(editEstablishmentPlaceModal.id);
+                                    resetFields();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+            break;
         case '/Person':
             $('#new-person-button, #cancel-new-person').on('click', function () {
                 toggleModal(newPersonModal.id);
