@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('person_id');
             $table->foreign('person_id')->references('id')->on('persons');
             $table->string('title');
+            $table->integer('ticket_number');
             $table->json('jobs')->nullable();
             $table->text('description');
             $table->boolean('status')->default(1)->comment('0 For In Progress | 1 For Completed');

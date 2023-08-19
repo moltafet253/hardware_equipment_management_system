@@ -245,6 +245,7 @@ class EquipmentController extends Controller
         $request->all();
         $personID = $request->input('person');
         $title = $request->input('title');
+        $ticket_number = $request->input('ticket_number');
         $jobs = $request->input('jobs');
         $description = $request->input('description');
         $jobNames = null;
@@ -262,6 +263,7 @@ class EquipmentController extends Controller
         $newComment = new Comment();
         $newComment->person_id = $personID;
         $newComment->title = $title;
+        $newComment->ticket_number = $ticket_number;
         if ($jobs) {
             $newComment->jobs = json_encode($jobs);
             $jobsArray = json_decode($newComment->jobs);

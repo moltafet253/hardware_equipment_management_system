@@ -2890,44 +2890,48 @@ $(document).ready(function () {
             });
             $('#new-comment').on('submit', function (e) {
                 e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        var idFromLink = getParameterByName('id', window.location.href);
-                        data += "&person=" + idFromLink;
-                        $.ajax({
-                            type: 'POST',
-                            url: '/newComment',
-                            data: data,
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            },
-                            success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullPersonnelCode) {
-                                        swalFire('خطا!', response.errors.nullPersonnelCode[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullDescription) {
-                                        swalFire('خطا!', response.errors.nullDescription[0], 'error', 'تلاش مجدد');
+                if (isNaN(ticket_number.value)){
+                    swalFire('خطا!', 'مقدار شماره تیکت اشتباه می باشد.', 'error', 'تلاش مجدد');
+                }else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            var idFromLink = getParameterByName('id', window.location.href);
+                            data += "&person=" + idFromLink;
+                            $.ajax({
+                                type: 'POST',
+                                url: '/newComment',
+                                data: data,
+                                headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                },
+                                success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullPersonnelCode) {
+                                            swalFire('خطا!', response.errors.nullPersonnelCode[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullDescription) {
+                                            swalFire('خطا!', response.errors.nullDescription[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        $('table tbody').append(response.html);
+                                        CommentErr.hidden = true;
+                                        swalFire('ثبت کار جدید موفقیت آمیز بود!', 'کامنت با موفقیت اضافه شد.', 'success', 'بستن');
+                                        toggleModal(addCommentModal.id);
+                                        resetFields();
                                     }
-                                } else if (response.success) {
-                                    $('table tbody').append(response.html);
-                                    CommentErr.hidden = true;
-                                    swalFire('ثبت کار جدید موفقیت آمیز بود!', 'کامنت با موفقیت اضافه شد.', 'success', 'بستن');
-                                    toggleModal(addCommentModal.id);
-                                    resetFields();
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
             });
     }
 });

@@ -685,6 +685,15 @@
                                                placeholder="موضوع را وارد کنید">
                                     </div>
                                 </div>
+                                <div class="">
+                                    <div class="ml-3 w-full">
+                                        <label for="ticket_number"
+                                               class="block text-gray-700 text-sm font-bold mb-2">شماره تیکت</label>
+                                        <input type="text" id="ticket_number" name="ticket_number"
+                                               class="border rounded-md w-full mb-4 px-3 py-2 text-right "
+                                               placeholder="شماره تیکت را وارد کنید">
+                                    </div>
+                                </div>
                                 <div class="mb-4">
                                     <label for="jobs"
                                            class="block text-gray-700 text-sm font-bold mb-2">کارها</label>
