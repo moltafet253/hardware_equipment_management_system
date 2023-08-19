@@ -1211,6 +1211,7 @@
                             <thead>
                             <tr class="bg-gradient-to-r from-blue-400 to-purple-500 items-center text-center text-white">
                                 <th class=" px-6 py-3  font-bold ">موضوع</th>
+                                <th class=" px-6 py-3  font-bold ">شماره تیکت</th>
                                 <th class=" px-3 py-3  font-bold ">کارها</th>
                                 <th class=" px-3 py-3  font-bold ">توضیحات</th>
                                 <th class=" px-3 py-3  font-bold ">عملیات</th>
@@ -1220,6 +1221,7 @@
                             @foreach($comments as $comment)
                                 <tr class="even:bg-gray-300 odd:bg-white">
                                     <td class=" px-3 py-3 "> {{ $comment->title }}</td>
+                                    <td class=" px-3 py-3 "> {{ $comment->ticket_number }}</td>
                                     <td class=" px-3 py-3 ">
                                         @if($comment->jobs)
                                             @foreach (json_decode($comment->jobs) as $job)
