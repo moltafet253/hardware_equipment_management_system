@@ -629,7 +629,7 @@
                                     <select id="VOIP" class="border rounded-md w-full px-3 py-2" name="VOIP">
                                         <option value="" disabled selected>انتخاب کنید</option>
                                         @php
-                                            $VOIPs = \App\Models\Catalogs\VOIP::join('companies', 'voips.company_id', '=', 'companies.id')
+                                            $VOIPs = \App\Models\Catalogs\Voip::join('companies', 'voips.company_id', '=', 'companies.id')
                                                 ->orderBy('companies.name')
                                                 ->get([ 'companies.name', 'voips.id', 'voips.model']);
                                         @endphp
