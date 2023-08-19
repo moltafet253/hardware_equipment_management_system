@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreign('company_id')->references('id')->on('companies');
             $table->string('model');
             $table->string('connectivity_type');
+            $table->string('function_type');
             $table->timestamps();
             $table->softDeletes();
         });
