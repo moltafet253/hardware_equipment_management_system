@@ -168,13 +168,13 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
 
             //End Catalogs
             Route::get('/showEquipmentStatus', [EquipmentController::class, 'showEquipmentStatus'])->name('showEquipmentStatus');
-            Route::post('/newCase', [EquipmentController::class, 'newCase'])->name('newCase');
-            Route::post('/newMonitor', [EquipmentController::class, 'newMonitor'])->name('newMonitor');
-            Route::post('/newPrinter', [EquipmentController::class, 'newPrinter'])->name('newPrinter');
-            Route::post('/newScanner', [EquipmentController::class, 'newScanner'])->name('newScanner');
-            Route::post('/newCopyMachine', [EquipmentController::class, 'newCopyMachine'])->name('newCopyMachine');
-            Route::post('/newVOIP', [EquipmentController::class, 'newVOIP'])->name('newVOIP');
-            Route::post('/newComment', [EquipmentController::class, 'newComment'])->name('newComment');
+            Route::post('/newEquipmentCase', [EquipmentController::class, 'newEquipmentCase'])->name('newEquipmentCase');
+            Route::post('/newEquipmentMonitor', [EquipmentController::class, 'newEquipmentMonitor'])->name('newEquipmentMonitor');
+            Route::post('/newEquipmentPrinter', [EquipmentController::class, 'newEquipmentPrinter'])->name('newEquipmentPrinter');
+            Route::post('/newEquipmentScanner', [EquipmentController::class, 'newEquipmentScanner'])->name('newEquipmentScanner');
+            Route::post('/newEquipmentCopyMachine', [EquipmentController::class, 'newEquipmentCopyMachine'])->name('newEquipmentCopyMachine');
+            Route::post('/newEquipmentVOIP', [EquipmentController::class, 'newEquipmentVOIP'])->name('newEquipmentVOIP');
+            Route::post('/newEquipmentComment', [EquipmentController::class, 'newEquipmentComment'])->name('newComment');
             Route::post('/editEquipment', [EquipmentController::class, 'editEquipment'])->name('editEquipment');
 
             Route::get('/Person', [PersonController::class, 'index'])->name('Person');

@@ -2075,6 +2075,7 @@ $(document).ready(function () {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                             },
                             success: function (response) {
+                                console.log(response);
                                 if (response.errors) {
                                     if (response.errors.nullBrand) {
                                         swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
@@ -2640,7 +2641,7 @@ $(document).ready(function () {
                         data += "&person=" + idFromLink;
                         $.ajax({
                             type: 'POST',
-                            url: '/newCase',
+                            url: '/newEquipmentCase',
                             data: data,
                             headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
@@ -2694,7 +2695,7 @@ $(document).ready(function () {
                         data += "&person=" + idFromLink;
                         $.ajax({
                             type: 'POST',
-                            url: '/newMonitor',
+                            url: '/newEquipmentMonitor',
                             data: data,
                             headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
@@ -2736,7 +2737,7 @@ $(document).ready(function () {
                         data += "&person=" + idFromLink;
                         $.ajax({
                             type: 'POST',
-                            url: '/newPrinter',
+                            url: '/newEquipmentPrinter',
                             data: data,
                             headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
@@ -2778,7 +2779,7 @@ $(document).ready(function () {
                         data += "&person=" + idFromLink;
                         $.ajax({
                             type: 'POST',
-                            url: '/newScanner',
+                            url: '/newEquipmentScanner',
                             data: data,
                             headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
@@ -2820,7 +2821,7 @@ $(document).ready(function () {
                         data += "&person=" + idFromLink;
                         $.ajax({
                             type: 'POST',
-                            url: '/newCopyMachine',
+                            url: '/newEquipmentCopyMachine',
                             data: data,
                             headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
@@ -2862,7 +2863,7 @@ $(document).ready(function () {
                         data += "&person=" + idFromLink;
                         $.ajax({
                             type: 'POST',
-                            url: '/newVOIP',
+                            url: '/newEquipmentVOIP',
                             data: data,
                             headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
