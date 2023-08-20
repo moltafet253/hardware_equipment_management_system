@@ -18,9 +18,9 @@ class CPUController extends \App\Http\Controllers\Controller
         if (!$model) {
             return $this->alerts(false, 'nullModel', 'مدل وارد نشده است');
         }
-        if (!$generation) {
-            return $this->alerts(false, 'nullGeneration', 'نسل وارد نشده است');
-        }
+//        if (!$generation) {
+//            return $this->alerts(false, 'nullGeneration', 'نسل وارد نشده است');
+//        }
 
         $CPU = new cpu();
         $CPU->company_id = $brand;
