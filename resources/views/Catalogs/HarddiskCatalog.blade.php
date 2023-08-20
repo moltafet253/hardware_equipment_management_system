@@ -35,7 +35,7 @@
                                                     @php
                                                         $brands=\App\Models\Catalogs\Company::
                                                         where('name','!=','ONBOARD')
-                                                        ->whereJsonContains('products', ['HDD/SSD/M.2'])
+                                                        ->whereJsonContains('products', ['HDD|SSD|M.2'])
                                                         ->orderBy('name')->get();
                                                     @endphp
                                                     @foreach($brands as $brand)
@@ -66,7 +66,9 @@
                                                 <select id="capacity" class="border rounded-md w-full px-3 py-2"
                                                         name="capacity">
                                                     <option value="" disabled selected>انتخاب کنید</option>
-                                                    <option value="250GB">512MB</option>
+                                                    <option value="120GB">120GB</option>
+                                                    <option value="128GB">128GB</option>
+                                                    <option value="250GB">250GB</option>
                                                     <option value="256GB">256GB</option>
                                                     <option value="480GB">480GB</option>
                                                     <option value="500GB">500GB</option>
@@ -90,7 +92,7 @@
                                                     <option value="" disabled selected>انتخاب کنید</option>
                                                     <option value="IDE">IDE</option>
                                                     <option value="SATA">SATA</option>
-                                                    <option value="M.2">M.2</option>
+                                                    <option value="Onboard">Onboard</option>
                                                     <option value="USB">USB</option>
                                                 </select>
                                             </div>
@@ -136,7 +138,7 @@
                                                     @php
                                                         $brands=\App\Models\Catalogs\Company::
                                                         where('name','!=','ONBOARD')
-                                                        ->whereJsonContains('products', ['HDD/SSD/M.2'])
+                                                        ->whereJsonContains('products', ['HDD|SSD|M.2'])
                                                         ->orderBy('name')->get();
                                                     @endphp
                                                     @foreach($brands as $brand)
@@ -168,7 +170,9 @@
                                                 <select id="capacityForEdit" class="border rounded-md w-full px-3 py-2"
                                                         name="capacityForEdit">
                                                     <option value="" disabled selected>انتخاب کنید</option>
-                                                    <option value="250GB">512MB</option>
+                                                    <option value="120GB">120GB</option>
+                                                    <option value="128GB">128GB</option>
+                                                    <option value="250GB">250GB</option>
                                                     <option value="256GB">256GB</option>
                                                     <option value="480GB">480GB</option>
                                                     <option value="500GB">500GB</option>
@@ -192,7 +196,7 @@
                                                     <option value="" disabled selected>انتخاب کنید</option>
                                                     <option value="IDE">IDE</option>
                                                     <option value="SATA">SATA</option>
-                                                    <option value="M.2">M.2</option>
+                                                    <option value="Onboard">Onboard</option>
                                                     <option value="USB">USB</option>
                                                 </select>
                                             </div>

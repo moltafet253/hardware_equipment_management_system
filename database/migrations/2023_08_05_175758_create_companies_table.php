@@ -55,7 +55,16 @@ VALUES
 ('Viera', '[\"Case\"]'),
 ('Winext', '[\"Case\"]'),
 ('Intel', '[\"CPU\"]'),
-('AMD', '[\"CPU\"]')
+('AMD', '[\"CPU\"]'),
+('Hitachi', '[\"HDD|SSD|M.2\"]'),
+('Maxtor', '[\"HDD|SSD|M.2\"]'),
+('Samsung', '[\"HDD|SSD|M.2\"]'),
+('Seagate', '[\"HDD|SSD|M.2\"]'),
+('simmtronics', '[\"HDD|SSD|M.2\"]'),
+('Toshiba', '[\"HDD|SSD|M.2\"]'),
+('Western Digital', '[\"HDD|SSD|M.2\"]'),
+('White Label', '[\"HDD|SSD|M.2\"]'),
+('Lexar', '[\"HDD|SSD|M.2\"]')
 ;
 ";
         DB::statement($query);
