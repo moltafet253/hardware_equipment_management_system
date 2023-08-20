@@ -53,7 +53,10 @@ VALUES
 ('TSCO', '[\"Case\"]'),
 ('VANIA', '[\"Case\"]'),
 ('Viera', '[\"Case\"]'),
-('Winext', '[\"Case\"]');
+('Winext', '[\"Case\"]'),
+('Intel', '[\"CPU\"]'),
+('AMD', '[\"CPU\"]')
+;
 ";
         DB::statement($query);
 
