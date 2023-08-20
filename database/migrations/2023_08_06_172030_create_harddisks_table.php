@@ -24,6 +24,8 @@ return new class extends Migration {
         });
 
         $query = "INSERT INTO harddisks (company_id,model,capacity,type,connectivity_type) values
+                                                      (34,'980 Pro','1TB','Internal','Onboard'),
+                                                      (41,'SU800','256GB','Internal','Onboard'),
                                                       (40,NULL,'128GB','Internal','Onboard'),
                                                       (40,NULL,'250GB','Internal','Onboard'),
                                                       (40,NULL,'256GB','Internal','Onboard'),

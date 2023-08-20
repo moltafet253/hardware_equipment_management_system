@@ -64,7 +64,14 @@ VALUES
 ('Toshiba', '[\"HDD|SSD|M.2\"]'),
 ('Western Digital', '[\"HDD|SSD|M.2\"]'),
 ('White Label', '[\"HDD|SSD|M.2\"]'),
-('Lexar', '[\"HDD|SSD|M.2\"]')
+('Lexar', '[\"HDD|SSD|M.2\"]'),
+('ADATA', '[\"HDD|SSD|M.2\"]'),
+('Gigabyte', '[\"HDD|SSD|M.2\"]'),
+('Gloway', '[\"HDD|SSD|M.2\"]'),
+('kingmax', '[\"HDD|SSD|M.2\"]'),
+('Kingstone', '[\"HDD|SSD|M.2\"]'),
+('PNY', '[\"HDD|SSD|M.2\"]'),
+('Apacer', '[\"HDD|SSD|M.2\"]')
 ;
 ";
         DB::statement($query);
