@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->json('products'); // فیلد products از نوع JSON
             $table->timestamps();
             $table->softDeletes();
@@ -26,13 +26,22 @@ return new class extends Migration
         $query = "
 INSERT INTO companies (name, products)
 VALUES
+    ('Acbel', '[\"Power\"]'),
+('Asus', '[\"Power\"]'),
+('Coolermaster', '[\"Power\"]'),
+('GLT', '[\"Power\"]'),
+('Hreen', '[\"Power\"]'),
+('Memonex', '[\"Power\"]'),
+('RedMax', '[\"Power\"]'),
+('SilverStone', '[\"Power\"]'),
+('Thermaltake', '[\"Power\"]'),
 ('Apex', '[\"Case\"]'),
 ('Comport', '[\"Case\"]'),
 ('Delux', '[\"Case\"]'),
 ('Digital', '[\"Case\"]'),
 ('Elegance', '[\"Case\"]'),
-('Gigabyte', '[\"Case\"]'),
-('Green', '[\"Case\"]'),
+('Gigabyte', '[\"Case\",\"HDD|SSD|M.2\"]'),
+('Green', '[\"Case\",\"Power\"]'),
 ('HP', '[\"Case\"]'),
 ('Lexus', '[\"Case\"]'),
 ('Logic', '[\"Case\"]'),
@@ -42,7 +51,7 @@ VALUES
 ('Napex', '[\"Case\"]'),
 ('Next', '[\"Case\"]'),
 ('Optima', '[\"Case\"]'),
-('Pascal', '[\"Case\"]'),
+('Pascal', '[\"Case\",\"Power\"]'),
 ('Perfect', '[\"Case\"]'),
 ('Power Media', '[\"Case\"]'),
 ('Protect', '[\"Case\"]'),
@@ -50,7 +59,7 @@ VALUES
 ('Select', '[\"Case\"]'),
 ('TANUS', '[\"Case\"]'),
 ('Target', '[\"Case\"]'),
-('TSCO', '[\"Case\"]'),
+('TSCO', '[\"Case\",\"Power\"]'),
 ('VANIA', '[\"Case\"]'),
 ('Viera', '[\"Case\"]'),
 ('Winext', '[\"Case\"]'),
@@ -66,7 +75,6 @@ VALUES
 ('White Label', '[\"HDD|SSD|M.2\"]'),
 ('Lexar', '[\"HDD|SSD|M.2\"]'),
 ('ADATA', '[\"HDD|SSD|M.2\"]'),
-('Gigabyte', '[\"HDD|SSD|M.2\"]'),
 ('Gloway', '[\"HDD|SSD|M.2\"]'),
 ('kingmax', '[\"HDD|SSD|M.2\"]'),
 ('Kingstone', '[\"HDD|SSD|M.2\"]'),
