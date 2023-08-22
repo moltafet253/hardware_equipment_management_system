@@ -2353,6 +2353,109 @@ $(document).ready(function () {
                 });
             });
             break;
+        case '/JobCatalog':
+            $('#new-job-button, #cancel-new-job').on('click', function () {
+                toggleModal(newJobModal.id);
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.add').on('click', function () {
+                toggleModal(newJobModal.id)
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.edit').on('click', function () {
+                toggleModal(editJobModal.id)
+            });
+            $('.JobControl,#cancel-edit-job').on('click', function () {
+                toggleModal(editJobModal.id);
+            });
+            $('#new-job').on('submit', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var form = $(this);
+                        var data = form.serialize();
+                        $.ajax({
+                            type: 'POST',
+                            url: '/newJob',
+                            data: data,
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            },
+                            success: function (response) {
+                                if (response.errors) {
+                                    if (response.errors.nullName) {
+                                        swalFire('خطا!', response.errors.nullName[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.dupName) {
+                                        swalFire('خطا!', response.errors.dupName[0], 'error', 'تلاش مجدد');
+                                    }
+                                } else if (response.success) {
+                                    swalFire('ثبت اطلاعات جدید موفقیت آمیز بود!', response.message.jobAdded[0], 'success', 'بستن');
+                                    toggleModal(newJobModal.id);
+                                    resetFields();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+            $('.JobControl').on('click', function () {
+                $.ajax({
+                    type: 'GET',
+                    url: '/getJobInfo',
+                    data: {
+                        id: $(this).data('id')
+                    },
+                    success: function (response) {
+                        if (response) {
+                            job_id.value = response.id;
+                            titleForEdit.value = response.title;
+                        }
+                    }
+                });
+            });
+            $('#edit-job').on('submit', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var form = $(this);
+                        var data = form.serialize();
+                        $.ajax({
+                            type: 'POST',
+                            url: '/editJob',
+                            data: data,
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            },
+                            success: function (response) {
+                                if (response.errors) {
+                                    if (response.errors.nullName) {
+                                        swalFire('خطا!', response.errors.nullName[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.dupName) {
+                                        swalFire('خطا!', response.errors.dupName[0], 'error', 'تلاش مجدد');
+                                    }
+                                } else if (response.success) {
+                                    swalFire('ویرایش اطلاعات موفقیت آمیز بود!', response.message.jobEdited[0], 'success', 'بستن');
+                                    toggleModal(editJobModal.id);
+                                    resetFields();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+            break;
         case '/EstablishmentPlaceCatalog':
             $('#new-establishment-place-button, #cancel-new-establishment-place').on('click', function () {
                 toggleModal(newEstablishmentPlaceModal.id);

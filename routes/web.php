@@ -8,6 +8,7 @@ use App\Http\Controllers\Catalogs\CPUController;
 use App\Http\Controllers\Catalogs\EstablishmentPlaceController;
 use App\Http\Controllers\Catalogs\GraphicCardController;
 use App\Http\Controllers\Catalogs\HarddiskController;
+use App\Http\Controllers\Catalogs\JobController;
 use App\Http\Controllers\Catalogs\MonitorController;
 use App\Http\Controllers\Catalogs\MotherboardController;
 use App\Http\Controllers\Catalogs\NetworkCardController;
@@ -165,6 +166,11 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
             Route::post('/newEstablishmentPlace', [EstablishmentPlaceController::class, 'newEstablishmentPlace'])->name('newEstablishmentPlace');
             Route::get('/getEstablishmentPlaceInfo', [EstablishmentPlaceController::class, 'getEstablishmentPlaceInfo'])->name('getEstablishmentPlaceInfo');
             Route::post('/editEstablishmentPlace', [EstablishmentPlaceController::class, 'editEstablishmentPlace'])->name('editEstablishmentPlace');
+
+            Route::get('/JobCatalog', [JobController::class, 'index'])->name('JobCatalog');
+            Route::post('/newJob', [JobController::class, 'newJob'])->name('newJob');
+            Route::get('/getJobInfo', [JobController::class, 'getJobInfo'])->name('getJobInfo');
+            Route::post('/editJob', [JobController::class, 'editJob'])->name('editJob');
 
             //End Catalogs
             Route::get('/showEquipmentStatus', [EquipmentController::class, 'showEquipmentStatus'])->name('showEquipmentStatus');
