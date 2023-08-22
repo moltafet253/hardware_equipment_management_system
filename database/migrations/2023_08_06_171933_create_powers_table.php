@@ -28,7 +28,7 @@ return new class extends Migration
             '580W', '600W', '650W', '685W'
         ];
         $companies = [
-            2, 3, 4, 5, 17, 6,
+            2, 3, 4, 5, 17,
             7, 27, 8, 9, 10, 35
         ];
 
