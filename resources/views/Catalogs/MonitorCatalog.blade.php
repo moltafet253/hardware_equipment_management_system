@@ -171,6 +171,14 @@
                                         class="px-4 py-2 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 MonitorControl">
                                     جزئیات و ویرایش
                                 </button>
+                                <button type="submit" data-id="{{ $monitor->id }}"
+                                        class="px-4 py-2 mr-3 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring focus:border-red-300 deactiveMonitorControl">
+                                    @if($monitor->active==1)
+                                        غیرفعالسازی
+                                    @else
+                                        فعالسازی
+                                    @endif
+                                </button>
                             </td>
                         </tr>
                     @endforeach
