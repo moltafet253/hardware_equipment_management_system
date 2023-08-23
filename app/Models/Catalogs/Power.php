@@ -15,5 +15,6 @@ class Power extends Model
         'company_id',
         'model',
         'output_voltage',
+        'active',
     ];
 }

@@ -15,5 +15,6 @@ class Monitor extends Model
         'company_id',
         'model',
         'size',
+        'active',
     ];
 }

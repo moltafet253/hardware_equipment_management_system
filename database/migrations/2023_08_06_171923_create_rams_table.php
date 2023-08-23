@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('type',5);
             $table->string('size',10);
             $table->integer('frequency');
+            $table->boolean('active')->default(1)->comment('1 => active , 0 => deactive');
             $table->timestamps();
             $table->softDeletes();
         });

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreign('company_id')->references('id')->on('companies');
             $table->string('model');
             $table->integer('generation')->nullable();
+            $table->boolean('active')->default(1)->comment('1 => active , 0 => deactive');
             $table->timestamps();
             $table->softDeletes();
         });

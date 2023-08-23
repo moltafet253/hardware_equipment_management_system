@@ -15,5 +15,6 @@ class cpu extends Model
         'company_id',
         'model',
         'generation',
+        'active',
     ];
 }

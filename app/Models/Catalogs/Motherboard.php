@@ -18,6 +18,7 @@ class Motherboard extends Model
         'ram_slot_generation',
         'cpu_slot_type',
         'cpu_slots_number',
-        'ram_slots_number'
+        'ram_slots_number',
+        'active',
     ];
 }

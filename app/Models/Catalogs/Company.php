@@ -11,5 +11,5 @@ class Company extends Model
     use HasFactory,SoftDeletes;
     protected $table='companies';
     protected $hidden=['created_at','updated_at','deleted_at'];
-    protected $fillable=['name','products'];
+    protected $fillable=['name','products', 'active',];
 }

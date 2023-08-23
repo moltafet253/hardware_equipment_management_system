@@ -18,5 +18,6 @@ class Harddisk extends Model
         'capacity',
         'type',
         'connectivity_type',
+        'active',
     ];
 }

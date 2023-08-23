@@ -15,5 +15,6 @@ class NetworkCard extends Model
         'company_id',
         'model',
         'connectivity_type',
+        'active',
     ];
 }

@@ -22,6 +22,7 @@ return new class extends Migration
             $table->integer('cpu_slot_type')->nullable();
             $table->integer('cpu_slots_number')->nullable();
             $table->integer('ram_slots_number')->nullable();
+            $table->boolean('active')->default(1)->comment('1 => active , 0 => deactive');
             $table->timestamps();
             $table->softDeletes();
         });

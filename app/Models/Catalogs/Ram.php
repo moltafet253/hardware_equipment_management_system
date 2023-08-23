@@ -16,6 +16,7 @@ class Ram extends Model
         'model',
         'type',
         'size',
-        'frequency'
+        'frequency',
+        'active',
     ];
 }

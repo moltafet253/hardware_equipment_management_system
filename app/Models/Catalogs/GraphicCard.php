@@ -15,5 +15,6 @@ class GraphicCard extends Model
         'company_id',
         'model',
         'ram_size',
+        'active',
     ];
 }

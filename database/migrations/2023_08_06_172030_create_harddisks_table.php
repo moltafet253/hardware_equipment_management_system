@@ -19,6 +19,7 @@ return new class extends Migration {
             $table->string('capacity', 5);
             $table->string('type', 10)->nullable();
             $table->string('connectivity_type', 10)->nullable();
+            $table->boolean('active')->default(1)->comment('1 => active , 0 => deactive');
             $table->timestamps();
             $table->softDeletes();
         });
