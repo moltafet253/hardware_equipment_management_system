@@ -52,8 +52,10 @@
                                             </div>
                                             <div class="flex flex-col items-right mb-2">
                                                 <label for="connectivity_type"
-                                                       class="block text-gray-700 text-sm font-bold mb-2">نوع اتصال*:</label>
-                                                <select id="connectivity_type" class="border rounded-md w-full px-3 py-2"
+                                                       class="block text-gray-700 text-sm font-bold mb-2">نوع
+                                                    اتصال*:</label>
+                                                <select id="connectivity_type"
+                                                        class="border rounded-md w-full px-3 py-2"
                                                         name="connectivity_type">
                                                     <option value="" disabled selected>انتخاب کنید</option>
                                                     <option value="SATA">SATA</option>
@@ -121,8 +123,10 @@
                                             </div>
                                             <div class="flex flex-col items-right mb-2">
                                                 <label for="connectivity_typeForEdit"
-                                                       class="block text-gray-700 text-sm font-bold mb-2">نوع اتصال*:</label>
-                                                <select id="connectivity_typeForEdit" class="border rounded-md w-full px-3 py-2"
+                                                       class="block text-gray-700 text-sm font-bold mb-2">نوع
+                                                    اتصال*:</label>
+                                                <select id="connectivity_typeForEdit"
+                                                        class="border rounded-md w-full px-3 py-2"
                                                         name="connectivity_typeForEdit">
                                                     <option value="" disabled selected>انتخاب کنید</option>
                                                     <option value="SATA">SATA</option>
@@ -174,14 +178,17 @@
                                         class="px-4 py-2 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 ODDControl">
                                     جزئیات و ویرایش
                                 </button>
-                                <button type="submit" data-id="{{ $ODD->id }}"
-                                        class="px-4 py-2 mr-3 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring focus:border-red-300 deactiveODDControl">
-                                    @if($ODD->active==1)
+                                @if($ODD->active==1)
+                                    <button type="submit" data-id="{{ $ODD->id }}"
+                                            class="px-4 py-2 mr-3 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring focus:border-red-300 deactiveODDControl">
                                         غیرفعالسازی
-                                    @else
+                                    </button>
+                                @else
+                                    <button type="submit" data-id="{{ $ODD->id }}"
+                                            class="px-4 py-2 mr-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-green-300 deactiveODDControl">
                                         فعالسازی
-                                    @endif
-                                </button>
+                                    </button>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

@@ -52,8 +52,10 @@
                                             </div>
                                             <div class="flex flex-col items-right mb-2">
                                                 <label for="output_voltage"
-                                                       class="block text-gray-700 text-sm font-bold mb-2">ولتاژ خروجی*:</label>
-                                                <input type="text" id="output_voltage" name="output_voltage" autocomplete="off"
+                                                       class="block text-gray-700 text-sm font-bold mb-2">ولتاژ
+                                                    خروجی*:</label>
+                                                <input type="text" id="output_voltage" name="output_voltage"
+                                                       autocomplete="off"
                                                        class="border rounded-md w-full mb-2 px-3 py-2 text-right"
                                                        placeholder="مقدار ولتاژ خروجی را وارد کنید">
                                             </div>
@@ -117,8 +119,10 @@
                                             </div>
                                             <div class="flex flex-col items-right mb-2">
                                                 <label for="output_voltageForEdit"
-                                                       class="block text-gray-700 text-sm font-bold mb-2">ولتاژ خروجی*:</label>
-                                                <input type="number" id="output_voltageForEdit" name="output_voltageForEdit" autocomplete="off"
+                                                       class="block text-gray-700 text-sm font-bold mb-2">ولتاژ
+                                                    خروجی*:</label>
+                                                <input type="number" id="output_voltageForEdit"
+                                                       name="output_voltageForEdit" autocomplete="off"
                                                        class="border rounded-md w-full mb-2 px-3 py-2 text-right"
                                                        placeholder="مقدار ولتاژ خروجی را وارد کنید">
                                             </div>
@@ -166,14 +170,17 @@
                                         class="px-4 py-2 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 PowerControl">
                                     جزئیات و ویرایش
                                 </button>
-                                <button type="submit" data-id="{{ $power->id }}"
-                                        class="px-4 py-2 mr-3 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring focus:border-red-300 deactivePowerControl">
-                                    @if($power->active==1)
+                                @if($power->active==1)
+                                    <button type="submit" data-id="{{ $power->id }}"
+                                            class="px-4 py-2 mr-3 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring focus:border-red-300 deactivePowerControl">
                                         غیرفعالسازی
-                                    @else
+                                    </button>
+                                @else
+                                    <button type="submit" data-id="{{ $power->id }}"
+                                            class="px-4 py-2 mr-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-green-300 deactivePowerControl">
                                         فعالسازی
-                                    @endif
-                                </button>
+                                    </button>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

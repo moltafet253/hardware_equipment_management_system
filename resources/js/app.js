@@ -707,6 +707,32 @@ $(document).ready(function () {
                     });
                 }
             });
+            $('.deactiveBrandControl').on('click', function () {
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'وضعیت این کاتالوگ تغییر خواهد کرد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/ManageCatalogStatus',
+                        data: {
+                            id: $(this).data('id'),
+                            work: 'ChangeBrandStatus'
+                        },
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                        },
+                        success: function (response) {
+                            location.reload();
+                        }
+                    });
+                });
+
+            });
             break;
         case '/MotherboardCatalog':
             $('#new-motherboard-button, #cancel-new-motherboard').on('click', function () {
@@ -836,6 +862,32 @@ $(document).ready(function () {
                     }
                 });
             });
+            $('.deactiveMotherboardControl').on('click', function () {
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'وضعیت این کاتالوگ تغییر خواهد کرد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/ManageCatalogStatus',
+                        data: {
+                            id: $(this).data('id'),
+                            work: 'ChangeMotherboardStatus'
+                        },
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                        },
+                        success: function (response) {
+                            location.reload();
+                        }
+                    });
+                });
+
+            });
             break;
         case '/CaseCatalog':
             $('#new-case-button, #cancel-new-case').on('click', function () {
@@ -939,6 +991,32 @@ $(document).ready(function () {
                         });
                     }
                 });
+            });
+            $('.deactiveCaseControl').on('click', function () {
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'وضعیت این کاتالوگ تغییر خواهد کرد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/ManageCatalogStatus',
+                        data: {
+                            id: $(this).data('id'),
+                            work: 'ChangeCaseStatus'
+                        },
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                        },
+                        success: function (response) {
+                            location.reload();
+                        }
+                    });
+                });
+
             });
             break;
         case '/CPUCatalog':
@@ -1048,6 +1126,32 @@ $(document).ready(function () {
                         });
                     }
                 });
+            });
+            $('.deactiveCPUControl').on('click', function () {
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'وضعیت این کاتالوگ تغییر خواهد کرد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/ManageCatalogStatus',
+                        data: {
+                            id: $(this).data('id'),
+                            work: 'ChangeCPUStatus'
+                        },
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                        },
+                        success: function (response) {
+                            location.reload();
+                        }
+                    });
+                });
+
             });
             break;
         case '/RAMCatalog':
@@ -1168,6 +1272,32 @@ $(document).ready(function () {
                     }
                 });
             });
+            $('.deactiveRAMControl').on('click', function () {
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'وضعیت این کاتالوگ تغییر خواهد کرد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/ManageCatalogStatus',
+                        data: {
+                            id: $(this).data('id'),
+                            work: 'ChangeRAMStatus'
+                        },
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                        },
+                        success: function (response) {
+                            location.reload();
+                        }
+                    });
+                });
+
+            });
             break;
         case '/PowerCatalog':
             $('#new-power-button, #cancel-new-power').on('click', function () {
@@ -1277,6 +1407,32 @@ $(document).ready(function () {
                     }
                 });
             });
+            $('.deactivePowerControl').on('click', function () {
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'وضعیت این کاتالوگ تغییر خواهد کرد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/ManageCatalogStatus',
+                        data: {
+                            id: $(this).data('id'),
+                            work: 'ChangePowerStatus'
+                        },
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                        },
+                        success: function (response) {
+                            location.reload();
+                        }
+                    });
+                });
+
+            });
             break;
         case '/GraphicCardCatalog':
             $('#new-graphiccard-button, #cancel-new-graphiccard').on('click', function () {
@@ -1385,6 +1541,32 @@ $(document).ready(function () {
                         });
                     }
                 });
+            });
+            $('.deactiveGraphicCardControl').on('click', function () {
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'وضعیت این کاتالوگ تغییر خواهد کرد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/ManageCatalogStatus',
+                        data: {
+                            id: $(this).data('id'),
+                            work: 'ChangeGraphicCardStatus'
+                        },
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                        },
+                        success: function (response) {
+                            location.reload();
+                        }
+                    });
+                });
+
             });
             break;
         case '/HarddiskCatalog':
@@ -1505,6 +1687,32 @@ $(document).ready(function () {
                     }
                 });
             });
+            $('.deactiveHarddiskControl').on('click', function () {
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'وضعیت این کاتالوگ تغییر خواهد کرد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/ManageCatalogStatus',
+                        data: {
+                            id: $(this).data('id'),
+                            work: 'ChangeHarddiskStatus'
+                        },
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                        },
+                        success: function (response) {
+                            location.reload();
+                        }
+                    });
+                });
+
+            });
             break;
         case '/ODDCatalog':
             $('#new-ODD-button, #cancel-ODD-case').on('click', function () {
@@ -1613,6 +1821,32 @@ $(document).ready(function () {
                         });
                     }
                 });
+            });
+            $('.deactiveODDControl').on('click', function () {
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'وضعیت این کاتالوگ تغییر خواهد کرد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/ManageCatalogStatus',
+                        data: {
+                            id: $(this).data('id'),
+                            work: 'ChangeODDStatus'
+                        },
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                        },
+                        success: function (response) {
+                            location.reload();
+                        }
+                    });
+                });
+
             });
             break;
         case '/NetworkCardCatalog':
@@ -1723,6 +1957,32 @@ $(document).ready(function () {
                     }
                 });
             });
+            $('.deactiveNetworkCardControl').on('click', function () {
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'وضعیت این کاتالوگ تغییر خواهد کرد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/ManageCatalogStatus',
+                        data: {
+                            id: $(this).data('id'),
+                            work: 'ChangeNetworkCardStatus'
+                        },
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                        },
+                        success: function (response) {
+                            location.reload();
+                        }
+                    });
+                });
+
+            });
             break;
         case '/MonitorCatalog':
             $('#new-Monitor-button, #cancel-new-Monitor').on('click', function () {
@@ -1832,6 +2092,32 @@ $(document).ready(function () {
                     }
                 });
             });
+            $('.deactiveMonitorControl').on('click', function () {
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'وضعیت این کاتالوگ تغییر خواهد کرد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/ManageCatalogStatus',
+                        data: {
+                            id: $(this).data('id'),
+                            work: 'ChangeMonitorStatus'
+                        },
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                        },
+                        success: function (response) {
+                            location.reload();
+                        }
+                    });
+                });
+
+            });
             break;
         case '/PrinterCatalog':
             $('#new-printer-button, #cancel-new-printer').on('click', function () {
@@ -1936,6 +2222,32 @@ $(document).ready(function () {
                     }
                 });
             });
+            $('.deactivePrinterControl').on('click', function () {
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'وضعیت این کاتالوگ تغییر خواهد کرد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/ManageCatalogStatus',
+                        data: {
+                            id: $(this).data('id'),
+                            work: 'ChangePrinterStatus'
+                        },
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                        },
+                        success: function (response) {
+                            location.reload();
+                        }
+                    });
+                });
+
+            });
             break;
         case '/ScannerCatalog':
             $('#new-scanner-button, #cancel-new-printer').on('click', function () {
@@ -2039,6 +2351,32 @@ $(document).ready(function () {
                         });
                     }
                 });
+            });
+            $('.deactiveScannerControl').on('click', function () {
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'وضعیت این کاتالوگ تغییر خواهد کرد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/ManageCatalogStatus',
+                        data: {
+                            id: $(this).data('id'),
+                            work: 'ChangeScannerStatus'
+                        },
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                        },
+                        success: function (response) {
+                            location.reload();
+                        }
+                    });
+                });
+
             });
             break;
         case '/CopyMachineCatalog':
@@ -2145,6 +2483,32 @@ $(document).ready(function () {
                     }
                 });
             });
+            $('.deactiveCopyMachineControl').on('click', function () {
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'وضعیت این کاتالوگ تغییر خواهد کرد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/ManageCatalogStatus',
+                        data: {
+                            id: $(this).data('id'),
+                            work: 'ChangeCopyMachineStatus'
+                        },
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                        },
+                        success: function (response) {
+                            location.reload();
+                        }
+                    });
+                });
+
+            });
             break;
         case '/VOIPCatalog':
             $('#new-VOIP-button, #cancel-new-VOIP').on('click', function () {
@@ -2249,6 +2613,32 @@ $(document).ready(function () {
                     }
                 });
             });
+            $('.deactiveVOIPControl').on('click', function () {
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'وضعیت این کاتالوگ تغییر خواهد کرد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/ManageCatalogStatus',
+                        data: {
+                            id: $(this).data('id'),
+                            work: 'ChangeVOIPStatus'
+                        },
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                        },
+                        success: function (response) {
+                            location.reload();
+                        }
+                    });
+                });
+
+            });
             break;
         case '/AssistanceCatalog':
             $('#new-assistance-button, #cancel-new-assistance').on('click', function () {
@@ -2351,6 +2741,32 @@ $(document).ready(function () {
                         });
                     }
                 });
+            });
+            $('.deactiveAssistanceControl').on('click', function () {
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'وضعیت این کاتالوگ تغییر خواهد کرد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/ManageCatalogStatus',
+                        data: {
+                            id: $(this).data('id'),
+                            work: 'ChangeAssistanceStatus'
+                        },
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                        },
+                        success: function (response) {
+                            location.reload();
+                        }
+                    });
+                });
+
             });
             break;
         case '/JobCatalog':
@@ -2455,6 +2871,32 @@ $(document).ready(function () {
                     }
                 });
             });
+            $('.deactiveJobControl').on('click', function () {
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'وضعیت این کاتالوگ تغییر خواهد کرد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/ManageCatalogStatus',
+                        data: {
+                            id: $(this).data('id'),
+                            work: 'ChangeJobStatus'
+                        },
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                        },
+                        success: function (response) {
+                            location.reload();
+                        }
+                    });
+                });
+
+            });
             break;
         case '/EstablishmentPlaceCatalog':
             $('#new-establishment-place-button, #cancel-new-establishment-place').on('click', function () {
@@ -2557,6 +2999,32 @@ $(document).ready(function () {
                         });
                     }
                 });
+            });
+            $('.deactiveEstablishmentPlaceControl').on('click', function () {
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'وضعیت این کاتالوگ تغییر خواهد کرد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/ManageCatalogStatus',
+                        data: {
+                            id: $(this).data('id'),
+                            work: 'ChangeEstablishmentPlaceStatus'
+                        },
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                        },
+                        success: function (response) {
+                            location.reload();
+                        }
+                    });
+                });
+
             });
             break;
         case '/Person':

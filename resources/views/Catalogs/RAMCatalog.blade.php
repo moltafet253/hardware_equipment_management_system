@@ -226,14 +226,17 @@
                                         class="px-4 py-2 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 RAMControl">
                                     جزئیات و ویرایش
                                 </button>
-                                <button type="submit" data-id="{{ $ram->id }}"
-                                        class="px-4 py-2 mr-3 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring focus:border-red-300 deactiveRAMControl">
-                                    @if($ram->active==1)
+                                @if($ram->active==1)
+                                    <button type="submit" data-id="{{ $ram->id }}"
+                                            class="px-4 py-2 mr-3 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring focus:border-red-300 deactiveRAMControl">
                                         غیرفعالسازی
-                                    @else
+                                    </button>
+                                @else
+                                    <button type="submit" data-id="{{ $ram->id }}"
+                                            class="px-4 py-2 mr-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-green-300 deactiveRAMControl">
                                         فعالسازی
-                                    @endif
-                                </button>
+                                    </button>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

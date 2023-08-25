@@ -110,14 +110,17 @@
                                         class="px-4 py-2 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 AssistanceControl">
                                     جزئیات و ویرایش
                                 </button>
-                                <button type="submit" data-id="{{ $brand->id }}"
-                                        class="px-4 py-2 mr-3 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring focus:border-red-300 deactiveBrandControl">
-                                    @if($brand->active==1)
+                                @if($assistance->active==1)
+                                    <button type="submit" data-id="{{ $assistance->id }}"
+                                            class="px-4 py-2 mr-3 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring focus:border-red-300 deactiveAssistanceControl">
                                         غیرفعالسازی
-                                    @else
+                                    </button>
+                                @else
+                                    <button type="submit" data-id="{{ $assistance->id }}"
+                                            class="px-4 py-2 mr-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-green-300 deactiveAssistanceControl">
                                         فعالسازی
-                                    @endif
-                                </button>
+                                    </button>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Catalogs\AssistanceController;
 use App\Http\Controllers\Catalogs\BrandController;
 use App\Http\Controllers\Catalogs\CaseController;
+use App\Http\Controllers\Catalogs\CatalogController;
 use App\Http\Controllers\Catalogs\CopyMachineController;
 use App\Http\Controllers\Catalogs\CPUController;
 use App\Http\Controllers\Catalogs\EstablishmentPlaceController;
@@ -172,6 +173,8 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
             Route::get('/getJobInfo', [JobController::class, 'getJobInfo'])->name('getJobInfo');
             Route::post('/editJob', [JobController::class, 'editJob'])->name('editJob');
 
+
+            Route::post('/ManageCatalogStatus', [CatalogController::class, 'manage']);
             //End Catalogs
             Route::get('/showEquipmentStatus', [EquipmentController::class, 'showEquipmentStatus'])->name('showEquipmentStatus');
             Route::post('/newEquipmentCase', [EquipmentController::class, 'newEquipmentCase'])->name('newEquipmentCase');
