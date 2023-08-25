@@ -63,7 +63,7 @@
                                         <option value="" disabled selected>انتخاب کنید</option>
                                         @php
                                             $cases = \App\Models\Catalogs\Cases::join('companies', 'cases.company_id', '=', 'companies.id')
-                                                ->orderBy('companies.name')
+                                                ->where('cases.active',1)->orderBy('companies.name')
                                                 ->get(['cases.id', 'companies.name', 'cases.model']);
                                         @endphp
                                         @foreach($cases as $case)
@@ -81,7 +81,7 @@
                                         <option value="" disabled selected>انتخاب کنید</option>
                                         @php
                                             $motherboards = \App\Models\Catalogs\Motherboard::join('companies', 'motherboards.company_id', '=', 'companies.id')
-                                                ->orderBy('companies.name')
+                                                ->where('motherboards.active',1)->orderBy('companies.name')
                                                 ->get(['motherboards.id', 'companies.name', 'motherboards.model']);
                                         @endphp
                                         @foreach($motherboards as $motherboard)
@@ -98,7 +98,7 @@
                                         <option value="" disabled selected>انتخاب کنید</option>
                                         @php
                                             $powers = \App\Models\Catalogs\Power::join('companies', 'powers.company_id', '=', 'companies.id')
-                                                ->orderBy('companies.name')
+                                                ->where('powers.active',1)->orderBy('companies.name')
                                                 ->get(['powers.id', 'companies.name', 'powers.model']);
                                         @endphp
                                         @foreach($powers as $power)
@@ -115,7 +115,7 @@
                                         <option value="" disabled selected>انتخاب کنید</option>
                                         @php
                                             $cpus = \App\Models\Catalogs\cpu::join('companies', 'cpus.company_id', '=', 'companies.id')
-                                                ->orderBy('companies.name')
+                                                ->where('cpus.active',1)->orderBy('companies.name')
                                                 ->get(['cpus.id', 'companies.name', 'cpus.model']);
                                         @endphp
                                         @foreach($cpus as $cpu)
@@ -134,7 +134,7 @@
                                             <option value="" disabled selected>انتخاب کنید</option>
                                             @php
                                                 $rams = \App\Models\Catalogs\Ram::join('companies', 'rams.company_id', '=', 'companies.id')
-                                                    ->orderBy('companies.name')
+                                                    ->where('rams.active',1)->orderBy('companies.name')
                                                     ->get(['rams.id', 'companies.name', 'rams.model', 'rams.type', 'rams.size']);
                                             @endphp
                                             @foreach($rams as $ram)
@@ -152,7 +152,7 @@
                                             <option value="" selected>فاقد رم</option>
                                             @php
                                                 $rams = \App\Models\Catalogs\Ram::join('companies', 'rams.company_id', '=', 'companies.id')
-                                                    ->orderBy('companies.name')
+                                                    ->where('rams.active',1)->orderBy('companies.name')
                                                     ->get(['rams.id', 'companies.name', 'rams.model', 'rams.type', 'rams.size']);
                                             @endphp
                                             @foreach($rams as $ram)
@@ -172,7 +172,7 @@
                                             <option value="" selected>فاقد رم</option>
                                             @php
                                                 $rams = \App\Models\Catalogs\Ram::join('companies', 'rams.company_id', '=', 'companies.id')
-                                                    ->orderBy('companies.name')
+                                                    ->where('rams.active',1)->orderBy('companies.name')
                                                     ->get(['rams.id', 'companies.name', 'rams.model', 'rams.type', 'rams.size']);
                                             @endphp
                                             @foreach($rams as $ram)
@@ -190,7 +190,7 @@
                                             <option value="" selected>فاقد رم</option>
                                             @php
                                                 $rams = \App\Models\Catalogs\Ram::join('companies', 'rams.company_id', '=', 'companies.id')
-                                                    ->orderBy('companies.name')
+                                                    ->where('rams.active',1)->orderBy('companies.name')
                                                     ->get(['rams.id', 'companies.name', 'rams.model', 'rams.type', 'rams.size']);
                                             @endphp
                                             @foreach($rams as $ram)
@@ -211,7 +211,7 @@
                                             @php
                                                 $hdds = \App\Models\Catalogs\Harddisk::join('companies', 'harddisks.company_id', '=', 'companies.id')
                                                     ->where('harddisks.type','!=','External')
-                                                    ->orderBy('companies.name')
+                                                    ->where('harddisks.active',1)->orderBy('companies.name')
                                                     ->get(['harddisks.id', 'companies.name', 'harddisks.model', 'harddisks.capacity','harddisks.connectivity_type',]);
                                             @endphp
                                             @foreach($hdds as $hdd)
@@ -230,7 +230,7 @@
                                             @php
                                                 $hdds = \App\Models\Catalogs\Harddisk::join('companies', 'harddisks.company_id', '=', 'companies.id')
                                                     ->where('harddisks.type','!=','External')
-                                                    ->orderBy('companies.name')
+                                                    ->where('harddisks.active',1)->orderBy('companies.name')
                                                     ->get(['harddisks.id', 'companies.name', 'harddisks.model', 'harddisks.capacity','harddisks.connectivity_type',]);
                                             @endphp
                                             @foreach($hdds as $hdd)
@@ -249,7 +249,7 @@
                                         <option value="" selected>فاقد کارت گرافیک</option>
                                         @php
                                             $graphic_cards = \App\Models\Catalogs\GraphicCard::join('companies', 'graphic_cards.company_id', '=', 'companies.id')
-                                                ->orderBy('companies.name')
+                                                ->where('graphic_cards.active',1)->orderBy('companies.name')
                                                 ->get(['graphic_cards.id', 'companies.name', 'graphic_cards.model', 'graphic_cards.ram_size']);
                                         @endphp
                                         @foreach($graphic_cards as $graphic_card)
@@ -267,7 +267,7 @@
                                         <option value="" selected>فاقد کارت شبکه</option>
                                         @php
                                             $networkcards = \App\Models\Catalogs\NetworkCard::join('companies', 'network_cards.company_id', '=', 'companies.id')
-                                                ->orderBy('companies.name')
+                                                ->where('network_cards.active',1)->orderBy('companies.name')
                                                 ->get(['network_cards.id', 'companies.name', 'network_cards.model', 'network_cards.connectivity_type']);
                                         @endphp
                                         @foreach($networkcards as $networkcard)
@@ -284,7 +284,7 @@
                                         <option value="" selected>فاقد درایو نوری</option>
                                         @php
                                             $odds = \App\Models\Catalogs\Odd::join('companies', 'odds.company_id', '=', 'companies.id')
-                                                ->orderBy('companies.name')
+                                                ->where('odds.active',1)->orderBy('companies.name')
                                                 ->get(['odds.id', 'companies.name', 'odds.model', 'odds.connectivity_type']);
                                         @endphp
                                         @foreach($odds as $odd)

@@ -88,7 +88,7 @@
                                                         title="معاونت/بخش را انتخاب کنید (اختیاری)">
                                                     <option value="" disabled selected>انتخاب کنید</option>
                                                     @php
-                                                        $assistances=\App\Models\Catalogs\Assistance::orderBy('name')->get();
+                                                        $assistances=\App\Models\Catalogs\Assistance::where('active',1)->orderBy('name')->get();
                                                     @endphp
                                                     @foreach($assistances as $assistance)
                                                         <option
@@ -104,7 +104,7 @@
                                                         title="محل استقرار را انتخاب کنید (اختیاری)">
                                                     <option value="" disabled selected>انتخاب کنید</option>
                                                     @php
-                                                        $establishmentPlaces=\App\Models\EstablishmentPlace::orderBy('title')->get();
+                                                        $establishmentPlaces=\App\Models\EstablishmentPlace::where('active',1)->orderBy('title')->get();
                                                     @endphp
                                                     @foreach($establishmentPlaces as $establishmentPlace)
                                                         <option
