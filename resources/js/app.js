@@ -630,8 +630,9 @@ $(document).ready(function () {
                                             swalFire('خطا!', response.errors.productIsNull[0], 'error', 'تلاش مجدد');
                                         }
                                     } else if (response.success) {
-                                        swalFire('عملیات ثبت برند موفقیت آمیز بود!', response.message.companyAdded[0], 'success', 'بستن');
-                                        toggleModal(newBrandModal.id);
+                                        // swalFire('عملیات ثبت برند موفقیت آمیز بود!', response.message.companyAdded[0], 'success', 'بستن');
+                                        // toggleModal(newBrandModal.id);
+                                        location.reload();
                                         resetFields();
                                     }
                                 }
@@ -687,7 +688,6 @@ $(document).ready(function () {
                                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                                 },
                                 success: function (response) {
-                                    console.log(response);
                                     if (response.errors) {
                                         if (response.errors.nameIsNull) {
                                             swalFire('خطا!', response.errors.nameIsNull[0], 'error', 'تلاش مجدد');
@@ -697,8 +697,9 @@ $(document).ready(function () {
                                             swalFire('خطا!', response.errors.productIsNull[0], 'error', 'تلاش مجدد');
                                         }
                                     } else if (response.success) {
-                                        swalFire('ویرایش برند موفقیت آمیز بود!', response.message.companyEdited[0], 'success', 'بستن');
-                                        toggleModal(editBrandModal.id);
+                                        // swalFire('ویرایش برند موفقیت آمیز بود!', response.message.companyEdited[0], 'success', 'بستن');
+                                        // toggleModal(editBrandModal.id);
+                                        location.reload();
                                         resetFields();
                                     }
                                 }
@@ -785,8 +786,9 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullGeneration[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
-                                    swalFire('ثبت مادربورد موفقیت آمیز بود!', response.message.motherboardAdded[0], 'success', 'بستن');
-                                    toggleModal(newMotherboardModal.id);
+                                    // swalFire('ثبت مادربورد موفقیت آمیز بود!', response.message.motherboardAdded[0], 'success', 'بستن');
+                                    // toggleModal(newMotherboardModal.id);
+                                    location.reload();
                                     resetFields();
                                 }
                             }
@@ -853,8 +855,9 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullGeneration[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
-                                    swalFire('ویرایش مادربورد موفقیت آمیز بود!', response.message.motherboardEdited[0], 'success', 'بستن');
-                                    toggleModal(editMotherboardModal.id);
+                                    // swalFire('ویرایش مادربورد موفقیت آمیز بود!', response.message.motherboardEdited[0], 'success', 'بستن');
+                                    // toggleModal(editMotherboardModal.id);
+                                    location.reload();
                                     resetFields();
                                 }
                             }
@@ -930,8 +933,9 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
-                                    swalFire('ثبت اطلاعات کیس موفقیت آمیز بود!', response.message.caseAdded[0], 'success', 'بستن');
-                                    toggleModal(newCaseModal.id);
+                                    // swalFire('ثبت اطلاعات کیس موفقیت آمیز بود!', response.message.caseAdded[0], 'success', 'بستن');
+                                    // toggleModal(newCaseModal.id);
+                                    location.reload();
                                     resetFields();
                                 }
                             }
@@ -983,8 +987,9 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
-                                    swalFire('ویرایش کیس موفقیت آمیز بود!', response.message.caseEdited[0], 'success', 'بستن');
-                                    toggleModal(editCaseModal.id);
+                                    // swalFire('ویرایش کیس موفقیت آمیز بود!', response.message.caseEdited[0], 'success', 'بستن');
+                                    // toggleModal(editCaseModal.id);
+                                    location.reload();
                                     resetFields();
                                 }
                             }
@@ -1062,8 +1067,9 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullGeneration[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
-                                    swalFire('ثبت اطلاعات پردازنده موفقیت آمیز بود!', response.message.cpuAdded[0], 'success', 'بستن');
-                                    toggleModal(newCPUModal.id);
+                                    // swalFire('ثبت اطلاعات پردازنده موفقیت آمیز بود!', response.message.cpuAdded[0], 'success', 'بستن');
+                                    // toggleModal(newCPUModal.id);
+                                    location.reload();
                                     resetFields();
                                 }
                             }
@@ -1118,8 +1124,9 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullGeneration[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
-                                    swalFire('ویرایش پردازنده موفقیت آمیز بود!', response.message.cpuEdited[0], 'success', 'بستن');
-                                    toggleModal(editCPUModal.id);
+                                    // swalFire('ویرایش پردازنده موفقیت آمیز بود!', response.message.cpuEdited[0], 'success', 'بستن');
+                                    // toggleModal(editCPUModal.id);
+                                    location.reload();
                                     resetFields();
                                 }
                             }
@@ -1201,8 +1208,9 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullSize[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
-                                    swalFire('ثبت اطلاعات رم موفقیت آمیز بود!', response.message.ramAdded[0], 'success', 'بستن');
-                                    toggleModal(newRAMModal.id);
+                                    // swalFire('ثبت اطلاعات رم موفقیت آمیز بود!', response.message.ramAdded[0], 'success', 'بستن');
+                                    // toggleModal(newRAMModal.id);
+                                    location.reload();
                                     resetFields();
                                 }
                             }
@@ -1263,8 +1271,9 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullSize[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
-                                    swalFire('ویرایش رم موفقیت آمیز بود!', response.message.ramEdited[0], 'success', 'بستن');
-                                    toggleModal(editRAMModal.id);
+                                    // swalFire('ویرایش رم موفقیت آمیز بود!', response.message.ramEdited[0], 'success', 'بستن');
+                                    // toggleModal(editRAMModal.id);
+                                    location.reload();
                                     resetFields();
                                 }
                             }
@@ -1342,8 +1351,9 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullVoltage[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
-                                    swalFire('ثبت اطلاعات منبع تغذیه موفقیت آمیز بود!', response.message.powerAdded[0], 'success', 'بستن');
-                                    toggleModal(newPowerModal.id);
+                                    // swalFire('ثبت اطلاعات منبع تغذیه موفقیت آمیز بود!', response.message.powerAdded[0], 'success', 'بستن');
+                                    // toggleModal(newPowerModal.id);
+                                    location.reload();
                                     resetFields();
                                 }
                             }
@@ -1398,8 +1408,9 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullVoltage[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
-                                    swalFire('ویرایش منبع تغذیه موفقیت آمیز بود!', response.message.powerEdited[0], 'success', 'بستن');
-                                    toggleModal(editPowerModal.id);
+                                    // swalFire('ویرایش منبع تغذیه موفقیت آمیز بود!', response.message.powerEdited[0], 'success', 'بستن');
+                                    // toggleModal(editPowerModal.id);
+                                    location.reload();
                                     resetFields();
                                 }
                             }
@@ -1477,8 +1488,9 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullRamSize[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
-                                    swalFire('ثبت اطلاعات کارت گرافیک موفقیت آمیز بود!', response.message.graphiccardAdded[0], 'success', 'بستن');
-                                    toggleModal(newGraphicCardModal.id);
+                                    // swalFire('ثبت اطلاعات کارت گرافیک موفقیت آمیز بود!', response.message.graphiccardAdded[0], 'success', 'بستن');
+                                    // toggleModal(newGraphicCardModal.id);
+                                    location.reload();
                                     resetFields();
                                 }
                             }
@@ -1533,8 +1545,9 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullRamSize[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
-                                    swalFire('ویرایش کارت گرافیک موفقیت آمیز بود!', response.message.graphiccardEdited[0], 'success', 'بستن');
-                                    toggleModal(editGraphicCardModal.id);
+                                    // swalFire('ویرایش کارت گرافیک موفقیت آمیز بود!', response.message.graphiccardEdited[0], 'success', 'بستن');
+                                    // toggleModal(editGraphicCardModal.id);
+                                    location.reload();
                                     resetFields();
                                 }
                             }
@@ -1616,8 +1629,9 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullConnectivityType[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
-                                    swalFire('ثبت اطلاعات هارد موفقیت آمیز بود!', response.message.harddiskAdded[0], 'success', 'بستن');
-                                    toggleModal(newHarddiskModal.id);
+                                    // swalFire('ثبت اطلاعات هارد موفقیت آمیز بود!', response.message.harddiskAdded[0], 'success', 'بستن');
+                                    // toggleModal(newHarddiskModal.id);
+                                    location.reload();
                                     resetFields();
                                 }
                             }
@@ -1678,8 +1692,9 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullConnectivityType[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
-                                    swalFire('ویرایش هارد موفقیت آمیز بود!', response.message.harddiskEdited[0], 'success', 'بستن');
-                                    toggleModal(editHarddiskModal.id);
+                                    // swalFire('ویرایش هارد موفقیت آمیز بود!', response.message.harddiskEdited[0], 'success', 'بستن');
+                                    // toggleModal(editHarddiskModal.id);
+                                    location.reload();
                                     resetFields();
                                 }
                             }
@@ -1757,8 +1772,9 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullGeneration[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
-                                    swalFire('ثبت اطلاعات درایو نوری موفقیت آمیز بود!', response.message.ODDAdded[0], 'success', 'بستن');
-                                    toggleModal(newODDModal.id);
+                                    // swalFire('ثبت اطلاعات درایو نوری موفقیت آمیز بود!', response.message.ODDAdded[0], 'success', 'بستن');
+                                    // toggleModal(newODDModal.id);
+                                    location.reload();
                                     resetFields();
                                 }
                             }
@@ -1813,8 +1829,9 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullGeneration[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
-                                    swalFire('ویرایش درایو نوری موفقیت آمیز بود!', response.message.ODDEdited[0], 'success', 'بستن');
-                                    toggleModal(editODDModal.id);
+                                    // swalFire('ویرایش درایو نوری موفقیت آمیز بود!', response.message.ODDEdited[0], 'success', 'بستن');
+                                    // toggleModal(editODDModal.id);
+                                    location.reload();
                                     resetFields();
                                 }
                             }
@@ -1892,8 +1909,9 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullGeneration[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
-                                    swalFire('ثبت اطلاعات کارت شبکه موفقیت آمیز بود!', response.message.NetworkCardAdded[0], 'success', 'بستن');
-                                    toggleModal(newNetworkCardModal.id);
+                                    // swalFire('ثبت اطلاعات کارت شبکه موفقیت آمیز بود!', response.message.NetworkCardAdded[0], 'success', 'بستن');
+                                    // toggleModal(newNetworkCardModal.id);
+                                    location.reload();
                                     resetFields();
                                 }
                             }
@@ -1948,8 +1966,9 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullGeneration[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
-                                    swalFire('ویرایش کارت شبکه موفقیت آمیز بود!', response.message.NetworkCardEdited[0], 'success', 'بستن');
-                                    toggleModal(editNetworkCardModal.id);
+                                    // swalFire('ویرایش کارت شبکه موفقیت آمیز بود!', response.message.NetworkCardEdited[0], 'success', 'بستن');
+                                    // toggleModal(editNetworkCardModal.id);
+                                    location.reload();
                                     resetFields();
                                 }
                             }
@@ -2027,8 +2046,9 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullSize[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
-                                    swalFire('ثبت اطلاعات مانیتور موفقیت آمیز بود!', response.message.MonitorAdded[0], 'success', 'بستن');
-                                    toggleModal(newMonitorModal.id);
+                                    // swalFire('ثبت اطلاعات مانیتور موفقیت آمیز بود!', response.message.MonitorAdded[0], 'success', 'بستن');
+                                    // toggleModal(newMonitorModal.id);
+                                    location.reload();
                                     resetFields();
                                 }
                             }
@@ -2083,8 +2103,9 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullSize[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
-                                    swalFire('ویرایش مانیتور موفقیت آمیز بود!', response.message.MonitorEdited[0], 'success', 'بستن');
-                                    toggleModal(editMonitorModal.id);
+                                    // swalFire('ویرایش مانیتور موفقیت آمیز بود!', response.message.MonitorEdited[0], 'success', 'بستن');
+                                    // toggleModal(editMonitorModal.id);
+                                    location.reload();
                                     resetFields();
                                 }
                             }
@@ -2160,8 +2181,9 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
-                                    swalFire('ثبت اطلاعات پرینتر موفقیت آمیز بود!', response.message.printerAdded[0], 'success', 'بستن');
-                                    toggleModal(newPrinterModal.id);
+                                    // swalFire('ثبت اطلاعات پرینتر موفقیت آمیز بود!', response.message.printerAdded[0], 'success', 'بستن');
+                                    // toggleModal(newPrinterModal.id);
+                                    location.reload();
                                     resetFields();
                                 }
                             }
@@ -2213,8 +2235,9 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
-                                    swalFire('ویرایش پرینتر موفقیت آمیز بود!', response.message.printerEdited[0], 'success', 'بستن');
-                                    toggleModal(editPrinterModal.id);
+                                    // swalFire('ویرایش پرینتر موفقیت آمیز بود!', response.message.printerEdited[0], 'success', 'بستن');
+                                    // toggleModal(editPrinterModal.id);
+                                    location.reload();
                                     resetFields();
                                 }
                             }
@@ -2290,8 +2313,9 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
-                                    swalFire('ثبت اطلاعات اسکنر موفقیت آمیز بود!', response.message.scannerAdded[0], 'success', 'بستن');
-                                    toggleModal(newScannerModal.id);
+                                    // swalFire('ثبت اطلاعات اسکنر موفقیت آمیز بود!', response.message.scannerAdded[0], 'success', 'بستن');
+                                    // toggleModal(newScannerModal.id);
+                                    location.reload();
                                     resetFields();
                                 }
                             }
@@ -2343,8 +2367,9 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
-                                    swalFire('ویرایش اسکنر موفقیت آمیز بود!', response.message.scannerEdited[0], 'success', 'بستن');
-                                    toggleModal(editScannerModal.id);
+                                    // swalFire('ویرایش اسکنر موفقیت آمیز بود!', response.message.scannerEdited[0], 'success', 'بستن');
+                                    // toggleModal(editScannerModal.id);
+                                    location.reload();
                                     resetFields();
                                 }
                             }
@@ -2413,7 +2438,6 @@ $(document).ready(function () {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                             },
                             success: function (response) {
-                                console.log(response);
                                 if (response.errors) {
                                     if (response.errors.nullBrand) {
                                         swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
@@ -2421,8 +2445,9 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
-                                    swalFire('ثبت اطلاعات دستگاه کپی موفقیت آمیز بود!', response.message.CopyMachineAdded[0], 'success', 'بستن');
-                                    toggleModal(newCopyMachineModal.id);
+                                    // swalFire('ثبت اطلاعات دستگاه کپی موفقیت آمیز بود!', response.message.CopyMachineAdded[0], 'success', 'بستن');
+                                    // toggleModal(newCopyMachineModal.id);
+                                    location.reload();
                                     resetFields();
                                 }
                             }
@@ -2474,8 +2499,9 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
-                                    swalFire('ویرایش دستگاه کپی موفقیت آمیز بود!', response.message.CopyMachineEdited[0], 'success', 'بستن');
-                                    toggleModal(editCopyMachineModal.id);
+                                    // swalFire('ویرایش دستگاه کپی موفقیت آمیز بود!', response.message.CopyMachineEdited[0], 'success', 'بستن');
+                                    // toggleModal(editCopyMachineModal.id);
+                                    location.reload();
                                     resetFields();
                                 }
                             }
@@ -2551,8 +2577,9 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
-                                    swalFire('ثبت اطلاعات VOIP موفقیت آمیز بود!', response.message.VOIPAdded[0], 'success', 'بستن');
-                                    toggleModal(newVOIPModal.id);
+                                    // swalFire('ثبت اطلاعات VOIP موفقیت آمیز بود!', response.message.VOIPAdded[0], 'success', 'بستن');
+                                    // toggleModal(newVOIPModal.id);
+                                    location.reload();
                                     resetFields();
                                 }
                             }
@@ -2604,8 +2631,9 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
-                                    swalFire('ویرایش VOIP موفقیت آمیز بود!', response.message.VOIPEdited[0], 'success', 'بستن');
-                                    toggleModal(editVOIPModal.id);
+                                    // swalFire('ویرایش VOIP موفقیت آمیز بود!', response.message.VOIPEdited[0], 'success', 'بستن');
+                                    // toggleModal(editVOIPModal.id);
+                                    location.reload();
                                     resetFields();
                                 }
                             }
@@ -2681,8 +2709,9 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.dupName[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
-                                    swalFire('ثبت اطلاعات جدید موفقیت آمیز بود!', response.message.assistanceAdded[0], 'success', 'بستن');
-                                    toggleModal(newAssistanceModal.id);
+                                    // swalFire('ثبت اطلاعات جدید موفقیت آمیز بود!', response.message.assistanceAdded[0], 'success', 'بستن');
+                                    // toggleModal(newAssistanceModal.id);
+                                    location.reload();
                                     resetFields();
                                 }
                             }
@@ -2733,8 +2762,9 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.dupName[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
-                                    swalFire('ویرایش اطلاعات موفقیت آمیز بود!', response.message.assistanceEdited[0], 'success', 'بستن');
-                                    toggleModal(editAssistanceModal.id);
+                                    // swalFire('ویرایش اطلاعات موفقیت آمیز بود!', response.message.assistanceEdited[0], 'success', 'بستن');
+                                    // toggleModal(editAssistanceModal.id);
+                                    location.reload();
                                     resetFields();
                                 }
                             }
@@ -2810,8 +2840,9 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.dupName[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
-                                    swalFire('ثبت اطلاعات جدید موفقیت آمیز بود!', response.message.jobAdded[0], 'success', 'بستن');
-                                    toggleModal(newJobModal.id);
+                                    // swalFire('ثبت اطلاعات جدید موفقیت آمیز بود!', response.message.jobAdded[0], 'success', 'بستن');
+                                    // toggleModal(newJobModal.id);
+                                    location.reload();
                                     resetFields();
                                 }
                             }
@@ -2862,8 +2893,9 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.dupName[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
-                                    swalFire('ویرایش اطلاعات موفقیت آمیز بود!', response.message.jobEdited[0], 'success', 'بستن');
-                                    toggleModal(editJobModal.id);
+                                    // swalFire('ویرایش اطلاعات موفقیت آمیز بود!', response.message.jobEdited[0], 'success', 'بستن');
+                                    // toggleModal(editJobModal.id);
+                                    location.reload();
                                     resetFields();
                                 }
                             }
@@ -2939,8 +2971,9 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.dupName[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
-                                    swalFire('ثبت اطلاعات جدید موفقیت آمیز بود!', response.message.establishmentPlaceAdded[0], 'success', 'بستن');
-                                    toggleModal(newEstablishmentPlaceModal.id);
+                                    // swalFire('ثبت اطلاعات جدید موفقیت آمیز بود!', response.message.establishmentPlaceAdded[0], 'success', 'بستن');
+                                    // toggleModal(newEstablishmentPlaceModal.id);
+                                    location.reload();
                                     resetFields();
                                 }
                             }
@@ -2991,8 +3024,9 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.dupName[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
-                                    swalFire('ویرایش اطلاعات موفقیت آمیز بود!', response.message.establishmentPlaceEdited[0], 'success', 'بستن');
-                                    toggleModal(editEstablishmentPlaceModal.id);
+                                    // swalFire('ویرایش اطلاعات موفقیت آمیز بود!', response.message.establishmentPlaceEdited[0], 'success', 'بستن');
+                                    // toggleModal(editEstablishmentPlaceModal.id);
+                                    location.reload();
                                     resetFields();
                                 }
                             }
@@ -3061,7 +3095,6 @@ $(document).ready(function () {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                             },
                             success: function (response) {
-                                console.log(response);
                                 if (response.errors) {
                                     if (response.errors.nullName) {
                                         swalFire('خطا!', response.errors.nullName[0], 'error', 'تلاش مجدد');
@@ -3076,8 +3109,9 @@ $(document).ready(function () {
                                     }
                                 } else if (response.success) {
                                     $('table tbody').append(response.html);
-                                    swalFire('ثبت موفقیت آمیز بود!', 'ثبت اطلاعات پرسنل موفقیت آمیز بود.', 'success', 'بستن');
-                                    toggleModal(newPersonModal.id);
+                                    // swalFire('ثبت موفقیت آمیز بود!', 'ثبت اطلاعات پرسنل موفقیت آمیز بود.', 'success', 'بستن');
+                                    // toggleModal(newPersonModal.id);
+                                    location.reload();
                                     resetFields();
                                 }
                             }
@@ -3141,8 +3175,9 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullNationalCode[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
-                                    swalFire('ویرایش پرسنل موفقیت آمیز بود!', response.message.personEdited[0], 'success', 'بستن');
-                                    toggleModal(editPersonModal.id);
+                                    // swalFire('ویرایش پرسنل موفقیت آمیز بود!', response.message.personEdited[0], 'success', 'بستن');
+                                    // toggleModal(editPersonModal.id);
+                                    location.reload();
                                     resetFields();
                                 }
                             }
@@ -3218,7 +3253,6 @@ $(document).ready(function () {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                             },
                             success: function (response) {
-                                console.log(response)
                                 if (response.errors) {
                                     if (response.errors.nullPersonnelCode) {
                                         swalFire('خطا!', response.errors.nullPersonnelCode[0], 'error', 'تلاش مجدد');
@@ -3240,8 +3274,9 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullHDD[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
-                                    swalFire('ثبت کیس جدید موفقیت آمیز بود!', response.message.caseAdded[0], 'success', 'بستن');
-                                    toggleModal(addCaseModal.id);
+                                    // swalFire('ثبت کیس جدید موفقیت آمیز بود!', response.message.caseAdded[0], 'success', 'بستن');
+                                    // toggleModal(addCaseModal.id);
+                                    location.reload();
                                     resetFields();
                                 }
                             }
@@ -3272,7 +3307,6 @@ $(document).ready(function () {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                             },
                             success: function (response) {
-                                console.log(response)
                                 if (response.errors) {
                                     if (response.errors.nullPersonnelCode) {
                                         swalFire('خطا!', response.errors.nullPersonnelCode[0], 'error', 'تلاش مجدد');
@@ -3282,8 +3316,9 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullMonitor[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
-                                    swalFire('ثبت مانیتور جدید موفقیت آمیز بود!', response.message.monitorAdded[0], 'success', 'بستن');
-                                    toggleModal(addMonitorModal.id);
+                                    // swalFire('ثبت مانیتور جدید موفقیت آمیز بود!', response.message.monitorAdded[0], 'success', 'بستن');
+                                    // toggleModal(addMonitorModal.id);
+                                    location.reload();
                                     resetFields();
                                 }
                             }
@@ -3314,7 +3349,6 @@ $(document).ready(function () {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                             },
                             success: function (response) {
-                                console.log(response)
                                 if (response.errors) {
                                     if (response.errors.nullPersonnelCode) {
                                         swalFire('خطا!', response.errors.nullPersonnelCode[0], 'error', 'تلاش مجدد');
@@ -3324,8 +3358,9 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullPrinter[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
-                                    swalFire('ثبت پرینتر جدید موفقیت آمیز بود!', response.message.printerAdded[0], 'success', 'بستن');
-                                    toggleModal(addPrinterModal.id);
+                                    // swalFire('ثبت پرینتر جدید موفقیت آمیز بود!', response.message.printerAdded[0], 'success', 'بستن');
+                                    // toggleModal(addPrinterModal.id);
+                                    location.reload();
                                     resetFields();
                                 }
                             }
@@ -3356,7 +3391,6 @@ $(document).ready(function () {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                             },
                             success: function (response) {
-                                console.log(response)
                                 if (response.errors) {
                                     if (response.errors.nullPersonnelCode) {
                                         swalFire('خطا!', response.errors.nullPersonnelCode[0], 'error', 'تلاش مجدد');
@@ -3366,8 +3400,9 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullScanner[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
-                                    swalFire('ثبت پرینتر جدید موفقیت آمیز بود!', response.message.scannerAdded[0], 'success', 'بستن');
-                                    toggleModal(addScannerModal.id);
+                                    // swalFire('ثبت پرینتر جدید موفقیت آمیز بود!', response.message.scannerAdded[0], 'success', 'بستن');
+                                    // toggleModal(addScannerModal.id);
+                                    location.reload();
                                     resetFields();
                                 }
                             }
@@ -3398,7 +3433,6 @@ $(document).ready(function () {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                             },
                             success: function (response) {
-                                console.log(response)
                                 if (response.errors) {
                                     if (response.errors.nullPersonnelCode) {
                                         swalFire('خطا!', response.errors.nullPersonnelCode[0], 'error', 'تلاش مجدد');
@@ -3408,8 +3442,9 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullCopyMachine[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
-                                    swalFire('ثبت دستگاه کپی جدید موفقیت آمیز بود!', response.message.copymachineAdded[0], 'success', 'بستن');
-                                    toggleModal(addCopyMachineModal.id);
+                                    // swalFire('ثبت دستگاه کپی جدید موفقیت آمیز بود!', response.message.copymachineAdded[0], 'success', 'بستن');
+                                    // toggleModal(addCopyMachineModal.id);
+                                    location.reload();
                                     resetFields();
                                 }
                             }
@@ -3440,7 +3475,6 @@ $(document).ready(function () {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                             },
                             success: function (response) {
-                                console.log(response)
                                 if (response.errors) {
                                     if (response.errors.nullPersonnelCode) {
                                         swalFire('خطا!', response.errors.nullPersonnelCode[0], 'error', 'تلاش مجدد');
@@ -3450,8 +3484,9 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullVOIP[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
-                                    swalFire('ثبت VOIP جدید موفقیت آمیز بود!', response.message.VOIPAdded[0], 'success', 'بستن');
-                                    toggleModal(addVOIPModal.id);
+                                    // swalFire('ثبت VOIP جدید موفقیت آمیز بود!', response.message.VOIPAdded[0], 'success', 'بستن');
+                                    // toggleModal(addVOIPModal.id);
+                                    location.reload();
                                     resetFields();
                                 }
                             }
