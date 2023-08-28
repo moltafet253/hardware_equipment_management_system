@@ -99,11 +99,11 @@
                                         @php
                                             $powers = \App\Models\Catalogs\Power::join('companies', 'powers.company_id', '=', 'companies.id')
                                                 ->where('powers.active',1)->orderBy('companies.name')
-                                                ->get(['powers.id', 'companies.name', 'powers.model']);
+                                                ->get(['powers.id', 'companies.name', 'powers.model', 'powers.output_voltage']);
                                         @endphp
                                         @foreach($powers as $power)
                                             <option value="{{ $power->id }}">
-                                                {{ $power->name . ' - ' . $power->model }}
+                                                {{ $power->name . ' - ' . $power->model. ' - ' . $power->output_voltage }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -115,7 +115,7 @@
                                         <option value="" disabled selected>انتخاب کنید</option>
                                         @php
                                             $cpus = \App\Models\Catalogs\cpu::join('companies', 'cpus.company_id', '=', 'companies.id')
-                                                ->where('cpus.active',1)->orderBy('companies.name')
+                                                ->where('cpus.active',1)->orderBy('cpus.model')
                                                 ->get(['cpus.id', 'companies.name', 'cpus.model']);
                                         @endphp
                                         @foreach($cpus as $cpu)
@@ -125,7 +125,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="flex ">
+                                <div id="ram1Div" class="flex">
                                     <div class="ml-3 w-2/4">
                                         <label for="ram1"
                                                class="block text-gray-700 text-sm font-bold mt-3 whitespace-nowrap">رم
@@ -144,7 +144,15 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="w-2/4">
+                                    <div class="ml-3 mt-8 w-2/4 text-center">
+                                        <button type="button" id="addRAM"
+                                                class="px-4 py-2 mr-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300">
+                                            + اضافه کردن رم
+                                        </button>
+                                    </div>
+                                </div>
+                                <div id="ram2Div" class="flex hidden">
+                                    <div class="w-full ">
                                         <label for="ram2"
                                                class="block text-gray-700 text-sm font-bold mt-3 whitespace-nowrap">رم
                                             2</label>
@@ -163,8 +171,8 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="flex mb-4">
-                                    <div class="ml-3 w-2/4">
+                                <div id="ram3Div" class="flex hidden">
+                                    <div class="w-full ">
                                         <label for="ram3"
                                                class="block text-gray-700 text-sm font-bold mt-3 whitespace-nowrap">رم
                                             3</label>
@@ -182,7 +190,9 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="w-2/4">
+                                </div>
+                                <div id="ram4Div" class="flex hidden">
+                                    <div class="w-full ">
                                         <label for="ram4"
                                                class="block text-gray-700 text-sm font-bold mt-3 whitespace-nowrap">رم
                                             4</label>
@@ -201,8 +211,8 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="flex mb-4">
-                                    <div class="ml-3 w-2/4">
+                                <div class="flex">
+                                    <div class="w-full">
                                         <label for="hdd1"
                                                class="block text-gray-700 text-sm font-bold mt-3 whitespace-nowrap">هارد
                                             1*</label>
@@ -221,12 +231,20 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="w-2/4">
+                                    <div class="ml-3 mt-8 w-full text-center">
+                                        <button type="button" id="addHDD"
+                                                class="px-4 py-2 mr-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300">
+                                            + اضافه کردن هارد
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="flex mb-4">
+                                    <div id="hdd2Div" class="w-full hidden">
                                         <label for="hdd2"
                                                class="block text-gray-700 text-sm font-bold mt-3 whitespace-nowrap">هارد
                                             2</label>
                                         <select id="hdd2" class="border rounded-md w-full px-3 py-2" name="hdd2">
-                                            <option value="" selected>فاقد رم</option>
+                                            <option value="" selected>فاقد هارد</option>
                                             @php
                                                 $hdds = \App\Models\Catalogs\Harddisk::join('companies', 'harddisks.company_id', '=', 'companies.id')
                                                     ->where('harddisks.type','!=','External')
@@ -1194,21 +1212,21 @@
             </div>
 
             @if(session('type')!=3)
-            {{--            Comment--}}
-            <div class="flex pb-3 pt-6">
-                <h3 class="font-bold pr-5 pt-2 ml-3">اطلاعات کارهای انجام شده</h3>
-                <button type="submit"
-                        class="px-4 py-2 mr-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300 AddComment">
-                    ثبت کار جدید
-                </button>
-            </div>
-            <div class="bg-white rounded shadow flex flex-col">
-                <div class="max-w-full items-center overflow-x-auto">
-                    @php
-                        $comments=\App\Models\Comment::where('person_id',$personId)->get();
-                    @endphp
+                {{--            Comment--}}
+                <div class="flex pb-3 pt-6">
+                    <h3 class="font-bold pr-5 pt-2 ml-3">اطلاعات کارهای انجام شده</h3>
+                    <button type="submit"
+                            class="px-4 py-2 mr-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300 AddComment">
+                        ثبت کار جدید
+                    </button>
+                </div>
+                <div class="bg-white rounded shadow flex flex-col">
+                    <div class="max-w-full items-center overflow-x-auto">
+                        @php
+                            $comments=\App\Models\Comment::where('person_id',$personId)->get();
+                        @endphp
 
-                        <table  class="w-full border-collapse rounded-lg overflow-hidden text-center">
+                        <table class="w-full border-collapse rounded-lg overflow-hidden text-center">
                             <thead>
                             <tr class="bg-gradient-to-r from-blue-400 to-purple-500 items-center text-center text-white">
                                 <th class=" px-6 py-3  font-bold ">موضوع</th>
@@ -1250,10 +1268,12 @@
                             </tbody>
                         </table>
                         <div class="flex p-3">
-                            <h3 @if(!$comments->isEmpty()) hidden="hidden" @endif class="font-bold text-red-500 ml-4 mt-2" id="CommentErr">برای این پرسنل، کار ثبت نشده است.</h3>
+                            <h3 @if(!$comments->isEmpty()) hidden="hidden"
+                                @endif class="font-bold text-red-500 ml-4 mt-2" id="CommentErr">برای این پرسنل، کار ثبت
+                                نشده است.</h3>
                         </div>
+                    </div>
                 </div>
-            </div>
             @endif
         </div>
     </main>

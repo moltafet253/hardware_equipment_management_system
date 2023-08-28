@@ -3256,7 +3256,19 @@ $(document).ready(function () {
             $('.absolute.inset-0.bg-gray-500.opacity-75.addcomment').on('click', function () {
                 toggleModal(addCommentModal.id)
             });
-
+            $('#addRAM').on('click', function () {
+                if (ram2Div.classList.contains('hidden')) {
+                    ram2Div.classList.remove('hidden');
+                } else if (ram3Div.classList.contains('hidden')) {
+                    ram3Div.classList.remove('hidden');
+                } else if (ram4Div.classList.contains('hidden')) {
+                    ram4Div.classList.remove('hidden');
+                }
+            });
+            $('#addHDD').on('click', function () {
+                hdd2Div.classList.remove('hidden');
+                addHDD.classList.add('hidden');
+            });
             $('#new-case').on('submit', function (e) {
                 e.preventDefault();
                 Swal.fire({
