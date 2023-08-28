@@ -173,9 +173,17 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
             Route::get('/getJobInfo', [JobController::class, 'getJobInfo'])->name('getJobInfo');
             Route::post('/editJob', [JobController::class, 'editJob'])->name('editJob');
 
-
             Route::post('/ManageCatalogStatus', [CatalogController::class, 'manage']);
             //End Catalogs
+            Route::post('/newComment', [EquipmentController::class, 'newComment'])->name('newComment');
+
+        });
+        Route::middleware('roleAuthorization:2')->group(function () {
+            Route::get('/Person', [PersonController::class, 'index'])->name('Person');
+            Route::post('/newPerson', [PersonController::class, 'newPerson'])->name('newPerson');
+            Route::get('/getPersonInfo', [PersonController::class, 'getPersonInfo'])->name('getPersonInfo');
+            Route::post('/editPerson', [PersonController::class, 'editPerson'])->name('editPerson');
+
             Route::get('/showEquipmentStatus', [EquipmentController::class, 'showEquipmentStatus'])->name('showEquipmentStatus');
             Route::post('/newEquipmentCase', [EquipmentController::class, 'newCase'])->name('newEquipmentCase');
             Route::post('/newEquipmentMonitor', [EquipmentController::class, 'newMonitor'])->name('newEquipmentMonitor');
@@ -183,17 +191,28 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
             Route::post('/newEquipmentScanner', [EquipmentController::class, 'newScanner'])->name('newEquipmentScanner');
             Route::post('/newEquipmentCopyMachine', [EquipmentController::class, 'newCopyMachine'])->name('newEquipmentCopyMachine');
             Route::post('/newEquipmentVOIP', [EquipmentController::class, 'newVOIP'])->name('newEquipmentVOIP');
-            Route::post('/newComment', [EquipmentController::class, 'newComment'])->name('newComment');
             Route::post('/editEquipment', [EquipmentController::class, 'editEquipment'])->name('editEquipment');
 
+            Route::post('/newComment', [EquipmentController::class, 'newComment'])->name('newComment');
+        });
+
+        Route::middleware('roleAuthorization:3')->group(function () {
             Route::get('/Person', [PersonController::class, 'index'])->name('Person');
             Route::post('/newPerson', [PersonController::class, 'newPerson'])->name('newPerson');
             Route::get('/getPersonInfo', [PersonController::class, 'getPersonInfo'])->name('getPersonInfo');
             Route::post('/editPerson', [PersonController::class, 'editPerson'])->name('editPerson');
 
+            Route::get('/showEquipmentStatus', [EquipmentController::class, 'showEquipmentStatus'])->name('showEquipmentStatus');
+            Route::post('/newEquipmentCase', [EquipmentController::class, 'newCase'])->name('newEquipmentCase');
+            Route::post('/newEquipmentMonitor', [EquipmentController::class, 'newMonitor'])->name('newEquipmentMonitor');
+            Route::post('/newEquipmentPrinter', [EquipmentController::class, 'newPrinter'])->name('newEquipmentPrinter');
+            Route::post('/newEquipmentScanner', [EquipmentController::class, 'newScanner'])->name('newEquipmentScanner');
+            Route::post('/newEquipmentCopyMachine', [EquipmentController::class, 'newCopyMachine'])->name('newEquipmentCopyMachine');
+            Route::post('/newEquipmentVOIP', [EquipmentController::class, 'newVOIP'])->name('newEquipmentVOIP');
+            Route::post('/editEquipment', [EquipmentController::class, 'editEquipment'])->name('editEquipment');
+
         });
-        Route::middleware('roleAuthorization:2')->group(function () {
-        });
+
 
     });
 });

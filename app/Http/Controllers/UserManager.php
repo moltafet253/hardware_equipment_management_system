@@ -63,10 +63,10 @@ class UserManager extends Controller
         $username = $request->input('username');
         $user = User::where('username', $username)->first();
         if ($username and $user) {
-            $user->password=bcrypt(12345678);
+            $user->password = bcrypt(12345678);
             $user->NTCP = 1;
             $user->save();
-            $subject='Password Resetted';
+            $subject = 'Password Resetted';
             $this->logActivity('User => ' . $username . ' ' . $subject, request()->ip(), request()->userAgent(), session('id'));
             return $this->success(true, 'passwordResetted', 'عملیات با موفقیت انجام شد.');
         } else {
@@ -82,6 +82,9 @@ class UserManager extends Controller
         ]);
         if ($validator->fails()) {
             return $this->alerts(false, 'userFounded', 'نام کاربری تکراری وارد شده است.');
+        }
+        if ($request->input('type') == 3 and !$request->input('province')) {
+            return $this->alerts(false, 'emptyProvince', 'استان انتخاب نشده است.');
         }
         $name = $request->input('name');
         $family = $request->input('family');
@@ -99,7 +102,6 @@ class UserManager extends Controller
                 $subject = 'کارشناس فناوری استان';
                 break;
         }
-        $lastUserId=User::first()->orderBy('id','desc')->value('id');
         $user = new User();
         $user->name = $name;
         $user->family = $family;
@@ -107,6 +109,9 @@ class UserManager extends Controller
         $user->password = bcrypt($password);
         $user->type = $type;
         $user->subject = $subject;
+        if ($type == 3 and $request->input('province')) {
+            $user->province_id = $request->input('province');
+        }
         $user->save();
         $this->logActivity('Added User With Name => ' . $username, request()->ip(), request()->userAgent(), session('id'));
         return $this->success(true, 'userAdded', 'کاربر با موفقیت تعریف شد. برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
@@ -118,6 +123,13 @@ class UserManager extends Controller
         $name = $request->input('editedName');
         $family = $request->input('editedFamily');
         $type = $request->input('editedType');
+        $province = null;
+        if ($type == 3 and !$request->input('editedProvince')) {
+            return $this->alerts(false, 'emptyProvince', 'استان انتخاب نشده است.');
+        }
+        if ($type == 3) {
+            $province = $request->input('editedProvince');
+        }
         switch ($type) {
             case 1:
                 $subject = 'ادمین کل';
@@ -129,15 +141,15 @@ class UserManager extends Controller
                 $subject = 'کارشناس فناوری استان';
                 break;
         }
-
         $user = User::find($userID);
         if ($user) {
             $user->name = $name;
             $user->family = $family;
             $user->type = $type;
             $user->subject = $subject;
-            $user->save();
+            $user->province_id = $province;
         }
+        $user->save();
         $this->logActivity('Edited User With ID => ' . $userID, request()->ip(), request()->userAgent(), session('id'));
         return $this->success(true, 'userEdited', 'کاربر با موفقیت ویرایش شد. برای نمایش اطلاعات ویرایش شده، صفحه را رفرش نمایید.');
     }

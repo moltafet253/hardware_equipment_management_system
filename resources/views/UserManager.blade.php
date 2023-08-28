@@ -1,3 +1,4 @@
+@php use App\Models\Province; @endphp
 @extends('layouts.PanelMaster')
 
 @section('content')
@@ -74,6 +75,20 @@
                                                     <option value="1">ادمین کل</option>
                                                     <option value="2">کارشناس ستاد</option>
                                                     <option value="3">کارشناس فناوری استان</option>
+                                                </select>
+                                            </div>
+                                            <div id="provinceDiv" class="mb-4 hidden">
+                                                <label for="province"
+                                                       class="block text-gray-700 text-sm font-bold mb-2">استان:</label>
+                                                <select id="province" class="border rounded-md w-full px-3 py-2"
+                                                        name="province">
+                                                    <option value="" disabled selected>انتخاب کنید</option>
+                                                    @php
+                                                    $provinces=Province::orderBy('name','asc')->get();
+                                                    @endphp
+                                                    @foreach($provinces as $province)
+                                                        <option value="{{ $province->id }}">{{ $province->name }}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
@@ -157,6 +172,20 @@
                                                     <option value="3">کارشناس فناوری استان</option>
                                                 </select>
                                             </div>
+                                            <div id="editedProvinceDiv" class="mb-4 hidden">
+                                                <label for="editedProvince"
+                                                       class="block text-gray-700 text-sm font-bold mb-2">استان:</label>
+                                                <select id="editedProvince" class="border rounded-md w-full px-3 py-2"
+                                                        name="editedProvince">
+                                                    <option value="" disabled selected>انتخاب کنید</option>
+                                                    @php
+                                                        $provinces=Province::orderBy('name','asc')->get();
+                                                    @endphp
+                                                    @foreach($provinces as $province)
+                                                        <option value="{{ $province->id }}">{{ $province->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
@@ -202,6 +231,7 @@
                             <th class=" px-6 py-3  font-bold ">کد کاربری</th>
                             <th class=" px-6 py-3  font-bold ">مشخصات</th>
                             <th class=" px-3 py-3  font-bold ">نوع کاربری</th>
+                            <th class=" px-3 py-3  font-bold ">استان</th>
                             <th class=" px-3 py-3  font-bold ">فعال/غیرفعال</th>
                             <th class=" px-3 py-3  font-bold ">نیازمند تغییر رمز عبور</th>
                             <th class=" px-3 py-3  font-bold ">بازنشانی رمز عبور</th>
@@ -213,6 +243,11 @@
                                 <td class="px-6 py-4">{{ $user->username }}</td>
                                 <td class="px-6 py-4">{{ $user->name . ' ' . $user->family  }}</td>
                                 <td class="px-3 py-4">{{ $user->subject }}</td>
+                                <td class="px-3 py-4">
+                                    @php
+                                    $provinceInfo=Province::find($user->province_id)
+                                    @endphp
+                                    {{ @$provinceInfo->name }}</td>
                                 <td class="px-3 py-4">
                                     <button type="submit" data-username="{{ $user->username }}"
                                         @php

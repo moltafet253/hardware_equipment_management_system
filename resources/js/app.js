@@ -436,6 +436,22 @@ $(document).ready(function () {
             $('#edit-user-button, #cancel-edit-user').on('click', function () {
                 toggleModal(editUserModal.id);
             });
+            $('#type').on('change', function () {
+                let provinceDiv = document.getElementById('provinceDiv');
+                if (this.value === '3') {
+                    provinceDiv.classList.remove('hidden');
+                } else {
+                    provinceDiv.classList.add('hidden');
+                }
+            });
+            $('#editedType').on('change', function () {
+                let provinceDiv = document.getElementById('editedProvinceDiv');
+                if (this.value === '3') {
+                    provinceDiv.classList.remove('hidden');
+                } else {
+                    provinceDiv.classList.add('hidden');
+                }
+            });
             //New User
             $('#new-user').submit(function (e) {
                 e.preventDefault();
@@ -484,6 +500,8 @@ $(document).ready(function () {
                         success: function (response) {
                             if (response.errors && response.errors.userFounded) {
                                 swalFire('خطا!', response.errors.userFounded[0], 'error', 'تلاش مجدد');
+                            } else if (response.errors && response.errors.emptyProvince) {
+                                swalFire('خطا!', response.errors.emptyProvince[0], 'error', 'تلاش مجدد');
                             } else if (response.success) {
                                 swalFire('عملیات موفقیت آمیز بود!', response.message.userAdded[0], 'success', 'بستن');
                                 toggleModal(newUserModal.id);
@@ -511,6 +529,13 @@ $(document).ready(function () {
                             editedName.value = response.name;
                             editedFamily.value = response.family;
                             editedType.value = response.type;
+                            editedProvince.value = response.province_id;
+                            let provinceDiv = document.getElementById('editedProvinceDiv');
+                            if (response.type == '3') {
+                                provinceDiv.classList.remove('hidden');
+                            } else {
+                                provinceDiv.classList.add('hidden');
+                            }
                         }
                     });
                 }
@@ -549,6 +574,8 @@ $(document).ready(function () {
                         success: function (response) {
                             if (response.errors && response.errors.userFounded) {
                                 swalFire('خطا!', response.errors.userFounded[0], 'error', 'تلاش مجدد');
+                            } else if (response.errors && response.errors.emptyProvince) {
+                                swalFire('خطا!', response.errors.emptyProvince[0], 'error', 'تلاش مجدد');
                             } else if (response.success) {
                                 swalFire('عملیات موفقیت آمیز بود!', response.message.userEdited[0], 'success', 'بستن');
                                 toggleModal(editUserModal.id);
@@ -3104,7 +3131,7 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullPersonnelCode[0], 'error', 'تلاش مجدد');
                                     } else if (response.errors.dupPersonnelCode) {
                                         swalFire('خطا!', response.errors.dupPersonnelCode[0], 'error', 'تلاش مجدد');
-                                    }else if (response.errors.wrongNationalCode) {
+                                    } else if (response.errors.wrongNationalCode) {
                                         swalFire('خطا!', response.errors.wrongNationalCode[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
@@ -3171,7 +3198,7 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullFamily[0], 'error', 'تلاش مجدد');
                                     } else if (response.errors.nullPersonnelCode) {
                                         swalFire('خطا!', response.errors.nullPersonnelCode[0], 'error', 'تلاش مجدد');
-                                    }else if (response.errors.nullNationalCode) {
+                                    } else if (response.errors.nullNationalCode) {
                                         swalFire('خطا!', response.errors.nullNationalCode[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
@@ -3496,9 +3523,9 @@ $(document).ready(function () {
             });
             $('#new-comment').on('submit', function (e) {
                 e.preventDefault();
-                if (isNaN(ticket_number.value)){
+                if (isNaN(ticket_number.value)) {
                     swalFire('خطا!', 'مقدار شماره تیکت اشتباه می باشد.', 'error', 'تلاش مجدد');
-                }else {
+                } else {
                     Swal.fire({
                         title: 'آیا مطمئن هستید؟',
                         text: 'این مقدار به صورت دائمی اضافه خواهد شد.',

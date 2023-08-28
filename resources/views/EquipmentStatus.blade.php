@@ -926,32 +926,32 @@
                         <table class="w-full border-collapse rounded-lg overflow-hidden text-center">
                             <thead>
                             <tr class="bg-gradient-to-r from-blue-400 to-purple-500 items-center text-center text-white">
-                                <th class=" px-6 py-3  font-bold ">کد اموال</th>
-                                <th class=" px-3 py-3  font-bold ">شرکت سازنده</th>
-                                <th class=" px-3 py-3  font-bold ">مدل</th>
-                                <th class=" px-3 py-3  font-bold ">سایز</th>
-                                <th class=" px-3 py-3  font-bold ">عملیات</th>
+                                <th class="px-6 py-3 font-bold">کد اموال</th>
+                                <th class="px-3 py-3 font-bold">شرکت سازنده</th>
+                                <th class="px-3 py-3 font-bold">مدل</th>
+                                <th class="px-3 py-3 font-bold">سایز</th>
+                                <th class="px-3 py-3 font-bold">عملیات</th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($eq_monitors as $monitors)
                                 <tr class="even:bg-gray-300 odd:bg-white">
-                                    <td class=" px-3 py-3 "> {{ $monitors->property_number }}</td>
-                                    <td class=" px-3 py-3 ">
+                                    <td class="px-3 py-3"> {{ $monitors->property_number }}</td>
+                                    <td class="px-3 py-3">
                                         @php
                                             $monitorInfo = \App\Models\Catalogs\Monitor::join('companies', 'monitors.company_id', '=', 'companies.id')
                                             ->select('monitors.*', 'companies.name as company_name')
-                                            ->find($monitors->id);
+                                            ->find($monitors->monitor_id);
                                         @endphp
-                                        {{ $monitorInfo->company_name  }}
+                                        {{ $monitorInfo->company_name }}
                                     </td>
-                                    <td class=" px-3 py-3 ">
-                                        {{ $monitorInfo->model   }}
+                                    <td class="px-3 py-3">
+                                        {{ $monitorInfo->model }}
                                     </td>
-                                    <td class=" px-3 py-3 ">
-                                        {{  $monitorInfo->size  }}
+                                    <td class="px-3 py-3">
+                                        {{ $monitorInfo->size }}
                                     </td>
-                                    <td class=" px-3 py-3 ">
+                                    <td class="px-3 py-3">
                                         <button type="submit"
                                                 class="px-4 py-2 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 EditMonitor">
                                             ویرایش
@@ -1000,7 +1000,7 @@
                                         @php
                                             $printerInfo = \App\Models\Catalogs\Printer::join('companies', 'printers.company_id', '=', 'companies.id')
                                             ->select('printers.*', 'companies.name as company_name')
-                                            ->find($printers->id);
+                                            ->find($printers->printer_id);
                                         @endphp
                                         {{ $printerInfo->company_name  }}
                                     </td>
@@ -1056,7 +1056,7 @@
                                         @php
                                             $scannerInfo = \App\Models\Catalogs\Scanner::join('companies', 'scanners.company_id', '=', 'companies.id')
                                             ->select('scanners.*', 'companies.name as company_name')
-                                            ->find($scanners->id);
+                                            ->find($scanners->scanner_id);
                                         @endphp
                                         {{ $scannerInfo->company_name  }}
                                     </td>
@@ -1112,7 +1112,7 @@
                                         @php
                                             $copy_machineInfo = \App\Models\Catalogs\CopyMachine::join('companies', 'copy_machines.company_id', '=', 'companies.id')
                                             ->select('copy_machines.*', 'companies.name as company_name')
-                                            ->find($copy_machines->id);
+                                            ->find($copy_machines->copy_machine_id);
                                         @endphp
                                         {{ $copy_machineInfo->company_name  }}
                                     </td>
@@ -1168,7 +1168,7 @@
                                         @php
                                             $VOIPInfo = \App\Models\Catalogs\Voip::join('companies', 'voips.company_id', '=', 'companies.id')
                                             ->select('voips.*', 'companies.name as company_name')
-                                            ->find($VOIPs->id);
+                                            ->find($VOIPs->voip_id);
                                         @endphp
                                         {{ $VOIPInfo->company_name  }}
                                     </td>
@@ -1193,6 +1193,7 @@
                 </div>
             </div>
 
+            @if(session('type')!=3)
             {{--            Comment--}}
             <div class="flex pb-3 pt-6">
                 <h3 class="font-bold pr-5 pt-2 ml-3">اطلاعات کارهای انجام شده</h3>
@@ -1253,7 +1254,7 @@
                         </div>
                 </div>
             </div>
-
+            @endif
         </div>
     </main>
 @endsection

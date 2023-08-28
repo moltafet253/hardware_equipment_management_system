@@ -90,6 +90,7 @@ class LoginController extends Controller
             $user = User::where('username', $request->input('username'))->first();
             $userID=$user['id'];
             Session::put('id', $userID);
+            Session::put('type', $user['type']);
             return response()->json([
                 'success' => true,
                 'redirect' => route('dashboard')

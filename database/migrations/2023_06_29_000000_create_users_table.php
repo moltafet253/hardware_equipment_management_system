@@ -21,6 +21,8 @@ return new class extends Migration {
             1 => SuperAdmin , 2 => Province Admin
             ');
             $table->string('subject');
+            $table->unsignedBigInteger('province_id')->nullable();
+            $table->foreign('province_id')->references('id')->on('provinces');
             $table->tinyInteger('active')->default(1);
             $table->tinyInteger('NTCP')->default(0)->comment('Needs To Change Password');
             $table->rememberToken();
