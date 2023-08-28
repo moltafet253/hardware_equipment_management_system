@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('company_id');
             $table->foreign('company_id')->references('id')->on('companies');
-            $table->string('model')->nullable();
-            $table->string('type',5);
-            $table->string('size',10);
-            $table->integer('frequency');
+            $table->string('model');
+            $table->string('type',5)->nullable();
+            $table->string('size',10)->nullable();
+            $table->integer('frequency')->nullable();
             $table->boolean('active')->default(1)->comment('1 => active , 0 => deactive');
             $table->timestamps();
             $table->softDeletes();

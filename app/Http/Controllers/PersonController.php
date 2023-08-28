@@ -125,8 +125,7 @@ class PersonController extends Controller
 
     public function index()
     {
-        $userInfo=User::find(session('id'));
-        if ($userInfo->type!=3) {
+        if (session('type')!=3) {
             $personList = Person::where('work_place','=','ستاد')->orderBy('family', 'asc')->paginate(20);
         }else {
             $personList = Person::where('work_place','!=','ستاد')->where('work_place',$userInfo->province_id)->orderBy('family', 'asc')->paginate(20);

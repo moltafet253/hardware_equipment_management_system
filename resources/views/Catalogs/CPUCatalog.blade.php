@@ -52,7 +52,7 @@
                                             </div>
                                             <div class="flex flex-col items-right mb-2">
                                                 <label for="generation"
-                                                       class="block text-gray-700 text-sm font-bold mb-2">نسل*:</label>
+                                                       class="block text-gray-700 text-sm font-bold mb-2">نسل:</label>
                                                 <select id="generation" class="border rounded-md w-full px-3 py-2"
                                                         name="generation">
                                                     <option value="" disabled selected>انتخاب کنید</option>
@@ -121,7 +121,7 @@
                                             </div>
                                             <div class="flex flex-col items-right mb-2">
                                                 <label for="generationForEdit"
-                                                       class="block text-gray-700 text-sm font-bold mb-2">نسل*:</label>
+                                                       class="block text-gray-700 text-sm font-bold mb-2">نسل:</label>
                                                 <select id="generationForEdit"
                                                         class="border rounded-md w-full px-3 py-2"
                                                         name="generationForEdit">

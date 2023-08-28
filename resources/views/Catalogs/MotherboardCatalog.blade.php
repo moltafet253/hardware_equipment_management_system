@@ -53,7 +53,7 @@
                                             <div class="flex flex-col items-right mb-4">
                                                 <label for="mb_gen"
                                                        class="block text-gray-700 text-sm font-bold mb-2">نسل
-                                                    مادربورد*:</label>
+                                                    مادربورد:</label>
                                                 <select id="mb_gen" class="border rounded-md w-full px-3 py-2"
                                                         name="mb_gen">
                                                     <option value="" disabled selected>انتخاب کنید</option>
@@ -66,7 +66,7 @@
                                             <div class="mb-4">
                                                 <label for="ram_slot_gen"
                                                        class="block text-gray-700 text-sm font-bold mb-2">نسل اسلات
-                                                    رم*:</label>
+                                                    رم:</label>
                                                 <select id="ram_slot_gen" class="border rounded-md w-full px-3 py-2"
                                                         name="ram_slot_gen">
                                                     <option value="" disabled selected>انتخاب کنید</option>
@@ -80,7 +80,7 @@
                                             <div class="flex flex-col mb-4">
                                                 <label for="cpu_slot_type"
                                                        class="block text-gray-700 text-sm font-bold mb-2">نوع سوکت
-                                                    پردازنده*:</label>
+                                                    پردازنده:</label>
                                                 <select id="cpu_slot_type" class="border rounded-md w-full px-3 py-2"
                                                         name="cpu_slot_type">
                                                     <option value="" disabled selected>انتخاب کنید</option>
@@ -107,7 +107,7 @@
                                             <div class="flex flex-col mb-4">
                                                 <label for="cpu_slot_num"
                                                        class="block text-gray-700 text-sm font-bold mb-2">تعداد سوکت
-                                                    پردازنده*:</label>
+                                                    پردازنده:</label>
                                                 <select id="cpu_slot_num" class="border rounded-md w-full px-3 py-2"
                                                         name="cpu_slot_num">
                                                     <option selected value="1">1</option>
@@ -117,7 +117,7 @@
                                             <div class="flex flex-col mb-4">
                                                 <label for="ram_slot_num"
                                                        class="block text-gray-700 text-sm font-bold mb-2">تعداد سوکت
-                                                    رم*:</label>
+                                                    رم:</label>
                                                 <select id="ram_slot_num" class="border rounded-md w-full px-3 py-2"
                                                         name="ram_slot_num">
                                                     <option selected value="2">2</option>
@@ -185,7 +185,7 @@
                                             <div class="flex flex-col items-right mb-4">
                                                 <label for="mb_genForEdit"
                                                        class="block text-gray-700 text-sm font-bold mb-2">نسل
-                                                    مادربورد*:</label>
+                                                    مادربورد:</label>
                                                 <select id="mb_genForEdit" class="border rounded-md w-full px-3 py-2"
                                                         name="mb_genForEdit">
                                                     <option value="" disabled selected>انتخاب کنید</option>
@@ -198,7 +198,7 @@
                                             <div class="mb-4">
                                                 <label for="ram_slot_genForEdit"
                                                        class="block text-gray-700 text-sm font-bold mb-2">نسل اسلات
-                                                    رم*:</label>
+                                                    رم:</label>
                                                 <select id="ram_slot_genForEdit"
                                                         class="border rounded-md w-full px-3 py-2"
                                                         name="ram_slot_genForEdit">
@@ -213,7 +213,7 @@
                                             <div class="flex flex-col mb-4">
                                                 <label for="cpu_slot_typeForEdit"
                                                        class="block text-gray-700 text-sm font-bold mb-2">نوع سوکت
-                                                    پردازنده*:</label>
+                                                    پردازنده:</label>
                                                 <select id="cpu_slot_typeForEdit"
                                                         class="border rounded-md w-full px-3 py-2"
                                                         name="cpu_slot_typeForEdit">
@@ -241,7 +241,7 @@
                                             <div class="flex flex-col mb-4">
                                                 <label for="cpu_slot_numForEdit"
                                                        class="block text-gray-700 text-sm font-bold mb-2">تعداد سوکت
-                                                    پردازنده*:</label>
+                                                    پردازنده:</label>
                                                 <select id="cpu_slot_numForEdit"
                                                         class="border rounded-md w-full px-3 py-2"
                                                         name="cpu_slot_numForEdit">
@@ -252,7 +252,7 @@
                                             <div class="flex flex-col mb-4">
                                                 <label for="ram_slot_numForEdit"
                                                        class="block text-gray-700 text-sm font-bold mb-2">تعداد سوکت
-                                                    رم*:</label>
+                                                    رم:</label>
                                                 <select id="ram_slot_numForEdit"
                                                         class="border rounded-md w-full px-3 py-2"
                                                         name="ram_slot_numForEdit">

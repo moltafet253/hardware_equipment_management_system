@@ -52,7 +52,7 @@
                                             </div>
                                             <div class="flex flex-col items-right mb-2">
                                                 <label for="type"
-                                                       class="block text-gray-700 text-sm font-bold mb-2">نسل*:</label>
+                                                       class="block text-gray-700 text-sm font-bold mb-2">نسل:</label>
                                                 <select id="type" class="border rounded-md w-full px-3 py-2"
                                                         name="type">
                                                     <option value="" disabled selected>انتخاب کنید</option>
@@ -80,7 +80,7 @@
                                             </div>
                                             <div class="flex flex-col items-right mb-2">
                                                 <label for="frequency"
-                                                       class="block text-gray-700 text-sm font-bold mb-2">فرکانس*:</label>
+                                                       class="block text-gray-700 text-sm font-bold mb-2">فرکانس:</label>
                                                 <input type="text" id="frequency" name="frequency" autocomplete="off"
                                                        class="border rounded-md w-full mb-2 px-3 py-2 text-right"
                                                        placeholder="فرکانس را وارد کنید">
@@ -145,7 +145,7 @@
                                             </div>
                                             <div class="flex flex-col items-right mb-2">
                                                 <label for="typeForEdit"
-                                                       class="block text-gray-700 text-sm font-bold mb-2">نوع*:</label>
+                                                       class="block text-gray-700 text-sm font-bold mb-2">نوع:</label>
                                                 <select id="typeForEdit" class="border rounded-md w-full px-3 py-2"
                                                         name="typeForEdit">
                                                     <option value="" disabled selected>انتخاب کنید</option>
@@ -157,7 +157,7 @@
                                             </div>
                                             <div class="flex flex-col items-right mb-2">
                                                 <label for="sizeForEdit"
-                                                       class="block text-gray-700 text-sm font-bold mb-2">نسل*:</label>
+                                                       class="block text-gray-700 text-sm font-bold mb-2">ظرفیت*:</label>
                                                 <select id="sizeForEdit" class="border rounded-md w-full px-3 py-2"
                                                         name="sizeForEdit">
                                                     <option value="" disabled selected>انتخاب کنید</option>
@@ -173,7 +173,7 @@
                                             </div>
                                             <div class="flex flex-col items-right mb-2">
                                                 <label for="frequencyForEdit"
-                                                       class="block text-gray-700 text-sm font-bold mb-2">فرکانس*:</label>
+                                                       class="block text-gray-700 text-sm font-bold mb-2">فرکانس:</label>
                                                 <input type="text" id="frequencyForEdit" name="frequencyForEdit" autocomplete="off"
                                                        class="border rounded-md w-full mb-2 px-3 py-2 text-right"
                                                        placeholder="فرکانس را وارد کنید">

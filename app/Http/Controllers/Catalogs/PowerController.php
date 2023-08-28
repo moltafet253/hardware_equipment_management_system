@@ -18,9 +18,9 @@ class PowerController extends \App\Http\Controllers\Controller
         if (!$model) {
             return $this->alerts(false, 'nullModel', 'مدل وارد نشده است');
         }
-        if (!$voltage) {
-            return $this->alerts(false, 'nullVoltage', 'ولتاژ خروجی وارد نشده است');
-        }
+//        if (!$voltage) {
+//            return $this->alerts(false, 'nullVoltage', 'ولتاژ خروجی وارد نشده است');
+//        }
 
         $Power = new Power();
         $Power->company_id = $brand;
@@ -42,9 +42,9 @@ class PowerController extends \App\Http\Controllers\Controller
         if (!$model) {
             return $this->alerts(false, 'nullModel', 'مدل وارد نشده است');
         }
-        if (!$voltage) {
-            return $this->alerts(false, 'nullVoltage', 'ولتاژ خروجی وارد نشده است');
-        }
+//        if (!$voltage) {
+//            return $this->alerts(false, 'nullVoltage', 'ولتاژ خروجی وارد نشده است');
+//        }
 
         $Power = Power::find($PowerID);
         $Power->fill([

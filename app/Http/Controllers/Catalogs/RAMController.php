@@ -20,12 +20,12 @@ class RAMController extends \App\Http\Controllers\Controller
         if (!$model){
             return $this->alerts(false, 'nullModel', 'مدل وارد نشده است');
         }
-        if (!$type){
-            return $this->alerts(false, 'nullType', 'نوع حافظه انتخاب نشده است');
-        }
-        if (!$frequency){
-            return $this->alerts(false, 'nullFrequency', 'فرکانس وارد نشده است');
-        }
+//        if (!$type){
+//            return $this->alerts(false, 'nullType', 'نوع حافظه انتخاب نشده است');
+//        }
+//        if (!$frequency){
+//            return $this->alerts(false, 'nullFrequency', 'فرکانس وارد نشده است');
+//        }
         if (!$size){
             return $this->alerts(false, 'nullSize', 'سایز حافظه انتخاب نشده است');
         }
@@ -54,12 +54,12 @@ class RAMController extends \App\Http\Controllers\Controller
         if (!$model){
             return $this->alerts(false, 'nullModel', 'مدل وارد نشده است');
         }
-        if (!$type){
-            return $this->alerts(false, 'nullType', 'نوع حافظه انتخاب نشده است');
-        }
-        if (!$frequency){
-            return $this->alerts(false, 'nullFrequency', 'فرکانس وارد نشده است');
-        }
+//        if (!$type){
+//            return $this->alerts(false, 'nullType', 'نوع حافظه انتخاب نشده است');
+//        }
+//        if (!$frequency){
+//            return $this->alerts(false, 'nullFrequency', 'فرکانس وارد نشده است');
+//        }
         if (!$size){
             return $this->alerts(false, 'nullSize', 'سایز حافظه انتخاب نشده است');
         }

@@ -53,7 +53,7 @@
                                             <div class="flex flex-col items-right mb-2">
                                                 <label for="output_voltage"
                                                        class="block text-gray-700 text-sm font-bold mb-2">ولتاژ
-                                                    خروجی*:</label>
+                                                    خروجی:</label>
                                                 <input type="text" id="output_voltage" name="output_voltage"
                                                        autocomplete="off"
                                                        class="border rounded-md w-full mb-2 px-3 py-2 text-right"
@@ -120,8 +120,8 @@
                                             <div class="flex flex-col items-right mb-2">
                                                 <label for="output_voltageForEdit"
                                                        class="block text-gray-700 text-sm font-bold mb-2">ولتاژ
-                                                    خروجی*:</label>
-                                                <input type="number" id="output_voltageForEdit"
+                                                    خروجی:</label>
+                                                <input type="text" id="output_voltageForEdit"
                                                        name="output_voltageForEdit" autocomplete="off"
                                                        class="border rounded-md w-full mb-2 px-3 py-2 text-right"
                                                        placeholder="مقدار ولتاژ خروجی را وارد کنید">

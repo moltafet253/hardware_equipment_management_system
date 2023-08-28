@@ -20,24 +20,24 @@ class MotherboardController extends Controller
         if (!$brand) {
             return $this->alerts(false, 'nullBrand', 'نام برند انتخاب نشده است');
         }
-        if (!$cpu_slot_num) {
-            return $this->alerts(false, 'nullCPUSlotNumbers', 'تعداد سوکت پردازنده انتخاب نشده است');
-        }
-        if (!$ram_slot_num) {
-            return $this->alerts(false, 'nullRAMSlotNumbers', 'تعداد سوکت رم انتخاب نشده است');
-        }
+//        if (!$cpu_slot_num) {
+//            return $this->alerts(false, 'nullCPUSlotNumbers', 'تعداد سوکت پردازنده انتخاب نشده است');
+//        }
+//        if (!$ram_slot_num) {
+//            return $this->alerts(false, 'nullRAMSlotNumbers', 'تعداد سوکت رم انتخاب نشده است');
+//        }
         if (!$model) {
             return $this->alerts(false, 'nullModel', 'مدل وارد نشده است');
         }
-        if (!$cpu_slot_type) {
-            return $this->alerts(false, 'nullCPUSlotType', 'نوع اسلات پردازنده انتخاب نشده است');
-        }
-        if (!$ram_slot_gen) {
-            return $this->alerts(false, 'nullRamSlotGeneration', 'نسل اسلات رم انتخاب نشده است');
-        }
-        if (!$generation) {
-            return $this->alerts(false, 'nullGeneration', 'نسل مادربورد وارد نشده است');
-        }
+//        if (!$cpu_slot_type) {
+//            return $this->alerts(false, 'nullCPUSlotType', 'نوع اسلات پردازنده انتخاب نشده است');
+//        }
+//        if (!$ram_slot_gen) {
+//            return $this->alerts(false, 'nullRamSlotGeneration', 'نسل اسلات رم انتخاب نشده است');
+//        }
+//        if (!$generation) {
+//            return $this->alerts(false, 'nullGeneration', 'نسل مادربورد وارد نشده است');
+//        }
 
         $MB = new Motherboard();
         $MB->company_id = $brand;
