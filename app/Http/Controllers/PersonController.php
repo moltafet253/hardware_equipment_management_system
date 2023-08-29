@@ -86,9 +86,6 @@ class PersonController extends Controller
         if (!$PersonID) {
             return $this->alerts(false, 'nullPersonnelCode', 'کد پرسنلی وارد نشده است');
         }
-        if (!$PersonID) {
-            return $this->alerts(false, 'nullPersonnelCode', 'کد پرسنلی وارد نشده است');
-        }
         if (!$national_code) {
             return $this->alerts(false, 'nullNationalCode', 'کد ملی وارد نشده است');
         }
@@ -125,7 +122,8 @@ class PersonController extends Controller
 
     public function index()
     {
-        if (session('type')!=3) {
+        $userInfo=User::find(session('id'));
+        if ($userInfo->type!=3) {
             $personList = Person::where('work_place','=','ستاد')->orderBy('family', 'asc')->paginate(20);
         }else {
             $personList = Person::where('work_place','!=','ستاد')->where('work_place',$userInfo->province_id)->orderBy('family', 'asc')->paginate(20);
