@@ -21,7 +21,8 @@ return new class extends Migration
             $table->string('phone',11)->nullable();
             $table->string('mobile',11)->nullable();
             $table->string('net_username')->nullable();
-            $table->string('work_place',10)->default('ستاد');
+            $table->unsignedBigInteger('work_place')->default(35);
+            $table->foreign('work_place')->references('id')->on('provinces');
             $table->unsignedBigInteger('assistance')->nullable();
             $table->foreign('assistance')->references('id')->on('assistances');
             $table->unsignedBigInteger('establishment_place')->nullable();
@@ -35,7 +36,7 @@ return new class extends Migration
             $table->softDeletes();
         });
         $query="INSERT INTO `persons` (`id`, `name`, `family`, `personnel_code`, `national_code`, `phone`, `mobile`, `net_username`, `work_place`, `assistance`, `establishment_place`, `room_number`,`adder`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'علی', 'حسابی', NULL, '1234567891', NULL, NULL, NULL, 'ستاد', 16, 10, '452',1, '2023-08-25 15:04:45', '2023-08-25 15:04:45', NULL);           ";
+(1, 'علی', 'حسابی', NULL, '1234567891', NULL, NULL, NULL, 35, 16, 10, '452',1, '2023-08-25 15:04:45', '2023-08-25 15:04:45', NULL);           ";
         DB::statement($query);
     }
 

@@ -11,7 +11,7 @@ class PersonController extends Controller
 {
     public function newPerson(Request $request)
     {
-        $adder=User::find(session('id'));
+        $adder = User::find(session('id'));
         $name = $request->input('name');
         $family = $request->input('family');
         $national_code = $request->input('national_code');
@@ -54,8 +54,8 @@ class PersonController extends Controller
         $Person->room_number = $room_number;
         $Person->assistance = $assistance;
         $Person->establishment_place = $establishment_place;
-        if ($adder->type==3){
-            $Person->work_place=$adder->province_id;
+        if ($adder->type == 3) {
+            $Person->work_place = $adder->province_id;
         }
         $Person->adder = session('id');
         $Person->save();
@@ -122,12 +122,8 @@ class PersonController extends Controller
 
     public function index()
     {
-        $userInfo=User::find(session('id'));
-        if ($userInfo->type!=3) {
-            $personList = Person::where('work_place','=','ستاد')->orderBy('family', 'asc')->paginate(20);
-        }else {
-            $personList = Person::where('work_place','!=','ستاد')->where('work_place',$userInfo->province_id)->orderBy('family', 'asc')->paginate(20);
-        }
+        $userInfo = User::find(session('id'));
+        $personList = Person::where('work_place', $userInfo->province_id)->orderBy('family', 'asc')->paginate(20);
         return \view('PersonManager', ['personList' => $personList]);
     }
 }
