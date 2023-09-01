@@ -177,6 +177,11 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
 
             Route::post('/ManageCatalogStatus', [CatalogController::class, 'manage']);
             //End Catalogs
+
+            Route::get('/Person', [PersonController::class, 'index'])->name('Person');
+            Route::post('/newPerson', [PersonController::class, 'newPerson'])->name('newPerson');
+            Route::get('/getPersonInfo', [PersonController::class, 'getPersonInfo'])->name('getPersonInfo');
+            Route::post('/editPerson', [PersonController::class, 'editPerson'])->name('editPerson');
             Route::post('/newComment', [EquipmentController::class, 'newComment'])->name('newComment');
 
             //Start Reports

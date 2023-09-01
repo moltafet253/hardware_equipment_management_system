@@ -10,7 +10,7 @@
                 <hr>
                 <div class="flex p-4">
                     <p class=" mt-2">لطفا یک پرسنل را انتخاب کنید:</p>
-                    <select id="person" class="border rounded-md w-72 px-3 py-2" name="person">
+                    <select id="person" class="border rounded-md w-72 px-3 py-2 select2" name="person">
                         <option value="" disabled selected>انتخاب کنید</option>
                         @php
                             $persons = Person::where('work_place',35)->orderBy('family','asc')->get();
@@ -35,7 +35,7 @@
                 <hr>
                 <div class="flex p-4">
                     <p class=" mt-2">لطفا یک معاونت را انتخاب کنید:</p>
-                    <select id="assistance" class="border rounded-md w-72 px-3 py-2" name="assistance">
+                    <select id="assistance" class="border rounded-md w-72 px-3 py-2 select2" name="assistance">
                         <option value="" disabled selected>انتخاب کنید</option>
                         @php
                             $assistances = Assistance::orderBy('name','asc')->get();
