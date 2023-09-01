@@ -21,8 +21,10 @@ use App\Http\Controllers\Catalogs\ScannerController;
 use App\Http\Controllers\Catalogs\VOIPController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EquipmentController;
+use App\Http\Controllers\ExportToExcelController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PersonController;
+use App\Http\Controllers\Reports\CenterReportsController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\UserManager;
 use App\Http\Middleware\CheckLoginMiddleware;
@@ -176,6 +178,12 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
             Route::post('/ManageCatalogStatus', [CatalogController::class, 'manage']);
             //End Catalogs
             Route::post('/newComment', [EquipmentController::class, 'newComment'])->name('newComment');
+
+            //Start Reports
+            Route::get('/excel', [ExportToExcelController::class, 'exportExcel']);
+            Route::get('/CenterReports', [CenterReportsController::class, 'index']);
+            //End Reports
+
 
         });
         Route::middleware('roleAuthorization:2')->group(function () {
