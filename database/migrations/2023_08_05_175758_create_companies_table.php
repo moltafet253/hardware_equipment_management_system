@@ -28,7 +28,7 @@ return new class extends Migration
 INSERT INTO companies (name, products)
 VALUES
     ('Acbel', '[\"Power\"]'),
-('Asus', '[\"Power\",\"Motherboard\"]'),
+('Asus', '[\"Power\",\"Motherboard\",\"Monitor\"]'),
 ('Coolermaster', '[\"Power\"]'),
 ('GLT', '[\"Power\"]'),
 ('Hreen', '[\"Power\"]'),
@@ -68,7 +68,7 @@ VALUES
 ('AMD', '[\"CPU\"]'),
 ('Hitachi', '[\"HDD|SSD|M.2\"]'),
 ('Maxtor', '[\"HDD|SSD|M.2\"]'),
-('Samsung', '[\"HDD|SSD|M.2\"]'),
+('Samsung', '[\"HDD|SSD|M.2\",\"Monitor\"]'),
 ('Seagate', '[\"HDD|SSD|M.2\"]'),
 ('simmtronics', '[\"HDD|SSD|M.2\"]'),
 ('Toshiba', '[\"HDD|SSD|M.2\"]'),
@@ -85,9 +85,16 @@ VALUES
 ('Biostar', '[\"Motherboard\"]'),
 ('ECS', '[\"Motherboard\"]'),
 ('Foxconn', '[\"Motherboard\"]'),
-('MSI', '[\"Motherboard\"]'),
+('MSI', '[\"Motherboard\",\"Monitor\"]'),
 ('JETWAY', '[\"Motherboard\"]'),
-('Asrock', '[\"Motherboard\"]')
+('Asrock', '[\"Motherboard\"]'),
+('AOC', '[\"Monitor\"]'),
+('CMV', '[\"Monitor\"]'),
+('DETIG', '[\"Monitor\"]'),
+('GPLUS', '[\"Monitor\"]'),
+('LG', '[\"Monitor\"]'),
+('Philips', '[\"Monitor\"]'),
+('Xvision', '[\"Monitor\"]')
 ;
 ";
         DB::statement($query);
