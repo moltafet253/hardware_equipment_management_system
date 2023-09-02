@@ -28,7 +28,7 @@ return new class extends Migration
 INSERT INTO companies (name, products)
 VALUES
     ('Acbel', '[\"Power\"]'),
-('Asus', '[\"Power\"]'),
+('Asus', '[\"Power\",\"Motherboard\"]'),
 ('Coolermaster', '[\"Power\"]'),
 ('GLT', '[\"Power\"]'),
 ('Hreen', '[\"Power\"]'),
@@ -41,9 +41,9 @@ VALUES
 ('Delux', '[\"Case\"]'),
 ('Digital', '[\"Case\"]'),
 ('Elegance', '[\"Case\"]'),
-('Gigabyte', '[\"Case\",\"HDD|SSD|M.2\"]'),
+('Gigabyte', '[\"Case\",\"HDD|SSD|M.2\",\"Motherboard\"]'),
 ('Green', '[\"Case\",\"Power\"]'),
-('HP', '[\"Case\"]'),
+('HP', '[\"Case\",\"Motherboard\"]'),
 ('Lexus', '[\"Case\"]'),
 ('Logic', '[\"Case\"]'),
 ('Microlab', '[\"Case\"]'),
@@ -64,7 +64,7 @@ VALUES
 ('VANIA', '[\"Case\"]'),
 ('Viera', '[\"Case\"]'),
 ('Winext', '[\"Case\"]'),
-('Intel', '[\"CPU\"]'),
+('Intel', '[\"CPU\",\"Motherboard\"]'),
 ('AMD', '[\"CPU\"]'),
 ('Hitachi', '[\"HDD|SSD|M.2\"]'),
 ('Maxtor', '[\"HDD|SSD|M.2\"]'),
@@ -80,7 +80,14 @@ VALUES
 ('kingmax', '[\"HDD|SSD|M.2\"]'),
 ('Kingstone', '[\"HDD|SSD|M.2\"]'),
 ('PNY', '[\"HDD|SSD|M.2\"]'),
-('Apacer', '[\"HDD|SSD|M.2\"]')
+('Apacer', '[\"HDD|SSD|M.2\"]'),
+('Abit', '[\"Motherboard\"]'),
+('Biostar', '[\"Motherboard\"]'),
+('ECS', '[\"Motherboard\"]'),
+('Foxconn', '[\"Motherboard\"]'),
+('MSI', '[\"Motherboard\"]'),
+('JETWAY', '[\"Motherboard\"]'),
+('Asrock', '[\"Motherboard\"]')
 ;
 ";
         DB::statement($query);
