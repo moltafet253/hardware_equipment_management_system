@@ -14,6 +14,7 @@ class Printer extends Model
     protected $fillable=[
         'company_id',
         'model',
+        'function_type',
         'active',
     ];
 }

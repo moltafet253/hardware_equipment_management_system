@@ -50,6 +50,16 @@
                                                        class="border rounded-md w-full mb-2 px-3 py-2 text-right"
                                                        placeholder="مدل را به انگلیسی وارد کنید">
                                             </div>
+                                            <div class="flex flex-col items-right mb-2">
+                                                <label for="function_type"
+                                                       class="block text-gray-700 text-sm font-bold mb-2">نوع کارکرد*:</label>
+                                                <select id="function_type" class="border rounded-md w-full px-3 py-2"
+                                                        name="function_type">
+                                                    <option value="" disabled selected>انتخاب کنید</option>
+                                                    <option value="تک کاره" >تک کاره</option>
+                                                    <option value="چند کاره" >چند کاره</option>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
@@ -107,6 +117,16 @@
                                                        autocomplete="off"
                                                        class="border rounded-md w-full mb-2 px-3 py-2 text-right"
                                                        placeholder="مدل را به انگلیسی وارد کنید">
+                                            </div>
+                                            <div class="flex flex-col items-right mb-2">
+                                                <label for="function_typeForEdit"
+                                                       class="block text-gray-700 text-sm font-bold mb-2">نوع کارکرد*:</label>
+                                                <select id="function_typeForEdit" class="border rounded-md w-full px-3 py-2"
+                                                        name="function_typeForEdit">
+                                                    <option value="" disabled selected>انتخاب کنید</option>
+                                                    <option value="تک کاره" >تک کاره</option>
+                                                    <option value="چند کاره" >چند کاره</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>

@@ -2206,6 +2206,8 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
                                     } else if (response.errors.nullModel) {
                                         swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.function_typeForEdit) {
+                                        swalFire('خطا!', response.errors.function_typeForEdit[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
                                     // swalFire('ثبت اطلاعات پرینتر موفقیت آمیز بود!', response.message.printerAdded[0], 'success', 'بستن');
@@ -2230,6 +2232,7 @@ $(document).ready(function () {
                             printer_id.value = response.id;
                             brandForEdit.value = response.company_id;
                             modelForEdit.value = response.model;
+                            function_typeForEdit.value = response.function_type;
                         }
                     }
                 });
@@ -2260,6 +2263,8 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
                                     } else if (response.errors.nullModel) {
                                         swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.function_typeForEdit) {
+                                        swalFire('خطا!', response.errors.function_typeForEdit[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
                                     // swalFire('ویرایش پرینتر موفقیت آمیز بود!', response.message.printerEdited[0], 'success', 'بستن');
