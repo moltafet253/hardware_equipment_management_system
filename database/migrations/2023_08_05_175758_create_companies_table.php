@@ -101,7 +101,9 @@ VALUES
 ('Epson', '[\"Scanner\"]'),
 ('Fujitsu', '[\"Scanner\"]'),
 ('Kodak', '[\"Scanner\"]'),
-('Plustek', '[\"Scanner\"]')
+('Plustek', '[\"Scanner\"]'),
+('Bizhub', '[\"Copy Machine\"]'),
+('Sharp', '[\"Copy Machine\"]')
 ;
 ";
         DB::statement($query);
