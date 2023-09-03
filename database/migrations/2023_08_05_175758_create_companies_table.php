@@ -96,7 +96,12 @@ VALUES
 ('Philips', '[\"Monitor\"]'),
 ('Xvision', '[\"Monitor\"]'),
 ('Brother', '[\"Printer\"]'),
-('Canon', '[\"Printer\"]')
+('Canon', '[\"Printer\"]'),
+('Advision', '[\"Scanner\"]'),
+('Epson', '[\"Scanner\"]'),
+('Fujitsu', '[\"Scanner\"]'),
+('Kodak', '[\"Scanner\"]'),
+('Plustek', '[\"Scanner\"]')
 ;
 ";
         DB::statement($query);
