@@ -43,7 +43,7 @@ VALUES
 ('Elegance', '[\"Case\"]'),
 ('Gigabyte', '[\"Case\",\"HDD|SSD|M.2\",\"Motherboard\"]'),
 ('Green', '[\"Case\",\"Power\"]'),
-('HP', '[\"Case\",\"Motherboard\"]'),
+('HP', '[\"Case\",\"Motherboard\",\"Printer\"]'),
 ('Lexus', '[\"Case\"]'),
 ('Logic', '[\"Case\"]'),
 ('Microlab', '[\"Case\"]'),
@@ -68,7 +68,7 @@ VALUES
 ('AMD', '[\"CPU\"]'),
 ('Hitachi', '[\"HDD|SSD|M.2\"]'),
 ('Maxtor', '[\"HDD|SSD|M.2\"]'),
-('Samsung', '[\"HDD|SSD|M.2\",\"Monitor\"]'),
+('Samsung', '[\"HDD|SSD|M.2\",\"Monitor\",\"Printer\"]'),
 ('Seagate', '[\"HDD|SSD|M.2\"]'),
 ('simmtronics', '[\"HDD|SSD|M.2\"]'),
 ('Toshiba', '[\"HDD|SSD|M.2\"]'),
@@ -94,7 +94,9 @@ VALUES
 ('GPLUS', '[\"Monitor\"]'),
 ('LG', '[\"Monitor\"]'),
 ('Philips', '[\"Monitor\"]'),
-('Xvision', '[\"Monitor\"]')
+('Xvision', '[\"Monitor\"]'),
+('Brother', '[\"Printer\"]'),
+('Canon', '[\"Printer\"]')
 ;
 ";
         DB::statement($query);
