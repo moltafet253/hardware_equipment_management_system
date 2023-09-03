@@ -72,6 +72,25 @@ VALUES
     (43, 'ML-2160');
 ";
         DB::statement($query);
+
+        $query="INSERT INTO printers (company_id, model, function_type)
+VALUES
+    (70, 'DCP 8065DN', 'چندکاره'),
+    (71, 'i-sensys MF4570DN', 'چندکاره'),
+    (71, 'i-sensys MF4350D', 'چندکاره'),
+    (71, 'i-sensys FAX-L150', 'فکس'),
+    (71, 'i-sesnys MF4550D', 'چندکاره'),
+    (71, 'MFC-L2700DW', 'چندکاره'),
+    (18, '1536DNF MFP', 'چندکاره'),
+    (18, 'Pro M1132 MFP', 'چندکاره'),
+    (18, 'M1214NFH MFP', 'چندکاره'),
+    (18, 'M1522NF', 'چندکاره'),
+    (43, 'SCX-3405FH', 'چندکاره'),
+    (43, 'SCX-4833FD', 'چندکاره'),
+    (43, 'SCX-5637FR', 'چندکاره');
+";
+        DB::statement($query);
+
     }
 
     /**
