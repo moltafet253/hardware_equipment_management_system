@@ -24,7 +24,7 @@ use App\Http\Controllers\EquipmentController;
 use App\Http\Controllers\ExportToExcelController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PersonController;
-use App\Http\Controllers\Reports\CenterReportsController;
+use App\Http\Controllers\Reports\ExcelAllReportsController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\UserManager;
 use App\Http\Middleware\CheckLoginMiddleware;
@@ -181,8 +181,8 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
             Route::post('/newComment', [EquipmentController::class, 'newComment'])->name('newComment');
 
             //Start Reports
-            Route::get('/excel', [ExportToExcelController::class, 'exportExcel']);
-            Route::get('/CenterReports', [CenterReportsController::class, 'index']);
+            //ExcelAllReports
+            Route::get('/ExcelAllReports', [ExcelAllReportsController::class, 'index']);
             //End Reports
         });
 
