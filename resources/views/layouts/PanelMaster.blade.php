@@ -167,12 +167,30 @@
                                                 <svg
                                                     class="ml-3 flex-shrink-0 w-5 h-5  transition duration-75 text-cu-light group-hover:text-cu-light dark:group-hover:text-gray-700"
                                                     aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                                    fill="currentColor" viewBox="0 0 20 20">
+                                                    fill="currentColor" viewBox="0 0 25 25">
                                                     @if(@$menu['path1'])
                                                         <path
                                                             d="{{ $menu['path1'] }}"></path>
+                                                    @endif
+                                                    @if(@$menu['path2'])
                                                         <path
                                                             d="{{ @$menu['path2'] }}"></path>
+                                                    @endif
+                                                    @if(@$menu['path3'])
+                                                        <path
+                                                            d="{{ @$menu['path3'] }}"></path>
+                                                    @endif
+                                                    @if(@$menu['path4'])
+                                                        <path
+                                                            d="{{ @$menu['path4'] }}"></path>
+                                                    @endif
+                                                    @if(@$menu['path5'])
+                                                        <path
+                                                            d="{{ @$menu['path5'] }}"></path>
+                                                    @endif
+                                                    @if(@$menu['path6'])
+                                                        <path
+                                                            d="{{ @$menu['path6'] }}"></path>
                                                     @endif
                                                 </svg>
                                                 {{ $menu['title'] }}
