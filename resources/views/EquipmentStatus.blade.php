@@ -751,530 +751,626 @@
         </div>
     </form>
 
+
     <main class="flex-1 bg-gray-100 py-6 px-8 ">
+
         <div class=" mx-auto lg:mr-72">
-            <h1 class="text-2xl font-bold mb-4">مدیریت اطلاعات تجهیزات کاربر با
-                مشخصات {{ $personInfo->name .' '. $personInfo->family}}</h1>
-
-            {{--            Cases--}}
-            <div class="flex pb-3">
-                <h3 class="font-bold pr-5 pt-2 ml-3">اطلاعات کیس</h3>
-                <button type="submit"
-                        class="px-4 py-2 mr-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300 AddCase">
-                    ثبت کیس جدید
-                </button>
-            </div>
-            <div class="bg-white rounded shadow flex flex-col">
-                <div class="max-w-full items-center overflow-x-auto">
-                    @php
-                        $eq_cases=\App\Models\EquipmentedCase::where('person_id',$personId)->get();
-                    @endphp
-                    @if(!$eq_cases->isEmpty())
-                        <table class="w-full border-collapse rounded-lg overflow-hidden text-center">
-                            <thead>
-                            <tr class="bg-gradient-to-r from-blue-400 to-purple-500 items-center text-center text-white">
-                                <th class=" px-6 py-3  font-bold ">کد اموال</th>
-                                <th class=" px-6 py-3  font-bold ">کد پلمپ</th>
-                                <th class=" px-3 py-3  font-bold ">نام کامپیوتر</th>
-                                <th class=" px-3 py-3  font-bold ">کیس</th>
-                                <th class=" px-3 py-3  font-bold ">پاور</th>
-                                <th class=" px-3 py-3  font-bold ">مادربورد</th>
-                                <th class=" px-3 py-3  font-bold ">پردازنده</th>
-                                <th class=" px-3 py-3  font-bold ">رم</th>
-                                <th class=" px-3 py-3  font-bold ">کارت گرافیک</th>
-                                <th class=" px-3 py-3  font-bold ">هارد</th>
-                                <th class=" px-3 py-3  font-bold ">عملیات</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($eq_cases as $case)
-                                <tr class="even:bg-gray-300 odd:bg-white">
-                                    <td class=" px-3 py-3 "> {{ $case->property_number }}</td>
-                                    <td class=" px-3 py-3 ">{{ $case->stamp_number }}</td>
-                                    <td class=" px-3 py-3 ">{{ $case->computer_name  }}</td>
-                                    <td class=" px-3 py-3 ">
-                                        @php
-                                            $caseInfo = \App\Models\Catalogs\Cases::join('companies', 'cases.company_id', '=', 'companies.id')
-                                            ->select('cases.*', 'companies.name as company_name') // انتخاب فیلدهای مورد نیاز
-                                            ->find($case->case);
-                                        @endphp
-                                        {{ $caseInfo->company_name . ' ' . $caseInfo->model  }}
-                                    </td>
-                                    <td class=" px-3 py-3 ">
-                                        @php
-                                            $powerInfo = \App\Models\Catalogs\Power::join('companies', 'powers.company_id', '=', 'companies.id')
-                                            ->select('powers.*', 'companies.name as company_name')
-                                            ->find($case->power);
-                                        @endphp
-                                        {{ $powerInfo->company_name . ' ' . $powerInfo->model. ' ' . $powerInfo->output_voltage.'W'  }}
-                                    </td>
-                                    <td class=" px-3 py-3 ">
-                                        @php
-                                            $motherboardInfo = \App\Models\Catalogs\Motherboard::join('companies', 'motherboards.company_id', '=', 'companies.id')
-                                            ->select('motherboards.*', 'companies.name as company_name')
-                                            ->find($case->motherboard);
-                                        @endphp
-                                        {{ $motherboardInfo->company_name . ' ' . $motherboardInfo->model. ' ' . $motherboardInfo->ram_slot_generation  }}
-                                    </td>
-                                    <td class=" px-3 py-3 ">
-                                        @php
-                                            $cpuInfo = \App\Models\Catalogs\cpu::join('companies', 'cpus.company_id', '=', 'companies.id')
-                                            ->select('cpus.*', 'companies.name as company_name')
-                                            ->find($case->cpu);
-                                        @endphp
-                                        {{ $cpuInfo->company_name . ' ' . $cpuInfo->model. ' n' . $cpuInfo->generation  }}
-                                    </td>
-                                    <td class=" px-3 py-3 ">
-                                        @php
-                                            $ramInfo = \App\Models\Catalogs\ram::join('companies', 'rams.company_id', '=', 'companies.id')
-                                            ->select('rams.*', 'companies.name as company_name')
-                                            ->find($case->ram1);
-                                        @endphp
-                                        {{ $ramInfo->company_name . ' ' . $ramInfo->model. ' ' . $ramInfo->generation  }}
-
-                                        @if($case->ram2)
-                                            <br>
-                                            @php
-                                                $ramInfo = \App\Models\Catalogs\ram::join('companies', 'rams.company_id', '=', 'companies.id')
-                                                ->select('rams.*', 'companies.name as company_name')
-                                                ->find($case->ram2);
-                                            @endphp
-                                            {{ $ramInfo->company_name . ' ' . $ramInfo->model. ' ' . $ramInfo->generation  }}
-                                        @endif
-
-                                        @if($case->ram3)
-                                            <br>
-                                            @php
-                                                $ramInfo = \App\Models\Catalogs\ram::join('companies', 'rams.company_id', '=', 'companies.id')
-                                                ->select('rams.*', 'companies.name as company_name')
-                                                ->find($case->ram3);
-                                            @endphp
-                                            {{ $ramInfo->company_name . ' ' . $ramInfo->model. ' ' . $ramInfo->generation  }}
-                                        @endif
-
-                                        @if($case->ram4)
-                                            <br>
-                                            @php
-                                                $ramInfo = \App\Models\Catalogs\ram::join('companies', 'rams.company_id', '=', 'companies.id')
-                                                ->select('rams.*', 'companies.name as company_name')
-                                                ->find($case->ram4);
-                                            @endphp
-                                            {{ $ramInfo->company_name . ' ' . $ramInfo->model. ' ' . $ramInfo->generation  }}
-                                        @endif
-
-                                    </td>
-                                    <td class=" px-3 py-3 ">
-                                        @php
-                                            $graphicCardInfo = \App\Models\Catalogs\GraphicCard::join('companies', 'graphic_cards.company_id', '=', 'companies.id')
-                                            ->select('graphic_cards.*', 'companies.name as company_name')
-                                            ->find($case->graphic_card);
-                                        @endphp
-                                        {{ $graphicCardInfo->company_name . ' ' . $graphicCardInfo->model. ' ' . $graphicCardInfo->ram_size  }}
-                                    </td>
-                                    <td class=" px-3 py-3 ">
-                                        @php
-                                            $hddInfo = \App\Models\Catalogs\Harddisk::join('companies', 'harddisks.company_id', '=', 'companies.id')
-                                            ->select('harddisks.*', 'companies.name as company_name')
-                                            ->find($case->hdd1);
-                                        @endphp
-                                        {{ $hddInfo->company_name . ' ' . $hddInfo->model. ' ' . $hddInfo->capacity  }}
-
-                                        @if($case->hdd2)
-                                            <br>
-                                            @php
-                                                $hddInfo = \App\Models\Catalogs\Harddisk::join('companies', 'harddisks.company_id', '=', 'companies.id')
-                                                ->select('harddisks.*', 'companies.name as company_name')
-                                                ->find($case->hdd2);
-                                            @endphp
-                                            {{ $hddInfo->company_name . ' ' . $hddInfo->model. ' ' . $hddInfo->capacity  }}
-                                        @endif
-
-                                        @if($case->hdd3)
-                                            <br>
-                                            @php
-                                                $hddInfo = \App\Models\Catalogs\Harddisk::join('companies', 'harddisks.company_id', '=', 'companies.id')
-                                                ->select('harddisks.*', 'companies.name as company_name')
-                                                ->find($case->hdd3);
-                                            @endphp
-                                            {{ $hddInfo->company_name . ' ' . $hddInfo->model. ' ' . $hddInfo->capacity  }}
-                                        @endif
-
-                                        @if($case->hdd4)
-                                            <br>
-                                            @php
-                                                $hddInfo = \App\Models\Catalogs\Harddisk::join('companies', 'harddisks.company_id', '=', 'companies.id')
-                                                ->select('harddisks.*', 'companies.name as company_name')
-                                                ->find($case->hdd4);
-                                            @endphp
-                                            {{ $hddInfo->company_name . ' ' . $hddInfo->model. ' ' . $hddInfo->capacity  }}
-                                        @endif
-                                    </td>
-                                    <td class=" px-3 py-3 ">
-                                        <button type="submit"
-                                                class="px-4 py-2 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 EditCase">
-                                            ویرایش
-                                        </button>
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                    @else
-                        <div class="flex p-3">
-                            <h3 class="font-bold text-red-500 ml-4 mt-2">این کاربر کیس ثبت شده ندارد</h3>
-                        </div>
-                    @endif
-                </div>
-            </div>
-
-            {{--            Monitors--}}
-            <div class="flex pb-3 pt-6">
-                <h3 class="font-bold pr-5 pt-2 ml-3">اطلاعات مانیتور</h3>
-                <button type="submit"
-                        class="px-4 py-2 mr-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300 AddMonitor">
-                    ثبت مانیتور جدید
-                </button>
-            </div>
-            <div class="bg-white rounded shadow flex flex-col">
-                <div class="max-w-full items-center overflow-x-auto">
-                    @php
-                        $eq_monitors=\App\Models\EquipmentedMonitor::where('person_id',$personId)->get();
-                    @endphp
-                    @if(!$eq_monitors->isEmpty())
-                        <table class="w-full border-collapse rounded-lg overflow-hidden text-center">
-                            <thead>
-                            <tr class="bg-gradient-to-r from-blue-400 to-purple-500 items-center text-center text-white">
-                                <th class="px-6 py-3 font-bold">کد اموال</th>
-                                <th class="px-3 py-3 font-bold">شرکت سازنده</th>
-                                <th class="px-3 py-3 font-bold">مدل</th>
-                                <th class="px-3 py-3 font-bold">سایز</th>
-                                <th class="px-3 py-3 font-bold">عملیات</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($eq_monitors as $monitors)
-                                <tr class="even:bg-gray-300 odd:bg-white">
-                                    <td class="px-3 py-3"> {{ $monitors->property_number }}</td>
-                                    <td class="px-3 py-3">
-                                        @php
-                                            $monitorInfo = \App\Models\Catalogs\Monitor::join('companies', 'monitors.company_id', '=', 'companies.id')
-                                            ->select('monitors.*', 'companies.name as company_name')
-                                            ->find($monitors->monitor_id);
-                                        @endphp
-                                        {{ $monitorInfo->company_name }}
-                                    </td>
-                                    <td class="px-3 py-3">
-                                        {{ $monitorInfo->model }}
-                                    </td>
-                                    <td class="px-3 py-3">
-                                        {{ $monitorInfo->size }}
-                                    </td>
-                                    <td class="px-3 py-3">
-                                        <button type="submit"
-                                                class="px-4 py-2 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 EditMonitor">
-                                            ویرایش
-                                        </button>
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                    @else
-                        <div class="flex p-3">
-                            <h3 class="font-bold text-red-500 ml-4 mt-2">این کاربر مانیتور ثبت شده ندارد</h3>
-                        </div>
-                    @endif
-                </div>
-            </div>
-
-            {{--            Printers--}}
-            <div class="flex pb-3 pt-6">
-                <h3 class="font-bold pr-5 pt-2 ml-3">اطلاعات پرینتر</h3>
-                <button type="submit"
-                        class="px-4 py-2 mr-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300 AddPrinter">
-                    ثبت پرینتر جدید
-                </button>
-            </div>
-            <div class="bg-white rounded shadow flex flex-col">
-                <div class="max-w-full items-center overflow-x-auto">
-                    @php
-                        $eq_printers=\App\Models\EquipmentedPrinter::where('person_id',$personId)->get();
-                    @endphp
-                    @if(!$eq_printers->isEmpty())
-                        <table class="w-full border-collapse rounded-lg overflow-hidden text-center">
-                            <thead>
-                            <tr class="bg-gradient-to-r from-blue-400 to-purple-500 items-center text-center text-white">
-                                <th class=" px-6 py-3  font-bold ">کد اموال</th>
-                                <th class=" px-3 py-3  font-bold ">شرکت سازنده</th>
-                                <th class=" px-3 py-3  font-bold ">مدل</th>
-                                <th class=" px-3 py-3  font-bold ">عملیات</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($eq_printers as $printers)
-                                <tr class="even:bg-gray-300 odd:bg-white">
-                                    <td class=" px-3 py-3 "> {{ $printers->property_number }}</td>
-                                    <td class=" px-3 py-3 ">
-                                        @php
-                                            $printerInfo = \App\Models\Catalogs\Printer::join('companies', 'printers.company_id', '=', 'companies.id')
-                                            ->select('printers.*', 'companies.name as company_name')
-                                            ->find($printers->printer_id);
-                                        @endphp
-                                        {{ $printerInfo->company_name  }}
-                                    </td>
-                                    <td class=" px-3 py-3 ">
-                                        {{ $printerInfo->model }}
-                                    </td>
-                                    <td class=" px-3 py-3 ">
-                                        <button type="submit"
-                                                class="px-4 py-2 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 EditPrinter">
-                                            ویرایش
-                                        </button>
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                    @else
-                        <div class="flex p-3">
-                            <h3 class="font-bold text-red-500 ml-4 mt-2">این کاربر پرینتر ثبت شده ندارد</h3>
-                        </div>
-                    @endif
-                </div>
-            </div>
-
-            {{--            Scanners--}}
-            <div class="flex pb-3 pt-6">
-                <h3 class="font-bold pr-5 pt-2 ml-3">اطلاعات اسکنر</h3>
-                <button type="submit"
-                        class="px-4 py-2 mr-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300 AddScanner">
-                    ثبت اسکنر جدید
-                </button>
-            </div>
-            <div class="bg-white rounded shadow flex flex-col">
-                <div class="max-w-full items-center overflow-x-auto">
-                    @php
-                        $eq_scanners=\App\Models\EquipmentedScanner::where('person_id',$personId)->get();
-                    @endphp
-                    @if(!$eq_scanners->isEmpty())
-                        <table class="w-full border-collapse rounded-lg overflow-hidden text-center">
-                            <thead>
-                            <tr class="bg-gradient-to-r from-blue-400 to-purple-500 items-center text-center text-white">
-                                <th class=" px-6 py-3  font-bold ">کد اموال</th>
-                                <th class=" px-3 py-3  font-bold ">شرکت سازنده</th>
-                                <th class=" px-3 py-3  font-bold ">مدل</th>
-                                <th class=" px-3 py-3  font-bold ">عملیات</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($eq_scanners as $scanners)
-                                <tr class="even:bg-gray-300 odd:bg-white">
-                                    <td class=" px-3 py-3 "> {{ $scanners->property_number }}</td>
-                                    <td class=" px-3 py-3 ">
-                                        @php
-                                            $scannerInfo = \App\Models\Catalogs\Scanner::join('companies', 'scanners.company_id', '=', 'companies.id')
-                                            ->select('scanners.*', 'companies.name as company_name')
-                                            ->find($scanners->scanner_id);
-                                        @endphp
-                                        {{ $scannerInfo->company_name  }}
-                                    </td>
-                                    <td class=" px-3 py-3 ">
-                                        {{ $scannerInfo->model }}
-                                    </td>
-                                    <td class=" px-3 py-3 ">
-                                        <button type="submit"
-                                                class="px-4 py-2 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 EditScanner">
-                                            ویرایش
-                                        </button>
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                    @else
-                        <div class="flex p-3">
-                            <h3 class="font-bold text-red-500 ml-4 mt-2">این کاربر اسکنر ثبت شده ندارد</h3>
-                        </div>
-                    @endif
-                </div>
-            </div>
-
-            {{--            Copy Machines--}}
-            <div class="flex pb-3 pt-6">
-                <h3 class="font-bold pr-5 pt-2 ml-3">اطلاعات دستگاه کپی</h3>
-                <button type="submit"
-                        class="px-4 py-2 mr-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300 AddCopyMachine">
-                    ثبت دستگاه کپی جدید
-                </button>
-            </div>
-            <div class="bg-white rounded shadow flex flex-col">
-                <div class="max-w-full items-center overflow-x-auto">
-                    @php
-                        $eq_copy_machines=\App\Models\EquipmentedCopyMachine::where('person_id',$personId)->get();
-                    @endphp
-                    @if(!$eq_copy_machines->isEmpty())
-                        <table class="w-full border-collapse rounded-lg overflow-hidden text-center">
-                            <thead>
-                            <tr class="bg-gradient-to-r from-blue-400 to-purple-500 items-center text-center text-white">
-                                <th class=" px-6 py-3  font-bold ">کد اموال</th>
-                                <th class=" px-3 py-3  font-bold ">شرکت سازنده</th>
-                                <th class=" px-3 py-3  font-bold ">مدل</th>
-                                <th class=" px-3 py-3  font-bold ">عملیات</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($eq_copy_machines as $copy_machines)
-                                <tr class="even:bg-gray-300 odd:bg-white">
-                                    <td class=" px-3 py-3 "> {{ $copy_machines->property_number }}</td>
-                                    <td class=" px-3 py-3 ">
-                                        @php
-                                            $copy_machineInfo = \App\Models\Catalogs\CopyMachine::join('companies', 'copy_machines.company_id', '=', 'companies.id')
-                                            ->select('copy_machines.*', 'companies.name as company_name')
-                                            ->find($copy_machines->copy_machine_id);
-                                        @endphp
-                                        {{ $copy_machineInfo->company_name  }}
-                                    </td>
-                                    <td class=" px-3 py-3 ">
-                                        {{ $copy_machineInfo->model }}
-                                    </td>
-                                    <td class=" px-3 py-3 ">
-                                        <button type="submit"
-                                                class="px-4 py-2 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 EditCopyMachine">
-                                            ویرایش
-                                        </button>
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                    @else
-                        <div class="flex p-3">
-                            <h3 class="font-bold text-red-500 ml-4 mt-2">این کاربر دستگاه کپی ثبت شده ندارد</h3>
-                        </div>
-                    @endif
-                </div>
-            </div>
-
-            {{--            VOIPs--}}
-            <div class="flex pb-3 pt-6">
-                <h3 class="font-bold pr-5 pt-2 ml-3">اطلاعات VOIP</h3>
-                <button type="submit"
-                        class="px-4 py-2 mr-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300 AddVOIP">
-                    ثبت VOIP جدید
-                </button>
-            </div>
-            <div class="bg-white rounded shadow flex flex-col">
-                <div class="max-w-full items-center overflow-x-auto">
-                    @php
-                        $eq_VOIPs=\App\Models\EquipmentedVoip::where('person_id',$personId)->get();
-                    @endphp
-                    @if(!$eq_VOIPs->isEmpty())
-                        <table class="w-full border-collapse rounded-lg overflow-hidden text-center">
-                            <thead>
-                            <tr class="bg-gradient-to-r from-blue-400 to-purple-500 items-center text-center text-white">
-                                <th class=" px-6 py-3  font-bold ">کد اموال</th>
-                                <th class=" px-3 py-3  font-bold ">شرکت سازنده</th>
-                                <th class=" px-3 py-3  font-bold ">مدل</th>
-                                <th class=" px-3 py-3  font-bold ">عملیات</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($eq_VOIPs as $VOIPs)
-                                <tr class="even:bg-gray-300 odd:bg-white">
-                                    <td class=" px-3 py-3 "> {{ $VOIPs->property_number }}</td>
-                                    <td class=" px-3 py-3 ">
-                                        @php
-                                            $VOIPInfo = \App\Models\Catalogs\Voip::join('companies', 'voips.company_id', '=', 'companies.id')
-                                            ->select('voips.*', 'companies.name as company_name')
-                                            ->find($VOIPs->voip_id);
-                                        @endphp
-                                        {{ $VOIPInfo->company_name  }}
-                                    </td>
-                                    <td class=" px-3 py-3 ">
-                                        {{ $VOIPInfo->model }}
-                                    </td>
-                                    <td class=" px-3 py-3 ">
-                                        <button type="submit"
-                                                class="px-4 py-2 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 EditVOIP">
-                                            ویرایش
-                                        </button>
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                    @else
-                        <div class="flex p-3">
-                            <h3 class="font-bold text-red-500 ml-4 mt-2">این کاربر VOIP ثبت شده ندارد</h3>
-                        </div>
-                    @endif
-                </div>
-            </div>
-
-            @if(session('type')!=3)
-                {{--            Comment--}}
-                <div class="flex pb-3 pt-6">
-                    <h3 class="font-bold pr-5 pt-2 ml-3">اطلاعات کارهای انجام شده</h3>
-                    <button type="submit"
-                            class="px-4 py-2 mr-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300 AddComment">
-                        ثبت کار جدید
+            <div class="border rounded-lg shadow-md">
+                <div class="flex border rounded-lg">
+                    <button id="tab1"
+                            class="w-1/3 py-2 px-4 bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:bg-blue-600 rounded-tr-box">
+                        تجهیزات سخت افزاری
                     </button>
-                </div>
-                <div class="bg-white rounded shadow flex flex-col">
-                    <div class="max-w-full items-center overflow-x-auto">
-                        @php
-                            $comments=\App\Models\Comment::where('person_id',$personId)->get();
-                        @endphp
+                    <button id="tab2" class="w-1/3 py-2 px-4 bg-blue-500 text-white rounded-tl-box">تجهیزات شبکه</button>
 
-                        <table class="w-full border-collapse rounded-lg overflow-hidden text-center">
-                            <thead>
-                            <tr class="bg-gradient-to-r from-blue-400 to-purple-500 items-center text-center text-white">
-                                <th class=" px-6 py-3  font-bold ">موضوع</th>
-                                <th class=" px-6 py-3  font-bold ">شماره تیکت</th>
-                                <th class=" px-3 py-3  font-bold ">کارها</th>
-                                <th class=" px-3 py-3  font-bold ">توضیحات</th>
-                                <th class=" px-3 py-3  font-bold ">عملیات</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($comments as $comment)
-                                <tr class="even:bg-gray-300 odd:bg-white">
-                                    <td class=" px-3 py-3 "> {{ $comment->title }}</td>
-                                    <td class=" px-3 py-3 "> {{ $comment->ticket_number }}</td>
-                                    <td class=" px-3 py-3 ">
-                                        @if($comment->jobs)
-                                            @foreach (json_decode($comment->jobs) as $job)
-                                                @php
-                                                    $jobInfo=\App\Models\Catalogs\Job::find($job);
-                                                @endphp
-                                                {{ $jobInfo->title }}
-                                                @unless ($loop->last)
-                                                    |
-                                                @endunless
-                                            @endforeach
-                                        @endif
-                                    </td>
-                                    <td class=" px-3 py-3 ">
-                                        {{ $comment->description }}
-                                    </td>
-                                    <td class=" px-3 py-3 ">
-                                        <button type="submit"
-                                                class="px-4 py-2 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 EditComment">
-                                            ویرایش
-                                        </button>
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                        <div class="flex p-3">
-                            <h3 @if(!$comments->isEmpty()) hidden="hidden"
-                                @endif class="font-bold text-red-500 ml-4 mt-2" id="CommentErr">برای این پرسنل، کار ثبت
-                                نشده است.</h3>
-                        </div>
-                    </div>
+                    @if(session('type')!=3)
+                        <button id="tab3" class="w-1/3 py-2 px-4 bg-blue-500 text-white rounded-tl-box">کارهای انجام شده</button>
+                    @endif
                 </div>
-            @endif
+                <div>
+                    <div id="content1" class="p-4">
+                        <h1 class="text-2xl font-bold mb-4">مدیریت اطلاعات تجهیزات کاربر با
+                            مشخصات {{ $personInfo->name .' '. $personInfo->family}}</h1>
+
+                        {{--            Cases--}}
+                        <div class="flex pb-3">
+                            <h3 class="font-bold pr-5 pt-2 ml-3">اطلاعات کیس</h3>
+                            <button type="submit"
+                                    class="px-4 py-2 mr-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300 AddCase">
+                                ثبت کیس جدید
+                            </button>
+                        </div>
+                        <div class="bg-white rounded shadow flex flex-col">
+                            <div class="max-w-full items-center overflow-x-auto">
+                                @php
+                                    $eq_cases=\App\Models\EquipmentedCase::where('person_id',$personId)->get();
+                                @endphp
+                                @if(!$eq_cases->isEmpty())
+                                    <table class="w-full border-collapse rounded-lg overflow-hidden text-center">
+                                        <thead>
+                                        <tr class="bg-gradient-to-r from-blue-400 to-purple-500 items-center text-center text-white">
+                                            <th class=" px-6 py-3  font-bold ">کد اموال</th>
+                                            <th class=" px-6 py-3  font-bold ">کد پلمپ</th>
+                                            <th class=" px-3 py-3  font-bold ">نام کامپیوتر</th>
+                                            <th class=" px-3 py-3  font-bold ">کیس</th>
+                                            <th class=" px-3 py-3  font-bold ">پاور</th>
+                                            <th class=" px-3 py-3  font-bold ">مادربورد</th>
+                                            <th class=" px-3 py-3  font-bold ">پردازنده</th>
+                                            <th class=" px-3 py-3  font-bold ">رم</th>
+                                            <th class=" px-3 py-3  font-bold ">کارت گرافیک</th>
+                                            <th class=" px-3 py-3  font-bold ">هارد</th>
+                                            <th class=" px-3 py-3  font-bold ">عملیات</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($eq_cases as $case)
+                                            <tr class="even:bg-gray-300 odd:bg-white">
+                                                <td class=" px-3 py-3 "> {{ $case->property_number }}</td>
+                                                <td class=" px-3 py-3 ">{{ $case->stamp_number }}</td>
+                                                <td class=" px-3 py-3 ">{{ $case->computer_name  }}</td>
+                                                <td class=" px-3 py-3 ">
+                                                    @php
+                                                        $caseInfo = \App\Models\Catalogs\Cases::join('companies', 'cases.company_id', '=', 'companies.id')
+                                                        ->select('cases.*', 'companies.name as company_name') // انتخاب فیلدهای مورد نیاز
+                                                        ->find($case->case);
+                                                    @endphp
+                                                    {{ $caseInfo->company_name . ' ' . $caseInfo->model  }}
+                                                </td>
+                                                <td class=" px-3 py-3 ">
+                                                    @php
+                                                        $powerInfo = \App\Models\Catalogs\Power::join('companies', 'powers.company_id', '=', 'companies.id')
+                                                        ->select('powers.*', 'companies.name as company_name')
+                                                        ->find($case->power);
+                                                    @endphp
+                                                    {{ $powerInfo->company_name . ' ' . $powerInfo->model. ' ' . $powerInfo->output_voltage.'W'  }}
+                                                </td>
+                                                <td class=" px-3 py-3 ">
+                                                    @php
+                                                        $motherboardInfo = \App\Models\Catalogs\Motherboard::join('companies', 'motherboards.company_id', '=', 'companies.id')
+                                                        ->select('motherboards.*', 'companies.name as company_name')
+                                                        ->find($case->motherboard);
+                                                    @endphp
+                                                    {{ $motherboardInfo->company_name . ' ' . $motherboardInfo->model. ' ' . $motherboardInfo->ram_slot_generation  }}
+                                                </td>
+                                                <td class=" px-3 py-3 ">
+                                                    @php
+                                                        $cpuInfo = \App\Models\Catalogs\cpu::join('companies', 'cpus.company_id', '=', 'companies.id')
+                                                        ->select('cpus.*', 'companies.name as company_name')
+                                                        ->find($case->cpu);
+                                                    @endphp
+                                                    {{ $cpuInfo->company_name . ' ' . $cpuInfo->model. ' n' . $cpuInfo->generation  }}
+                                                </td>
+                                                <td class=" px-3 py-3 ">
+                                                    @php
+                                                        $ramInfo = \App\Models\Catalogs\ram::join('companies', 'rams.company_id', '=', 'companies.id')
+                                                        ->select('rams.*', 'companies.name as company_name')
+                                                        ->find($case->ram1);
+                                                    @endphp
+                                                    {{ $ramInfo->company_name . ' ' . $ramInfo->model. ' ' . $ramInfo->generation  }}
+
+                                                    @if($case->ram2)
+                                                        <br>
+                                                        @php
+                                                            $ramInfo = \App\Models\Catalogs\ram::join('companies', 'rams.company_id', '=', 'companies.id')
+                                                            ->select('rams.*', 'companies.name as company_name')
+                                                            ->find($case->ram2);
+                                                        @endphp
+                                                        {{ $ramInfo->company_name . ' ' . $ramInfo->model. ' ' . $ramInfo->generation  }}
+                                                    @endif
+
+                                                    @if($case->ram3)
+                                                        <br>
+                                                        @php
+                                                            $ramInfo = \App\Models\Catalogs\ram::join('companies', 'rams.company_id', '=', 'companies.id')
+                                                            ->select('rams.*', 'companies.name as company_name')
+                                                            ->find($case->ram3);
+                                                        @endphp
+                                                        {{ $ramInfo->company_name . ' ' . $ramInfo->model. ' ' . $ramInfo->generation  }}
+                                                    @endif
+
+                                                    @if($case->ram4)
+                                                        <br>
+                                                        @php
+                                                            $ramInfo = \App\Models\Catalogs\ram::join('companies', 'rams.company_id', '=', 'companies.id')
+                                                            ->select('rams.*', 'companies.name as company_name')
+                                                            ->find($case->ram4);
+                                                        @endphp
+                                                        {{ $ramInfo->company_name . ' ' . $ramInfo->model. ' ' . $ramInfo->generation  }}
+                                                    @endif
+
+                                                </td>
+                                                <td class=" px-3 py-3 ">
+                                                    @php
+                                                        $graphicCardInfo = \App\Models\Catalogs\GraphicCard::join('companies', 'graphic_cards.company_id', '=', 'companies.id')
+                                                        ->select('graphic_cards.*', 'companies.name as company_name')
+                                                        ->find($case->graphic_card);
+                                                    @endphp
+                                                    {{ $graphicCardInfo->company_name . ' ' . $graphicCardInfo->model. ' ' . $graphicCardInfo->ram_size  }}
+                                                </td>
+                                                <td class=" px-3 py-3 ">
+                                                    @php
+                                                        $hddInfo = \App\Models\Catalogs\Harddisk::join('companies', 'harddisks.company_id', '=', 'companies.id')
+                                                        ->select('harddisks.*', 'companies.name as company_name')
+                                                        ->find($case->hdd1);
+                                                    @endphp
+                                                    {{ $hddInfo->company_name . ' ' . $hddInfo->model. ' ' . $hddInfo->capacity  }}
+
+                                                    @if($case->hdd2)
+                                                        <br>
+                                                        @php
+                                                            $hddInfo = \App\Models\Catalogs\Harddisk::join('companies', 'harddisks.company_id', '=', 'companies.id')
+                                                            ->select('harddisks.*', 'companies.name as company_name')
+                                                            ->find($case->hdd2);
+                                                        @endphp
+                                                        {{ $hddInfo->company_name . ' ' . $hddInfo->model. ' ' . $hddInfo->capacity  }}
+                                                    @endif
+
+                                                    @if($case->hdd3)
+                                                        <br>
+                                                        @php
+                                                            $hddInfo = \App\Models\Catalogs\Harddisk::join('companies', 'harddisks.company_id', '=', 'companies.id')
+                                                            ->select('harddisks.*', 'companies.name as company_name')
+                                                            ->find($case->hdd3);
+                                                        @endphp
+                                                        {{ $hddInfo->company_name . ' ' . $hddInfo->model. ' ' . $hddInfo->capacity  }}
+                                                    @endif
+
+                                                    @if($case->hdd4)
+                                                        <br>
+                                                        @php
+                                                            $hddInfo = \App\Models\Catalogs\Harddisk::join('companies', 'harddisks.company_id', '=', 'companies.id')
+                                                            ->select('harddisks.*', 'companies.name as company_name')
+                                                            ->find($case->hdd4);
+                                                        @endphp
+                                                        {{ $hddInfo->company_name . ' ' . $hddInfo->model. ' ' . $hddInfo->capacity  }}
+                                                    @endif
+                                                </td>
+                                                <td class=" px-3 py-3 ">
+                                                    <button type="submit"
+                                                            class="px-4 py-2 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 EditCase">
+                                                        ویرایش
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                @else
+                                    <div class="flex p-3">
+                                        <h3 class="font-bold text-red-500 ml-4 mt-2">این کاربر کیس ثبت شده ندارد</h3>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+
+                        {{--            Monitors--}}
+                        <div class="flex pb-3 pt-6">
+                            <h3 class="font-bold pr-5 pt-2 ml-3">اطلاعات مانیتور</h3>
+                            <button type="submit"
+                                    class="px-4 py-2 mr-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300 AddMonitor">
+                                ثبت مانیتور جدید
+                            </button>
+                        </div>
+                        <div class="bg-white rounded shadow flex flex-col">
+                            <div class="max-w-full items-center overflow-x-auto">
+                                @php
+                                    $eq_monitors=\App\Models\EquipmentedMonitor::where('person_id',$personId)->get();
+                                @endphp
+                                @if(!$eq_monitors->isEmpty())
+                                    <table class="w-full border-collapse rounded-lg overflow-hidden text-center">
+                                        <thead>
+                                        <tr class="bg-gradient-to-r from-blue-400 to-purple-500 items-center text-center text-white">
+                                            <th class="px-6 py-3 font-bold">کد اموال</th>
+                                            <th class="px-3 py-3 font-bold">شرکت سازنده</th>
+                                            <th class="px-3 py-3 font-bold">مدل</th>
+                                            <th class="px-3 py-3 font-bold">سایز</th>
+                                            <th class="px-3 py-3 font-bold">عملیات</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($eq_monitors as $monitors)
+                                            <tr class="even:bg-gray-300 odd:bg-white">
+                                                <td class="px-3 py-3"> {{ $monitors->property_number }}</td>
+                                                <td class="px-3 py-3">
+                                                    @php
+                                                        $monitorInfo = \App\Models\Catalogs\Monitor::join('companies', 'monitors.company_id', '=', 'companies.id')
+                                                        ->select('monitors.*', 'companies.name as company_name')
+                                                        ->find($monitors->monitor_id);
+                                                    @endphp
+                                                    {{ $monitorInfo->company_name }}
+                                                </td>
+                                                <td class="px-3 py-3">
+                                                    {{ $monitorInfo->model }}
+                                                </td>
+                                                <td class="px-3 py-3">
+                                                    {{ $monitorInfo->size }}
+                                                </td>
+                                                <td class="px-3 py-3">
+                                                    <button type="submit"
+                                                            class="px-4 py-2 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 EditMonitor">
+                                                        ویرایش
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                @else
+                                    <div class="flex p-3">
+                                        <h3 class="font-bold text-red-500 ml-4 mt-2">این کاربر مانیتور ثبت شده
+                                            ندارد</h3>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+
+                        {{--            Printers--}}
+                        <div class="flex pb-3 pt-6">
+                            <h3 class="font-bold pr-5 pt-2 ml-3">اطلاعات پرینتر</h3>
+                            <button type="submit"
+                                    class="px-4 py-2 mr-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300 AddPrinter">
+                                ثبت پرینتر جدید
+                            </button>
+                        </div>
+                        <div class="bg-white rounded shadow flex flex-col">
+                            <div class="max-w-full items-center overflow-x-auto">
+                                @php
+                                    $eq_printers=\App\Models\EquipmentedPrinter::where('person_id',$personId)->get();
+                                @endphp
+                                @if(!$eq_printers->isEmpty())
+                                    <table class="w-full border-collapse rounded-lg overflow-hidden text-center">
+                                        <thead>
+                                        <tr class="bg-gradient-to-r from-blue-400 to-purple-500 items-center text-center text-white">
+                                            <th class=" px-6 py-3  font-bold ">کد اموال</th>
+                                            <th class=" px-3 py-3  font-bold ">شرکت سازنده</th>
+                                            <th class=" px-3 py-3  font-bold ">مدل</th>
+                                            <th class=" px-3 py-3  font-bold ">عملیات</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($eq_printers as $printers)
+                                            <tr class="even:bg-gray-300 odd:bg-white">
+                                                <td class=" px-3 py-3 "> {{ $printers->property_number }}</td>
+                                                <td class=" px-3 py-3 ">
+                                                    @php
+                                                        $printerInfo = \App\Models\Catalogs\Printer::join('companies', 'printers.company_id', '=', 'companies.id')
+                                                        ->select('printers.*', 'companies.name as company_name')
+                                                        ->find($printers->printer_id);
+                                                    @endphp
+                                                    {{ $printerInfo->company_name  }}
+                                                </td>
+                                                <td class=" px-3 py-3 ">
+                                                    {{ $printerInfo->model }}
+                                                </td>
+                                                <td class=" px-3 py-3 ">
+                                                    <button type="submit"
+                                                            class="px-4 py-2 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 EditPrinter">
+                                                        ویرایش
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                @else
+                                    <div class="flex p-3">
+                                        <h3 class="font-bold text-red-500 ml-4 mt-2">این کاربر پرینتر ثبت شده ندارد</h3>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+
+                        {{--            Scanners--}}
+                        <div class="flex pb-3 pt-6">
+                            <h3 class="font-bold pr-5 pt-2 ml-3">اطلاعات اسکنر</h3>
+                            <button type="submit"
+                                    class="px-4 py-2 mr-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300 AddScanner">
+                                ثبت اسکنر جدید
+                            </button>
+                        </div>
+                        <div class="bg-white rounded shadow flex flex-col">
+                            <div class="max-w-full items-center overflow-x-auto">
+                                @php
+                                    $eq_scanners=\App\Models\EquipmentedScanner::where('person_id',$personId)->get();
+                                @endphp
+                                @if(!$eq_scanners->isEmpty())
+                                    <table class="w-full border-collapse rounded-lg overflow-hidden text-center">
+                                        <thead>
+                                        <tr class="bg-gradient-to-r from-blue-400 to-purple-500 items-center text-center text-white">
+                                            <th class=" px-6 py-3  font-bold ">کد اموال</th>
+                                            <th class=" px-3 py-3  font-bold ">شرکت سازنده</th>
+                                            <th class=" px-3 py-3  font-bold ">مدل</th>
+                                            <th class=" px-3 py-3  font-bold ">عملیات</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($eq_scanners as $scanners)
+                                            <tr class="even:bg-gray-300 odd:bg-white">
+                                                <td class=" px-3 py-3 "> {{ $scanners->property_number }}</td>
+                                                <td class=" px-3 py-3 ">
+                                                    @php
+                                                        $scannerInfo = \App\Models\Catalogs\Scanner::join('companies', 'scanners.company_id', '=', 'companies.id')
+                                                        ->select('scanners.*', 'companies.name as company_name')
+                                                        ->find($scanners->scanner_id);
+                                                    @endphp
+                                                    {{ $scannerInfo->company_name  }}
+                                                </td>
+                                                <td class=" px-3 py-3 ">
+                                                    {{ $scannerInfo->model }}
+                                                </td>
+                                                <td class=" px-3 py-3 ">
+                                                    <button type="submit"
+                                                            class="px-4 py-2 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 EditScanner">
+                                                        ویرایش
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                @else
+                                    <div class="flex p-3">
+                                        <h3 class="font-bold text-red-500 ml-4 mt-2">این کاربر اسکنر ثبت شده ندارد</h3>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+
+                        {{--            Copy Machines--}}
+                        <div class="flex pb-3 pt-6">
+                            <h3 class="font-bold pr-5 pt-2 ml-3">اطلاعات دستگاه کپی</h3>
+                            <button type="submit"
+                                    class="px-4 py-2 mr-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300 AddCopyMachine">
+                                ثبت دستگاه کپی جدید
+                            </button>
+                        </div>
+                        <div class="bg-white rounded shadow flex flex-col">
+                            <div class="max-w-full items-center overflow-x-auto">
+                                @php
+                                    $eq_copy_machines=\App\Models\EquipmentedCopyMachine::where('person_id',$personId)->get();
+                                @endphp
+                                @if(!$eq_copy_machines->isEmpty())
+                                    <table class="w-full border-collapse rounded-lg overflow-hidden text-center">
+                                        <thead>
+                                        <tr class="bg-gradient-to-r from-blue-400 to-purple-500 items-center text-center text-white">
+                                            <th class=" px-6 py-3  font-bold ">کد اموال</th>
+                                            <th class=" px-3 py-3  font-bold ">شرکت سازنده</th>
+                                            <th class=" px-3 py-3  font-bold ">مدل</th>
+                                            <th class=" px-3 py-3  font-bold ">عملیات</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($eq_copy_machines as $copy_machines)
+                                            <tr class="even:bg-gray-300 odd:bg-white">
+                                                <td class=" px-3 py-3 "> {{ $copy_machines->property_number }}</td>
+                                                <td class=" px-3 py-3 ">
+                                                    @php
+                                                        $copy_machineInfo = \App\Models\Catalogs\CopyMachine::join('companies', 'copy_machines.company_id', '=', 'companies.id')
+                                                        ->select('copy_machines.*', 'companies.name as company_name')
+                                                        ->find($copy_machines->copy_machine_id);
+                                                    @endphp
+                                                    {{ $copy_machineInfo->company_name  }}
+                                                </td>
+                                                <td class=" px-3 py-3 ">
+                                                    {{ $copy_machineInfo->model }}
+                                                </td>
+                                                <td class=" px-3 py-3 ">
+                                                    <button type="submit"
+                                                            class="px-4 py-2 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 EditCopyMachine">
+                                                        ویرایش
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                @else
+                                    <div class="flex p-3">
+                                        <h3 class="font-bold text-red-500 ml-4 mt-2">این کاربر دستگاه کپی ثبت شده
+                                            ندارد</h3>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+
+                        {{--            VOIPs--}}
+                        <div class="flex pb-3 pt-6">
+                            <h3 class="font-bold pr-5 pt-2 ml-3">اطلاعات VOIP</h3>
+                            <button type="submit"
+                                    class="px-4 py-2 mr-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300 AddVOIP">
+                                ثبت VOIP جدید
+                            </button>
+                        </div>
+                        <div class="bg-white rounded shadow flex flex-col">
+                            <div class="max-w-full items-center overflow-x-auto">
+                                @php
+                                    $eq_VOIPs=\App\Models\EquipmentedVoip::where('person_id',$personId)->get();
+                                @endphp
+                                @if(!$eq_VOIPs->isEmpty())
+                                    <table class="w-full border-collapse rounded-lg overflow-hidden text-center">
+                                        <thead>
+                                        <tr class="bg-gradient-to-r from-blue-400 to-purple-500 items-center text-center text-white">
+                                            <th class=" px-6 py-3  font-bold ">کد اموال</th>
+                                            <th class=" px-3 py-3  font-bold ">شرکت سازنده</th>
+                                            <th class=" px-3 py-3  font-bold ">مدل</th>
+                                            <th class=" px-3 py-3  font-bold ">عملیات</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($eq_VOIPs as $VOIPs)
+                                            <tr class="even:bg-gray-300 odd:bg-white">
+                                                <td class=" px-3 py-3 "> {{ $VOIPs->property_number }}</td>
+                                                <td class=" px-3 py-3 ">
+                                                    @php
+                                                        $VOIPInfo = \App\Models\Catalogs\Voip::join('companies', 'voips.company_id', '=', 'companies.id')
+                                                        ->select('voips.*', 'companies.name as company_name')
+                                                        ->find($VOIPs->voip_id);
+                                                    @endphp
+                                                    {{ $VOIPInfo->company_name  }}
+                                                </td>
+                                                <td class=" px-3 py-3 ">
+                                                    {{ $VOIPInfo->model }}
+                                                </td>
+                                                <td class=" px-3 py-3 ">
+                                                    <button type="submit"
+                                                            class="px-4 py-2 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 EditVOIP">
+                                                        ویرایش
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                @else
+                                    <div class="flex p-3">
+                                        <h3 class="font-bold text-red-500 ml-4 mt-2">این کاربر VOIP ثبت شده ندارد</h3>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div id="content2" class="hidden p-4">
+
+                    </div>
+
+                    @if(session('type')!=3)
+                        <div id="content3" class="hidden p-4">
+
+                            {{--            Comment--}}
+                            <div class="flex pb-3 ">
+                                <button type="submit"
+                                        class="px-4 py-2 mr-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300 AddComment">
+                                    ثبت کار جدید
+                                </button>
+                            </div>
+                            <div class="bg-white rounded shadow flex flex-col">
+                                <div class="max-w-full items-center overflow-x-auto">
+                                    @php
+                                        $comments=\App\Models\Comment::where('person_id',$personId)->get();
+                                    @endphp
+
+                                    <table class="w-full border-collapse rounded-lg overflow-hidden text-center">
+                                        <thead>
+                                        <tr class="bg-gradient-to-r from-blue-400 to-purple-500 items-center text-center text-white">
+                                            <th class=" px-6 py-3  font-bold ">موضوع</th>
+                                            <th class=" px-6 py-3  font-bold ">شماره تیکت</th>
+                                            <th class=" px-3 py-3  font-bold ">کارها</th>
+                                            <th class=" px-3 py-3  font-bold ">توضیحات</th>
+                                            <th class=" px-3 py-3  font-bold ">عملیات</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($comments as $comment)
+                                            <tr class="even:bg-gray-300 odd:bg-white">
+                                                <td class=" px-3 py-3 "> {{ $comment->title }}</td>
+                                                <td class=" px-3 py-3 "> {{ $comment->ticket_number }}</td>
+                                                <td class=" px-3 py-3 ">
+                                                    @if($comment->jobs)
+                                                        @foreach (json_decode($comment->jobs) as $job)
+                                                            @php
+                                                                $jobInfo=\App\Models\Catalogs\Job::find($job);
+                                                            @endphp
+                                                            {{ $jobInfo->title }}
+                                                            @unless ($loop->last)
+                                                                |
+                                                            @endunless
+                                                        @endforeach
+                                                    @endif
+                                                </td>
+                                                <td class=" px-3 py-3 ">
+                                                    {{ $comment->description }}
+                                                </td>
+                                                <td class=" px-3 py-3 ">
+                                                    <button type="submit"
+                                                            class="px-4 py-2 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 EditComment">
+                                                        ویرایش
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                    <div class="flex p-3">
+                                        <h3 @if(!$comments->isEmpty()) hidden="hidden"
+                                            @endif class="font-bold text-red-500 ml-4 mt-2" id="CommentErr">برای این
+                                            پرسنل، کار ثبت
+                                            نشده است.</h3>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    @endif
+                </div>
+
+            </div>
         </div>
     </main>
+
+    <script>
+        const tab1Button = document.getElementById('tab1');
+        const tab2Button = document.getElementById('tab2');
+        const tab3Button = document.getElementById('tab3');
+        const content1 = document.getElementById('content1');
+        const content2 = document.getElementById('content2');
+        const content3 = document.getElementById('content3');
+
+        // تابعی برای نمایش تب مورد نظر
+        function showTabContent(tabButton, tabContent) {
+            content1.style.display = 'none';
+            content2.style.display = 'none';
+            content3.style.display = 'none';
+
+            tabContent.style.display = 'block';
+
+            tab1Button.classList.remove('focus:bg-blue-600');
+            tab2Button.classList.remove('focus:bg-blue-600');
+            tab3Button.classList.remove('focus:bg-blue-600');
+
+            tabButton.classList.add('focus:bg-blue-600');
+        }
+
+        // تابعی برای ذخیره وضعیت تب در localStorage
+        function saveTabState(tabIndex) {
+            localStorage.setItem('selectedTab', tabIndex);
+        }
+
+        // تابعی برای بارگذاری وضعیت تب از localStorage
+        function loadTabState() {
+            const selectedTab = localStorage.getItem('selectedTab');
+
+            if (selectedTab === '1') {
+                showTabContent(tab1Button, content1);
+            } else if (selectedTab === '2') {
+                showTabContent(tab2Button, content2);
+            } else if (selectedTab === '3') {
+                showTabContent(tab3Button, content3);
+            } else {
+                // تب پیش‌فرض (اگر هیچ گزینه‌ای در localStorage وجود نداشت)
+                showTabContent(tab1Button, content1);
+            }
+        }
+
+        tab1Button.addEventListener('click', function () {
+            showTabContent(tab1Button, content1);
+            saveTabState(1);
+        });
+
+        tab2Button.addEventListener('click', function () {
+            showTabContent(tab2Button, content2);
+            saveTabState(2);
+        });
+
+        tab3Button.addEventListener('click', function () {
+            showTabContent(tab3Button, content3);
+            saveTabState(3);
+        });
+
+        // بارگذاری وضعیت تب از localStorage
+        loadTabState();
+    </script>
+
 @endsection

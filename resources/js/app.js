@@ -3571,11 +3571,12 @@ $(document).ready(function () {
                                             swalFire('خطا!', response.errors.nullDescription[0], 'error', 'تلاش مجدد');
                                         }
                                     } else if (response.success) {
-                                        $('table tbody').append(response.html);
-                                        CommentErr.hidden = true;
-                                        swalFire('ثبت کار جدید موفقیت آمیز بود!', 'کامنت با موفقیت اضافه شد.', 'success', 'بستن');
-                                        toggleModal(addCommentModal.id);
+                                        // $('table tbody').append(response.html);
+                                        // CommentErr.hidden = true;
+                                        // swalFire('ثبت کار جدید موفقیت آمیز بود!', 'کامنت با موفقیت اضافه شد.', 'success', 'بستن');
+                                        // toggleModal(addCommentModal.id);
                                         resetFields();
+                                        location.reload();
                                     }
                                 }
                             });
