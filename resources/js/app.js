@@ -97,6 +97,7 @@ $(document).ready(function () {
             },
             success: function (response) {
                 if (response.success) {
+                    localStorage.setItem('selectedTab', 1);
                     window.location.href = response.redirect;
                 } else {
                     if (response.errors.username) {
@@ -3219,6 +3220,61 @@ $(document).ready(function () {
             });
             break;
         case '/showEquipmentStatus':
+            const tab1Button = document.getElementById('tab1');
+            const tab2Button = document.getElementById('tab2');
+            const tab3Button = document.getElementById('tab3');
+            const content1 = document.getElementById('content1');
+            const content2 = document.getElementById('content2');
+            const content3 = document.getElementById('content3');
+
+        function showTabContent(tabButton, tabContent) {
+            content1.style.display = 'none';
+            content2.style.display = 'none';
+            content3.style.display = 'none';
+
+            tabContent.style.display = 'block';
+
+            tab1Button.classList.remove('focus:bg-blue-600');
+            tab2Button.classList.remove('focus:bg-blue-600');
+            tab3Button.classList.remove('focus:bg-blue-600');
+
+            tabButton.classList.add('focus:bg-blue-600');
+        }
+
+        function saveTabState(tabIndex) {
+            localStorage.setItem('selectedTab', tabIndex);
+        }
+
+        function loadTabState() {
+            const selectedTab = localStorage.getItem('selectedTab');
+
+            if (selectedTab === '1') {
+                showTabContent(tab1Button, content1);
+            } else if (selectedTab === '2') {
+                showTabContent(tab2Button, content2);
+            } else if (selectedTab === '3') {
+                showTabContent(tab3Button, content3);
+            } else {
+                showTabContent(tab1Button, content1);
+            }
+        }
+
+            tab1Button.addEventListener('click', function () {
+                showTabContent(tab1Button, content1);
+                saveTabState(1);
+            });
+
+            tab2Button.addEventListener('click', function () {
+                showTabContent(tab2Button, content2);
+                saveTabState(2);
+            });
+
+            tab3Button.addEventListener('click', function () {
+                showTabContent(tab3Button, content3);
+                saveTabState(3);
+            });
+
+            loadTabState();
             $('.AddCase, #cancel-add-case').on('click', function () {
                 toggleModal(addCaseModal.id);
             });
@@ -3584,5 +3640,6 @@ $(document).ready(function () {
                     });
                 }
             });
+
     }
 });
