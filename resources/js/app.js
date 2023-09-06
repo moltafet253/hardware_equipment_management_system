@@ -5,10 +5,7 @@ import Swal from 'sweetalert2';
 
 function swalFire(title = null, text, icon, confirmButtonText) {
     Swal.fire({
-        title: title,
-        text: text,
-        icon: icon,
-        confirmButtonText: confirmButtonText,
+        title: title, text: text, icon: icon, confirmButtonText: confirmButtonText,
     });
 }
 
@@ -71,8 +68,7 @@ function resetFields() {
 function getParameterByName(name, url) {
     if (!url) url = window.location.href;
     name = name.replace(/[\[\]]/g, '\\$&');
-    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-        results = regex.exec(url);
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'), results = regex.exec(url);
     if (!results) return null;
     if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, ' '));
@@ -89,13 +85,9 @@ $(document).ready(function () {
         var data = form.serialize();
 
         $.ajax({
-            type: 'POST',
-            url: url,
-            data: data,
-            headers: {
+            type: 'POST', url: url, data: data, headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-            },
-            success: function (response) {
+            }, success: function (response) {
                 if (response.success) {
                     localStorage.setItem('selectedTab', 1);
                     window.location.href = response.redirect;
@@ -123,8 +115,7 @@ $(document).ready(function () {
                         captcha.value = '';
                     }
                 }
-            },
-            error: function (xhr, textStatus, errorThrown) {
+            }, error: function (xhr, textStatus, errorThrown) {
                 if (xhr.responseJSON['YouAreLocked']) {
                     swalFire('دسترسی غیرمجاز', 'آی پی شما به دلیل تعداد درخواست های زیاد بلاک شده است. لطفا یک ساعت دیگر مجددا تلاش کنید.', 'error', 'تایید');
                     const fields = [username, password, captcha];
@@ -150,10 +141,7 @@ $(document).ready(function () {
         var data = form.serialize();
 
         $.ajax({
-            type: 'POST',
-            url: url,
-            data: data,
-            success: function (response) {
+            type: 'POST', url: url, data: data, success: function (response) {
                 if (response.success) {
                     swalFire('عملیات موفقیت آمیز بود!', response.errors.passwordChanged[0], 'success', 'بستن');
                     oldPass.value = '';
@@ -178,8 +166,7 @@ $(document).ready(function () {
                         location.reload();
                     }
                 }
-            },
-            error: function (xhr, textStatus, errorThrown) {
+            }, error: function (xhr, textStatus, errorThrown) {
                 // console.log(xhr);
             }
         });
@@ -191,14 +178,9 @@ $(document).ready(function () {
                 var inputUsername = $('#search-Username-UserManager').val().trim().toLowerCase();
                 var type = $('#search-type-UserManager').val();
                 $.ajax({
-                    url: '/Search',
-                    type: 'GET',
-                    data: {
-                        username: inputUsername,
-                        type: type,
-                        work: 'UserManagerSearch'
-                    },
-                    success: function (data) {
+                    url: '/Search', type: 'GET', data: {
+                        username: inputUsername, type: type, work: 'UserManagerSearch'
+                    }, success: function (data) {
                         var tableBody = $('.w-full.border-collapse.rounded-lg.overflow-hidden.text-center tbody');
                         tableBody.empty();
 
@@ -233,8 +215,7 @@ $(document).ready(function () {
                             row += '</tr>';
                             tableBody.append(row);
                         });
-                    },
-                    error: function () {
+                    }, error: function () {
                         console.log('خطا در ارتباط با سرور');
                     }
                 });
@@ -243,14 +224,9 @@ $(document).ready(function () {
                 var inputUsername = $('#search-Username-UserManager').val().trim().toLowerCase();
                 var type = $('#search-type-UserManager').val();
                 $.ajax({
-                    url: '/Search',
-                    type: 'GET',
-                    data: {
-                        username: inputUsername,
-                        type: type,
-                        work: 'UserManagerSearch'
-                    },
-                    success: function (data) {
+                    url: '/Search', type: 'GET', data: {
+                        username: inputUsername, type: type, work: 'UserManagerSearch'
+                    }, success: function (data) {
                         var tableBody = $('.w-full.border-collapse.rounded-lg.overflow-hidden.text-center tbody');
                         tableBody.empty();
 
@@ -285,8 +261,7 @@ $(document).ready(function () {
                             row += '</tr>';
                             tableBody.append(row);
                         });
-                    },
-                    error: function () {
+                    }, error: function () {
                         console.log('خطا در ارتباط با سرور');
                     }
                 });
@@ -312,15 +287,11 @@ $(document).ready(function () {
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $.ajax({
-                            type: 'POST',
-                            url: '/ChangeUserActivationStatus',
-                            headers: {
+                            type: 'POST', url: '/ChangeUserActivationStatus', headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            },
-                            data: {
+                            }, data: {
                                 username: username,
-                            },
-                            success: function (response) {
+                            }, success: function (response) {
                                 if (response.success) {
                                     swalFire('عملیات موفقیت آمیز بود!', response.message.changedUserActivation[0], 'success', 'بستن');
                                     const activeButton = $(`button[data-username="${username}"]`);
@@ -364,15 +335,11 @@ $(document).ready(function () {
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $.ajax({
-                            type: 'POST',
-                            url: '/ChangeUserNTCP',
-                            headers: {
+                            type: 'POST', url: '/ChangeUserNTCP', headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            },
-                            data: {
+                            }, data: {
                                 username: username,
-                            },
-                            success: function (response) {
+                            }, success: function (response) {
                                 if (response.success) {
                                     swalFire('عملیات موفقیت آمیز بود!', response.message.changedUserNTCP[0], 'success', 'بستن');
                                     const ntcpButton = $(`button[data-ntcp-username="${username}"]`);
@@ -411,15 +378,11 @@ $(document).ready(function () {
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $.ajax({
-                            type: 'POST',
-                            url: '/ResetPassword',
-                            headers: {
+                            type: 'POST', url: '/ResetPassword', headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            },
-                            data: {
+                            }, data: {
                                 username: username,
-                            },
-                            success: function (response) {
+                            }, success: function (response) {
                                 if (response.success) {
                                     swalFire('عملیات موفقیت آمیز بود!', response.message.passwordResetted[0], 'success', 'بستن');
                                 } else {
@@ -492,13 +455,9 @@ $(document).ready(function () {
                     var data = form.serialize();
 
                     $.ajax({
-                        type: 'POST',
-                        url: '/NewUser',
-                        data: data,
-                        headers: {
+                        type: 'POST', url: '/NewUser', data: data, headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        },
-                        success: function (response) {
+                        }, success: function (response) {
                             if (response.errors && response.errors.userFounded) {
                                 swalFire('خطا!', response.errors.userFounded[0], 'error', 'تلاش مجدد');
                             } else if (response.errors && response.errors.emptyProvince) {
@@ -520,12 +479,9 @@ $(document).ready(function () {
                     swalFire('خطا!', 'کاربر انتخاب نشده است.', 'error', 'تلاش مجدد');
                 } else {
                     $.ajax({
-                        type: 'GET',
-                        url: '/GetUserInfo',
-                        data: {
+                        type: 'GET', url: '/GetUserInfo', data: {
                             userID: userIdForEdit.value
-                        },
-                        success: function (response) {
+                        }, success: function (response) {
                             userEditDiv.hidden = false;
                             editedName.value = response.name;
                             editedFamily.value = response.family;
@@ -566,13 +522,9 @@ $(document).ready(function () {
                     var data = form.serialize();
 
                     $.ajax({
-                        type: 'POST',
-                        url: '/EditUser',
-                        data: data,
-                        headers: {
+                        type: 'POST', url: '/EditUser', data: data, headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        },
-                        success: function (response) {
+                        }, success: function (response) {
                             if (response.errors && response.errors.userFounded) {
                                 swalFire('خطا!', response.errors.userFounded[0], 'error', 'تلاش مجدد');
                             } else if (response.errors && response.errors.emptyProvince) {
@@ -592,13 +544,9 @@ $(document).ready(function () {
             $('#search-brand-catalog-name').on('input', function () {
                 var nameValue = $('#search-brand-catalog-name').val();
                 $.ajax({
-                    url: '/Search',
-                    type: 'GET',
-                    data: {
-                        name: nameValue,
-                        work: 'BrandCatalogSearch'
-                    },
-                    success: function (data) {
+                    url: '/Search', type: 'GET', data: {
+                        name: nameValue, work: 'BrandCatalogSearch'
+                    }, success: function (data) {
                         var a = 1;
                         var tableBody = $('.datasheet tbody');
                         tableBody.empty();
@@ -606,8 +554,7 @@ $(document).ready(function () {
                             var row = '<tr class="bg-white">' + '<td class="px-6 py-4">' + a++ + '</td>' + '<td class="px-6 py-4">' + brand.name + '</td>' + '<td class="px-6 py-4">' + brand.products + '</td>' + '</tr>';
                             tableBody.append(row);
                         });
-                    },
-                    error: function () {
+                    }, error: function () {
                         console.log('خطا در ارتباط با سرور');
                     }
                 });
@@ -642,13 +589,9 @@ $(document).ready(function () {
                             var form = $(this);
                             var data = form.serialize();
                             $.ajax({
-                                type: 'POST',
-                                url: '/newBrand',
-                                headers: {
+                                type: 'POST', url: '/newBrand', headers: {
                                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                                },
-                                data: data,
-                                success: function (response) {
+                                }, data: data, success: function (response) {
                                     if (response.errors) {
                                         if (response.errors.nameIsNull) {
                                             swalFire('خطا!', response.errors.nameIsNull[0], 'error', 'تلاش مجدد');
@@ -671,12 +614,9 @@ $(document).ready(function () {
             });
             $('.BrandControl').on('click', function () {
                 $.ajax({
-                    type: 'GET',
-                    url: '/getBrandInfo',
-                    data: {
+                    type: 'GET', url: '/getBrandInfo', data: {
                         id: $(this).data('id')
-                    },
-                    success: function (response) {
+                    }, success: function (response) {
                         companyID.value = response.id;
                         editedName.value = response.name;
                         let selectElement = document.getElementById('editedProducts[]');
@@ -709,13 +649,9 @@ $(document).ready(function () {
                             var form = $(this);
                             var data = form.serialize();
                             $.ajax({
-                                type: 'POST',
-                                url: '/editBrand',
-                                data: data,
-                                headers: {
+                                type: 'POST', url: '/editBrand', data: data, headers: {
                                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                                },
-                                success: function (response) {
+                                }, success: function (response) {
                                     if (response.errors) {
                                         if (response.errors.nameIsNull) {
                                             swalFire('خطا!', response.errors.nameIsNull[0], 'error', 'تلاش مجدد');
@@ -746,16 +682,11 @@ $(document).ready(function () {
                     confirmButtonText: 'بله',
                 }).then((result) => {
                     $.ajax({
-                        type: 'POST',
-                        url: '/ManageCatalogStatus',
-                        data: {
-                            id: $(this).data('id'),
-                            work: 'ChangeBrandStatus'
-                        },
-                        headers: {
+                        type: 'POST', url: '/ManageCatalogStatus', data: {
+                            id: $(this).data('id'), work: 'ChangeBrandStatus'
+                        }, headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        },
-                        success: function (response) {
+                        }, success: function (response) {
                             location.reload();
                         }
                     });
@@ -790,13 +721,9 @@ $(document).ready(function () {
                         var form = $(this);
                         var data = form.serialize();
                         $.ajax({
-                            type: 'POST',
-                            url: '/newMotherboard',
-                            data: data,
-                            headers: {
+                            type: 'POST', url: '/newMotherboard', data: data, headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            },
-                            success: function (response) {
+                            }, success: function (response) {
                                 if (response.errors) {
                                     if (response.errors.nullBrand) {
                                         swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
@@ -826,12 +753,9 @@ $(document).ready(function () {
             });
             $('.MotherboardControl').on('click', function () {
                 $.ajax({
-                    type: 'GET',
-                    url: '/getMotherboardInfo',
-                    data: {
+                    type: 'GET', url: '/getMotherboardInfo', data: {
                         id: $(this).data('id')
-                    },
-                    success: function (response) {
+                    }, success: function (response) {
                         if (response) {
                             mb_id.value = response.id;
                             brandForEdit.value = response.company_id;
@@ -859,13 +783,9 @@ $(document).ready(function () {
                         var form = $(this);
                         var data = form.serialize();
                         $.ajax({
-                            type: 'POST',
-                            url: '/editMotherboard',
-                            data: data,
-                            headers: {
+                            type: 'POST', url: '/editMotherboard', data: data, headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            },
-                            success: function (response) {
+                            }, success: function (response) {
                                 if (response.errors) {
                                     if (response.errors.nullBrand) {
                                         swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
@@ -903,16 +823,11 @@ $(document).ready(function () {
                     confirmButtonText: 'بله',
                 }).then((result) => {
                     $.ajax({
-                        type: 'POST',
-                        url: '/ManageCatalogStatus',
-                        data: {
-                            id: $(this).data('id'),
-                            work: 'ChangeMotherboardStatus'
-                        },
-                        headers: {
+                        type: 'POST', url: '/ManageCatalogStatus', data: {
+                            id: $(this).data('id'), work: 'ChangeMotherboardStatus'
+                        }, headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        },
-                        success: function (response) {
+                        }, success: function (response) {
                             location.reload();
                         }
                     });
@@ -947,13 +862,9 @@ $(document).ready(function () {
                         var form = $(this);
                         var data = form.serialize();
                         $.ajax({
-                            type: 'POST',
-                            url: '/newCase',
-                            data: data,
-                            headers: {
+                            type: 'POST', url: '/newCase', data: data, headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            },
-                            success: function (response) {
+                            }, success: function (response) {
                                 if (response.errors) {
                                     if (response.errors.nullBrand) {
                                         swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
@@ -973,12 +884,9 @@ $(document).ready(function () {
             });
             $('.CaseControl').on('click', function () {
                 $.ajax({
-                    type: 'GET',
-                    url: '/getCaseInfo',
-                    data: {
+                    type: 'GET', url: '/getCaseInfo', data: {
                         id: $(this).data('id')
-                    },
-                    success: function (response) {
+                    }, success: function (response) {
                         if (response) {
                             case_id.value = response.id;
                             brandForEdit.value = response.company_id;
@@ -1001,13 +909,9 @@ $(document).ready(function () {
                         var form = $(this);
                         var data = form.serialize();
                         $.ajax({
-                            type: 'POST',
-                            url: '/editCase',
-                            data: data,
-                            headers: {
+                            type: 'POST', url: '/editCase', data: data, headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            },
-                            success: function (response) {
+                            }, success: function (response) {
                                 if (response.errors) {
                                     if (response.errors.nullBrand) {
                                         swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
@@ -1035,16 +939,11 @@ $(document).ready(function () {
                     confirmButtonText: 'بله',
                 }).then((result) => {
                     $.ajax({
-                        type: 'POST',
-                        url: '/ManageCatalogStatus',
-                        data: {
-                            id: $(this).data('id'),
-                            work: 'ChangeCaseStatus'
-                        },
-                        headers: {
+                        type: 'POST', url: '/ManageCatalogStatus', data: {
+                            id: $(this).data('id'), work: 'ChangeCaseStatus'
+                        }, headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        },
-                        success: function (response) {
+                        }, success: function (response) {
                             location.reload();
                         }
                     });
@@ -1079,13 +978,9 @@ $(document).ready(function () {
                         var form = $(this);
                         var data = form.serialize();
                         $.ajax({
-                            type: 'POST',
-                            url: '/newCPU',
-                            data: data,
-                            headers: {
+                            type: 'POST', url: '/newCPU', data: data, headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            },
-                            success: function (response) {
+                            }, success: function (response) {
                                 if (response.errors) {
                                     if (response.errors.nullBrand) {
                                         swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
@@ -1107,12 +1002,9 @@ $(document).ready(function () {
             });
             $('.CPUControl').on('click', function () {
                 $.ajax({
-                    type: 'GET',
-                    url: '/getCPUInfo',
-                    data: {
+                    type: 'GET', url: '/getCPUInfo', data: {
                         id: $(this).data('id')
-                    },
-                    success: function (response) {
+                    }, success: function (response) {
                         if (response) {
                             cpu_id.value = response.id;
                             brandForEdit.value = response.company_id;
@@ -1136,13 +1028,9 @@ $(document).ready(function () {
                         var form = $(this);
                         var data = form.serialize();
                         $.ajax({
-                            type: 'POST',
-                            url: '/editCPU',
-                            data: data,
-                            headers: {
+                            type: 'POST', url: '/editCPU', data: data, headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            },
-                            success: function (response) {
+                            }, success: function (response) {
                                 if (response.errors) {
                                     if (response.errors.nullBrand) {
                                         swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
@@ -1172,16 +1060,11 @@ $(document).ready(function () {
                     confirmButtonText: 'بله',
                 }).then((result) => {
                     $.ajax({
-                        type: 'POST',
-                        url: '/ManageCatalogStatus',
-                        data: {
-                            id: $(this).data('id'),
-                            work: 'ChangeCPUStatus'
-                        },
-                        headers: {
+                        type: 'POST', url: '/ManageCatalogStatus', data: {
+                            id: $(this).data('id'), work: 'ChangeCPUStatus'
+                        }, headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        },
-                        success: function (response) {
+                        }, success: function (response) {
                             location.reload();
                         }
                     });
@@ -1216,13 +1099,9 @@ $(document).ready(function () {
                         var form = $(this);
                         var data = form.serialize();
                         $.ajax({
-                            type: 'POST',
-                            url: '/newRAM',
-                            data: data,
-                            headers: {
+                            type: 'POST', url: '/newRAM', data: data, headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            },
-                            success: function (response) {
+                            }, success: function (response) {
                                 if (response.errors) {
                                     if (response.errors.nullBrand) {
                                         swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
@@ -1248,12 +1127,9 @@ $(document).ready(function () {
             });
             $('.RAMControl').on('click', function () {
                 $.ajax({
-                    type: 'GET',
-                    url: '/getRAMInfo',
-                    data: {
+                    type: 'GET', url: '/getRAMInfo', data: {
                         id: $(this).data('id')
-                    },
-                    success: function (response) {
+                    }, success: function (response) {
                         if (response) {
                             ram_id.value = response.id;
                             brandForEdit.value = response.company_id;
@@ -1279,13 +1155,9 @@ $(document).ready(function () {
                         var form = $(this);
                         var data = form.serialize();
                         $.ajax({
-                            type: 'POST',
-                            url: '/editRAM',
-                            data: data,
-                            headers: {
+                            type: 'POST', url: '/editRAM', data: data, headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            },
-                            success: function (response) {
+                            }, success: function (response) {
                                 if (response.errors) {
                                     if (response.errors.nullBrand) {
                                         swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
@@ -1319,16 +1191,11 @@ $(document).ready(function () {
                     confirmButtonText: 'بله',
                 }).then((result) => {
                     $.ajax({
-                        type: 'POST',
-                        url: '/ManageCatalogStatus',
-                        data: {
-                            id: $(this).data('id'),
-                            work: 'ChangeRAMStatus'
-                        },
-                        headers: {
+                        type: 'POST', url: '/ManageCatalogStatus', data: {
+                            id: $(this).data('id'), work: 'ChangeRAMStatus'
+                        }, headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        },
-                        success: function (response) {
+                        }, success: function (response) {
                             location.reload();
                         }
                     });
@@ -1363,13 +1230,9 @@ $(document).ready(function () {
                         var form = $(this);
                         var data = form.serialize();
                         $.ajax({
-                            type: 'POST',
-                            url: '/newPower',
-                            data: data,
-                            headers: {
+                            type: 'POST', url: '/newPower', data: data, headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            },
-                            success: function (response) {
+                            }, success: function (response) {
                                 if (response.errors) {
                                     if (response.errors.nullBrand) {
                                         swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
@@ -1391,12 +1254,9 @@ $(document).ready(function () {
             });
             $('.PowerControl').on('click', function () {
                 $.ajax({
-                    type: 'GET',
-                    url: '/getPowerInfo',
-                    data: {
+                    type: 'GET', url: '/getPowerInfo', data: {
                         id: $(this).data('id')
-                    },
-                    success: function (response) {
+                    }, success: function (response) {
                         if (response) {
                             power_id.value = response.id;
                             brandForEdit.value = response.company_id;
@@ -1420,13 +1280,9 @@ $(document).ready(function () {
                         var form = $(this);
                         var data = form.serialize();
                         $.ajax({
-                            type: 'POST',
-                            url: '/editPower',
-                            data: data,
-                            headers: {
+                            type: 'POST', url: '/editPower', data: data, headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            },
-                            success: function (response) {
+                            }, success: function (response) {
                                 if (response.errors) {
                                     if (response.errors.nullBrand) {
                                         swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
@@ -1456,16 +1312,11 @@ $(document).ready(function () {
                     confirmButtonText: 'بله',
                 }).then((result) => {
                     $.ajax({
-                        type: 'POST',
-                        url: '/ManageCatalogStatus',
-                        data: {
-                            id: $(this).data('id'),
-                            work: 'ChangePowerStatus'
-                        },
-                        headers: {
+                        type: 'POST', url: '/ManageCatalogStatus', data: {
+                            id: $(this).data('id'), work: 'ChangePowerStatus'
+                        }, headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        },
-                        success: function (response) {
+                        }, success: function (response) {
                             location.reload();
                         }
                     });
@@ -1500,13 +1351,9 @@ $(document).ready(function () {
                         var form = $(this);
                         var data = form.serialize();
                         $.ajax({
-                            type: 'POST',
-                            url: '/newGraphicCard',
-                            data: data,
-                            headers: {
+                            type: 'POST', url: '/newGraphicCard', data: data, headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            },
-                            success: function (response) {
+                            }, success: function (response) {
                                 if (response.errors) {
                                     if (response.errors.nullBrand) {
                                         swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
@@ -1528,12 +1375,9 @@ $(document).ready(function () {
             });
             $('.GraphicCardControl').on('click', function () {
                 $.ajax({
-                    type: 'GET',
-                    url: '/getGraphicCardInfo',
-                    data: {
+                    type: 'GET', url: '/getGraphicCardInfo', data: {
                         id: $(this).data('id')
-                    },
-                    success: function (response) {
+                    }, success: function (response) {
                         if (response) {
                             graphiccard_id.value = response.id;
                             brandForEdit.value = response.company_id;
@@ -1557,13 +1401,9 @@ $(document).ready(function () {
                         var form = $(this);
                         var data = form.serialize();
                         $.ajax({
-                            type: 'POST',
-                            url: '/editGraphicCard',
-                            data: data,
-                            headers: {
+                            type: 'POST', url: '/editGraphicCard', data: data, headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            },
-                            success: function (response) {
+                            }, success: function (response) {
                                 if (response.errors) {
                                     if (response.errors.nullBrand) {
                                         swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
@@ -1593,16 +1433,11 @@ $(document).ready(function () {
                     confirmButtonText: 'بله',
                 }).then((result) => {
                     $.ajax({
-                        type: 'POST',
-                        url: '/ManageCatalogStatus',
-                        data: {
-                            id: $(this).data('id'),
-                            work: 'ChangeGraphicCardStatus'
-                        },
-                        headers: {
+                        type: 'POST', url: '/ManageCatalogStatus', data: {
+                            id: $(this).data('id'), work: 'ChangeGraphicCardStatus'
+                        }, headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        },
-                        success: function (response) {
+                        }, success: function (response) {
                             location.reload();
                         }
                     });
@@ -1637,13 +1472,9 @@ $(document).ready(function () {
                         var form = $(this);
                         var data = form.serialize();
                         $.ajax({
-                            type: 'POST',
-                            url: '/newHarddisk',
-                            data: data,
-                            headers: {
+                            type: 'POST', url: '/newHarddisk', data: data, headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            },
-                            success: function (response) {
+                            }, success: function (response) {
                                 if (response.errors) {
                                     if (response.errors.nullBrand) {
                                         swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
@@ -1669,12 +1500,9 @@ $(document).ready(function () {
             });
             $('.HarddiskControl').on('click', function () {
                 $.ajax({
-                    type: 'GET',
-                    url: '/getHarddiskInfo',
-                    data: {
+                    type: 'GET', url: '/getHarddiskInfo', data: {
                         id: $(this).data('id')
-                    },
-                    success: function (response) {
+                    }, success: function (response) {
                         if (response) {
                             harddisk_id.value = response.id;
                             brandForEdit.value = response.company_id;
@@ -1700,13 +1528,9 @@ $(document).ready(function () {
                         var form = $(this);
                         var data = form.serialize();
                         $.ajax({
-                            type: 'POST',
-                            url: '/editHarddisk',
-                            data: data,
-                            headers: {
+                            type: 'POST', url: '/editHarddisk', data: data, headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            },
-                            success: function (response) {
+                            }, success: function (response) {
                                 if (response.errors) {
                                     if (response.errors.nullBrand) {
                                         swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
@@ -1740,16 +1564,11 @@ $(document).ready(function () {
                     confirmButtonText: 'بله',
                 }).then((result) => {
                     $.ajax({
-                        type: 'POST',
-                        url: '/ManageCatalogStatus',
-                        data: {
-                            id: $(this).data('id'),
-                            work: 'ChangeHarddiskStatus'
-                        },
-                        headers: {
+                        type: 'POST', url: '/ManageCatalogStatus', data: {
+                            id: $(this).data('id'), work: 'ChangeHarddiskStatus'
+                        }, headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        },
-                        success: function (response) {
+                        }, success: function (response) {
                             location.reload();
                         }
                     });
@@ -1784,13 +1603,9 @@ $(document).ready(function () {
                         var form = $(this);
                         var data = form.serialize();
                         $.ajax({
-                            type: 'POST',
-                            url: '/newODD',
-                            data: data,
-                            headers: {
+                            type: 'POST', url: '/newODD', data: data, headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            },
-                            success: function (response) {
+                            }, success: function (response) {
                                 if (response.errors) {
                                     if (response.errors.nullBrand) {
                                         swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
@@ -1812,12 +1627,9 @@ $(document).ready(function () {
             });
             $('.ODDControl').on('click', function () {
                 $.ajax({
-                    type: 'GET',
-                    url: '/getODDInfo',
-                    data: {
+                    type: 'GET', url: '/getODDInfo', data: {
                         id: $(this).data('id')
-                    },
-                    success: function (response) {
+                    }, success: function (response) {
                         if (response) {
                             ODD_id.value = response.id;
                             brandForEdit.value = response.company_id;
@@ -1841,13 +1653,9 @@ $(document).ready(function () {
                         var form = $(this);
                         var data = form.serialize();
                         $.ajax({
-                            type: 'POST',
-                            url: '/editODD',
-                            data: data,
-                            headers: {
+                            type: 'POST', url: '/editODD', data: data, headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            },
-                            success: function (response) {
+                            }, success: function (response) {
                                 if (response.errors) {
                                     if (response.errors.nullBrand) {
                                         swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
@@ -1877,16 +1685,11 @@ $(document).ready(function () {
                     confirmButtonText: 'بله',
                 }).then((result) => {
                     $.ajax({
-                        type: 'POST',
-                        url: '/ManageCatalogStatus',
-                        data: {
-                            id: $(this).data('id'),
-                            work: 'ChangeODDStatus'
-                        },
-                        headers: {
+                        type: 'POST', url: '/ManageCatalogStatus', data: {
+                            id: $(this).data('id'), work: 'ChangeODDStatus'
+                        }, headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        },
-                        success: function (response) {
+                        }, success: function (response) {
                             location.reload();
                         }
                     });
@@ -1921,13 +1724,9 @@ $(document).ready(function () {
                         var form = $(this);
                         var data = form.serialize();
                         $.ajax({
-                            type: 'POST',
-                            url: '/newNetworkCard',
-                            data: data,
-                            headers: {
+                            type: 'POST', url: '/newNetworkCard', data: data, headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            },
-                            success: function (response) {
+                            }, success: function (response) {
                                 if (response.errors) {
                                     if (response.errors.nullBrand) {
                                         swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
@@ -1949,12 +1748,9 @@ $(document).ready(function () {
             });
             $('.NetworkCardControl').on('click', function () {
                 $.ajax({
-                    type: 'GET',
-                    url: '/getNetworkCardInfo',
-                    data: {
+                    type: 'GET', url: '/getNetworkCardInfo', data: {
                         id: $(this).data('id')
-                    },
-                    success: function (response) {
+                    }, success: function (response) {
                         if (response) {
                             NetworkCard_id.value = response.id;
                             brandForEdit.value = response.company_id;
@@ -1978,13 +1774,9 @@ $(document).ready(function () {
                         var form = $(this);
                         var data = form.serialize();
                         $.ajax({
-                            type: 'POST',
-                            url: '/editNetworkCard',
-                            data: data,
-                            headers: {
+                            type: 'POST', url: '/editNetworkCard', data: data, headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            },
-                            success: function (response) {
+                            }, success: function (response) {
                                 if (response.errors) {
                                     if (response.errors.nullBrand) {
                                         swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
@@ -2014,16 +1806,11 @@ $(document).ready(function () {
                     confirmButtonText: 'بله',
                 }).then((result) => {
                     $.ajax({
-                        type: 'POST',
-                        url: '/ManageCatalogStatus',
-                        data: {
-                            id: $(this).data('id'),
-                            work: 'ChangeNetworkCardStatus'
-                        },
-                        headers: {
+                        type: 'POST', url: '/ManageCatalogStatus', data: {
+                            id: $(this).data('id'), work: 'ChangeNetworkCardStatus'
+                        }, headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        },
-                        success: function (response) {
+                        }, success: function (response) {
                             location.reload();
                         }
                     });
@@ -2058,13 +1845,9 @@ $(document).ready(function () {
                         var form = $(this);
                         var data = form.serialize();
                         $.ajax({
-                            type: 'POST',
-                            url: '/newMonitor',
-                            data: data,
-                            headers: {
+                            type: 'POST', url: '/newMonitor', data: data, headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            },
-                            success: function (response) {
+                            }, success: function (response) {
                                 if (response.errors) {
                                     if (response.errors.nullBrand) {
                                         swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
@@ -2086,12 +1869,9 @@ $(document).ready(function () {
             });
             $('.MonitorControl').on('click', function () {
                 $.ajax({
-                    type: 'GET',
-                    url: '/getMonitorInfo',
-                    data: {
+                    type: 'GET', url: '/getMonitorInfo', data: {
                         id: $(this).data('id')
-                    },
-                    success: function (response) {
+                    }, success: function (response) {
                         if (response) {
                             Monitor_id.value = response.id;
                             brandForEdit.value = response.company_id;
@@ -2115,13 +1895,9 @@ $(document).ready(function () {
                         var form = $(this);
                         var data = form.serialize();
                         $.ajax({
-                            type: 'POST',
-                            url: '/editMonitor',
-                            data: data,
-                            headers: {
+                            type: 'POST', url: '/editMonitor', data: data, headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            },
-                            success: function (response) {
+                            }, success: function (response) {
                                 if (response.errors) {
                                     if (response.errors.nullBrand) {
                                         swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
@@ -2151,16 +1927,11 @@ $(document).ready(function () {
                     confirmButtonText: 'بله',
                 }).then((result) => {
                     $.ajax({
-                        type: 'POST',
-                        url: '/ManageCatalogStatus',
-                        data: {
-                            id: $(this).data('id'),
-                            work: 'ChangeMonitorStatus'
-                        },
-                        headers: {
+                        type: 'POST', url: '/ManageCatalogStatus', data: {
+                            id: $(this).data('id'), work: 'ChangeMonitorStatus'
+                        }, headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        },
-                        success: function (response) {
+                        }, success: function (response) {
                             location.reload();
                         }
                     });
@@ -2195,13 +1966,9 @@ $(document).ready(function () {
                         var form = $(this);
                         var data = form.serialize();
                         $.ajax({
-                            type: 'POST',
-                            url: '/newPrinter',
-                            data: data,
-                            headers: {
+                            type: 'POST', url: '/newPrinter', data: data, headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            },
-                            success: function (response) {
+                            }, success: function (response) {
                                 if (response.errors) {
                                     if (response.errors.nullBrand) {
                                         swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
@@ -2223,12 +1990,9 @@ $(document).ready(function () {
             });
             $('.PrinterControl').on('click', function () {
                 $.ajax({
-                    type: 'GET',
-                    url: '/getPrinterInfo',
-                    data: {
+                    type: 'GET', url: '/getPrinterInfo', data: {
                         id: $(this).data('id')
-                    },
-                    success: function (response) {
+                    }, success: function (response) {
                         if (response) {
                             printer_id.value = response.id;
                             brandForEdit.value = response.company_id;
@@ -2252,13 +2016,9 @@ $(document).ready(function () {
                         var form = $(this);
                         var data = form.serialize();
                         $.ajax({
-                            type: 'POST',
-                            url: '/editPrinter',
-                            data: data,
-                            headers: {
+                            type: 'POST', url: '/editPrinter', data: data, headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            },
-                            success: function (response) {
+                            }, success: function (response) {
                                 if (response.errors) {
                                     if (response.errors.nullBrand) {
                                         swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
@@ -2288,16 +2048,11 @@ $(document).ready(function () {
                     confirmButtonText: 'بله',
                 }).then((result) => {
                     $.ajax({
-                        type: 'POST',
-                        url: '/ManageCatalogStatus',
-                        data: {
-                            id: $(this).data('id'),
-                            work: 'ChangePrinterStatus'
-                        },
-                        headers: {
+                        type: 'POST', url: '/ManageCatalogStatus', data: {
+                            id: $(this).data('id'), work: 'ChangePrinterStatus'
+                        }, headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        },
-                        success: function (response) {
+                        }, success: function (response) {
                             location.reload();
                         }
                     });
@@ -2332,13 +2087,9 @@ $(document).ready(function () {
                         var form = $(this);
                         var data = form.serialize();
                         $.ajax({
-                            type: 'POST',
-                            url: '/newScanner',
-                            data: data,
-                            headers: {
+                            type: 'POST', url: '/newScanner', data: data, headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            },
-                            success: function (response) {
+                            }, success: function (response) {
                                 if (response.errors) {
                                     if (response.errors.nullBrand) {
                                         swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
@@ -2358,12 +2109,9 @@ $(document).ready(function () {
             });
             $('.ScannerControl').on('click', function () {
                 $.ajax({
-                    type: 'GET',
-                    url: '/getScannerInfo',
-                    data: {
+                    type: 'GET', url: '/getScannerInfo', data: {
                         id: $(this).data('id')
-                    },
-                    success: function (response) {
+                    }, success: function (response) {
                         if (response) {
                             scanner_id.value = response.id;
                             brandForEdit.value = response.company_id;
@@ -2386,13 +2134,9 @@ $(document).ready(function () {
                         var form = $(this);
                         var data = form.serialize();
                         $.ajax({
-                            type: 'POST',
-                            url: '/editScanner',
-                            data: data,
-                            headers: {
+                            type: 'POST', url: '/editScanner', data: data, headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            },
-                            success: function (response) {
+                            }, success: function (response) {
                                 if (response.errors) {
                                     if (response.errors.nullBrand) {
                                         swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
@@ -2420,16 +2164,11 @@ $(document).ready(function () {
                     confirmButtonText: 'بله',
                 }).then((result) => {
                     $.ajax({
-                        type: 'POST',
-                        url: '/ManageCatalogStatus',
-                        data: {
-                            id: $(this).data('id'),
-                            work: 'ChangeScannerStatus'
-                        },
-                        headers: {
+                        type: 'POST', url: '/ManageCatalogStatus', data: {
+                            id: $(this).data('id'), work: 'ChangeScannerStatus'
+                        }, headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        },
-                        success: function (response) {
+                        }, success: function (response) {
                             location.reload();
                         }
                     });
@@ -2464,13 +2203,9 @@ $(document).ready(function () {
                         var form = $(this);
                         var data = form.serialize();
                         $.ajax({
-                            type: 'POST',
-                            url: '/newCopyMachine',
-                            data: data,
-                            headers: {
+                            type: 'POST', url: '/newCopyMachine', data: data, headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            },
-                            success: function (response) {
+                            }, success: function (response) {
                                 if (response.errors) {
                                     if (response.errors.nullBrand) {
                                         swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
@@ -2490,12 +2225,9 @@ $(document).ready(function () {
             });
             $('.CopyMachineControl').on('click', function () {
                 $.ajax({
-                    type: 'GET',
-                    url: '/getCopyMachineInfo',
-                    data: {
+                    type: 'GET', url: '/getCopyMachineInfo', data: {
                         id: $(this).data('id')
-                    },
-                    success: function (response) {
+                    }, success: function (response) {
                         if (response) {
                             copy_machine_id.value = response.id;
                             brandForEdit.value = response.company_id;
@@ -2518,13 +2250,9 @@ $(document).ready(function () {
                         var form = $(this);
                         var data = form.serialize();
                         $.ajax({
-                            type: 'POST',
-                            url: '/editCopyMachine',
-                            data: data,
-                            headers: {
+                            type: 'POST', url: '/editCopyMachine', data: data, headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            },
-                            success: function (response) {
+                            }, success: function (response) {
                                 if (response.errors) {
                                     if (response.errors.nullBrand) {
                                         swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
@@ -2552,16 +2280,11 @@ $(document).ready(function () {
                     confirmButtonText: 'بله',
                 }).then((result) => {
                     $.ajax({
-                        type: 'POST',
-                        url: '/ManageCatalogStatus',
-                        data: {
-                            id: $(this).data('id'),
-                            work: 'ChangeCopyMachineStatus'
-                        },
-                        headers: {
+                        type: 'POST', url: '/ManageCatalogStatus', data: {
+                            id: $(this).data('id'), work: 'ChangeCopyMachineStatus'
+                        }, headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        },
-                        success: function (response) {
+                        }, success: function (response) {
                             location.reload();
                         }
                     });
@@ -2596,13 +2319,9 @@ $(document).ready(function () {
                         var form = $(this);
                         var data = form.serialize();
                         $.ajax({
-                            type: 'POST',
-                            url: '/newVOIP',
-                            data: data,
-                            headers: {
+                            type: 'POST', url: '/newVOIP', data: data, headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            },
-                            success: function (response) {
+                            }, success: function (response) {
                                 if (response.errors) {
                                     if (response.errors.nullBrand) {
                                         swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
@@ -2622,12 +2341,9 @@ $(document).ready(function () {
             });
             $('.VOIPControl').on('click', function () {
                 $.ajax({
-                    type: 'GET',
-                    url: '/getVOIPInfo',
-                    data: {
+                    type: 'GET', url: '/getVOIPInfo', data: {
                         id: $(this).data('id')
-                    },
-                    success: function (response) {
+                    }, success: function (response) {
                         if (response) {
                             VOIP_id.value = response.id;
                             brandForEdit.value = response.company_id;
@@ -2650,13 +2366,9 @@ $(document).ready(function () {
                         var form = $(this);
                         var data = form.serialize();
                         $.ajax({
-                            type: 'POST',
-                            url: '/editVOIP',
-                            data: data,
-                            headers: {
+                            type: 'POST', url: '/editVOIP', data: data, headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            },
-                            success: function (response) {
+                            }, success: function (response) {
                                 if (response.errors) {
                                     if (response.errors.nullBrand) {
                                         swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
@@ -2684,16 +2396,11 @@ $(document).ready(function () {
                     confirmButtonText: 'بله',
                 }).then((result) => {
                     $.ajax({
-                        type: 'POST',
-                        url: '/ManageCatalogStatus',
-                        data: {
-                            id: $(this).data('id'),
-                            work: 'ChangeVOIPStatus'
-                        },
-                        headers: {
+                        type: 'POST', url: '/ManageCatalogStatus', data: {
+                            id: $(this).data('id'), work: 'ChangeVOIPStatus'
+                        }, headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        },
-                        success: function (response) {
+                        }, success: function (response) {
                             location.reload();
                         }
                     });
@@ -2728,13 +2435,9 @@ $(document).ready(function () {
                         var form = $(this);
                         var data = form.serialize();
                         $.ajax({
-                            type: 'POST',
-                            url: '/newAssistance',
-                            data: data,
-                            headers: {
+                            type: 'POST', url: '/newAssistance', data: data, headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            },
-                            success: function (response) {
+                            }, success: function (response) {
                                 if (response.errors) {
                                     if (response.errors.nullName) {
                                         swalFire('خطا!', response.errors.nullName[0], 'error', 'تلاش مجدد');
@@ -2754,12 +2457,9 @@ $(document).ready(function () {
             });
             $('.AssistanceControl').on('click', function () {
                 $.ajax({
-                    type: 'GET',
-                    url: '/getAssistanceInfo',
-                    data: {
+                    type: 'GET', url: '/getAssistanceInfo', data: {
                         id: $(this).data('id')
-                    },
-                    success: function (response) {
+                    }, success: function (response) {
                         if (response) {
                             assistance_id.value = response.id;
                             nameForEdit.value = response.name;
@@ -2781,13 +2481,9 @@ $(document).ready(function () {
                         var form = $(this);
                         var data = form.serialize();
                         $.ajax({
-                            type: 'POST',
-                            url: '/editAssistance',
-                            data: data,
-                            headers: {
+                            type: 'POST', url: '/editAssistance', data: data, headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            },
-                            success: function (response) {
+                            }, success: function (response) {
                                 if (response.errors) {
                                     if (response.errors.nullName) {
                                         swalFire('خطا!', response.errors.nullName[0], 'error', 'تلاش مجدد');
@@ -2815,16 +2511,11 @@ $(document).ready(function () {
                     confirmButtonText: 'بله',
                 }).then((result) => {
                     $.ajax({
-                        type: 'POST',
-                        url: '/ManageCatalogStatus',
-                        data: {
-                            id: $(this).data('id'),
-                            work: 'ChangeAssistanceStatus'
-                        },
-                        headers: {
+                        type: 'POST', url: '/ManageCatalogStatus', data: {
+                            id: $(this).data('id'), work: 'ChangeAssistanceStatus'
+                        }, headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        },
-                        success: function (response) {
+                        }, success: function (response) {
                             location.reload();
                         }
                     });
@@ -2859,13 +2550,9 @@ $(document).ready(function () {
                         var form = $(this);
                         var data = form.serialize();
                         $.ajax({
-                            type: 'POST',
-                            url: '/newJob',
-                            data: data,
-                            headers: {
+                            type: 'POST', url: '/newJob', data: data, headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            },
-                            success: function (response) {
+                            }, success: function (response) {
                                 if (response.errors) {
                                     if (response.errors.nullName) {
                                         swalFire('خطا!', response.errors.nullName[0], 'error', 'تلاش مجدد');
@@ -2885,12 +2572,9 @@ $(document).ready(function () {
             });
             $('.JobControl').on('click', function () {
                 $.ajax({
-                    type: 'GET',
-                    url: '/getJobInfo',
-                    data: {
+                    type: 'GET', url: '/getJobInfo', data: {
                         id: $(this).data('id')
-                    },
-                    success: function (response) {
+                    }, success: function (response) {
                         if (response) {
                             job_id.value = response.id;
                             titleForEdit.value = response.title;
@@ -2912,13 +2596,9 @@ $(document).ready(function () {
                         var form = $(this);
                         var data = form.serialize();
                         $.ajax({
-                            type: 'POST',
-                            url: '/editJob',
-                            data: data,
-                            headers: {
+                            type: 'POST', url: '/editJob', data: data, headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            },
-                            success: function (response) {
+                            }, success: function (response) {
                                 if (response.errors) {
                                     if (response.errors.nullName) {
                                         swalFire('خطا!', response.errors.nullName[0], 'error', 'تلاش مجدد');
@@ -2946,16 +2626,11 @@ $(document).ready(function () {
                     confirmButtonText: 'بله',
                 }).then((result) => {
                     $.ajax({
-                        type: 'POST',
-                        url: '/ManageCatalogStatus',
-                        data: {
-                            id: $(this).data('id'),
-                            work: 'ChangeJobStatus'
-                        },
-                        headers: {
+                        type: 'POST', url: '/ManageCatalogStatus', data: {
+                            id: $(this).data('id'), work: 'ChangeJobStatus'
+                        }, headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        },
-                        success: function (response) {
+                        }, success: function (response) {
                             location.reload();
                         }
                     });
@@ -2990,13 +2665,9 @@ $(document).ready(function () {
                         var form = $(this);
                         var data = form.serialize();
                         $.ajax({
-                            type: 'POST',
-                            url: '/newEstablishmentPlace',
-                            data: data,
-                            headers: {
+                            type: 'POST', url: '/newEstablishmentPlace', data: data, headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            },
-                            success: function (response) {
+                            }, success: function (response) {
                                 if (response.errors) {
                                     if (response.errors.nullName) {
                                         swalFire('خطا!', response.errors.nullName[0], 'error', 'تلاش مجدد');
@@ -3016,12 +2687,9 @@ $(document).ready(function () {
             });
             $('.EstablishmentPlaceControl').on('click', function () {
                 $.ajax({
-                    type: 'GET',
-                    url: '/getEstablishmentPlaceInfo',
-                    data: {
+                    type: 'GET', url: '/getEstablishmentPlaceInfo', data: {
                         id: $(this).data('id')
-                    },
-                    success: function (response) {
+                    }, success: function (response) {
                         if (response) {
                             establishment_place_id.value = response.id;
                             titleForEdit.value = response.title;
@@ -3043,13 +2711,9 @@ $(document).ready(function () {
                         var form = $(this);
                         var data = form.serialize();
                         $.ajax({
-                            type: 'POST',
-                            url: '/editEstablishmentPlace',
-                            data: data,
-                            headers: {
+                            type: 'POST', url: '/editEstablishmentPlace', data: data, headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            },
-                            success: function (response) {
+                            }, success: function (response) {
                                 if (response.errors) {
                                     if (response.errors.nullName) {
                                         swalFire('خطا!', response.errors.nullName[0], 'error', 'تلاش مجدد');
@@ -3077,16 +2741,11 @@ $(document).ready(function () {
                     confirmButtonText: 'بله',
                 }).then((result) => {
                     $.ajax({
-                        type: 'POST',
-                        url: '/ManageCatalogStatus',
-                        data: {
-                            id: $(this).data('id'),
-                            work: 'ChangeEstablishmentPlaceStatus'
-                        },
-                        headers: {
+                        type: 'POST', url: '/ManageCatalogStatus', data: {
+                            id: $(this).data('id'), work: 'ChangeEstablishmentPlaceStatus'
+                        }, headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        },
-                        success: function (response) {
+                        }, success: function (response) {
                             location.reload();
                         }
                     });
@@ -3121,13 +2780,9 @@ $(document).ready(function () {
                         var form = $(this);
                         var data = form.serialize();
                         $.ajax({
-                            type: 'POST',
-                            url: '/newPerson',
-                            data: data,
-                            headers: {
+                            type: 'POST', url: '/newPerson', data: data, headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            },
-                            success: function (response) {
+                            }, success: function (response) {
                                 if (response.errors) {
                                     if (response.errors.nullName) {
                                         swalFire('خطا!', response.errors.nullName[0], 'error', 'تلاش مجدد');
@@ -3154,12 +2809,9 @@ $(document).ready(function () {
             });
             $('.PersonControl').on('click', function () {
                 $.ajax({
-                    type: 'GET',
-                    url: '/getPersonInfo',
-                    data: {
+                    type: 'GET', url: '/getPersonInfo', data: {
                         id: $(this).data('id')
-                    },
-                    success: function (response) {
+                    }, success: function (response) {
                         if (response) {
                             personID.value = response.id;
                             nameForEdit.value = response.name;
@@ -3190,13 +2842,9 @@ $(document).ready(function () {
                         var form = $(this);
                         var data = form.serialize();
                         $.ajax({
-                            type: 'POST',
-                            url: '/editPerson',
-                            data: data,
-                            headers: {
+                            type: 'POST', url: '/editPerson', data: data, headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            },
-                            success: function (response) {
+                            }, success: function (response) {
                                 if (response.errors) {
                                     if (response.errors.nullName) {
                                         swalFire('خطا!', response.errors.nullName[0], 'error', 'تلاش مجدد');
@@ -3346,13 +2994,9 @@ $(document).ready(function () {
                         var idFromLink = getParameterByName('id', window.location.href);
                         data += "&person=" + idFromLink;
                         $.ajax({
-                            type: 'POST',
-                            url: '/newEquipmentCase',
-                            data: data,
-                            headers: {
+                            type: 'POST', url: '/newEquipmentCase', data: data, headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            },
-                            success: function (response) {
+                            }, success: function (response) {
                                 if (response.errors) {
                                     if (response.errors.nullPersonnelCode) {
                                         swalFire('خطا!', response.errors.nullPersonnelCode[0], 'error', 'تلاش مجدد');
@@ -3400,13 +3044,9 @@ $(document).ready(function () {
                         var idFromLink = getParameterByName('id', window.location.href);
                         data += "&person=" + idFromLink;
                         $.ajax({
-                            type: 'POST',
-                            url: '/newEquipmentMonitor',
-                            data: data,
-                            headers: {
+                            type: 'POST', url: '/newEquipmentMonitor', data: data, headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            },
-                            success: function (response) {
+                            }, success: function (response) {
                                 if (response.errors) {
                                     if (response.errors.nullPersonnelCode) {
                                         swalFire('خطا!', response.errors.nullPersonnelCode[0], 'error', 'تلاش مجدد');
@@ -3442,13 +3082,9 @@ $(document).ready(function () {
                         var idFromLink = getParameterByName('id', window.location.href);
                         data += "&person=" + idFromLink;
                         $.ajax({
-                            type: 'POST',
-                            url: '/newEquipmentPrinter',
-                            data: data,
-                            headers: {
+                            type: 'POST', url: '/newEquipmentPrinter', data: data, headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            },
-                            success: function (response) {
+                            }, success: function (response) {
                                 if (response.errors) {
                                     if (response.errors.nullPersonnelCode) {
                                         swalFire('خطا!', response.errors.nullPersonnelCode[0], 'error', 'تلاش مجدد');
@@ -3484,13 +3120,9 @@ $(document).ready(function () {
                         var idFromLink = getParameterByName('id', window.location.href);
                         data += "&person=" + idFromLink;
                         $.ajax({
-                            type: 'POST',
-                            url: '/newEquipmentScanner',
-                            data: data,
-                            headers: {
+                            type: 'POST', url: '/newEquipmentScanner', data: data, headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            },
-                            success: function (response) {
+                            }, success: function (response) {
                                 if (response.errors) {
                                     if (response.errors.nullPersonnelCode) {
                                         swalFire('خطا!', response.errors.nullPersonnelCode[0], 'error', 'تلاش مجدد');
@@ -3526,13 +3158,9 @@ $(document).ready(function () {
                         var idFromLink = getParameterByName('id', window.location.href);
                         data += "&person=" + idFromLink;
                         $.ajax({
-                            type: 'POST',
-                            url: '/newEquipmentCopyMachine',
-                            data: data,
-                            headers: {
+                            type: 'POST', url: '/newEquipmentCopyMachine', data: data, headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            },
-                            success: function (response) {
+                            }, success: function (response) {
                                 if (response.errors) {
                                     if (response.errors.nullPersonnelCode) {
                                         swalFire('خطا!', response.errors.nullPersonnelCode[0], 'error', 'تلاش مجدد');
@@ -3568,13 +3196,9 @@ $(document).ready(function () {
                         var idFromLink = getParameterByName('id', window.location.href);
                         data += "&person=" + idFromLink;
                         $.ajax({
-                            type: 'POST',
-                            url: '/newEquipmentVOIP',
-                            data: data,
-                            headers: {
+                            type: 'POST', url: '/newEquipmentVOIP', data: data, headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            },
-                            success: function (response) {
+                            }, success: function (response) {
                                 if (response.errors) {
                                     if (response.errors.nullPersonnelCode) {
                                         swalFire('خطا!', response.errors.nullPersonnelCode[0], 'error', 'تلاش مجدد');
@@ -3613,13 +3237,9 @@ $(document).ready(function () {
                             var idFromLink = getParameterByName('id', window.location.href);
                             data += "&person=" + idFromLink;
                             $.ajax({
-                                type: 'POST',
-                                url: '/newComment',
-                                data: data,
-                                headers: {
+                                type: 'POST', url: '/newComment', data: data, headers: {
                                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                                },
-                                success: function (response) {
+                                }, success: function (response) {
                                     if (response.errors) {
                                         if (response.errors.nullPersonnelCode) {
                                             swalFire('خطا!', response.errors.nullPersonnelCode[0], 'error', 'تلاش مجدد');
