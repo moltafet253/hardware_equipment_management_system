@@ -23,6 +23,16 @@ class Controller extends BaseController
             'device' => $agent->device(),
         ]);
     }
+    public function logEquipmentChanges($title, $equipment_id, $equipment_type, $user_id)
+    {
+        $agent = new Agent();
+        ActivityLog::create([
+            'equipment_id' => $equipment_id,
+            'equipment_type' => $equipment_type,
+            'title' => $title,
+            'user' => $user_id,
+        ]);
+    }
 
     public function alerts($state,$errorVariable,$errorText)
     {
