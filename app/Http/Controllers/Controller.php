@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ActivityLog;
+use App\Models\EquipmentLog;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
@@ -26,7 +27,7 @@ class Controller extends BaseController
     public function logEquipmentChanges($title, $equipment_id, $equipment_type, $user_id)
     {
         $agent = new Agent();
-        ActivityLog::create([
+        EquipmentLog::create([
             'equipment_id' => $equipment_id,
             'equipment_type' => $equipment_type,
             'title' => $title,
