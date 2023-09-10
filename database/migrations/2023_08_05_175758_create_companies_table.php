@@ -28,7 +28,7 @@ return new class extends Migration
 INSERT INTO companies (name, products)
 VALUES
     ('Acbel', '[\"Power\"]'),
-('Asus', '[\"Power\",\"Motherboard\",\"Monitor\"]'),
+('Asus', '[\"Power\",\"Motherboard\",\"Monitor\",\"Graphic Card\"]'),
 ('Coolermaster', '[\"Power\"]'),
 ('GLT', '[\"Power\"]'),
 ('Hreen', '[\"Power\"]'),
@@ -82,9 +82,9 @@ VALUES
 ('PNY', '[\"HDD|SSD|M.2\"]'),
 ('Apacer', '[\"HDD|SSD|M.2\"]'),
 ('Abit', '[\"Motherboard\"]'),
-('Biostar', '[\"Motherboard\"]'),
+('Biostar', '[\"Motherboard\",\"Graphic Card\"]'),
 ('ECS', '[\"Motherboard\"]'),
-('Foxconn', '[\"Motherboard\"]'),
+('Foxconn', '[\"Motherboard\",\"Foxconn\"]'),
 ('MSI', '[\"Motherboard\",\"Monitor\"]'),
 ('JETWAY', '[\"Motherboard\"]'),
 ('Asrock', '[\"Motherboard\"]'),
