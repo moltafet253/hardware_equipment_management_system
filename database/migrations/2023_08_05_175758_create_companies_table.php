@@ -103,7 +103,8 @@ VALUES
 ('Kodak', '[\"Scanner\"]'),
 ('Plustek', '[\"Scanner\"]'),
 ('Bizhub', '[\"Copy Machine\"]'),
-('Sharp', '[\"Copy Machine\"]')
+('Sharp', '[\"Copy Machine\"]'),
+('No Name', '[\"Case\"]')
 ;
 ";
         DB::statement($query);
