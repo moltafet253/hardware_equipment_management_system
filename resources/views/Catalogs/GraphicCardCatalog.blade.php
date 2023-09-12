@@ -52,7 +52,8 @@
                                             </div>
                                             <div class="flex flex-col items-right mb-2">
                                                 <label for="ram_size"
-                                                       class="block text-gray-700 text-sm font-bold mb-2">مقدار حافظه*:</label>
+                                                       class="block text-gray-700 text-sm font-bold mb-2">مقدار
+                                                    حافظه*:</label>
                                                 <select id="ram_size" class="border rounded-md w-full px-3 py-2"
                                                         name="ram_size">
                                                     <option value="" disabled selected>انتخاب کنید</option>
@@ -129,7 +130,8 @@
                                             </div>
                                             <div class="flex flex-col items-right mb-2">
                                                 <label for="ram_sizeForEdit"
-                                                       class="block text-gray-700 text-sm font-bold mb-2">مقدار حافظه*:</label>
+                                                       class="block text-gray-700 text-sm font-bold mb-2">مقدار
+                                                    حافظه*:</label>
                                                 <select id="ram_sizeForEdit" class="border rounded-md w-full px-3 py-2"
                                                         name="ram_sizeForEdit">
                                                     <option value="" disabled selected>انتخاب کنید</option>
