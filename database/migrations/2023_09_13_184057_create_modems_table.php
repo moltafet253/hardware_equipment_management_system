@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('equipment_logs', function (Blueprint $table) {
+        Schema::create('modems', function (Blueprint $table) {
             $table->id();
-            $table->integer('equipment_id');
-            $table->string('equipment_type');
-            $table->string('title');
-            $table->unsignedBigInteger('user');
-            $table->foreign('user')->references('id')->on('users');
-            $table->timestamps();
+            $table->unsignedBigInteger('company_id');
+            $table->foreign('company_id')->references('id')->on('companies');
+            $table->string('model');
+            $table->string('type');
+            $table->string('connectivity_type');
             $table->softDeletes();
+            $table->timestamps();
         });
     }
 
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('equipment_logs');
+        Schema::dropIfExists('modems');
     }
 };
