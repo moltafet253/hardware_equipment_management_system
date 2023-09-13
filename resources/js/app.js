@@ -2871,20 +2871,24 @@ $(document).ready(function () {
             const tab1Button = document.getElementById('tab1');
             const tab2Button = document.getElementById('tab2');
             const tab3Button = document.getElementById('tab3');
+            const tab4Button = document.getElementById('tab4');
             const content1 = document.getElementById('content1');
             const content2 = document.getElementById('content2');
             const content3 = document.getElementById('content3');
+            const content4 = document.getElementById('content4');
 
         function showTabContent(tabButton, tabContent) {
             content1.style.display = 'none';
             content2.style.display = 'none';
             content3.style.display = 'none';
+            content4.style.display = 'none';
 
             tabContent.style.display = 'block';
 
             tab1Button.classList.remove('focus:bg-blue-600');
             tab2Button.classList.remove('focus:bg-blue-600');
             tab3Button.classList.remove('focus:bg-blue-600');
+            tab4Button.classList.remove('focus:bg-blue-600');
 
             tabButton.classList.add('focus:bg-blue-600');
         }
@@ -2902,6 +2906,8 @@ $(document).ready(function () {
                 showTabContent(tab2Button, content2);
             } else if (selectedTab === '3') {
                 showTabContent(tab3Button, content3);
+            } else if (selectedTab === '4') {
+                showTabContent(tab4Button, content4);
             } else {
                 showTabContent(tab1Button, content1);
             }
@@ -2920,6 +2926,11 @@ $(document).ready(function () {
             tab3Button.addEventListener('click', function () {
                 showTabContent(tab3Button, content3);
                 saveTabState(3);
+            });
+
+            tab4Button.addEventListener('click', function () {
+                showTabContent(tab4Button, content4);
+                saveTabState(4);
             });
 
             loadTabState();
