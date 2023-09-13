@@ -73,8 +73,7 @@
                                                         name="type">
                                                     <option value="" disabled selected>انتخاب کنید</option>
                                                     <option value="1">ادمین کل</option>
-                                                    <option value="2">کارشناس ستاد</option>
-                                                    <option value="3">کارشناس فناوری استان</option>
+                                                    <option value="2">کارشناس فناوری استان</option>
                                                 </select>
                                             </div>
                                             <div id="provinceDiv" class="mb-4 hidden">
@@ -168,8 +167,7 @@
                                                         name="editedType">
                                                     <option value="" disabled selected>انتخاب کنید</option>
                                                     <option value="1">ادمین کل</option>
-                                                    <option value="2">کارشناس ستاد</option>
-                                                    <option value="3">کارشناس فناوری استان</option>
+                                                    <option value="2">کارشناس فناوری استان</option>
                                                 </select>
                                             </div>
                                             <div id="editedProvinceDiv" class="mb-4 hidden">

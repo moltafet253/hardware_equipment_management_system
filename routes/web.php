@@ -203,12 +203,6 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
         Route::middleware('roleAuthorization:2')->group(function () {
 
         });
-
-        Route::middleware('roleAuthorization:3')->group(function () {
-
-        });
-
-
     });
 });
 

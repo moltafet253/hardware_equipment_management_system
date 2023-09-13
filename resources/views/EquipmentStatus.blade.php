@@ -24,7 +24,7 @@
                     <button id="tab3" class="w-1/3 py-2 px-4 bg-blue-500 text-white rounded-tl-box">سایر تجهیزات
                     </button>
 
-                    @if(session('type')!=3)
+                    @if( session('type')!=3 )
                         <button id="tab4" class="w-1/3 py-2 px-4 bg-blue-500 text-white rounded-tl-box">کارهای انجام
                             شده
                         </button>
@@ -61,7 +61,7 @@
 
                     </div>
 
-                    @if( session('type')!=3 )
+                    @if( session('type')!=2 )
                         <div id="content4" class="hidden p-4">
                             {{--            Comment--}}
                             @include('layouts.EquipmentManagerLayers.Comments')
