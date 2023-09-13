@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->string('name');
             $table->timestamps();
         });
-        $query = "INSERT INTO provinces (`id`, `name`) VALUES
+        $query = "INSERT INTO provinces (id, name) VALUES
 (1, 'آذربايجان شرقي'),
 (2, 'آذربايجان غربي'),
 (3, 'اردبيل'),
