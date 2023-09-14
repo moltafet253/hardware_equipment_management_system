@@ -56,6 +56,18 @@
                                                     <option value="Power">Power</option>
                                                     <option value="VOIP">VOIP</option>
                                                     <option value="Printer">Printer</option>
+                                                    <option value="Headphone">Headphone</option>
+                                                    <option value="Laptop">Laptop</option>
+                                                    <option value="Mobile">Mobile</option>
+                                                    <option value="Modem">Modem</option>
+                                                    <option value="Recorder">Recorder</option>
+                                                    <option value="Router">Router</option>
+                                                    <option value="Speaker">Speaker</option>
+                                                    <option value="Switch">Switch</option>
+                                                    <option value="Tablet">Tablet</option>
+                                                    <option value="Video Projector">Video Projector</option>
+                                                    <option value="Video Projector Curtain">Video Projector Curtain</option>
+                                                    <option value="Webcam">Webcam</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -119,6 +131,18 @@
                                                     <option value="Power">Power</option>
                                                     <option value="VOIP">VOIP</option>
                                                     <option value="Printer">Printer</option>
+                                                    <option value="Headphone">Headphone</option>
+                                                    <option value="Laptop">Laptop</option>
+                                                    <option value="Mobile">Mobile</option>
+                                                    <option value="Modem">Modem</option>
+                                                    <option value="Recorder">Recorder</option>
+                                                    <option value="Router">Router</option>
+                                                    <option value="Speaker">Speaker</option>
+                                                    <option value="Switch">Switch</option>
+                                                    <option value="Tablet">Tablet</option>
+                                                    <option value="Video Projector">Video Projector</option>
+                                                    <option value="Video Projector Curtain">Video Projector Curtain</option>
+                                                    <option value="Webcam">Webcam</option>
                                                 </select>
                                             </div>
                                         </div>
