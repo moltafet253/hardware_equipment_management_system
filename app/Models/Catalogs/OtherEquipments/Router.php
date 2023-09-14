@@ -14,6 +14,7 @@ class Router extends Model
     protected $fillable=[
         'company_id',
         'model',
+        'type',
         'active',
     ];
 }

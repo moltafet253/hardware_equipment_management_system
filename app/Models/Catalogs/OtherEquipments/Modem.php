@@ -14,6 +14,8 @@ class Modem extends Model
     protected $fillable=[
         'company_id',
         'model',
+        'type',
+        'connectivity_type',
         'active',
     ];
 }

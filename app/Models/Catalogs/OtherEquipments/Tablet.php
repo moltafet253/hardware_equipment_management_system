@@ -14,6 +14,9 @@ class Tablet extends Model
     protected $fillable=[
         'company_id',
         'model',
+        'internal_memory',
+        'ram',
+        'simcards_number',
         'active',
     ];
 }

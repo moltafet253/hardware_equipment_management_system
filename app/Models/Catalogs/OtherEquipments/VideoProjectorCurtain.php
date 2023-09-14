@@ -14,6 +14,7 @@ class VideoProjectorCurtain extends Model
     protected $fillable=[
         'company_id',
         'model',
+        'size',
         'active',
     ];
 }
