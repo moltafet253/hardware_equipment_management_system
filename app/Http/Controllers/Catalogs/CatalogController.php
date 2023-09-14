@@ -15,6 +15,7 @@ use App\Models\Catalogs\Monitor;
 use App\Models\Catalogs\Motherboard;
 use App\Models\Catalogs\NetworkCard;
 use App\Models\Catalogs\Odd;
+use App\Models\Catalogs\OtherEquipments\Recorder;
 use App\Models\Catalogs\Power;
 use App\Models\Catalogs\Printer;
 use App\Models\Catalogs\Ram;
@@ -91,6 +92,10 @@ class CatalogController extends Controller
             case 'ChangeVOIPStatus':
                 $this->logActivity('Change Status Of VOIP =>' . $id, \request()->ip(), \request()->userAgent(), \session('id'));
                 $model = Voip::class;
+                break;
+            case 'ChangeRecorderStatus':
+                $this->logActivity('Change Status Of Recorder =>' . $id, \request()->ip(), \request()->userAgent(), \session('id'));
+                $model = Recorder::class;
                 break;
             case 'ChangeAssistanceStatus':
                 $this->logActivity('Change Status Of Assistance =>' . $id, \request()->ip(), \request()->userAgent(), \session('id'));

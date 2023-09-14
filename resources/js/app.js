@@ -2408,6 +2408,124 @@ $(document).ready(function () {
 
             });
             break;
+        case '/RecorderCatalog':
+            $('#new-recorder-button, #cancel-new-recorder').on('click', function () {
+                toggleModal(newRecorderModal.id);
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.add').on('click', function () {
+                toggleModal(newRecorderModal.id)
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.edit').on('click', function () {
+                toggleModal(editRecorderModal.id)
+            });
+            $('.RecorderControl,#cancel-edit-recorder').on('click', function () {
+                toggleModal(editRecorderModal.id);
+            });
+            $('#new-recorder').on('submit', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var form = $(this);
+                        var data = form.serialize();
+                        $.ajax({
+                            type: 'POST', url: '/newRecorder', data: data, headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            }, success: function (response) {
+                                if (response.errors) {
+                                    if (response.errors.nullBrand) {
+                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullModel) {
+                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                    }
+                                } else if (response.success) {
+                                    // swalFire('ثبت اطلاعات پرینتر موفقیت آمیز بود!', response.message.printerAdded[0], 'success', 'بستن');
+                                    // toggleModal(newPrinterModal.id);
+                                    location.reload();
+                                    resetFields();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+            $('.RecorderControl').on('click', function () {
+                $.ajax({
+                    type: 'GET', url: '/getRecorderInfo', data: {
+                        id: $(this).data('id')
+                    }, success: function (response) {
+                        if (response) {
+                            recorder_id.value = response.id;
+                            brandForEdit.value = response.company_id;
+                            modelForEdit.value = response.model;
+                        }
+                    }
+                });
+            });
+            $('#edit-recorder').on('submit', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var form = $(this);
+                        var data = form.serialize();
+                        $.ajax({
+                            type: 'POST', url: '/editRecorder', data: data, headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            }, success: function (response) {
+                                if (response.errors) {
+                                    if (response.errors.nullBrand) {
+                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullModel) {
+                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.function_typeForEdit) {
+                                        swalFire('خطا!', response.errors.function_typeForEdit[0], 'error', 'تلاش مجدد');
+                                    }
+                                } else if (response.success) {
+                                    // swalFire('ویرایش پرینتر موفقیت آمیز بود!', response.message.printerEdited[0], 'success', 'بستن');
+                                    // toggleModal(editPrinterModal.id);
+                                    location.reload();
+                                    resetFields();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+            $('.deactiveRecorderControl').on('click', function () {
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'وضعیت این کاتالوگ تغییر خواهد کرد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    $.ajax({
+                        type: 'POST', url: '/ManageCatalogStatus', data: {
+                            id: $(this).data('id'), work: 'ChangeRecorderStatus'
+                        }, headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                        }, success: function (response) {
+                            location.reload();
+                        }
+                    });
+                });
+
+            });
+            break;
         case '/AssistanceCatalog':
             $('#new-assistance-button, #cancel-new-assistance').on('click', function () {
                 toggleModal(newAssistanceModal.id);
@@ -2940,42 +3058,57 @@ $(document).ready(function () {
             $('.absolute.inset-0.bg-gray-500.opacity-75.addcase').on('click', function () {
                 toggleModal(addCaseModal.id)
             });
+
             $('.AddMonitor, #cancel-add-monitor').on('click', function () {
                 toggleModal(addMonitorModal.id);
             });
             $('.absolute.inset-0.bg-gray-500.opacity-75.addmonitor').on('click', function () {
                 toggleModal(addMonitorModal.id)
             });
+
             $('.AddPrinter, #cancel-add-printer').on('click', function () {
                 toggleModal(addPrinterModal.id);
             });
             $('.absolute.inset-0.bg-gray-500.opacity-75.addprinter').on('click', function () {
                 toggleModal(addPrinterModal.id)
             });
+
             $('.AddScanner, #cancel-add-scanner').on('click', function () {
                 toggleModal(addScannerModal.id);
             });
             $('.absolute.inset-0.bg-gray-500.opacity-75.addscanner').on('click', function () {
                 toggleModal(addScannerModal.id)
             });
+
             $('.AddCopyMachine, #cancel-add-copymachine').on('click', function () {
                 toggleModal(addCopyMachineModal.id);
             });
             $('.absolute.inset-0.bg-gray-500.opacity-75.addcopymachine').on('click', function () {
                 toggleModal(addCopyMachineModal.id)
             });
+
             $('.AddVOIP, #cancel-add-voip').on('click', function () {
                 toggleModal(addVOIPModal.id);
             });
             $('.absolute.inset-0.bg-gray-500.opacity-75.addVOIP').on('click', function () {
                 toggleModal(addVOIPModal.id)
             });
+
+
+            $('.AddRecorder, #cancel-add-recorder').on('click', function () {
+                toggleModal(addRecorderModal.id);
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.addrecorder').on('click', function () {
+                toggleModal(addRecorderModal.id)
+            });
+
             $('.AddComment, #cancel-add-comment').on('click', function () {
                 toggleModal(addCommentModal.id);
             });
             $('.absolute.inset-0.bg-gray-500.opacity-75.addcomment').on('click', function () {
                 toggleModal(addCommentModal.id)
             });
+
             $('#addRAM').on('click', function () {
                 if (ram2Div.classList.contains('hidden')) {
                     ram2Div.classList.remove('hidden');
@@ -3039,6 +3172,7 @@ $(document).ready(function () {
                     }
                 });
             });
+
             $('#new-monitor').on('submit', function (e) {
                 e.preventDefault();
                 Swal.fire({
@@ -3077,6 +3211,7 @@ $(document).ready(function () {
                     }
                 });
             });
+
             $('#new-printer').on('submit', function (e) {
                 e.preventDefault();
                 Swal.fire({
@@ -3115,6 +3250,7 @@ $(document).ready(function () {
                     }
                 });
             });
+
             $('#new-scanner').on('submit', function (e) {
                 e.preventDefault();
                 Swal.fire({
@@ -3153,6 +3289,7 @@ $(document).ready(function () {
                     }
                 });
             });
+
             $('#new-copymachine').on('submit', function (e) {
                 e.preventDefault();
                 Swal.fire({
@@ -3191,6 +3328,7 @@ $(document).ready(function () {
                     }
                 });
             });
+
             $('#new-voip').on('submit', function (e) {
                 e.preventDefault();
                 Swal.fire({
@@ -3229,6 +3367,46 @@ $(document).ready(function () {
                     }
                 });
             });
+
+            $('#new-recorder').on('submit', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var form = $(this);
+                        var data = form.serialize();
+                        var idFromLink = getParameterByName('id', window.location.href);
+                        data += "&person=" + idFromLink;
+                        $.ajax({
+                            type: 'POST', url: '/newEquipmentPrinter', data: data, headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            }, success: function (response) {
+                                if (response.errors) {
+                                    if (response.errors.nullPersonnelCode) {
+                                        swalFire('خطا!', response.errors.nullPersonnelCode[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullPropertyNumber) {
+                                        swalFire('خطا!', response.errors.nullPropertyNumber[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullPrinter) {
+                                        swalFire('خطا!', response.errors.nullPrinter[0], 'error', 'تلاش مجدد');
+                                    }
+                                } else if (response.success) {
+                                    // swalFire('ثبت پرینتر جدید موفقیت آمیز بود!', response.message.printerAdded[0], 'success', 'بستن');
+                                    // toggleModal(addPrinterModal.id);
+                                    location.reload();
+                                    resetFields();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+
             $('#new-comment').on('submit', function (e) {
                 e.preventDefault();
                 if (isNaN(ticket_number.value)) {

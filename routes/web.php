@@ -17,6 +17,7 @@ use App\Http\Controllers\Catalogs\ODDController;
 use App\Http\Controllers\Catalogs\PowerController;
 use App\Http\Controllers\Catalogs\PrinterController;
 use App\Http\Controllers\Catalogs\RAMController;
+use App\Http\Controllers\Catalogs\RecorderController;
 use App\Http\Controllers\Catalogs\ScannerController;
 use App\Http\Controllers\Catalogs\VOIPController;
 use App\Http\Controllers\DashboardController;
@@ -85,6 +86,8 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
             Route::Post('/ResetPassword', [UserManager::class, 'ResetPassword'])->name('ResetPassword');
 
             //Catalogs
+
+                //Hardware Catalogs
             Route::get('/Brands', [BrandController::class, 'index'])->name('Brands');
             Route::post('/newBrand', [BrandController::class, 'newBrand'])->name('newBrand');
             Route::get('/getBrandInfo', [BrandController::class, 'getBrandInfo'])->name('getBrandInfo');
@@ -159,7 +162,20 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
             Route::post('/newVOIP', [VOIPController::class, 'newVOIP'])->name('newVOIP');
             Route::get('/getVOIPInfo', [VOIPController::class, 'getVOIPInfo'])->name('getVOIPInfo');
             Route::post('/editVOIP', [VOIPController::class, 'editVOIP'])->name('editVOIP');
+                //End Hardware Catalogs
 
+                //Network Catalogs
+
+                //End Network Catalogs
+
+                //Other Equipments Catalogs
+            Route::get('/RecorderCatalog', [RecorderController::class, 'index']);
+            Route::post('/newRecorder', [RecorderController::class, 'newRecorder']);
+            Route::get('/getRecorderInfo', [RecorderController::class, 'getRecorderInfo']);
+            Route::post('/editRecorder', [RecorderController::class, 'editRecorder']);
+                //End Other Equipments Catalogs
+
+                //System Catalogs
             Route::get('/AssistanceCatalog', [AssistanceController::class, 'index'])->name('AssistanceCatalog');
             Route::post('/newAssistance', [AssistanceController::class, 'newAssistance'])->name('newAssistance');
             Route::get('/getAssistanceInfo', [AssistanceController::class, 'getAssistanceInfo'])->name('getAssistanceInfo');
@@ -174,6 +190,7 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
             Route::post('/newJob', [JobController::class, 'newJob'])->name('newJob');
             Route::get('/getJobInfo', [JobController::class, 'getJobInfo'])->name('getJobInfo');
             Route::post('/editJob', [JobController::class, 'editJob'])->name('editJob');
+                //End System Catalogs
 
             Route::post('/ManageCatalogStatus', [CatalogController::class, 'manage']);
             //End Catalogs
