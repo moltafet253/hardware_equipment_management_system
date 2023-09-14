@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('model');
             $table->string('type');
             $table->string('connectivity_type');
+            $table->boolean('active')->default(1)->comment('1 => active , 0 => deactive');
             $table->softDeletes();
             $table->timestamps();
         });

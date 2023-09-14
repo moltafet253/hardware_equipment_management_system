@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('company_id');
             $table->foreign('company_id')->references('id')->on('companies');
             $table->string('model');
+            $table->boolean('active')->default(1)->comment('1 => active , 0 => deactive');
             $table->softDeletes();
             $table->timestamps();
         });

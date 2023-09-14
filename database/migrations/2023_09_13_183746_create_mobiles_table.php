@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('ram');
             $table->string('internal_memory');
             $table->integer('simcards_number');
+            $table->boolean('active')->default(1)->comment('1 => active , 0 => deactive');
             $table->softDeletes();
             $table->timestamps();
         });
