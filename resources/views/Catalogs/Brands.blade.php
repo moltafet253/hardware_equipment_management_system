@@ -1,3 +1,4 @@
+@php use App\Models\Device; @endphp
 @extends('layouts.PanelMaster')
 
 @section('content')
@@ -41,33 +42,12 @@
                                                 <select id="products[]" class="border rounded-md w-full px-3 py-2 h-72"
                                                         multiple
                                                         name="products[]">
-                                                    <option value="Case">Case</option>
-                                                    <option value="Motherboard">Motherboard</option>
-                                                    <option value="Monitor">Monitor</option>
-                                                    <option value="CPU">CPU</option>
-                                                    <option value="RAM">RAM</option>
-                                                    <option value="Graphic Card">Graphic Card</option>
-                                                    <option value="HDD/SSD/M.2">HDD/SSD/M.2</option>
-                                                    <option value="Copy Machine">Copy Machine</option>
-                                                    <option value="Scanner">Scanner</option>
-                                                    <option value="LAN/WLAN Card">LAN/WLAN Card</option>
-                                                    <option value="Network Card">Network Card</option>
-                                                    <option value="ODD">ODD</option>
-                                                    <option value="Power">Power</option>
-                                                    <option value="VOIP">VOIP</option>
-                                                    <option value="Printer">Printer</option>
-                                                    <option value="Headphone">Headphone</option>
-                                                    <option value="Laptop">Laptop</option>
-                                                    <option value="Mobile">Mobile</option>
-                                                    <option value="Modem">Modem</option>
-                                                    <option value="Recorder">Recorder</option>
-                                                    <option value="Router">Router</option>
-                                                    <option value="Speaker">Speaker</option>
-                                                    <option value="Switch">Switch</option>
-                                                    <option value="Tablet">Tablet</option>
-                                                    <option value="Video Projector">Video Projector</option>
-                                                    <option value="Video Projector Curtain">Video Projector Curtain</option>
-                                                    <option value="Webcam">Webcam</option>
+                                                    @php
+                                                    $devices=Device::orderBy('name','asc')->get();
+                                                    @endphp
+                                                    @foreach($devices as $device)
+                                                    <option value="{{ $device->name }}">{{ $device->name }}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
@@ -117,32 +97,12 @@
                                                         class="border rounded-md w-full px-3 py-2 h-72"
                                                         multiple
                                                         name="editedProducts[]">
-                                                    <option value="Case">Case</option>
-                                                    <option value="Motherboard">Motherboard</option>
-                                                    <option value="Monitor">Monitor</option>
-                                                    <option value="CPU">CPU</option>
-                                                    <option value="RAM">RAM</option>
-                                                    <option value="Graphic Card">Graphic Card</option>
-                                                    <option value="HDD/SSD/M.2">HDD/SSD/M.2</option>
-                                                    <option value="Copy Machine">Copy Machine</option>
-                                                    <option value="Scanner">Scanner</option>
-                                                    <option value="LAN/WLAN Card">LAN/WLAN Card</option>
-                                                    <option value="ODD">ODD</option>
-                                                    <option value="Power">Power</option>
-                                                    <option value="VOIP">VOIP</option>
-                                                    <option value="Printer">Printer</option>
-                                                    <option value="Headphone">Headphone</option>
-                                                    <option value="Laptop">Laptop</option>
-                                                    <option value="Mobile">Mobile</option>
-                                                    <option value="Modem">Modem</option>
-                                                    <option value="Recorder">Recorder</option>
-                                                    <option value="Router">Router</option>
-                                                    <option value="Speaker">Speaker</option>
-                                                    <option value="Switch">Switch</option>
-                                                    <option value="Tablet">Tablet</option>
-                                                    <option value="Video Projector">Video Projector</option>
-                                                    <option value="Video Projector Curtain">Video Projector Curtain</option>
-                                                    <option value="Webcam">Webcam</option>
+                                                    @php
+                                                        $devices=Device::orderBy('name','asc')->get();
+                                                    @endphp
+                                                    @foreach($devices as $device)
+                                                        <option value="{{ $device->name }}">{{ $device->name }}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
