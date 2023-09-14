@@ -55,7 +55,7 @@ class PrinterController extends Controller
             'function_type' => $functionType,
         ]);
         $Printer->save();
-        $this->logActivity('Case Edited =>' . $PrinterID, \request()->ip(), \request()->userAgent(), \session('id'));
+        $this->logActivity('Printer Edited =>' . $PrinterID, \request()->ip(), \request()->userAgent(), \session('id'));
         return $this->success(true, 'printerEdited', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
