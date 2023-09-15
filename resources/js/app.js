@@ -823,15 +823,17 @@ $(document).ready(function () {
                     cancelButtonText: 'خیر',
                     confirmButtonText: 'بله',
                 }).then((result) => {
-                    $.ajax({
-                        type: 'POST', url: '/ManageCatalogStatus', data: {
-                            id: $(this).data('id'), work: 'ChangeMotherboardStatus'
-                        }, headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        }, success: function (response) {
-                            location.reload();
-                        }
-                    });
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: 'POST', url: '/ManageCatalogStatus', data: {
+                                id: $(this).data('id'), work: 'ChangeMotherboardStatus'
+                            }, headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            }, success: function (response) {
+                                location.reload();
+                            }
+                        });
+                    }
                 });
 
             });
@@ -939,15 +941,17 @@ $(document).ready(function () {
                     cancelButtonText: 'خیر',
                     confirmButtonText: 'بله',
                 }).then((result) => {
-                    $.ajax({
-                        type: 'POST', url: '/ManageCatalogStatus', data: {
-                            id: $(this).data('id'), work: 'ChangeCaseStatus'
-                        }, headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        }, success: function (response) {
-                            location.reload();
-                        }
-                    });
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: 'POST', url: '/ManageCatalogStatus', data: {
+                                id: $(this).data('id'), work: 'ChangeCaseStatus'
+                            }, headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            }, success: function (response) {
+                                location.reload();
+                            }
+                        });
+                    }
                 });
 
             });
@@ -1060,15 +1064,17 @@ $(document).ready(function () {
                     cancelButtonText: 'خیر',
                     confirmButtonText: 'بله',
                 }).then((result) => {
-                    $.ajax({
-                        type: 'POST', url: '/ManageCatalogStatus', data: {
-                            id: $(this).data('id'), work: 'ChangeCPUStatus'
-                        }, headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        }, success: function (response) {
-                            location.reload();
-                        }
-                    });
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: 'POST', url: '/ManageCatalogStatus', data: {
+                                id: $(this).data('id'), work: 'ChangeCPUStatus'
+                            }, headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            }, success: function (response) {
+                                location.reload();
+                            }
+                        });
+                    }
                 });
 
             });
@@ -1191,15 +1197,17 @@ $(document).ready(function () {
                     cancelButtonText: 'خیر',
                     confirmButtonText: 'بله',
                 }).then((result) => {
-                    $.ajax({
-                        type: 'POST', url: '/ManageCatalogStatus', data: {
-                            id: $(this).data('id'), work: 'ChangeRAMStatus'
-                        }, headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        }, success: function (response) {
-                            location.reload();
-                        }
-                    });
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: 'POST', url: '/ManageCatalogStatus', data: {
+                                id: $(this).data('id'), work: 'ChangeRAMStatus'
+                            }, headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            }, success: function (response) {
+                                location.reload();
+                            }
+                        });
+                    }
                 });
 
             });
@@ -1312,15 +1320,17 @@ $(document).ready(function () {
                     cancelButtonText: 'خیر',
                     confirmButtonText: 'بله',
                 }).then((result) => {
-                    $.ajax({
-                        type: 'POST', url: '/ManageCatalogStatus', data: {
-                            id: $(this).data('id'), work: 'ChangePowerStatus'
-                        }, headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        }, success: function (response) {
-                            location.reload();
-                        }
-                    });
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: 'POST', url: '/ManageCatalogStatus', data: {
+                                id: $(this).data('id'), work: 'ChangePowerStatus'
+                            }, headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            }, success: function (response) {
+                                location.reload();
+                            }
+                        });
+                    }
                 });
 
             });
@@ -1433,15 +1443,17 @@ $(document).ready(function () {
                     cancelButtonText: 'خیر',
                     confirmButtonText: 'بله',
                 }).then((result) => {
-                    $.ajax({
-                        type: 'POST', url: '/ManageCatalogStatus', data: {
-                            id: $(this).data('id'), work: 'ChangeGraphicCardStatus'
-                        }, headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        }, success: function (response) {
-                            location.reload();
-                        }
-                    });
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: 'POST', url: '/ManageCatalogStatus', data: {
+                                id: $(this).data('id'), work: 'ChangeGraphicCardStatus'
+                            }, headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            }, success: function (response) {
+                                location.reload();
+                            }
+                        });
+                    }
                 });
 
             });
@@ -1564,15 +1576,17 @@ $(document).ready(function () {
                     cancelButtonText: 'خیر',
                     confirmButtonText: 'بله',
                 }).then((result) => {
-                    $.ajax({
-                        type: 'POST', url: '/ManageCatalogStatus', data: {
-                            id: $(this).data('id'), work: 'ChangeHarddiskStatus'
-                        }, headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        }, success: function (response) {
-                            location.reload();
-                        }
-                    });
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: 'POST', url: '/ManageCatalogStatus', data: {
+                                id: $(this).data('id'), work: 'ChangeHarddiskStatus'
+                            }, headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            }, success: function (response) {
+                                location.reload();
+                            }
+                        });
+                    }
                 });
 
             });
@@ -1685,15 +1699,17 @@ $(document).ready(function () {
                     cancelButtonText: 'خیر',
                     confirmButtonText: 'بله',
                 }).then((result) => {
-                    $.ajax({
-                        type: 'POST', url: '/ManageCatalogStatus', data: {
-                            id: $(this).data('id'), work: 'ChangeODDStatus'
-                        }, headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        }, success: function (response) {
-                            location.reload();
-                        }
-                    });
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: 'POST', url: '/ManageCatalogStatus', data: {
+                                id: $(this).data('id'), work: 'ChangeODDStatus'
+                            }, headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            }, success: function (response) {
+                                location.reload();
+                            }
+                        });
+                    }
                 });
 
             });
@@ -1806,17 +1822,18 @@ $(document).ready(function () {
                     cancelButtonText: 'خیر',
                     confirmButtonText: 'بله',
                 }).then((result) => {
-                    $.ajax({
-                        type: 'POST', url: '/ManageCatalogStatus', data: {
-                            id: $(this).data('id'), work: 'ChangeNetworkCardStatus'
-                        }, headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        }, success: function (response) {
-                            location.reload();
-                        }
-                    });
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: 'POST', url: '/ManageCatalogStatus', data: {
+                                id: $(this).data('id'), work: 'ChangeNetworkCardStatus'
+                            }, headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            }, success: function (response) {
+                                location.reload();
+                            }
+                        });
+                    }
                 });
-
             });
             break;
         case '/MonitorCatalog':
@@ -1927,15 +1944,17 @@ $(document).ready(function () {
                     cancelButtonText: 'خیر',
                     confirmButtonText: 'بله',
                 }).then((result) => {
-                    $.ajax({
-                        type: 'POST', url: '/ManageCatalogStatus', data: {
-                            id: $(this).data('id'), work: 'ChangeMonitorStatus'
-                        }, headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        }, success: function (response) {
-                            location.reload();
-                        }
-                    });
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: 'POST', url: '/ManageCatalogStatus', data: {
+                                id: $(this).data('id'), work: 'ChangeMonitorStatus'
+                            }, headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            }, success: function (response) {
+                                location.reload();
+                            }
+                        });
+                    }
                 });
 
             });
@@ -2048,15 +2067,17 @@ $(document).ready(function () {
                     cancelButtonText: 'خیر',
                     confirmButtonText: 'بله',
                 }).then((result) => {
-                    $.ajax({
-                        type: 'POST', url: '/ManageCatalogStatus', data: {
-                            id: $(this).data('id'), work: 'ChangePrinterStatus'
-                        }, headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        }, success: function (response) {
-                            location.reload();
-                        }
-                    });
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: 'POST', url: '/ManageCatalogStatus', data: {
+                                id: $(this).data('id'), work: 'ChangePrinterStatus'
+                            }, headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            }, success: function (response) {
+                                location.reload();
+                            }
+                        });
+                    }
                 });
 
             });
@@ -2164,15 +2185,17 @@ $(document).ready(function () {
                     cancelButtonText: 'خیر',
                     confirmButtonText: 'بله',
                 }).then((result) => {
-                    $.ajax({
-                        type: 'POST', url: '/ManageCatalogStatus', data: {
-                            id: $(this).data('id'), work: 'ChangeScannerStatus'
-                        }, headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        }, success: function (response) {
-                            location.reload();
-                        }
-                    });
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: 'POST', url: '/ManageCatalogStatus', data: {
+                                id: $(this).data('id'), work: 'ChangeScannerStatus'
+                            }, headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            }, success: function (response) {
+                                location.reload();
+                            }
+                        });
+                    }
                 });
 
             });
@@ -2280,15 +2303,17 @@ $(document).ready(function () {
                     cancelButtonText: 'خیر',
                     confirmButtonText: 'بله',
                 }).then((result) => {
-                    $.ajax({
-                        type: 'POST', url: '/ManageCatalogStatus', data: {
-                            id: $(this).data('id'), work: 'ChangeCopyMachineStatus'
-                        }, headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        }, success: function (response) {
-                            location.reload();
-                        }
-                    });
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: 'POST', url: '/ManageCatalogStatus', data: {
+                                id: $(this).data('id'), work: 'ChangeCopyMachineStatus'
+                            }, headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            }, success: function (response) {
+                                location.reload();
+                            }
+                        });
+                    }
                 });
 
             });
@@ -2396,15 +2421,17 @@ $(document).ready(function () {
                     cancelButtonText: 'خیر',
                     confirmButtonText: 'بله',
                 }).then((result) => {
-                    $.ajax({
-                        type: 'POST', url: '/ManageCatalogStatus', data: {
-                            id: $(this).data('id'), work: 'ChangeVOIPStatus'
-                        }, headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        }, success: function (response) {
-                            location.reload();
-                        }
-                    });
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: 'POST', url: '/ManageCatalogStatus', data: {
+                                id: $(this).data('id'), work: 'ChangeVOIPStatus'
+                            }, headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            }, success: function (response) {
+                                location.reload();
+                            }
+                        });
+                    }
                 });
 
             });
@@ -2520,15 +2547,17 @@ $(document).ready(function () {
                     cancelButtonText: 'خیر',
                     confirmButtonText: 'بله',
                 }).then((result) => {
-                    $.ajax({
-                        type: 'POST', url: '/ManageCatalogStatus', data: {
-                            id: $(this).data('id'), work: 'ChangeSwitchStatus'
-                        }, headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        }, success: function (response) {
-                            location.reload();
-                        }
-                    });
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: 'POST', url: '/ManageCatalogStatus', data: {
+                                id: $(this).data('id'), work: 'ChangeSwitchStatus'
+                            }, headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            }, success: function (response) {
+                                location.reload();
+                            }
+                        });
+                    }
                 });
 
             });
@@ -2652,15 +2681,17 @@ $(document).ready(function () {
                     cancelButtonText: 'خیر',
                     confirmButtonText: 'بله',
                 }).then((result) => {
-                    $.ajax({
-                        type: 'POST', url: '/ManageCatalogStatus', data: {
-                            id: $(this).data('id'), work: 'ChangeMobileStatus'
-                        }, headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        }, success: function (response) {
-                            location.reload();
-                        }
-                    });
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: 'POST', url: '/ManageCatalogStatus', data: {
+                                id: $(this).data('id'), work: 'ChangeMobileStatus'
+                            }, headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            }, success: function (response) {
+                                location.reload();
+                            }
+                        });
+                    }
                 });
 
             });
@@ -2783,15 +2814,17 @@ $(document).ready(function () {
                     cancelButtonText: 'خیر',
                     confirmButtonText: 'بله',
                 }).then((result) => {
-                    $.ajax({
-                        type: 'POST', url: '/ManageCatalogStatus', data: {
-                            id: $(this).data('id'), work: 'ChangeTabletStatus'
-                        }, headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        }, success: function (response) {
-                            location.reload();
-                        }
-                    });
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: 'POST', url: '/ManageCatalogStatus', data: {
+                                id: $(this).data('id'), work: 'ChangeTabletStatus'
+                            }, headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            }, success: function (response) {
+                                location.reload();
+                            }
+                        });
+                    }
                 });
 
             });
@@ -2899,15 +2932,17 @@ $(document).ready(function () {
                     cancelButtonText: 'خیر',
                     confirmButtonText: 'بله',
                 }).then((result) => {
-                    $.ajax({
-                        type: 'POST', url: '/ManageCatalogStatus', data: {
-                            id: $(this).data('id'), work: 'ChangeWebcamStatus'
-                        }, headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        }, success: function (response) {
-                            location.reload();
-                        }
-                    });
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: 'POST', url: '/ManageCatalogStatus', data: {
+                                id: $(this).data('id'), work: 'ChangeWebcamStatus'
+                            }, headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            }, success: function (response) {
+                                location.reload();
+                            }
+                        });
+                    }
                 });
 
             });
@@ -3015,15 +3050,17 @@ $(document).ready(function () {
                     cancelButtonText: 'خیر',
                     confirmButtonText: 'بله',
                 }).then((result) => {
-                    $.ajax({
-                        type: 'POST', url: '/ManageCatalogStatus', data: {
-                            id: $(this).data('id'), work: 'ChangeRecorderStatus'
-                        }, headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        }, success: function (response) {
-                            location.reload();
-                        }
-                    });
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: 'POST', url: '/ManageCatalogStatus', data: {
+                                id: $(this).data('id'), work: 'ChangeRecorderStatus'
+                            }, headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            }, success: function (response) {
+                                location.reload();
+                            }
+                        });
+                    }
                 });
 
             });
@@ -3131,15 +3168,17 @@ $(document).ready(function () {
                     cancelButtonText: 'خیر',
                     confirmButtonText: 'بله',
                 }).then((result) => {
-                    $.ajax({
-                        type: 'POST', url: '/ManageCatalogStatus', data: {
-                            id: $(this).data('id'), work: 'ChangeHeadphoneStatus'
-                        }, headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        }, success: function (response) {
-                            location.reload();
-                        }
-                    });
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: 'POST', url: '/ManageCatalogStatus', data: {
+                                id: $(this).data('id'), work: 'ChangeHeadphoneStatus'
+                            }, headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            }, success: function (response) {
+                                location.reload();
+                            }
+                        });
+                    }
                 });
 
             });
@@ -3247,15 +3286,17 @@ $(document).ready(function () {
                     cancelButtonText: 'خیر',
                     confirmButtonText: 'بله',
                 }).then((result) => {
-                    $.ajax({
-                        type: 'POST', url: '/ManageCatalogStatus', data: {
-                            id: $(this).data('id'), work: 'ChangeSpeakerStatus'
-                        }, headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        }, success: function (response) {
-                            location.reload();
-                        }
-                    });
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: 'POST', url: '/ManageCatalogStatus', data: {
+                                id: $(this).data('id'), work: 'ChangeSpeakerStatus'
+                            }, headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            }, success: function (response) {
+                                location.reload();
+                            }
+                        });
+                    }
                 });
 
             });
@@ -3363,15 +3404,17 @@ $(document).ready(function () {
                     cancelButtonText: 'خیر',
                     confirmButtonText: 'بله',
                 }).then((result) => {
-                    $.ajax({
-                        type: 'POST', url: '/ManageCatalogStatus', data: {
-                            id: $(this).data('id'), work: 'ChangeVideoProjectorStatus'
-                        }, headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        }, success: function (response) {
-                            location.reload();
-                        }
-                    });
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: 'POST', url: '/ManageCatalogStatus', data: {
+                                id: $(this).data('id'), work: 'ChangeVideoProjectorStatus'
+                            }, headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            }, success: function (response) {
+                                location.reload();
+                            }
+                        });
+                    }
                 });
 
             });
@@ -3484,15 +3527,17 @@ $(document).ready(function () {
                     cancelButtonText: 'خیر',
                     confirmButtonText: 'بله',
                 }).then((result) => {
-                    $.ajax({
-                        type: 'POST', url: '/ManageCatalogStatus', data: {
-                            id: $(this).data('id'), work: 'ChangeVideoProjectorCurtainStatus'
-                        }, headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        }, success: function (response) {
-                            location.reload();
-                        }
-                    });
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: 'POST', url: '/ManageCatalogStatus', data: {
+                                id: $(this).data('id'), work: 'ChangeVideoProjectorCurtainStatus'
+                            }, headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            }, success: function (response) {
+                                location.reload();
+                            }
+                        });
+                    }
                 });
 
             });
@@ -3600,15 +3645,17 @@ $(document).ready(function () {
                     cancelButtonText: 'خیر',
                     confirmButtonText: 'بله',
                 }).then((result) => {
-                    $.ajax({
-                        type: 'POST', url: '/ManageCatalogStatus', data: {
-                            id: $(this).data('id'), work: 'ChangeAssistanceStatus'
-                        }, headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        }, success: function (response) {
-                            location.reload();
-                        }
-                    });
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: 'POST', url: '/ManageCatalogStatus', data: {
+                                id: $(this).data('id'), work: 'ChangeAssistanceStatus'
+                            }, headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            }, success: function (response) {
+                                location.reload();
+                            }
+                        });
+                    }
                 });
 
             });
@@ -3715,15 +3762,17 @@ $(document).ready(function () {
                     cancelButtonText: 'خیر',
                     confirmButtonText: 'بله',
                 }).then((result) => {
-                    $.ajax({
-                        type: 'POST', url: '/ManageCatalogStatus', data: {
-                            id: $(this).data('id'), work: 'ChangeJobStatus'
-                        }, headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        }, success: function (response) {
-                            location.reload();
-                        }
-                    });
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: 'POST', url: '/ManageCatalogStatus', data: {
+                                id: $(this).data('id'), work: 'ChangeJobStatus'
+                            }, headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            }, success: function (response) {
+                                location.reload();
+                            }
+                        });
+                    }
                 });
 
             });
@@ -3830,15 +3879,17 @@ $(document).ready(function () {
                     cancelButtonText: 'خیر',
                     confirmButtonText: 'بله',
                 }).then((result) => {
-                    $.ajax({
-                        type: 'POST', url: '/ManageCatalogStatus', data: {
-                            id: $(this).data('id'), work: 'ChangeEstablishmentPlaceStatus'
-                        }, headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        }, success: function (response) {
-                            location.reload();
-                        }
-                    });
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: 'POST', url: '/ManageCatalogStatus', data: {
+                                id: $(this).data('id'), work: 'ChangeEstablishmentPlaceStatus'
+                            }, headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            }, success: function (response) {
+                                location.reload();
+                            }
+                        });
+                    }
                 });
 
             });
