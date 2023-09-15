@@ -15,7 +15,18 @@ use App\Models\Catalogs\Monitor;
 use App\Models\Catalogs\Motherboard;
 use App\Models\Catalogs\NetworkCard;
 use App\Models\Catalogs\Odd;
+use App\Models\Catalogs\OtherEquipments\Headphone;
+use App\Models\Catalogs\OtherEquipments\Laptop;
+use App\Models\Catalogs\OtherEquipments\Mobile;
+use App\Models\Catalogs\OtherEquipments\Modem;
 use App\Models\Catalogs\OtherEquipments\Recorder;
+use App\Models\Catalogs\OtherEquipments\Router;
+use App\Models\Catalogs\OtherEquipments\Speaker;
+use App\Models\Catalogs\OtherEquipments\Switches;
+use App\Models\Catalogs\OtherEquipments\Tablet;
+use App\Models\Catalogs\OtherEquipments\VideoProjector;
+use App\Models\Catalogs\OtherEquipments\VideoProjectorCurtain;
+use App\Models\Catalogs\OtherEquipments\Webcam;
 use App\Models\Catalogs\Power;
 use App\Models\Catalogs\Printer;
 use App\Models\Catalogs\Ram;
@@ -93,9 +104,53 @@ class CatalogController extends Controller
                 $this->logActivity('Change Status Of VOIP =>' . $id, \request()->ip(), \request()->userAgent(), \session('id'));
                 $model = Voip::class;
                 break;
+            case 'ChangeLaptopStatus':
+                $this->logActivity('Change Status Of Laptop =>' . $id, \request()->ip(), \request()->userAgent(), \session('id'));
+                $model = Laptop::class;
+                break;
+            case 'ChangeMobileStatus':
+                $this->logActivity('Change Status Of Mobile =>' . $id, \request()->ip(), \request()->userAgent(), \session('id'));
+                $model = Mobile::class;
+                break;
+            case 'ChangeTabletStatus':
+                $this->logActivity('Change Status Of Tablet =>' . $id, \request()->ip(), \request()->userAgent(), \session('id'));
+                $model = Tablet::class;
+                break;
+            case 'ChangeWebcamStatus':
+                $this->logActivity('Change Status Of Webcam =>' . $id, \request()->ip(), \request()->userAgent(), \session('id'));
+                $model = Webcam::class;
+                break;
+            case 'ChangeModemStatus':
+                $this->logActivity('Change Status Of Modem =>' . $id, \request()->ip(), \request()->userAgent(), \session('id'));
+                $model = Modem::class;
+                break;
+            case 'ChangeRouterStatus':
+                $this->logActivity('Change Status Of Router =>' . $id, \request()->ip(), \request()->userAgent(), \session('id'));
+                $model = Router::class;
+                break;
+            case 'ChangeSwitchStatus':
+                $this->logActivity('Change Status Of Switch =>' . $id, \request()->ip(), \request()->userAgent(), \session('id'));
+                $model = Switches::class;
+                break;
             case 'ChangeRecorderStatus':
                 $this->logActivity('Change Status Of Recorder =>' . $id, \request()->ip(), \request()->userAgent(), \session('id'));
                 $model = Recorder::class;
+                break;
+            case 'ChangeHeadphoneStatus':
+                $this->logActivity('Change Status Of Headphone =>' . $id, \request()->ip(), \request()->userAgent(), \session('id'));
+                $model = Headphone::class;
+                break;
+            case 'ChangeSpeakerStatus':
+                $this->logActivity('Change Status Of Speaker =>' . $id, \request()->ip(), \request()->userAgent(), \session('id'));
+                $model = Speaker::class;
+                break;
+            case 'ChangeVideoProjectorStatus':
+                $this->logActivity('Change Status Of Video Projector =>' . $id, \request()->ip(), \request()->userAgent(), \session('id'));
+                $model = VideoProjector::class;
+                break;
+            case 'ChangeVideoProjectorCurtainStatus':
+                $this->logActivity('Change Status Of Video Projector Curtain =>' . $id, \request()->ip(), \request()->userAgent(), \session('id'));
+                $model = VideoProjectorCurtain::class;
                 break;
             case 'ChangeAssistanceStatus':
                 $this->logActivity('Change Status Of Assistance =>' . $id, \request()->ip(), \request()->userAgent(), \session('id'));
