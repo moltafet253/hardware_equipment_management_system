@@ -11,6 +11,7 @@ use App\Http\Controllers\Catalogs\GraphicCardController;
 use App\Http\Controllers\Catalogs\HarddiskController;
 use App\Http\Controllers\Catalogs\HeadphoneController;
 use App\Http\Controllers\Catalogs\JobController;
+use App\Http\Controllers\Catalogs\MobileController;
 use App\Http\Controllers\Catalogs\MonitorController;
 use App\Http\Controllers\Catalogs\MotherboardController;
 use App\Http\Controllers\Catalogs\NetworkCardController;
@@ -178,6 +179,11 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
             Route::post('/newWebcam', [WebcamController::class, 'newWebcam']);
             Route::get('/getWebcamInfo', [WebcamController::class, 'getWebcamInfo']);
             Route::post('/editWebcam', [WebcamController::class, 'editWebcam']);
+
+            Route::get('/MobileCatalog', [MobileController::class, 'index']);
+            Route::post('/newMobile', [MobileController::class, 'newMobile']);
+            Route::get('/getMobileInfo', [MobileController::class, 'getMobileInfo']);
+            Route::post('/editMobile', [MobileController::class, 'editMobile']);
 
             Route::get('/RecorderCatalog', [RecorderController::class, 'index']);
             Route::post('/newRecorder', [RecorderController::class, 'newRecorder']);

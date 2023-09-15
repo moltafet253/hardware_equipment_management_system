@@ -2408,6 +2408,137 @@ $(document).ready(function () {
 
             });
             break;
+        case '/MobileCatalog':
+            $('#new-mobile-button, #cancel-new-mobile').on('click', function () {
+                toggleModal(newMobileModal.id);
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.add').on('click', function () {
+                toggleModal(newMobileModal.id)
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.edit').on('click', function () {
+                toggleModal(editMobileModal.id)
+            });
+            $('.MobileControl,#cancel-edit-mobile').on('click', function () {
+                toggleModal(editMobileModal.id);
+            });
+            $('#new-mobile').on('submit', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var form = $(this);
+                        var data = form.serialize();
+                        $.ajax({
+                            type: 'POST', url: '/newMobile', data: data, headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            }, success: function (response) {
+                                if (response.errors) {
+                                    if (response.errors.nullBrand) {
+                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullModel) {
+                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullRam) {
+                                        swalFire('خطا!', response.errors.nullRam[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullInternalMemory) {
+                                        swalFire('خطا!', response.errors.nullInternalMemory[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullSimcardsNumber) {
+                                        swalFire('خطا!', response.errors.nullSimcardsNumber[0], 'error', 'تلاش مجدد');
+                                    }
+                                } else if (response.success) {
+                                    // swalFire('ثبت اطلاعات پرینتر موفقیت آمیز بود!', response.message.printerAdded[0], 'success', 'بستن');
+                                    // toggleModal(newPrinterModal.id);
+                                    location.reload();
+                                    resetFields();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+            $('.MobileControl').on('click', function () {
+                $.ajax({
+                    type: 'GET', url: '/getMobileInfo', data: {
+                        id: $(this).data('id')
+                    }, success: function (response) {
+                        if (response) {
+                            mobile_id.value = response.id;
+                            brandForEdit.value = response.company_id;
+                            modelForEdit.value = response.model;
+                            ramForEdit.value = response.ram;
+                            internal_memoryForEdit.value = response.internal_memory;
+                            simcards_numberForEdit.value = response.simcards_number;
+                        }
+                    }
+                });
+            });
+            $('#edit-mobile').on('submit', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var form = $(this);
+                        var data = form.serialize();
+                        $.ajax({
+                            type: 'POST', url: '/editMobile', data: data, headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            }, success: function (response) {
+                                if (response.errors) {
+                                    if (response.errors.nullBrand) {
+                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullModel) {
+                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullRam) {
+                                        swalFire('خطا!', response.errors.nullRam[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullInternalMemory) {
+                                        swalFire('خطا!', response.errors.nullInternalMemory[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullSimcardsNumber) {
+                                        swalFire('خطا!', response.errors.nullSimcardsNumber[0], 'error', 'تلاش مجدد');
+                                    }
+                                } else if (response.success) {
+                                    // swalFire('ویرایش پرینتر موفقیت آمیز بود!', response.message.printerEdited[0], 'success', 'بستن');
+                                    // toggleModal(editPrinterModal.id);
+                                    location.reload();
+                                    resetFields();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+            $('.deactiveMobileControl').on('click', function () {
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'وضعیت این کاتالوگ تغییر خواهد کرد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    $.ajax({
+                        type: 'POST', url: '/ManageCatalogStatus', data: {
+                            id: $(this).data('id'), work: 'ChangeMobileStatus'
+                        }, headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                        }, success: function (response) {
+                            location.reload();
+                        }
+                    });
+                });
+
+            });
+            break;
         case '/WebcamCatalog':
             $('#new-webcam-button, #cancel-new-webcam').on('click', function () {
                 toggleModal(newWebcamModal.id);
@@ -2873,6 +3004,121 @@ $(document).ready(function () {
             });
             break;
         case '/VideoProjectorCatalog':
+            $('#new-videoProjector-button, #cancel-new-videoProjector').on('click', function () {
+                toggleModal(newVideoProjectorModal.id);
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.add').on('click', function () {
+                toggleModal(newVideoProjectorModal.id)
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.edit').on('click', function () {
+                toggleModal(editVideoProjectorModal.id)
+            });
+            $('.VideoProjectorControl,#cancel-edit-videoProjector').on('click', function () {
+                toggleModal(editVideoProjectorModal.id);
+            });
+            $('#new-videoProjector').on('submit', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var form = $(this);
+                        var data = form.serialize();
+                        $.ajax({
+                            type: 'POST', url: '/newVideoProjector', data: data, headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            }, success: function (response) {
+                                if (response.errors) {
+                                    if (response.errors.nullBrand) {
+                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullModel) {
+                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                    }
+                                } else if (response.success) {
+                                    // swalFire('ثبت اطلاعات پرینتر موفقیت آمیز بود!', response.message.printerAdded[0], 'success', 'بستن');
+                                    // toggleModal(newPrinterModal.id);
+                                    location.reload();
+                                    resetFields();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+            $('.VideoProjectorControl').on('click', function () {
+                $.ajax({
+                    type: 'GET', url: '/getVideoProjectorInfo', data: {
+                        id: $(this).data('id')
+                    }, success: function (response) {
+                        if (response) {
+                            videoProjector_id.value = response.id;
+                            brandForEdit.value = response.company_id;
+                            modelForEdit.value = response.model;
+                        }
+                    }
+                });
+            });
+            $('#edit-videoProjector').on('submit', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var form = $(this);
+                        var data = form.serialize();
+                        $.ajax({
+                            type: 'POST', url: '/editVideoProjector', data: data, headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            }, success: function (response) {
+                                if (response.errors) {
+                                    if (response.errors.nullBrand) {
+                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullModel) {
+                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                    }
+                                } else if (response.success) {
+                                    // swalFire('ویرایش پرینتر موفقیت آمیز بود!', response.message.printerEdited[0], 'success', 'بستن');
+                                    // toggleModal(editPrinterModal.id);
+                                    location.reload();
+                                    resetFields();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+            $('.deactiveVideoProjectorControl').on('click', function () {
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'وضعیت این کاتالوگ تغییر خواهد کرد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    $.ajax({
+                        type: 'POST', url: '/ManageCatalogStatus', data: {
+                            id: $(this).data('id'), work: 'ChangeVideoProjectorStatus'
+                        }, headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                        }, success: function (response) {
+                            location.reload();
+                        }
+                    });
+                });
+
+            });
+            break;
         case '/VideoProjectorCurtainCatalog':
             $('#new-videoProjectorCurtain-button, #cancel-new-videoProjectorCurtain').on('click', function () {
                 toggleModal(newVideoProjectorCurtainModal.id);
