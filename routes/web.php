@@ -20,6 +20,7 @@ use App\Http\Controllers\Catalogs\PrinterController;
 use App\Http\Controllers\Catalogs\RAMController;
 use App\Http\Controllers\Catalogs\RecorderController;
 use App\Http\Controllers\Catalogs\ScannerController;
+use App\Http\Controllers\Catalogs\SpeakerController;
 use App\Http\Controllers\Catalogs\VideoProjectorController;
 use App\Http\Controllers\Catalogs\VOIPController;
 use App\Http\Controllers\Catalogs\WebcamController;
@@ -186,6 +187,11 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
             Route::post('/newHeadphone', [HeadphoneController::class, 'newHeadphone']);
             Route::get('/getHeadphoneInfo', [HeadphoneController::class, 'getHeadphoneInfo']);
             Route::post('/editHeadphone', [HeadphoneController::class, 'editHeadphone']);
+
+            Route::get('/SpeakerCatalog', [SpeakerController::class, 'index']);
+            Route::post('/newSpeaker', [SpeakerController::class, 'newSpeaker']);
+            Route::get('/getSpeakerInfo', [SpeakerController::class, 'getSpeakerInfo']);
+            Route::post('/editSpeaker', [SpeakerController::class, 'editSpeaker']);
 
             Route::get('/VideoProjectorCatalog', [VideoProjectorController::class, 'index']);
             Route::post('/newVideoProjector', [VideoProjectorController::class, 'newVideoProjector']);
