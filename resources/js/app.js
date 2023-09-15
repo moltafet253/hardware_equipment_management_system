@@ -2873,19 +2873,20 @@ $(document).ready(function () {
             });
             break;
         case '/VideoProjectorCatalog':
-            $('#new-videoProjector-button, #cancel-new-videoProjector').on('click', function () {
-                toggleModal(newVideoProjectorModal.id);
+        case '/VideoProjectorCurtainCatalog':
+            $('#new-videoProjectorCurtain-button, #cancel-new-videoProjectorCurtain').on('click', function () {
+                toggleModal(newVideoProjectorCurtainModal.id);
             });
             $('.absolute.inset-0.bg-gray-500.opacity-75.add').on('click', function () {
-                toggleModal(newVideoProjectorModal.id)
+                toggleModal(newVideoProjectorCurtainModal.id)
             });
             $('.absolute.inset-0.bg-gray-500.opacity-75.edit').on('click', function () {
-                toggleModal(editVideoProjectorModal.id)
+                toggleModal(editVideoProjectorCurtainModal.id)
             });
-            $('.VideoProjectorControl,#cancel-edit-videoProjector').on('click', function () {
-                toggleModal(editVideoProjectorModal.id);
+            $('.VideoProjectorCurtainControl,#cancel-edit-videoProjectorCurtain').on('click', function () {
+                toggleModal(editVideoProjectorCurtainModal.id);
             });
-            $('#new-videoProjector').on('submit', function (e) {
+            $('#new-videoProjectorCurtain').on('submit', function (e) {
                 e.preventDefault();
                 Swal.fire({
                     title: 'آیا مطمئن هستید؟',
@@ -2899,7 +2900,7 @@ $(document).ready(function () {
                         var form = $(this);
                         var data = form.serialize();
                         $.ajax({
-                            type: 'POST', url: '/newVideoProjector', data: data, headers: {
+                            type: 'POST', url: '/newVideoProjectorCurtain', data: data, headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                             }, success: function (response) {
                                 if (response.errors) {
@@ -2907,6 +2908,8 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
                                     } else if (response.errors.nullModel) {
                                         swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullSize) {
+                                        swalFire('خطا!', response.errors.nullSize[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
                                     // swalFire('ثبت اطلاعات پرینتر موفقیت آمیز بود!', response.message.printerAdded[0], 'success', 'بستن');
@@ -2919,20 +2922,21 @@ $(document).ready(function () {
                     }
                 });
             });
-            $('.VideoProjectorControl').on('click', function () {
+            $('.VideoProjectorCurtainControl').on('click', function () {
                 $.ajax({
-                    type: 'GET', url: '/getVideoProjectorInfo', data: {
+                    type: 'GET', url: '/getVideoProjectorCurtainInfo', data: {
                         id: $(this).data('id')
                     }, success: function (response) {
                         if (response) {
-                            videoProjector_id.value = response.id;
+                            videoProjectorCurtain_id.value = response.id;
                             brandForEdit.value = response.company_id;
                             modelForEdit.value = response.model;
+                            sizeForEdit.value = response.size;
                         }
                     }
                 });
             });
-            $('#edit-videoProjector').on('submit', function (e) {
+            $('#edit-videoProjectorCurtain').on('submit', function (e) {
                 e.preventDefault();
                 Swal.fire({
                     title: 'آیا مطمئن هستید؟',
@@ -2946,7 +2950,7 @@ $(document).ready(function () {
                         var form = $(this);
                         var data = form.serialize();
                         $.ajax({
-                            type: 'POST', url: '/editVideoProjector', data: data, headers: {
+                            type: 'POST', url: '/editVideoProjectorCurtain', data: data, headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                             }, success: function (response) {
                                 if (response.errors) {
@@ -2954,6 +2958,8 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
                                     } else if (response.errors.nullModel) {
                                         swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullSize) {
+                                        swalFire('خطا!', response.errors.nullSize[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
                                     // swalFire('ویرایش پرینتر موفقیت آمیز بود!', response.message.printerEdited[0], 'success', 'بستن');
@@ -2966,7 +2972,7 @@ $(document).ready(function () {
                     }
                 });
             });
-            $('.deactiveVideoProjectorControl').on('click', function () {
+            $('.deactiveVideoProjectorCurtainControl').on('click', function () {
                 Swal.fire({
                     title: 'آیا مطمئن هستید؟',
                     text: 'وضعیت این کاتالوگ تغییر خواهد کرد.',
@@ -2977,7 +2983,7 @@ $(document).ready(function () {
                 }).then((result) => {
                     $.ajax({
                         type: 'POST', url: '/ManageCatalogStatus', data: {
-                            id: $(this).data('id'), work: 'ChangeVideoProjectorStatus'
+                            id: $(this).data('id'), work: 'ChangeVideoProjectorCurtainStatus'
                         }, headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                         }, success: function (response) {

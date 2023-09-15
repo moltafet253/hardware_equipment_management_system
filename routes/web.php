@@ -22,6 +22,7 @@ use App\Http\Controllers\Catalogs\RecorderController;
 use App\Http\Controllers\Catalogs\ScannerController;
 use App\Http\Controllers\Catalogs\SpeakerController;
 use App\Http\Controllers\Catalogs\VideoProjectorController;
+use App\Http\Controllers\Catalogs\VideoProjectorCurtainController;
 use App\Http\Controllers\Catalogs\VOIPController;
 use App\Http\Controllers\Catalogs\WebcamController;
 use App\Http\Controllers\DashboardController;
@@ -197,6 +198,11 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
             Route::post('/newVideoProjector', [VideoProjectorController::class, 'newVideoProjector']);
             Route::get('/getVideoProjectorInfo', [VideoProjectorController::class, 'getVideoProjectorInfo']);
             Route::post('/editVideoProjector', [VideoProjectorController::class, 'editVideoProjector']);
+
+            Route::get('/VideoProjectorCurtainCatalog', [VideoProjectorCurtainController::class, 'index']);
+            Route::post('/newVideoProjectorCurtain', [VideoProjectorCurtainController::class, 'newVideoProjectorCurtain']);
+            Route::get('/getVideoProjectorCurtainInfo', [VideoProjectorCurtainController::class, 'getVideoProjectorCurtainInfo']);
+            Route::post('/editVideoProjectorCurtain', [VideoProjectorCurtainController::class, 'editVideoProjectorCurtain']);
                 //End Other Equipments Catalogs
 
                 //System Catalogs
