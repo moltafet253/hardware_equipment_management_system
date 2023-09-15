@@ -19,6 +19,7 @@ use App\Http\Controllers\Catalogs\PrinterController;
 use App\Http\Controllers\Catalogs\RAMController;
 use App\Http\Controllers\Catalogs\RecorderController;
 use App\Http\Controllers\Catalogs\ScannerController;
+use App\Http\Controllers\Catalogs\VideoProjectorController;
 use App\Http\Controllers\Catalogs\VOIPController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EquipmentController;
@@ -74,7 +75,7 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
     Route::middleware(NTCPMiddleware::class)->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
         //Search Route
-        Route::middleware('roleAuthorization:1')->group(function () {
+        Route::middleware('roleAuthorization:1')->group(callback: function () {
             Route::get('/Search', [SearchController::class, 'search'])->name('Search');
             //User Manager
             Route::get('/UserManager', [UserManager::class, 'index'])->name('UserManager');
@@ -173,6 +174,11 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
             Route::post('/newRecorder', [RecorderController::class, 'newRecorder']);
             Route::get('/getRecorderInfo', [RecorderController::class, 'getRecorderInfo']);
             Route::post('/editRecorder', [RecorderController::class, 'editRecorder']);
+
+            Route::get('/VideoProjectorCatalog', [VideoProjectorController::class, 'index']);
+            Route::post('/newVideoProjector', [VideoProjectorController::class, 'newVideoProjector']);
+            Route::get('/getVideoProjectorInfo', [VideoProjectorController::class, 'getVideoProjectorInfo']);
+            Route::post('/editVideoProjector', [VideoProjectorController::class, 'editVideoProjector']);
                 //End Other Equipments Catalogs
 
                 //System Catalogs
