@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Catalogs\OtherEquipments;
+namespace App\Models\Catalogs\NetworkEquipments;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -14,7 +14,7 @@ class Switches extends Model
     protected $fillable=[
         'company_id',
         'model',
-        'type',
+        'ports_number',
         'active',
     ];
 }

@@ -22,6 +22,7 @@ use App\Http\Controllers\Catalogs\RAMController;
 use App\Http\Controllers\Catalogs\RecorderController;
 use App\Http\Controllers\Catalogs\ScannerController;
 use App\Http\Controllers\Catalogs\SpeakerController;
+use App\Http\Controllers\Catalogs\SwitchController;
 use App\Http\Controllers\Catalogs\TabletController;
 use App\Http\Controllers\Catalogs\VideoProjectorController;
 use App\Http\Controllers\Catalogs\VideoProjectorCurtainController;
@@ -172,7 +173,10 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
                 //End Hardware Catalogs
 
                 //Network Catalogs
-
+            Route::get('/SwitchCatalog', [SwitchController::class, 'index']);
+            Route::post('/newSwitch', [SwitchController::class, 'newSwitch']);
+            Route::get('/getSwitchInfo', [SwitchController::class, 'getSwitchInfo']);
+            Route::post('/editSwitch', [SwitchController::class, 'editSwitch']);
                 //End Network Catalogs
 
                 //Other Equipments Catalogs
