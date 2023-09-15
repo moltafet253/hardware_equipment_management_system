@@ -20,9 +20,8 @@ use App\Models\Catalogs\OtherEquipments\Laptop;
 use App\Models\Catalogs\OtherEquipments\Mobile;
 use App\Models\Catalogs\OtherEquipments\Modem;
 use App\Models\Catalogs\OtherEquipments\Recorder;
-use App\Models\Catalogs\OtherEquipments\Router;
 use App\Models\Catalogs\OtherEquipments\Speaker;
-use App\Models\Catalogs\OtherEquipments\Switches;
+use App\Models\Catalogs\NetworkEquipments\Switches;
 use App\Models\Catalogs\OtherEquipments\Tablet;
 use App\Models\Catalogs\OtherEquipments\VideoProjector;
 use App\Models\Catalogs\OtherEquipments\VideoProjectorCurtain;
@@ -123,10 +122,6 @@ class CatalogController extends Controller
             case 'ChangeModemStatus':
                 $this->logActivity('Change Status Of Modem =>' . $id, \request()->ip(), \request()->userAgent(), \session('id'));
                 $model = Modem::class;
-                break;
-            case 'ChangeRouterStatus':
-                $this->logActivity('Change Status Of Router =>' . $id, \request()->ip(), \request()->userAgent(), \session('id'));
-                $model = Router::class;
                 break;
             case 'ChangeSwitchStatus':
                 $this->logActivity('Change Status Of Switch =>' . $id, \request()->ip(), \request()->userAgent(), \session('id'));

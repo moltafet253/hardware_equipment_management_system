@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Catalogs;
 use App\Http\Controllers\Controller;
 use App\Models\Catalogs\NetworkEquipments\Switches;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class SwitchController extends Controller
 {
@@ -38,6 +39,12 @@ class SwitchController extends Controller
         $brand = $request->input('brandForEdit');
         $model = $request->input('modelForEdit');
         $ports_number = $request->input('ports_numberForEdit');
+        $validator = Validator::make($request->all(), [
+            'ports_numberForEdit' => 'required|integer|max:100',
+        ]);
+        if ($validator->fails()) {
+            return $this->alerts(false, 'wrongPortsNumber', 'تعداد پورت اشتباه وارد شده است.');
+        }
         if (!$brand) {
             return $this->alerts(false, 'nullBrand', 'نام برند انتخاب نشده است');
         }
