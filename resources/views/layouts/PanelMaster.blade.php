@@ -143,7 +143,7 @@
                             </div>
                             <li class="menu-item" id="dashboard">
                                 <a href="{{ route('dashboard') }}"
-                                   class="flex items-center p-3 my-2 text-cu-light rounded-s-full dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                                   class="flex items-center p-3 my-2 text-cu-light rounded-s-full dark:text-white hover:bg-gray-100 light:hover:bg-gray-700 group">
                                     <svg
                                         class="w-5 h-5 dark:text-white transition duration-75 dark:group-hover:text-gray-700"
                                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
@@ -163,7 +163,7 @@
                                     @if (isset($menu['childs']) && count($menu['childs']) > 0)
                                         <details id="{{ 'details-' . $menu['title'] }}">
                                             <summary
-                                                class="flex items-center p-3 my-2 text-cu-light rounded-s-full dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                                                class="flex items-center p-3 my-2 text-cu-light rounded-s-full dark:text-white hover:bg-gray-100 light:hover:bg-gray-700 group">
                                                 <svg
                                                     class="ml-3 flex-shrink-0 w-5 h-5  transition duration-75 text-cu-light group-hover:text-cu-light dark:group-hover:text-gray-700"
                                                     aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -200,7 +200,7 @@
                                                     <li class="menu-item mr-8" id="{{ $child['title'] }}">
 
                                                         <a href="{{ $child['link'] }}"
-                                                           class="flex items-center p-3 my-2 text-cu-light rounded-s-full dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                                                           class="flex items-center p-3 my-2 text-cu-light rounded-s-full dark:text-white hover:bg-gray-100 light:hover:bg-gray-700 group">
                                                             <svg
                                                                 class="w-5 h-5 dark:text-white transition duration-75 dark:group-hover:text-gray-700"
                                                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -221,7 +221,7 @@
                                             @else
                                                 <li class="menu-item" id="menu{{ $menu['link'] }}">
                                                     <a href="{{ $menu['link'] }}"
-                                                       class="flex items-center p-3 my-2 text-cu-light rounded-s-full dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                                                       class="flex items-center p-3 my-2 text-cu-light rounded-s-full dark:text-white hover:bg-gray-100 light:hover:bg-gray-700 group">
                                                         @if(@$menu['path1'])
                                                             <svg
                                                                 class="w-5 h-5 dark:text-white transition duration-75 dark:group-hover:text-gray-700"
@@ -256,7 +256,7 @@
 
                             <li class="menu-item" id="changePassworld">
                                 <a href="{{ route('ChangePassword') }}"
-                                   class="flex items-center p-3 my-2 text-cu-light rounded-s-full dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                                   class="flex items-center p-3 my-2 text-cu-light rounded-s-full dark:text-white hover:bg-gray-100 light:hover:bg-gray-700 group">
                                     <svg
                                         class="w-5 h-5 text-cu-light transition duration-75  group-hover:text-cu-light dark:group-hover:text-gray-700"
                                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
@@ -269,7 +269,7 @@
                             </li>
                             <li class="menu-item logout" id="logout">
                                 <a href="{{ route('logout') }}"
-                                   class="flex items-center p-3 my-2 text-cu-light rounded-s-full dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                                   class="flex items-center p-3 my-2 text-cu-light rounded-s-full dark:text-white hover:bg-gray-100 light:hover:bg-gray-700 group">
                                     <svg
                                         class="flex-shrink-0 w-5 h-5  transition duration-75 text-cu-light group-hover:text-cu-light dark:group-hover:text-gray-700"
                                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
