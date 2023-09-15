@@ -2539,6 +2539,137 @@ $(document).ready(function () {
 
             });
             break;
+        case '/TabletCatalog':
+            $('#new-tablet-button, #cancel-new-tablet').on('click', function () {
+                toggleModal(newTabletModal.id);
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.add').on('click', function () {
+                toggleModal(newTabletModal.id)
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.edit').on('click', function () {
+                toggleModal(editTabletModal.id)
+            });
+            $('.TabletControl,#cancel-edit-tablet').on('click', function () {
+                toggleModal(editTabletModal.id);
+            });
+            $('#new-tablet').on('submit', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var form = $(this);
+                        var data = form.serialize();
+                        $.ajax({
+                            type: 'POST', url: '/newTablet', data: data, headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            }, success: function (response) {
+                                if (response.errors) {
+                                    if (response.errors.nullBrand) {
+                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullModel) {
+                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullRam) {
+                                        swalFire('خطا!', response.errors.nullRam[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullInternalMemory) {
+                                        swalFire('خطا!', response.errors.nullInternalMemory[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullSimcardsNumber) {
+                                        swalFire('خطا!', response.errors.nullSimcardsNumber[0], 'error', 'تلاش مجدد');
+                                    }
+                                } else if (response.success) {
+                                    // swalFire('ثبت اطلاعات پرینتر موفقیت آمیز بود!', response.message.printerAdded[0], 'success', 'بستن');
+                                    // toggleModal(newPrinterModal.id);
+                                    location.reload();
+                                    resetFields();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+            $('.TabletControl').on('click', function () {
+                $.ajax({
+                    type: 'GET', url: '/getTabletInfo', data: {
+                        id: $(this).data('id')
+                    }, success: function (response) {
+                        if (response) {
+                            tablet_id.value = response.id;
+                            brandForEdit.value = response.company_id;
+                            modelForEdit.value = response.model;
+                            ramForEdit.value = response.ram;
+                            internal_memoryForEdit.value = response.internal_memory;
+                            simcards_numberForEdit.value = response.simcards_number;
+                        }
+                    }
+                });
+            });
+            $('#edit-tablet').on('submit', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var form = $(this);
+                        var data = form.serialize();
+                        $.ajax({
+                            type: 'POST', url: '/editTablet', data: data, headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            }, success: function (response) {
+                                if (response.errors) {
+                                    if (response.errors.nullBrand) {
+                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullModel) {
+                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullRam) {
+                                        swalFire('خطا!', response.errors.nullRam[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullInternalMemory) {
+                                        swalFire('خطا!', response.errors.nullInternalMemory[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullSimcardsNumber) {
+                                        swalFire('خطا!', response.errors.nullSimcardsNumber[0], 'error', 'تلاش مجدد');
+                                    }
+                                } else if (response.success) {
+                                    // swalFire('ویرایش پرینتر موفقیت آمیز بود!', response.message.printerEdited[0], 'success', 'بستن');
+                                    // toggleModal(editPrinterModal.id);
+                                    location.reload();
+                                    resetFields();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+            $('.deactiveTabletControl').on('click', function () {
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'وضعیت این کاتالوگ تغییر خواهد کرد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    $.ajax({
+                        type: 'POST', url: '/ManageCatalogStatus', data: {
+                            id: $(this).data('id'), work: 'ChangeTabletStatus'
+                        }, headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                        }, success: function (response) {
+                            location.reload();
+                        }
+                    });
+                });
+
+            });
+            break;
         case '/WebcamCatalog':
             $('#new-webcam-button, #cancel-new-webcam').on('click', function () {
                 toggleModal(newWebcamModal.id);

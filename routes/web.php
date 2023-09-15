@@ -22,6 +22,7 @@ use App\Http\Controllers\Catalogs\RAMController;
 use App\Http\Controllers\Catalogs\RecorderController;
 use App\Http\Controllers\Catalogs\ScannerController;
 use App\Http\Controllers\Catalogs\SpeakerController;
+use App\Http\Controllers\Catalogs\TabletController;
 use App\Http\Controllers\Catalogs\VideoProjectorController;
 use App\Http\Controllers\Catalogs\VideoProjectorCurtainController;
 use App\Http\Controllers\Catalogs\VOIPController;
@@ -184,6 +185,11 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
             Route::post('/newMobile', [MobileController::class, 'newMobile']);
             Route::get('/getMobileInfo', [MobileController::class, 'getMobileInfo']);
             Route::post('/editMobile', [MobileController::class, 'editMobile']);
+
+            Route::get('/TabletCatalog', [TabletController::class, 'index']);
+            Route::post('/newTablet', [TabletController::class, 'newTablet']);
+            Route::get('/getTabletInfo', [TabletController::class, 'getTabletInfo']);
+            Route::post('/editTablet', [TabletController::class, 'editTablet']);
 
             Route::get('/RecorderCatalog', [RecorderController::class, 'index']);
             Route::post('/newRecorder', [RecorderController::class, 'newRecorder']);
