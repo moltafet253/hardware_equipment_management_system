@@ -21,6 +21,7 @@ use App\Http\Controllers\Catalogs\RecorderController;
 use App\Http\Controllers\Catalogs\ScannerController;
 use App\Http\Controllers\Catalogs\VideoProjectorController;
 use App\Http\Controllers\Catalogs\VOIPController;
+use App\Http\Controllers\Catalogs\WebcamController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EquipmentController;
 use App\Http\Controllers\ExportToExcelController;
@@ -170,6 +171,11 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
                 //End Network Catalogs
 
                 //Other Equipments Catalogs
+            Route::get('/WebcamCatalog', [WebcamController::class, 'index']);
+            Route::post('/newWebcam', [WebcamController::class, 'newWebcam']);
+            Route::get('/getWebcamInfo', [WebcamController::class, 'getWebcamInfo']);
+            Route::post('/editWebcam', [WebcamController::class, 'editWebcam']);
+
             Route::get('/RecorderCatalog', [RecorderController::class, 'index']);
             Route::post('/newRecorder', [RecorderController::class, 'newRecorder']);
             Route::get('/getRecorderInfo', [RecorderController::class, 'getRecorderInfo']);
