@@ -9,6 +9,7 @@ use App\Http\Controllers\Catalogs\CPUController;
 use App\Http\Controllers\Catalogs\EstablishmentPlaceController;
 use App\Http\Controllers\Catalogs\GraphicCardController;
 use App\Http\Controllers\Catalogs\HarddiskController;
+use App\Http\Controllers\Catalogs\HeadphoneController;
 use App\Http\Controllers\Catalogs\JobController;
 use App\Http\Controllers\Catalogs\MonitorController;
 use App\Http\Controllers\Catalogs\MotherboardController;
@@ -180,6 +181,11 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
             Route::post('/newRecorder', [RecorderController::class, 'newRecorder']);
             Route::get('/getRecorderInfo', [RecorderController::class, 'getRecorderInfo']);
             Route::post('/editRecorder', [RecorderController::class, 'editRecorder']);
+
+            Route::get('/HeadphoneCatalog', [HeadphoneController::class, 'index']);
+            Route::post('/newHeadphone', [HeadphoneController::class, 'newHeadphone']);
+            Route::get('/getHeadphoneInfo', [HeadphoneController::class, 'getHeadphoneInfo']);
+            Route::post('/editHeadphone', [HeadphoneController::class, 'editHeadphone']);
 
             Route::get('/VideoProjectorCatalog', [VideoProjectorController::class, 'index']);
             Route::post('/newVideoProjector', [VideoProjectorController::class, 'newVideoProjector']);
