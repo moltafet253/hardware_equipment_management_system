@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('model');
             $table->string('size');
             $table->boolean('active')->default(1)->comment('1 => active , 0 => deactive');
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

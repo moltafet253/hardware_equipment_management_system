@@ -26,8 +26,8 @@ return new class extends Migration
             $table->string('hdd2')->nullable();
             $table->string('graphic_card')->default('onboard');
             $table->boolean('active')->default(1)->comment('1 => active , 0 => deactive');
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
