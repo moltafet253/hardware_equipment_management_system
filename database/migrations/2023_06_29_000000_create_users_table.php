@@ -25,6 +25,7 @@ return new class extends Migration {
             $table->foreign('province_id')->references('id')->on('provinces');
             $table->tinyInteger('active')->default(1);
             $table->tinyInteger('ntcp')->default(0)->comment('Needs To Change Password');
+            $table->text('user_image')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
@@ -35,8 +36,8 @@ return new class extends Migration {
   ('محمد', 'عاشوری', 'ashouri','$password',1,'ادمین کل',35,1,0) ,
   ('رضا', 'قنبری', 'ghanbari','$password',1,'ادمین کل',35,1,0) ,
   ('محسن', 'ضیغمی', 'zeighami','$password',1,'ادمین کل',35,1,0),
+  ('هادی', 'علیجانی', 'alijani','$password',1,'ادمین کل',35,1,0),
   ('حسین', 'نجفی', 'najafi','$password',1,'ادمین کل',35,1,0)
-  ('هادی', 'علیجانی', 'alijani','$password',1,'ادمین کل',35,1,0)
 ";
 
         DB::statement($query);

@@ -77,8 +77,9 @@ Route::get('/captcha', [LoginController::class, 'getCaptcha'])->name('captcha');
 //Panel Routes
 Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class)->group(function () {
     Route::get('/date', [DashboardController::class, 'jalaliDate'])->name('getNow');
-    Route::get('/ChangePassword', [DashboardController::class, 'ChangePassword'])->name('ChangePassword');
-    Route::post('/ChangePasswordInc', [DashboardController::class, 'ChangePasswordInc'])->name('ChangePasswordInc');
+    Route::get('/Profile', [DashboardController::class, 'Profile'])->name('Profile');
+    Route::post('/ChangePasswordInc', [DashboardController::class, 'ChangePasswordInc']);
+    Route::post('/ChangeUserImage', [DashboardController::class, 'ChangeUserImage']);
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
     Route::middleware(NTCPMiddleware::class)->group(function () {

@@ -136,46 +136,77 @@ $(document).ready(function () {
             }
         });
     });
-    //Change Password
-    $('#change-password').submit(function (e) {
-        e.preventDefault();
-
-        var form = $(this);
-        var url = form.attr('action');
-        var data = form.serialize();
-
-        $.ajax({
-            type: 'POST', url: url, data: data, success: function (response) {
-                if (response.success) {
-                    swalFire('عملیات موفقیت آمیز بود!', response.errors.passwordChanged[0], 'success', 'بستن');
-                    oldPass.value = '';
-                    newPass.value = '';
-                    repeatNewPass.value = '';
-                } else {
-                    if (response.errors.oldPassNull) {
-                        swalFire('خطا!', response.errors.oldPassNull[0], 'error', 'تلاش مجدد');
-                    } else if (response.errors.newPassNull) {
-                        swalFire('خطا!', response.errors.newPassNull[0], 'error', 'تلاش مجدد');
-                    } else if (response.errors.repeatNewPassNull) {
-                        swalFire('خطا!', response.errors.repeatNewPassNull[0], 'error', 'تلاش مجدد');
-                    } else if (response.errors.lowerThan8) {
-                        swalFire('خطا!', response.errors.lowerThan8[0], 'error', 'تلاش مجدد');
-                    } else if (response.errors.higherThan12) {
-                        swalFire('خطا!', response.errors.higherThan12[0], 'error', 'تلاش مجدد');
-                    } else if (response.errors.wrongRepeat) {
-                        swalFire('خطا!', response.errors.wrongRepeat[0], 'error', 'تلاش مجدد');
-                    } else if (response.errors.wrongPassword) {
-                        swalFire('خطا!', response.errors.wrongPassword[0], 'error', 'تلاش مجدد');
-                    } else {
-                        location.reload();
-                    }
-                }
-            }, error: function (xhr, textStatus, errorThrown) {
-                // console.log(xhr);
-            }
-        });
-    });
     switch (window.location.pathname) {
+        case "/Profile":
+            $('#change-password').submit(function (e) {
+                e.preventDefault();
+
+                var form = $(this);
+                var data = form.serialize();
+
+                $.ajax({
+                    type: 'POST', url: "/ChangePasswordInc", data: data, headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    }, success: function (response) {
+                        if (response.success) {
+                            swalFire('عملیات موفقیت آمیز بود!', response.errors.passwordChanged[0], 'success', 'بستن');
+                            oldPass.value = '';
+                            newPass.value = '';
+                            repeatNewPass.value = '';
+                        } else {
+                            if (response.errors.oldPassNull) {
+                                swalFire('خطا!', response.errors.oldPassNull[0], 'error', 'تلاش مجدد');
+                            } else if (response.errors.newPassNull) {
+                                swalFire('خطا!', response.errors.newPassNull[0], 'error', 'تلاش مجدد');
+                            } else if (response.errors.repeatNewPassNull) {
+                                swalFire('خطا!', response.errors.repeatNewPassNull[0], 'error', 'تلاش مجدد');
+                            } else if (response.errors.lowerThan8) {
+                                swalFire('خطا!', response.errors.lowerThan8[0], 'error', 'تلاش مجدد');
+                            } else if (response.errors.higherThan12) {
+                                swalFire('خطا!', response.errors.higherThan12[0], 'error', 'تلاش مجدد');
+                            } else if (response.errors.wrongRepeat) {
+                                swalFire('خطا!', response.errors.wrongRepeat[0], 'error', 'تلاش مجدد');
+                            } else if (response.errors.wrongPassword) {
+                                swalFire('خطا!', response.errors.wrongPassword[0], 'error', 'تلاش مجدد');
+                            } else {
+                                location.reload();
+                            }
+                        }
+                    }, error: function (xhr, textStatus, errorThrown) {
+                        // console.log(xhr);
+                    }
+                });
+            });
+            $('#change-user-image').submit(function (e) {
+                e.preventDefault();
+                var form = $(this);
+                var formData = new FormData(form[0]);
+                $.ajax({
+                    type: 'POST',
+                    url: "/ChangeUserImage",
+                    data: formData,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        console.log(response);
+                        if (response.success) {
+                            // location.reload();
+                        } else {
+                            if (response.errors.wrongImage) {
+                                swalFire('خطا!', response.errors.wrongImage[0], 'error', 'تلاش مجدد');
+                            } else {
+                                location.reload();
+                            }
+                        }
+                    }, error: function (xhr, textStatus, errorThrown) {
+                        // console.log(xhr);
+                    }
+                });
+            });
+            break;
         case "/UserManager":
             //Search In User Manager
             $('#search-Username-UserManager').on('input', function () {

@@ -10,9 +10,9 @@ use Morilog\Jalali\Jalalian;
 
 class DashboardController extends Controller
 {
-    public function ChangePassword()
+    public function Profile()
     {
-        return view('ChangePassword');
+        return view('Profile');
     }
 
     public function ChangePasswordInc(Request $request)
@@ -42,6 +42,24 @@ class DashboardController extends Controller
             $user->save();
             $this->logActivity('Password Changed', request()->ip(), request()->userAgent(), session('id'));
             return $this->alerts(true, 'passwordChanged', 'رمز عبور با موفقیت تغییر کرد!');
+        }
+    }
+
+    public function ChangeUserImage(Request $request)
+    {
+        $file_src = $request->file('image');
+        if ($file_src) {
+            $folderName = str_replace('/', '', bcrypt($file_src->getClientOriginalName()));
+            $folderName = str_replace('\\', '', $folderName);
+            $postFilePath = $file_src->storeAs('public/UserImages/' . $folderName, $file_src->getClientOriginalName());
+            if ($postFilePath){
+                $user=User::find(session('id'));
+                $user->user_image=$postFilePath;
+                $user->save();
+                return $this->alerts(true, 'imageChanged', 'رمز عبور با موفقیت تغییر کرد!');
+            }
+        } else {
+            return $this->alerts(false, 'wrongImage', 'فایل اثر انتخاب نشده است');
         }
     }
 
