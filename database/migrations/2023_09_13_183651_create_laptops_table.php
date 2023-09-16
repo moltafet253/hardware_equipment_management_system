@@ -16,15 +16,9 @@ return new class extends Migration
             $table->unsignedBigInteger('company_id');
             $table->foreign('company_id')->references('id')->on('companies');
             $table->string('model');
-            $table->integer('screen_size');
             $table->string('cpu');
-            $table->integer('ram1');
-            $table->integer('ram2')->nullable();
-            $table->integer('ram3')->nullable();
-            $table->integer('ram4')->nullable();
-            $table->string('hdd1');
-            $table->string('hdd2')->nullable();
             $table->string('graphic_card')->default('onboard');
+            $table->float('screen_size')->nullable();
             $table->boolean('active')->default(1)->comment('1 => active , 0 => deactive');
             $table->timestamps();
             $table->softDeletes();

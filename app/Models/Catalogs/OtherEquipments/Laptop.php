@@ -14,15 +14,9 @@ class Laptop extends Model
     protected $fillable=[
         'company_id',
         'model',
-        'screen_size',
         'cpu',
-        'ram1',
-        'ram2',
-        'ram3',
-        'ram4',
-        'hdd1',
-        'hdd2',
         'graphic_card',
+        'screen_size',
         'active',
     ];
 }

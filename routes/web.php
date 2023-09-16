@@ -11,6 +11,7 @@ use App\Http\Controllers\Catalogs\GraphicCardController;
 use App\Http\Controllers\Catalogs\HarddiskController;
 use App\Http\Controllers\Catalogs\HeadphoneController;
 use App\Http\Controllers\Catalogs\JobController;
+use App\Http\Controllers\Catalogs\LaptopController;
 use App\Http\Controllers\Catalogs\MobileController;
 use App\Http\Controllers\Catalogs\ModemController;
 use App\Http\Controllers\Catalogs\MonitorController;
@@ -186,10 +187,11 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
                 //End Network Catalogs
 
                 //Other Equipments Catalogs
-            Route::get('/WebcamCatalog', [WebcamController::class, 'index']);
-            Route::post('/newWebcam', [WebcamController::class, 'newWebcam']);
-            Route::get('/getWebcamInfo', [WebcamController::class, 'getWebcamInfo']);
-            Route::post('/editWebcam', [WebcamController::class, 'editWebcam']);
+
+            Route::get('/LaptopCatalog', [LaptopController::class, 'index']);
+            Route::post('/newLaptop', [LaptopController::class, 'newLaptop']);
+            Route::get('/getLaptopInfo', [LaptopController::class, 'getLaptopInfo']);
+            Route::post('/editLaptop', [LaptopController::class, 'editLaptop']);
 
             Route::get('/MobileCatalog', [MobileController::class, 'index']);
             Route::post('/newMobile', [MobileController::class, 'newMobile']);
@@ -200,6 +202,11 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
             Route::post('/newTablet', [TabletController::class, 'newTablet']);
             Route::get('/getTabletInfo', [TabletController::class, 'getTabletInfo']);
             Route::post('/editTablet', [TabletController::class, 'editTablet']);
+
+            Route::get('/WebcamCatalog', [WebcamController::class, 'index']);
+            Route::post('/newWebcam', [WebcamController::class, 'newWebcam']);
+            Route::get('/getWebcamInfo', [WebcamController::class, 'getWebcamInfo']);
+            Route::post('/editWebcam', [WebcamController::class, 'editWebcam']);
 
             Route::get('/RecorderCatalog', [RecorderController::class, 'index']);
             Route::post('/newRecorder', [RecorderController::class, 'newRecorder']);
