@@ -31,7 +31,7 @@ function hasOnlyPersianCharacters(input) {
 }
 
 function hasOnlyEnglishCharacters(input) {
-    var englishPattern = /^[a-zA-Z\s]+$/;
+    var englishPattern = /^[a-zA-Z0-9\s]+$/;
     return englishPattern.test(input);
 }
 
@@ -714,47 +714,52 @@ $(document).ready(function () {
             });
             $('#new-motherboard').on('submit', function (e) {
                 e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST', url: '/newMotherboard', data: data, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullBrand) {
-                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullCPUSlotNumbers) {
-                                        swalFire('خطا!', response.errors.nullCPUSlotNumbers[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullRAMSlotNumbers) {
-                                        swalFire('خطا!', response.errors.nullRAMSlotNumbers[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullModel) {
-                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullCPUSlotType) {
-                                        swalFire('خطا!', response.errors.nullCPUSlotType[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullRamSlotGeneration) {
-                                        swalFire('خطا!', response.errors.nullRamSlotGeneration[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullGeneration) {
-                                        swalFire('خطا!', response.errors.nullGeneration[0], 'error', 'تلاش مجدد');
+                if (!hasOnlyEnglishCharacters(model.value)) {
+                    swalFire('خطا!', 'مدل اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/newMotherboard', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullBrand) {
+                                            swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullCPUSlotNumbers) {
+                                            swalFire('خطا!', response.errors.nullCPUSlotNumbers[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullRAMSlotNumbers) {
+                                            swalFire('خطا!', response.errors.nullRAMSlotNumbers[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullModel) {
+                                            swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullCPUSlotType) {
+                                            swalFire('خطا!', response.errors.nullCPUSlotType[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullRamSlotGeneration) {
+                                            swalFire('خطا!', response.errors.nullRamSlotGeneration[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullGeneration) {
+                                            swalFire('خطا!', response.errors.nullGeneration[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ثبت مادربورد موفقیت آمیز بود!', response.message.motherboardAdded[0], 'success', 'بستن');
+                                        // toggleModal(newMotherboardModal.id);
+                                        location.reload();
+                                        resetFields();
                                     }
-                                } else if (response.success) {
-                                    // swalFire('ثبت مادربورد موفقیت آمیز بود!', response.message.motherboardAdded[0], 'success', 'بستن');
-                                    // toggleModal(newMotherboardModal.id);
-                                    location.reload();
-                                    resetFields();
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
             });
             $('.MotherboardControl').on('click', function () {
                 $.ajax({
@@ -776,47 +781,51 @@ $(document).ready(function () {
             });
             $('#edit-motherboard').on('submit', function (e) {
                 e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST', url: '/editMotherboard', data: data, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullBrand) {
-                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullCPUSlotNumbers) {
-                                        swalFire('خطا!', response.errors.nullCPUSlotNumbers[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullRAMSlotNumbers) {
-                                        swalFire('خطا!', response.errors.nullRAMSlotNumbers[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullModel) {
-                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullCPUSlotType) {
-                                        swalFire('خطا!', response.errors.nullCPUSlotType[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullRamSlotGeneration) {
-                                        swalFire('خطا!', response.errors.nullRamSlotGeneration[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullGeneration) {
-                                        swalFire('خطا!', response.errors.nullGeneration[0], 'error', 'تلاش مجدد');
+                if (!hasOnlyEnglishCharacters(modelForEdit.value)) {
+                    swalFire('خطا!', 'مدل اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/editMotherboard', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullBrand) {
+                                            swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullCPUSlotNumbers) {
+                                            swalFire('خطا!', response.errors.nullCPUSlotNumbers[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullRAMSlotNumbers) {
+                                            swalFire('خطا!', response.errors.nullRAMSlotNumbers[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullModel) {
+                                            swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullCPUSlotType) {
+                                            swalFire('خطا!', response.errors.nullCPUSlotType[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullRamSlotGeneration) {
+                                            swalFire('خطا!', response.errors.nullRamSlotGeneration[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullGeneration) {
+                                            swalFire('خطا!', response.errors.nullGeneration[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ویرایش مادربورد موفقیت آمیز بود!', response.message.motherboardEdited[0], 'success', 'بستن');
+                                        // toggleModal(editMotherboardModal.id);
+                                        location.reload();
+                                        resetFields();
                                     }
-                                } else if (response.success) {
-                                    // swalFire('ویرایش مادربورد موفقیت آمیز بود!', response.message.motherboardEdited[0], 'success', 'بستن');
-                                    // toggleModal(editMotherboardModal.id);
-                                    location.reload();
-                                    resetFields();
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
             });
             $('.deactiveMotherboardControl').on('click', function () {
                 Swal.fire({
@@ -857,37 +866,41 @@ $(document).ready(function () {
             });
             $('#new-case').on('submit', function (e) {
                 e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST', url: '/newCase', data: data, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullBrand) {
-                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullModel) {
-                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                if (!hasOnlyEnglishCharacters(model.value)) {
+                    swalFire('خطا!', 'مدل اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/newCase', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullBrand) {
+                                            swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullModel) {
+                                            swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ثبت اطلاعات کیس موفقیت آمیز بود!', response.message.caseAdded[0], 'success', 'بستن');
+                                        // toggleModal(newCaseModal.id);
+                                        location.reload();
+                                        resetFields();
                                     }
-                                } else if (response.success) {
-                                    // swalFire('ثبت اطلاعات کیس موفقیت آمیز بود!', response.message.caseAdded[0], 'success', 'بستن');
-                                    // toggleModal(newCaseModal.id);
-                                    location.reload();
-                                    resetFields();
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
             });
             $('.CaseControl').on('click', function () {
                 $.ajax({
@@ -904,37 +917,41 @@ $(document).ready(function () {
             });
             $('#edit-case').on('submit', function (e) {
                 e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST', url: '/editCase', data: data, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullBrand) {
-                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullModel) {
-                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                if (!hasOnlyEnglishCharacters(modelForEdit.value)) {
+                    swalFire('خطا!', 'مدل اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/editCase', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullBrand) {
+                                            swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullModel) {
+                                            swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ویرایش کیس موفقیت آمیز بود!', response.message.caseEdited[0], 'success', 'بستن');
+                                        // toggleModal(editCaseModal.id);
+                                        location.reload();
+                                        resetFields();
                                     }
-                                } else if (response.success) {
-                                    // swalFire('ویرایش کیس موفقیت آمیز بود!', response.message.caseEdited[0], 'success', 'بستن');
-                                    // toggleModal(editCaseModal.id);
-                                    location.reload();
-                                    resetFields();
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
             });
             $('.deactiveCaseControl').on('click', function () {
                 Swal.fire({
@@ -975,39 +992,43 @@ $(document).ready(function () {
             });
             $('#new-cpu').on('submit', function (e) {
                 e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST', url: '/newCPU', data: data, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullBrand) {
-                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullModel) {
-                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullGeneration) {
-                                        swalFire('خطا!', response.errors.nullGeneration[0], 'error', 'تلاش مجدد');
+                if (!hasOnlyEnglishCharacters(model.value)) {
+                    swalFire('خطا!', 'مدل اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/newCPU', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullBrand) {
+                                            swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullModel) {
+                                            swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullGeneration) {
+                                            swalFire('خطا!', response.errors.nullGeneration[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ثبت اطلاعات پردازنده موفقیت آمیز بود!', response.message.cpuAdded[0], 'success', 'بستن');
+                                        // toggleModal(newCPUModal.id);
+                                        location.reload();
+                                        resetFields();
                                     }
-                                } else if (response.success) {
-                                    // swalFire('ثبت اطلاعات پردازنده موفقیت آمیز بود!', response.message.cpuAdded[0], 'success', 'بستن');
-                                    // toggleModal(newCPUModal.id);
-                                    location.reload();
-                                    resetFields();
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
             });
             $('.CPUControl').on('click', function () {
                 $.ajax({
@@ -1025,39 +1046,43 @@ $(document).ready(function () {
             });
             $('#edit-cpu').on('submit', function (e) {
                 e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST', url: '/editCPU', data: data, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullBrand) {
-                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullModel) {
-                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullGeneration) {
-                                        swalFire('خطا!', response.errors.nullGeneration[0], 'error', 'تلاش مجدد');
+                if (!hasOnlyEnglishCharacters(modelForEdit.value)) {
+                    swalFire('خطا!', 'مدل اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/editCPU', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullBrand) {
+                                            swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullModel) {
+                                            swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullGeneration) {
+                                            swalFire('خطا!', response.errors.nullGeneration[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ویرایش پردازنده موفقیت آمیز بود!', response.message.cpuEdited[0], 'success', 'بستن');
+                                        // toggleModal(editCPUModal.id);
+                                        location.reload();
+                                        resetFields();
                                     }
-                                } else if (response.success) {
-                                    // swalFire('ویرایش پردازنده موفقیت آمیز بود!', response.message.cpuEdited[0], 'success', 'بستن');
-                                    // toggleModal(editCPUModal.id);
-                                    location.reload();
-                                    resetFields();
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
             });
             $('.deactiveCPUControl').on('click', function () {
                 Swal.fire({
@@ -1098,43 +1123,47 @@ $(document).ready(function () {
             });
             $('#new-ram').on('submit', function (e) {
                 e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST', url: '/newRAM', data: data, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullBrand) {
-                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullModel) {
-                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullType) {
-                                        swalFire('خطا!', response.errors.nullType[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullFrequency) {
-                                        swalFire('خطا!', response.errors.nullFrequency[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullSize) {
-                                        swalFire('خطا!', response.errors.nullSize[0], 'error', 'تلاش مجدد');
+                if (!hasOnlyEnglishCharacters(model.value)) {
+                    swalFire('خطا!', 'مدل اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/newRAM', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullBrand) {
+                                            swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullModel) {
+                                            swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullType) {
+                                            swalFire('خطا!', response.errors.nullType[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullFrequency) {
+                                            swalFire('خطا!', response.errors.nullFrequency[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullSize) {
+                                            swalFire('خطا!', response.errors.nullSize[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ثبت اطلاعات رم موفقیت آمیز بود!', response.message.ramAdded[0], 'success', 'بستن');
+                                        // toggleModal(newRAMModal.id);
+                                        location.reload();
+                                        resetFields();
                                     }
-                                } else if (response.success) {
-                                    // swalFire('ثبت اطلاعات رم موفقیت آمیز بود!', response.message.ramAdded[0], 'success', 'بستن');
-                                    // toggleModal(newRAMModal.id);
-                                    location.reload();
-                                    resetFields();
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
             });
             $('.RAMControl').on('click', function () {
                 $.ajax({
@@ -1154,43 +1183,47 @@ $(document).ready(function () {
             });
             $('#edit-ram').on('submit', function (e) {
                 e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST', url: '/editRAM', data: data, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullBrand) {
-                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullModel) {
-                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullType) {
-                                        swalFire('خطا!', response.errors.nullType[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullFrequency) {
-                                        swalFire('خطا!', response.errors.nullFrequency[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullSize) {
-                                        swalFire('خطا!', response.errors.nullSize[0], 'error', 'تلاش مجدد');
+                if (!hasOnlyEnglishCharacters(modelForEdit.value)) {
+                    swalFire('خطا!', 'مدل اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/editRAM', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullBrand) {
+                                            swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullModel) {
+                                            swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullType) {
+                                            swalFire('خطا!', response.errors.nullType[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullFrequency) {
+                                            swalFire('خطا!', response.errors.nullFrequency[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullSize) {
+                                            swalFire('خطا!', response.errors.nullSize[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ویرایش رم موفقیت آمیز بود!', response.message.ramEdited[0], 'success', 'بستن');
+                                        // toggleModal(editRAMModal.id);
+                                        location.reload();
+                                        resetFields();
                                     }
-                                } else if (response.success) {
-                                    // swalFire('ویرایش رم موفقیت آمیز بود!', response.message.ramEdited[0], 'success', 'بستن');
-                                    // toggleModal(editRAMModal.id);
-                                    location.reload();
-                                    resetFields();
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
             });
             $('.deactiveRAMControl').on('click', function () {
                 Swal.fire({
@@ -1231,39 +1264,45 @@ $(document).ready(function () {
             });
             $('#new-power').on('submit', function (e) {
                 e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST', url: '/newPower', data: data, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullBrand) {
-                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullModel) {
-                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullVoltage) {
-                                        swalFire('خطا!', response.errors.nullVoltage[0], 'error', 'تلاش مجدد');
+                if (!hasOnlyEnglishCharacters(model.value)) {
+                    swalFire('خطا!', 'مدل اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else if (isNaN(output_voltage.value)) {
+                    swalFire('خطا!', 'ولتاژ خروجی وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/newPower', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullBrand) {
+                                            swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullModel) {
+                                            swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullVoltage) {
+                                            swalFire('خطا!', response.errors.nullVoltage[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ثبت اطلاعات منبع تغذیه موفقیت آمیز بود!', response.message.powerAdded[0], 'success', 'بستن');
+                                        // toggleModal(newPowerModal.id);
+                                        location.reload();
+                                        resetFields();
                                     }
-                                } else if (response.success) {
-                                    // swalFire('ثبت اطلاعات منبع تغذیه موفقیت آمیز بود!', response.message.powerAdded[0], 'success', 'بستن');
-                                    // toggleModal(newPowerModal.id);
-                                    location.reload();
-                                    resetFields();
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
             });
             $('.PowerControl').on('click', function () {
                 $.ajax({
@@ -1281,39 +1320,45 @@ $(document).ready(function () {
             });
             $('#edit-power').on('submit', function (e) {
                 e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST', url: '/editPower', data: data, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullBrand) {
-                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullModel) {
-                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullVoltage) {
-                                        swalFire('خطا!', response.errors.nullVoltage[0], 'error', 'تلاش مجدد');
+                if (!hasOnlyEnglishCharacters(modelForEdit.value)) {
+                    swalFire('خطا!', 'مدل اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else if (isNaN(output_voltageForEdit.value)) {
+                    swalFire('خطا!', 'ولتاژ خروجی وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/editPower', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullBrand) {
+                                            swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullModel) {
+                                            swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullVoltage) {
+                                            swalFire('خطا!', response.errors.nullVoltage[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ویرایش منبع تغذیه موفقیت آمیز بود!', response.message.powerEdited[0], 'success', 'بستن');
+                                        // toggleModal(editPowerModal.id);
+                                        location.reload();
+                                        resetFields();
                                     }
-                                } else if (response.success) {
-                                    // swalFire('ویرایش منبع تغذیه موفقیت آمیز بود!', response.message.powerEdited[0], 'success', 'بستن');
-                                    // toggleModal(editPowerModal.id);
-                                    location.reload();
-                                    resetFields();
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
             });
             $('.deactivePowerControl').on('click', function () {
                 Swal.fire({
@@ -1354,39 +1399,43 @@ $(document).ready(function () {
             });
             $('#new-graphiccard').on('submit', function (e) {
                 e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST', url: '/newGraphicCard', data: data, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullBrand) {
-                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullModel) {
-                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullRamSize) {
-                                        swalFire('خطا!', response.errors.nullRamSize[0], 'error', 'تلاش مجدد');
+                if (!hasOnlyEnglishCharacters(model.value)) {
+                    swalFire('خطا!', 'مدل اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/newGraphicCard', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullBrand) {
+                                            swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullModel) {
+                                            swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullRamSize) {
+                                            swalFire('خطا!', response.errors.nullRamSize[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ثبت اطلاعات کارت گرافیک موفقیت آمیز بود!', response.message.graphiccardAdded[0], 'success', 'بستن');
+                                        // toggleModal(newGraphicCardModal.id);
+                                        location.reload();
+                                        resetFields();
                                     }
-                                } else if (response.success) {
-                                    // swalFire('ثبت اطلاعات کارت گرافیک موفقیت آمیز بود!', response.message.graphiccardAdded[0], 'success', 'بستن');
-                                    // toggleModal(newGraphicCardModal.id);
-                                    location.reload();
-                                    resetFields();
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
             });
             $('.GraphicCardControl').on('click', function () {
                 $.ajax({
@@ -1404,39 +1453,43 @@ $(document).ready(function () {
             });
             $('#edit-graphiccard').on('submit', function (e) {
                 e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST', url: '/editGraphicCard', data: data, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullBrand) {
-                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullModel) {
-                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullRamSize) {
-                                        swalFire('خطا!', response.errors.nullRamSize[0], 'error', 'تلاش مجدد');
+                if (!hasOnlyEnglishCharacters(modelForEdit.value)) {
+                    swalFire('خطا!', 'مدل اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/editGraphicCard', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullBrand) {
+                                            swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullModel) {
+                                            swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullRamSize) {
+                                            swalFire('خطا!', response.errors.nullRamSize[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ویرایش کارت گرافیک موفقیت آمیز بود!', response.message.graphiccardEdited[0], 'success', 'بستن');
+                                        // toggleModal(editGraphicCardModal.id);
+                                        location.reload();
+                                        resetFields();
                                     }
-                                } else if (response.success) {
-                                    // swalFire('ویرایش کارت گرافیک موفقیت آمیز بود!', response.message.graphiccardEdited[0], 'success', 'بستن');
-                                    // toggleModal(editGraphicCardModal.id);
-                                    location.reload();
-                                    resetFields();
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
             });
             $('.deactiveGraphicCardControl').on('click', function () {
                 Swal.fire({
@@ -1477,43 +1530,47 @@ $(document).ready(function () {
             });
             $('#new-harddisk').on('submit', function (e) {
                 e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST', url: '/newHarddisk', data: data, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullBrand) {
-                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullModel) {
-                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullType) {
-                                        swalFire('خطا!', response.errors.nullType[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullCapacity) {
-                                        swalFire('خطا!', response.errors.nullCapacity[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullConnectivityType) {
-                                        swalFire('خطا!', response.errors.nullConnectivityType[0], 'error', 'تلاش مجدد');
+                if (!hasOnlyEnglishCharacters(model.value)) {
+                    swalFire('خطا!', 'مدل اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/newHarddisk', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullBrand) {
+                                            swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullModel) {
+                                            swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullType) {
+                                            swalFire('خطا!', response.errors.nullType[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullCapacity) {
+                                            swalFire('خطا!', response.errors.nullCapacity[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullConnectivityType) {
+                                            swalFire('خطا!', response.errors.nullConnectivityType[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ثبت اطلاعات هارد موفقیت آمیز بود!', response.message.harddiskAdded[0], 'success', 'بستن');
+                                        // toggleModal(newHarddiskModal.id);
+                                        location.reload();
+                                        resetFields();
                                     }
-                                } else if (response.success) {
-                                    // swalFire('ثبت اطلاعات هارد موفقیت آمیز بود!', response.message.harddiskAdded[0], 'success', 'بستن');
-                                    // toggleModal(newHarddiskModal.id);
-                                    location.reload();
-                                    resetFields();
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
             });
             $('.HarddiskControl').on('click', function () {
                 $.ajax({
@@ -1533,43 +1590,47 @@ $(document).ready(function () {
             });
             $('#edit-Harddisk').on('submit', function (e) {
                 e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST', url: '/editHarddisk', data: data, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullBrand) {
-                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullModel) {
-                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullType) {
-                                        swalFire('خطا!', response.errors.nullType[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullCapacity) {
-                                        swalFire('خطا!', response.errors.nullCapacity[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullConnectivityType) {
-                                        swalFire('خطا!', response.errors.nullConnectivityType[0], 'error', 'تلاش مجدد');
+                if (!hasOnlyEnglishCharacters(modelForEdit.value)) {
+                    swalFire('خطا!', 'مدل اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/editHarddisk', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullBrand) {
+                                            swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullModel) {
+                                            swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullType) {
+                                            swalFire('خطا!', response.errors.nullType[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullCapacity) {
+                                            swalFire('خطا!', response.errors.nullCapacity[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullConnectivityType) {
+                                            swalFire('خطا!', response.errors.nullConnectivityType[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ویرایش هارد موفقیت آمیز بود!', response.message.harddiskEdited[0], 'success', 'بستن');
+                                        // toggleModal(editHarddiskModal.id);
+                                        location.reload();
+                                        resetFields();
                                     }
-                                } else if (response.success) {
-                                    // swalFire('ویرایش هارد موفقیت آمیز بود!', response.message.harddiskEdited[0], 'success', 'بستن');
-                                    // toggleModal(editHarddiskModal.id);
-                                    location.reload();
-                                    resetFields();
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
             });
             $('.deactiveHarddiskControl').on('click', function () {
                 Swal.fire({
@@ -1610,39 +1671,43 @@ $(document).ready(function () {
             });
             $('#new-ODD').on('submit', function (e) {
                 e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST', url: '/newODD', data: data, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullBrand) {
-                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullModel) {
-                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullConnectivityType) {
-                                        swalFire('خطا!', response.errors.nullGeneration[0], 'error', 'تلاش مجدد');
+                if (!hasOnlyEnglishCharacters(model.value)) {
+                    swalFire('خطا!', 'مدل اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/newODD', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullBrand) {
+                                            swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullModel) {
+                                            swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullConnectivityType) {
+                                            swalFire('خطا!', response.errors.nullGeneration[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ثبت اطلاعات درایو نوری موفقیت آمیز بود!', response.message.ODDAdded[0], 'success', 'بستن');
+                                        // toggleModal(newODDModal.id);
+                                        location.reload();
+                                        resetFields();
                                     }
-                                } else if (response.success) {
-                                    // swalFire('ثبت اطلاعات درایو نوری موفقیت آمیز بود!', response.message.ODDAdded[0], 'success', 'بستن');
-                                    // toggleModal(newODDModal.id);
-                                    location.reload();
-                                    resetFields();
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
             });
             $('.ODDControl').on('click', function () {
                 $.ajax({
@@ -1660,39 +1725,43 @@ $(document).ready(function () {
             });
             $('#edit-ODD').on('submit', function (e) {
                 e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST', url: '/editODD', data: data, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullBrand) {
-                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullModel) {
-                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullConnectivityType) {
-                                        swalFire('خطا!', response.errors.nullGeneration[0], 'error', 'تلاش مجدد');
+                if (!hasOnlyEnglishCharacters(modelForEdit.value)) {
+                    swalFire('خطا!', 'مدل اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/editODD', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullBrand) {
+                                            swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullModel) {
+                                            swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullConnectivityType) {
+                                            swalFire('خطا!', response.errors.nullGeneration[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ویرایش درایو نوری موفقیت آمیز بود!', response.message.ODDEdited[0], 'success', 'بستن');
+                                        // toggleModal(editODDModal.id);
+                                        location.reload();
+                                        resetFields();
                                     }
-                                } else if (response.success) {
-                                    // swalFire('ویرایش درایو نوری موفقیت آمیز بود!', response.message.ODDEdited[0], 'success', 'بستن');
-                                    // toggleModal(editODDModal.id);
-                                    location.reload();
-                                    resetFields();
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
             });
             $('.deactiveODDControl').on('click', function () {
                 Swal.fire({
@@ -1733,39 +1802,43 @@ $(document).ready(function () {
             });
             $('#new-NetworkCard').on('submit', function (e) {
                 e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST', url: '/newNetworkCard', data: data, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullBrand) {
-                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullModel) {
-                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullConnectivityType) {
-                                        swalFire('خطا!', response.errors.nullGeneration[0], 'error', 'تلاش مجدد');
+                if (!hasOnlyEnglishCharacters(model.value)) {
+                    swalFire('خطا!', 'مدل اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/newNetworkCard', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullBrand) {
+                                            swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullModel) {
+                                            swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullConnectivityType) {
+                                            swalFire('خطا!', response.errors.nullGeneration[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ثبت اطلاعات کارت شبکه موفقیت آمیز بود!', response.message.NetworkCardAdded[0], 'success', 'بستن');
+                                        // toggleModal(newNetworkCardModal.id);
+                                        location.reload();
+                                        resetFields();
                                     }
-                                } else if (response.success) {
-                                    // swalFire('ثبت اطلاعات کارت شبکه موفقیت آمیز بود!', response.message.NetworkCardAdded[0], 'success', 'بستن');
-                                    // toggleModal(newNetworkCardModal.id);
-                                    location.reload();
-                                    resetFields();
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
             });
             $('.NetworkCardControl').on('click', function () {
                 $.ajax({
@@ -1783,39 +1856,43 @@ $(document).ready(function () {
             });
             $('#edit-NetworkCard').on('submit', function (e) {
                 e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST', url: '/editNetworkCard', data: data, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullBrand) {
-                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullModel) {
-                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullConnectivityType) {
-                                        swalFire('خطا!', response.errors.nullGeneration[0], 'error', 'تلاش مجدد');
+                if (!hasOnlyEnglishCharacters(modelForEdit.value)) {
+                    swalFire('خطا!', 'مدل اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/editNetworkCard', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullBrand) {
+                                            swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullModel) {
+                                            swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullConnectivityType) {
+                                            swalFire('خطا!', response.errors.nullGeneration[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ویرایش کارت شبکه موفقیت آمیز بود!', response.message.NetworkCardEdited[0], 'success', 'بستن');
+                                        // toggleModal(editNetworkCardModal.id);
+                                        location.reload();
+                                        resetFields();
                                     }
-                                } else if (response.success) {
-                                    // swalFire('ویرایش کارت شبکه موفقیت آمیز بود!', response.message.NetworkCardEdited[0], 'success', 'بستن');
-                                    // toggleModal(editNetworkCardModal.id);
-                                    location.reload();
-                                    resetFields();
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
             });
             $('.deactiveNetworkCardControl').on('click', function () {
                 Swal.fire({
@@ -1855,39 +1932,45 @@ $(document).ready(function () {
             });
             $('#new-Monitor').on('submit', function (e) {
                 e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST', url: '/newMonitor', data: data, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullBrand) {
-                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullModel) {
-                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullSize) {
-                                        swalFire('خطا!', response.errors.nullSize[0], 'error', 'تلاش مجدد');
+                if (!hasOnlyEnglishCharacters(modelForEdit.value)) {
+                    swalFire('خطا!', 'مدل اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else if (isNaN(size.value)) {
+                    swalFire('خطا!', 'سایز صفحه اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/newMonitor', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullBrand) {
+                                            swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullModel) {
+                                            swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullSize) {
+                                            swalFire('خطا!', response.errors.nullSize[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ثبت اطلاعات مانیتور موفقیت آمیز بود!', response.message.MonitorAdded[0], 'success', 'بستن');
+                                        // toggleModal(newMonitorModal.id);
+                                        location.reload();
+                                        resetFields();
                                     }
-                                } else if (response.success) {
-                                    // swalFire('ثبت اطلاعات مانیتور موفقیت آمیز بود!', response.message.MonitorAdded[0], 'success', 'بستن');
-                                    // toggleModal(newMonitorModal.id);
-                                    location.reload();
-                                    resetFields();
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
             });
             $('.MonitorControl').on('click', function () {
                 $.ajax({
@@ -1905,39 +1988,45 @@ $(document).ready(function () {
             });
             $('#edit-monitor').on('submit', function (e) {
                 e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST', url: '/editMonitor', data: data, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullBrand) {
-                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullModel) {
-                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullSize) {
-                                        swalFire('خطا!', response.errors.nullSize[0], 'error', 'تلاش مجدد');
+                if (!hasOnlyEnglishCharacters(modelForEdit.value)) {
+                    swalFire('خطا!', 'مدل اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else if (isNaN(sizeForEdit.value)) {
+                    swalFire('خطا!', 'سایز صفحه اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/editMonitor', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullBrand) {
+                                            swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullModel) {
+                                            swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullSize) {
+                                            swalFire('خطا!', response.errors.nullSize[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ویرایش مانیتور موفقیت آمیز بود!', response.message.MonitorEdited[0], 'success', 'بستن');
+                                        // toggleModal(editMonitorModal.id);
+                                        location.reload();
+                                        resetFields();
                                     }
-                                } else if (response.success) {
-                                    // swalFire('ویرایش مانیتور موفقیت آمیز بود!', response.message.MonitorEdited[0], 'success', 'بستن');
-                                    // toggleModal(editMonitorModal.id);
-                                    location.reload();
-                                    resetFields();
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
             });
             $('.deactiveMonitorControl').on('click', function () {
                 Swal.fire({
@@ -1978,39 +2067,43 @@ $(document).ready(function () {
             });
             $('#new-printer').on('submit', function (e) {
                 e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST', url: '/newPrinter', data: data, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullBrand) {
-                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullModel) {
-                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.function_typeForEdit) {
-                                        swalFire('خطا!', response.errors.function_typeForEdit[0], 'error', 'تلاش مجدد');
+                if (!hasOnlyEnglishCharacters(model.value)) {
+                    swalFire('خطا!', 'مدل اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/newPrinter', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullBrand) {
+                                            swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullModel) {
+                                            swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.function_typeForEdit) {
+                                            swalFire('خطا!', response.errors.function_typeForEdit[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ثبت اطلاعات پرینتر موفقیت آمیز بود!', response.message.printerAdded[0], 'success', 'بستن');
+                                        // toggleModal(newPrinterModal.id);
+                                        location.reload();
+                                        resetFields();
                                     }
-                                } else if (response.success) {
-                                    // swalFire('ثبت اطلاعات پرینتر موفقیت آمیز بود!', response.message.printerAdded[0], 'success', 'بستن');
-                                    // toggleModal(newPrinterModal.id);
-                                    location.reload();
-                                    resetFields();
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
             });
             $('.PrinterControl').on('click', function () {
                 $.ajax({
@@ -2028,39 +2121,43 @@ $(document).ready(function () {
             });
             $('#edit-printer').on('submit', function (e) {
                 e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST', url: '/editPrinter', data: data, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullBrand) {
-                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullModel) {
-                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.function_typeForEdit) {
-                                        swalFire('خطا!', response.errors.function_typeForEdit[0], 'error', 'تلاش مجدد');
+                if (!hasOnlyEnglishCharacters(modelForEdit.value)) {
+                    swalFire('خطا!', 'مدل اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/editPrinter', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullBrand) {
+                                            swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullModel) {
+                                            swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.function_typeForEdit) {
+                                            swalFire('خطا!', response.errors.function_typeForEdit[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ویرایش پرینتر موفقیت آمیز بود!', response.message.printerEdited[0], 'success', 'بستن');
+                                        // toggleModal(editPrinterModal.id);
+                                        location.reload();
+                                        resetFields();
                                     }
-                                } else if (response.success) {
-                                    // swalFire('ویرایش پرینتر موفقیت آمیز بود!', response.message.printerEdited[0], 'success', 'بستن');
-                                    // toggleModal(editPrinterModal.id);
-                                    location.reload();
-                                    resetFields();
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
             });
             $('.deactivePrinterControl').on('click', function () {
                 Swal.fire({
@@ -2101,37 +2198,41 @@ $(document).ready(function () {
             });
             $('#new-scanner').on('submit', function (e) {
                 e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST', url: '/newScanner', data: data, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullBrand) {
-                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullModel) {
-                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                if (!hasOnlyEnglishCharacters(model.value)) {
+                    swalFire('خطا!', 'مدل اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/newScanner', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullBrand) {
+                                            swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullModel) {
+                                            swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ثبت اطلاعات اسکنر موفقیت آمیز بود!', response.message.scannerAdded[0], 'success', 'بستن');
+                                        // toggleModal(newScannerModal.id);
+                                        location.reload();
+                                        resetFields();
                                     }
-                                } else if (response.success) {
-                                    // swalFire('ثبت اطلاعات اسکنر موفقیت آمیز بود!', response.message.scannerAdded[0], 'success', 'بستن');
-                                    // toggleModal(newScannerModal.id);
-                                    location.reload();
-                                    resetFields();
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
             });
             $('.ScannerControl').on('click', function () {
                 $.ajax({
@@ -2148,37 +2249,41 @@ $(document).ready(function () {
             });
             $('#edit-scanner').on('submit', function (e) {
                 e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST', url: '/editScanner', data: data, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullBrand) {
-                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullModel) {
-                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                if (!hasOnlyEnglishCharacters(modelForEdit.value)) {
+                    swalFire('خطا!', 'مدل اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/editScanner', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullBrand) {
+                                            swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullModel) {
+                                            swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ویرایش اسکنر موفقیت آمیز بود!', response.message.scannerEdited[0], 'success', 'بستن');
+                                        // toggleModal(editScannerModal.id);
+                                        location.reload();
+                                        resetFields();
                                     }
-                                } else if (response.success) {
-                                    // swalFire('ویرایش اسکنر موفقیت آمیز بود!', response.message.scannerEdited[0], 'success', 'بستن');
-                                    // toggleModal(editScannerModal.id);
-                                    location.reload();
-                                    resetFields();
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
             });
             $('.deactiveScannerControl').on('click', function () {
                 Swal.fire({
@@ -2219,37 +2324,41 @@ $(document).ready(function () {
             });
             $('#new-copy-machine').on('submit', function (e) {
                 e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST', url: '/newCopyMachine', data: data, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullBrand) {
-                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullModel) {
-                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                if (!hasOnlyEnglishCharacters(model.value)) {
+                    swalFire('خطا!', 'مدل اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/newCopyMachine', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullBrand) {
+                                            swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullModel) {
+                                            swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ثبت اطلاعات دستگاه کپی موفقیت آمیز بود!', response.message.CopyMachineAdded[0], 'success', 'بستن');
+                                        // toggleModal(newCopyMachineModal.id);
+                                        location.reload();
+                                        resetFields();
                                     }
-                                } else if (response.success) {
-                                    // swalFire('ثبت اطلاعات دستگاه کپی موفقیت آمیز بود!', response.message.CopyMachineAdded[0], 'success', 'بستن');
-                                    // toggleModal(newCopyMachineModal.id);
-                                    location.reload();
-                                    resetFields();
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
             });
             $('.CopyMachineControl').on('click', function () {
                 $.ajax({
@@ -2266,37 +2375,41 @@ $(document).ready(function () {
             });
             $('#edit-copy-machine').on('submit', function (e) {
                 e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST', url: '/editCopyMachine', data: data, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullBrand) {
-                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullModel) {
-                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                if (!hasOnlyEnglishCharacters(modelForEdit.value)) {
+                    swalFire('خطا!', 'مدل اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/editCopyMachine', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullBrand) {
+                                            swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullModel) {
+                                            swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ویرایش دستگاه کپی موفقیت آمیز بود!', response.message.CopyMachineEdited[0], 'success', 'بستن');
+                                        // toggleModal(editCopyMachineModal.id);
+                                        location.reload();
+                                        resetFields();
                                     }
-                                } else if (response.success) {
-                                    // swalFire('ویرایش دستگاه کپی موفقیت آمیز بود!', response.message.CopyMachineEdited[0], 'success', 'بستن');
-                                    // toggleModal(editCopyMachineModal.id);
-                                    location.reload();
-                                    resetFields();
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
             });
             $('.deactiveCopyMachineControl').on('click', function () {
                 Swal.fire({
@@ -2337,37 +2450,41 @@ $(document).ready(function () {
             });
             $('#new-VOIP').on('submit', function (e) {
                 e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST', url: '/newVOIP', data: data, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullBrand) {
-                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullModel) {
-                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                if (!hasOnlyEnglishCharacters(model.value)) {
+                    swalFire('خطا!', 'مدل اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/newVOIP', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullBrand) {
+                                            swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullModel) {
+                                            swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ثبت اطلاعات VOIP موفقیت آمیز بود!', response.message.VOIPAdded[0], 'success', 'بستن');
+                                        // toggleModal(newVOIPModal.id);
+                                        location.reload();
+                                        resetFields();
                                     }
-                                } else if (response.success) {
-                                    // swalFire('ثبت اطلاعات VOIP موفقیت آمیز بود!', response.message.VOIPAdded[0], 'success', 'بستن');
-                                    // toggleModal(newVOIPModal.id);
-                                    location.reload();
-                                    resetFields();
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
             });
             $('.VOIPControl').on('click', function () {
                 $.ajax({
@@ -2384,37 +2501,41 @@ $(document).ready(function () {
             });
             $('#edit-VOIP').on('submit', function (e) {
                 e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST', url: '/editVOIP', data: data, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullBrand) {
-                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullModel) {
-                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                if (!hasOnlyEnglishCharacters(modelForEdit.value)) {
+                    swalFire('خطا!', 'مدل اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/editVOIP', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullBrand) {
+                                            swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullModel) {
+                                            swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ویرایش VOIP موفقیت آمیز بود!', response.message.VOIPEdited[0], 'success', 'بستن');
+                                        // toggleModal(editVOIPModal.id);
+                                        location.reload();
+                                        resetFields();
                                     }
-                                } else if (response.success) {
-                                    // swalFire('ویرایش VOIP موفقیت آمیز بود!', response.message.VOIPEdited[0], 'success', 'بستن');
-                                    // toggleModal(editVOIPModal.id);
-                                    location.reload();
-                                    resetFields();
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
             });
             $('.deactiveVOIPControl').on('click', function () {
                 Swal.fire({
@@ -2456,41 +2577,47 @@ $(document).ready(function () {
             });
             $('#new-switch').on('submit', function (e) {
                 e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST', url: '/newSwitch', data: data, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullBrand) {
-                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullModel) {
-                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
-                                    }else if (response.errors.nullPortsNumber) {
-                                        swalFire('خطا!', response.errors.nullPortsNumber[0], 'error', 'تلاش مجدد');
-                                    }else if (response.errors.wrongPortsNumber) {
-                                        swalFire('خطا!', response.errors.wrongPortsNumber[0], 'error', 'تلاش مجدد');
+                if (!hasOnlyEnglishCharacters(model.value)) {
+                    swalFire('خطا!', 'مدل اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else if (isNaN(ports_number.value)) {
+                    swalFire('خطا!', 'تعداد پورت اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/newSwitch', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullBrand) {
+                                            swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullModel) {
+                                            swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullPortsNumber) {
+                                            swalFire('خطا!', response.errors.nullPortsNumber[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.wrongPortsNumber) {
+                                            swalFire('خطا!', response.errors.wrongPortsNumber[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ثبت اطلاعات پرینتر موفقیت آمیز بود!', response.message.printerAdded[0], 'success', 'بستن');
+                                        // toggleModal(newPrinterModal.id);
+                                        location.reload();
+                                        resetFields();
                                     }
-                                } else if (response.success) {
-                                    // swalFire('ثبت اطلاعات پرینتر موفقیت آمیز بود!', response.message.printerAdded[0], 'success', 'بستن');
-                                    // toggleModal(newPrinterModal.id);
-                                    location.reload();
-                                    resetFields();
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
             });
             $('.SwitchControl').on('click', function () {
                 $.ajax({
@@ -2508,41 +2635,47 @@ $(document).ready(function () {
             });
             $('#edit-switch').on('submit', function (e) {
                 e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST', url: '/editSwitch', data: data, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullBrand) {
-                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullModel) {
-                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
-                                    }else if (response.errors.nullPortsNumber) {
-                                        swalFire('خطا!', response.errors.nullPortsNumber[0], 'error', 'تلاش مجدد');
-                                    }else if (response.errors.wrongPortsNumber) {
-                                        swalFire('خطا!', response.errors.wrongPortsNumber[0], 'error', 'تلاش مجدد');
+                if (!hasOnlyEnglishCharacters(modelForEdit.value)) {
+                    swalFire('خطا!', 'مدل اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else if (isNaN(ports_numberForEdit.value)) {
+                    swalFire('خطا!', 'تعداد پورت اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/editSwitch', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullBrand) {
+                                            swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullModel) {
+                                            swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullPortsNumber) {
+                                            swalFire('خطا!', response.errors.nullPortsNumber[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.wrongPortsNumber) {
+                                            swalFire('خطا!', response.errors.wrongPortsNumber[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ویرایش پرینتر موفقیت آمیز بود!', response.message.printerEdited[0], 'success', 'بستن');
+                                        // toggleModal(editPrinterModal.id);
+                                        location.reload();
+                                        resetFields();
                                     }
-                                } else if (response.success) {
-                                    // swalFire('ویرایش پرینتر موفقیت آمیز بود!', response.message.printerEdited[0], 'success', 'بستن');
-                                    // toggleModal(editPrinterModal.id);
-                                    location.reload();
-                                    resetFields();
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
             });
             $('.deactiveSwitchControl').on('click', function () {
                 Swal.fire({
@@ -2583,45 +2716,51 @@ $(document).ready(function () {
             });
             $('#new-modem').on('submit', function (e) {
                 e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST', url: '/newModem', data: data, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullBrand) {
-                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullModel) {
-                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
-                                    }else if (response.errors.nullPortsNumber) {
-                                        swalFire('خطا!', response.errors.nullPortsNumber[0], 'error', 'تلاش مجدد');
-                                    }else if (response.errors.nullType) {
-                                        swalFire('خطا!', response.errors.nullType[0], 'error', 'تلاش مجدد');
-                                    }else if (response.errors.nullConnectivityType) {
-                                        swalFire('خطا!', response.errors.nullConnectivityType[0], 'error', 'تلاش مجدد');
-                                    }else if (response.errors.wrongPortsNumber) {
-                                        swalFire('خطا!', response.errors.wrongPortsNumber[0], 'error', 'تلاش مجدد');
+                if (!hasOnlyEnglishCharacters(model.value)) {
+                    swalFire('خطا!', 'مدل اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else if (isNaN(ports_number.value)) {
+                    swalFire('خطا!', 'تعداد پورت اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/newModem', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullBrand) {
+                                            swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullModel) {
+                                            swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullPortsNumber) {
+                                            swalFire('خطا!', response.errors.nullPortsNumber[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullType) {
+                                            swalFire('خطا!', response.errors.nullType[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullConnectivityType) {
+                                            swalFire('خطا!', response.errors.nullConnectivityType[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.wrongPortsNumber) {
+                                            swalFire('خطا!', response.errors.wrongPortsNumber[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ثبت اطلاعات پرینتر موفقیت آمیز بود!', response.message.printerAdded[0], 'success', 'بستن');
+                                        // toggleModal(newPrinterModal.id);
+                                        location.reload();
+                                        resetFields();
                                     }
-                                } else if (response.success) {
-                                    // swalFire('ثبت اطلاعات پرینتر موفقیت آمیز بود!', response.message.printerAdded[0], 'success', 'بستن');
-                                    // toggleModal(newPrinterModal.id);
-                                    location.reload();
-                                    resetFields();
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
             });
             $('.ModemControl').on('click', function () {
                 $.ajax({
@@ -2649,45 +2788,51 @@ $(document).ready(function () {
             });
             $('#edit-modem').on('submit', function (e) {
                 e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST', url: '/editModem', data: data, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullBrand) {
-                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullModel) {
-                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
-                                    }else if (response.errors.nullPortsNumber) {
-                                        swalFire('خطا!', response.errors.nullPortsNumber[0], 'error', 'تلاش مجدد');
-                                    }else if (response.errors.nullType) {
-                                        swalFire('خطا!', response.errors.nullType[0], 'error', 'تلاش مجدد');
-                                    }else if (response.errors.nullConnectivityType) {
-                                        swalFire('خطا!', response.errors.nullConnectivityType[0], 'error', 'تلاش مجدد');
-                                    }else if (response.errors.wrongPortsNumber) {
-                                        swalFire('خطا!', response.errors.wrongPortsNumber[0], 'error', 'تلاش مجدد');
+                if (!hasOnlyEnglishCharacters(modelForEdit.value)) {
+                    swalFire('خطا!', 'مدل اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else if (isNaN(ports_numberForEdit.value)) {
+                    swalFire('خطا!', 'تعداد پورت اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/editModem', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullBrand) {
+                                            swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullModel) {
+                                            swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullPortsNumber) {
+                                            swalFire('خطا!', response.errors.nullPortsNumber[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullType) {
+                                            swalFire('خطا!', response.errors.nullType[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullConnectivityType) {
+                                            swalFire('خطا!', response.errors.nullConnectivityType[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.wrongPortsNumber) {
+                                            swalFire('خطا!', response.errors.wrongPortsNumber[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ویرایش پرینتر موفقیت آمیز بود!', response.message.printerEdited[0], 'success', 'بستن');
+                                        // toggleModal(editPrinterModal.id);
+                                        location.reload();
+                                        resetFields();
                                     }
-                                } else if (response.success) {
-                                    // swalFire('ویرایش پرینتر موفقیت آمیز بود!', response.message.printerEdited[0], 'success', 'بستن');
-                                    // toggleModal(editPrinterModal.id);
-                                    location.reload();
-                                    resetFields();
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
             });
             $('.deactiveModemControl').on('click', function () {
                 Swal.fire({
@@ -2729,43 +2874,47 @@ $(document).ready(function () {
             });
             $('#new-laptop').on('submit', function (e) {
                 e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST', url: '/newLaptop', data: data, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullBrand) {
-                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullModel) {
-                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullRam) {
-                                        swalFire('خطا!', response.errors.nullRam[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullInternalMemory) {
-                                        swalFire('خطا!', response.errors.nullInternalMemory[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullSimcardsNumber) {
-                                        swalFire('خطا!', response.errors.nullSimcardsNumber[0], 'error', 'تلاش مجدد');
+                if (!hasOnlyEnglishCharacters(model.value)) {
+                    swalFire('خطا!', 'مدل اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else if (!hasOnlyEnglishCharacters(cpu.value)) {
+                    swalFire('خطا!', 'تعداد پورت اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else if (!hasOnlyEnglishCharacters(graphic_card.value) && graphic_card.value !== null) {
+                    swalFire('خطا!', 'تعداد پورت اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/newLaptop', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullBrand) {
+                                            swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullModel) {
+                                            swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullCPU) {
+                                            swalFire('خطا!', response.errors.nullCPU[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ثبت اطلاعات پرینتر موفقیت آمیز بود!', response.message.printerAdded[0], 'success', 'بستن');
+                                        // toggleModal(newPrinterModal.id);
+                                        location.reload();
+                                        resetFields();
                                     }
-                                } else if (response.success) {
-                                    // swalFire('ثبت اطلاعات پرینتر موفقیت آمیز بود!', response.message.printerAdded[0], 'success', 'بستن');
-                                    // toggleModal(newPrinterModal.id);
-                                    location.reload();
-                                    resetFields();
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
             });
             $('.LaptopControl').on('click', function () {
                 $.ajax({
@@ -2785,43 +2934,49 @@ $(document).ready(function () {
             });
             $('#edit-laptop').on('submit', function (e) {
                 e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST', url: '/editLaptop', data: data, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullBrand) {
-                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullModel) {
-                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullRam) {
-                                        swalFire('خطا!', response.errors.nullRam[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullInternalMemory) {
-                                        swalFire('خطا!', response.errors.nullInternalMemory[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullSimcardsNumber) {
-                                        swalFire('خطا!', response.errors.nullSimcardsNumber[0], 'error', 'تلاش مجدد');
+                if (!hasOnlyEnglishCharacters(modelForEdit.value)) {
+                    swalFire('خطا!', 'مدل اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else if (!hasOnlyEnglishCharacters(cpuForEdit.value)) {
+                    swalFire('خطا!', 'تعداد پورت اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else if (!hasOnlyEnglishCharacters(graphic_cardForEdit.value) && graphic_cardForEdit.value !== null) {
+                    swalFire('خطا!', 'تعداد پورت اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/editLaptop', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullBrand) {
+                                            swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullModel) {
+                                            swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullCPU) {
+                                            swalFire('خطا!', response.errors.nullCPU[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullGraphicCard) {
+                                            swalFire('خطا!', response.errors.nullGraphicCard[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ویرایش پرینتر موفقیت آمیز بود!', response.message.printerEdited[0], 'success', 'بستن');
+                                        // toggleModal(editPrinterModal.id);
+                                        location.reload();
+                                        resetFields();
                                     }
-                                } else if (response.success) {
-                                    // swalFire('ویرایش پرینتر موفقیت آمیز بود!', response.message.printerEdited[0], 'success', 'بستن');
-                                    // toggleModal(editPrinterModal.id);
-                                    location.reload();
-                                    resetFields();
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
             });
             $('.deactiveLaptopControl').on('click', function () {
                 Swal.fire({
@@ -2862,43 +3017,47 @@ $(document).ready(function () {
             });
             $('#new-mobile').on('submit', function (e) {
                 e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST', url: '/newMobile', data: data, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullBrand) {
-                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullModel) {
-                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullRam) {
-                                        swalFire('خطا!', response.errors.nullRam[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullInternalMemory) {
-                                        swalFire('خطا!', response.errors.nullInternalMemory[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullSimcardsNumber) {
-                                        swalFire('خطا!', response.errors.nullSimcardsNumber[0], 'error', 'تلاش مجدد');
+                if (!hasOnlyEnglishCharacters(model.value)) {
+                    swalFire('خطا!', 'مدل اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/newMobile', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullBrand) {
+                                            swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullModel) {
+                                            swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullRam) {
+                                            swalFire('خطا!', response.errors.nullRam[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullInternalMemory) {
+                                            swalFire('خطا!', response.errors.nullInternalMemory[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullSimcardsNumber) {
+                                            swalFire('خطا!', response.errors.nullSimcardsNumber[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ثبت اطلاعات پرینتر موفقیت آمیز بود!', response.message.printerAdded[0], 'success', 'بستن');
+                                        // toggleModal(newPrinterModal.id);
+                                        location.reload();
+                                        resetFields();
                                     }
-                                } else if (response.success) {
-                                    // swalFire('ثبت اطلاعات پرینتر موفقیت آمیز بود!', response.message.printerAdded[0], 'success', 'بستن');
-                                    // toggleModal(newPrinterModal.id);
-                                    location.reload();
-                                    resetFields();
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
             });
             $('.MobileControl').on('click', function () {
                 $.ajax({
@@ -2918,43 +3077,47 @@ $(document).ready(function () {
             });
             $('#edit-mobile').on('submit', function (e) {
                 e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST', url: '/editMobile', data: data, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullBrand) {
-                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullModel) {
-                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullRam) {
-                                        swalFire('خطا!', response.errors.nullRam[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullInternalMemory) {
-                                        swalFire('خطا!', response.errors.nullInternalMemory[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullSimcardsNumber) {
-                                        swalFire('خطا!', response.errors.nullSimcardsNumber[0], 'error', 'تلاش مجدد');
+                if (!hasOnlyEnglishCharacters(modelForEdit.value)) {
+                    swalFire('خطا!', 'مدل اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/editMobile', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullBrand) {
+                                            swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullModel) {
+                                            swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullRam) {
+                                            swalFire('خطا!', response.errors.nullRam[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullInternalMemory) {
+                                            swalFire('خطا!', response.errors.nullInternalMemory[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullSimcardsNumber) {
+                                            swalFire('خطا!', response.errors.nullSimcardsNumber[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ویرایش پرینتر موفقیت آمیز بود!', response.message.printerEdited[0], 'success', 'بستن');
+                                        // toggleModal(editPrinterModal.id);
+                                        location.reload();
+                                        resetFields();
                                     }
-                                } else if (response.success) {
-                                    // swalFire('ویرایش پرینتر موفقیت آمیز بود!', response.message.printerEdited[0], 'success', 'بستن');
-                                    // toggleModal(editPrinterModal.id);
-                                    location.reload();
-                                    resetFields();
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
             });
             $('.deactiveMobileControl').on('click', function () {
                 Swal.fire({
@@ -2995,43 +3158,47 @@ $(document).ready(function () {
             });
             $('#new-tablet').on('submit', function (e) {
                 e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST', url: '/newTablet', data: data, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullBrand) {
-                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullModel) {
-                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullRam) {
-                                        swalFire('خطا!', response.errors.nullRam[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullInternalMemory) {
-                                        swalFire('خطا!', response.errors.nullInternalMemory[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullSimcardsNumber) {
-                                        swalFire('خطا!', response.errors.nullSimcardsNumber[0], 'error', 'تلاش مجدد');
+                if (!hasOnlyEnglishCharacters(model.value)) {
+                    swalFire('خطا!', 'مدل اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/newTablet', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullBrand) {
+                                            swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullModel) {
+                                            swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullRam) {
+                                            swalFire('خطا!', response.errors.nullRam[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullInternalMemory) {
+                                            swalFire('خطا!', response.errors.nullInternalMemory[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullSimcardsNumber) {
+                                            swalFire('خطا!', response.errors.nullSimcardsNumber[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ثبت اطلاعات پرینتر موفقیت آمیز بود!', response.message.printerAdded[0], 'success', 'بستن');
+                                        // toggleModal(newPrinterModal.id);
+                                        location.reload();
+                                        resetFields();
                                     }
-                                } else if (response.success) {
-                                    // swalFire('ثبت اطلاعات پرینتر موفقیت آمیز بود!', response.message.printerAdded[0], 'success', 'بستن');
-                                    // toggleModal(newPrinterModal.id);
-                                    location.reload();
-                                    resetFields();
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
             });
             $('.TabletControl').on('click', function () {
                 $.ajax({
@@ -3051,43 +3218,47 @@ $(document).ready(function () {
             });
             $('#edit-tablet').on('submit', function (e) {
                 e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST', url: '/editTablet', data: data, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullBrand) {
-                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullModel) {
-                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullRam) {
-                                        swalFire('خطا!', response.errors.nullRam[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullInternalMemory) {
-                                        swalFire('خطا!', response.errors.nullInternalMemory[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullSimcardsNumber) {
-                                        swalFire('خطا!', response.errors.nullSimcardsNumber[0], 'error', 'تلاش مجدد');
+                if (!hasOnlyEnglishCharacters(modelForEdit.value)) {
+                    swalFire('خطا!', 'مدل اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/editTablet', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullBrand) {
+                                            swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullModel) {
+                                            swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullRam) {
+                                            swalFire('خطا!', response.errors.nullRam[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullInternalMemory) {
+                                            swalFire('خطا!', response.errors.nullInternalMemory[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullSimcardsNumber) {
+                                            swalFire('خطا!', response.errors.nullSimcardsNumber[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ویرایش پرینتر موفقیت آمیز بود!', response.message.printerEdited[0], 'success', 'بستن');
+                                        // toggleModal(editPrinterModal.id);
+                                        location.reload();
+                                        resetFields();
                                     }
-                                } else if (response.success) {
-                                    // swalFire('ویرایش پرینتر موفقیت آمیز بود!', response.message.printerEdited[0], 'success', 'بستن');
-                                    // toggleModal(editPrinterModal.id);
-                                    location.reload();
-                                    resetFields();
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
             });
             $('.deactiveTabletControl').on('click', function () {
                 Swal.fire({
@@ -3128,37 +3299,41 @@ $(document).ready(function () {
             });
             $('#new-webcam').on('submit', function (e) {
                 e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST', url: '/newWebcam', data: data, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullBrand) {
-                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullModel) {
-                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                if (!hasOnlyEnglishCharacters(model.value)) {
+                    swalFire('خطا!', 'مدل اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/newWebcam', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullBrand) {
+                                            swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullModel) {
+                                            swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ثبت اطلاعات پرینتر موفقیت آمیز بود!', response.message.printerAdded[0], 'success', 'بستن');
+                                        // toggleModal(newPrinterModal.id);
+                                        location.reload();
+                                        resetFields();
                                     }
-                                } else if (response.success) {
-                                    // swalFire('ثبت اطلاعات پرینتر موفقیت آمیز بود!', response.message.printerAdded[0], 'success', 'بستن');
-                                    // toggleModal(newPrinterModal.id);
-                                    location.reload();
-                                    resetFields();
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
             });
             $('.WebcamControl').on('click', function () {
                 $.ajax({
@@ -3175,37 +3350,41 @@ $(document).ready(function () {
             });
             $('#edit-webcam').on('submit', function (e) {
                 e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST', url: '/editWebcam', data: data, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullBrand) {
-                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullModel) {
-                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                if (!hasOnlyEnglishCharacters(modelForEdit.value)) {
+                    swalFire('خطا!', 'مدل اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/editWebcam', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullBrand) {
+                                            swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullModel) {
+                                            swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ویرایش پرینتر موفقیت آمیز بود!', response.message.printerEdited[0], 'success', 'بستن');
+                                        // toggleModal(editPrinterModal.id);
+                                        location.reload();
+                                        resetFields();
                                     }
-                                } else if (response.success) {
-                                    // swalFire('ویرایش پرینتر موفقیت آمیز بود!', response.message.printerEdited[0], 'success', 'بستن');
-                                    // toggleModal(editPrinterModal.id);
-                                    location.reload();
-                                    resetFields();
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
             });
             $('.deactiveWebcamControl').on('click', function () {
                 Swal.fire({
@@ -3246,37 +3425,41 @@ $(document).ready(function () {
             });
             $('#new-recorder').on('submit', function (e) {
                 e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST', url: '/newRecorder', data: data, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullBrand) {
-                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullModel) {
-                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                if (!hasOnlyEnglishCharacters(model.value)) {
+                    swalFire('خطا!', 'مدل اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/newRecorder', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullBrand) {
+                                            swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullModel) {
+                                            swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ثبت اطلاعات پرینتر موفقیت آمیز بود!', response.message.printerAdded[0], 'success', 'بستن');
+                                        // toggleModal(newPrinterModal.id);
+                                        location.reload();
+                                        resetFields();
                                     }
-                                } else if (response.success) {
-                                    // swalFire('ثبت اطلاعات پرینتر موفقیت آمیز بود!', response.message.printerAdded[0], 'success', 'بستن');
-                                    // toggleModal(newPrinterModal.id);
-                                    location.reload();
-                                    resetFields();
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
             });
             $('.RecorderControl').on('click', function () {
                 $.ajax({
@@ -3293,37 +3476,41 @@ $(document).ready(function () {
             });
             $('#edit-recorder').on('submit', function (e) {
                 e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST', url: '/editRecorder', data: data, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullBrand) {
-                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullModel) {
-                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                if (!hasOnlyEnglishCharacters(modelForEdit.value)) {
+                    swalFire('خطا!', 'مدل اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/editRecorder', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullBrand) {
+                                            swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullModel) {
+                                            swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ویرایش پرینتر موفقیت آمیز بود!', response.message.printerEdited[0], 'success', 'بستن');
+                                        // toggleModal(editPrinterModal.id);
+                                        location.reload();
+                                        resetFields();
                                     }
-                                } else if (response.success) {
-                                    // swalFire('ویرایش پرینتر موفقیت آمیز بود!', response.message.printerEdited[0], 'success', 'بستن');
-                                    // toggleModal(editPrinterModal.id);
-                                    location.reload();
-                                    resetFields();
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
             });
             $('.deactiveRecorderControl').on('click', function () {
                 Swal.fire({
@@ -3364,37 +3551,41 @@ $(document).ready(function () {
             });
             $('#new-headphone').on('submit', function (e) {
                 e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST', url: '/newHeadphone', data: data, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullBrand) {
-                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullModel) {
-                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                if (!hasOnlyEnglishCharacters(model.value)) {
+                    swalFire('خطا!', 'مدل اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/newHeadphone', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullBrand) {
+                                            swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullModel) {
+                                            swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ثبت اطلاعات پرینتر موفقیت آمیز بود!', response.message.printerAdded[0], 'success', 'بستن');
+                                        // toggleModal(newPrinterModal.id);
+                                        location.reload();
+                                        resetFields();
                                     }
-                                } else if (response.success) {
-                                    // swalFire('ثبت اطلاعات پرینتر موفقیت آمیز بود!', response.message.printerAdded[0], 'success', 'بستن');
-                                    // toggleModal(newPrinterModal.id);
-                                    location.reload();
-                                    resetFields();
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
             });
             $('.HeadphoneControl').on('click', function () {
                 $.ajax({
@@ -3411,37 +3602,41 @@ $(document).ready(function () {
             });
             $('#edit-headphone').on('submit', function (e) {
                 e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST', url: '/editHeadphone', data: data, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullBrand) {
-                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullModel) {
-                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                if (!hasOnlyEnglishCharacters(modelForEdit.value)) {
+                    swalFire('خطا!', 'مدل اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/editHeadphone', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullBrand) {
+                                            swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullModel) {
+                                            swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ویرایش پرینتر موفقیت آمیز بود!', response.message.printerEdited[0], 'success', 'بستن');
+                                        // toggleModal(editPrinterModal.id);
+                                        location.reload();
+                                        resetFields();
                                     }
-                                } else if (response.success) {
-                                    // swalFire('ویرایش پرینتر موفقیت آمیز بود!', response.message.printerEdited[0], 'success', 'بستن');
-                                    // toggleModal(editPrinterModal.id);
-                                    location.reload();
-                                    resetFields();
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
             });
             $('.deactiveHeadphoneControl').on('click', function () {
                 Swal.fire({
@@ -3482,37 +3677,41 @@ $(document).ready(function () {
             });
             $('#new-speaker').on('submit', function (e) {
                 e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST', url: '/newSpeaker', data: data, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullBrand) {
-                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullModel) {
-                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                if (!hasOnlyEnglishCharacters(model.value)) {
+                    swalFire('خطا!', 'مدل اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/newSpeaker', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullBrand) {
+                                            swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullModel) {
+                                            swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ثبت اطلاعات پرینتر موفقیت آمیز بود!', response.message.printerAdded[0], 'success', 'بستن');
+                                        // toggleModal(newPrinterModal.id);
+                                        location.reload();
+                                        resetFields();
                                     }
-                                } else if (response.success) {
-                                    // swalFire('ثبت اطلاعات پرینتر موفقیت آمیز بود!', response.message.printerAdded[0], 'success', 'بستن');
-                                    // toggleModal(newPrinterModal.id);
-                                    location.reload();
-                                    resetFields();
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
             });
             $('.SpeakerControl').on('click', function () {
                 $.ajax({
@@ -3529,37 +3728,41 @@ $(document).ready(function () {
             });
             $('#edit-speaker').on('submit', function (e) {
                 e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST', url: '/editSpeaker', data: data, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullBrand) {
-                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullModel) {
-                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                if (!hasOnlyEnglishCharacters(modelForEdit.value)) {
+                    swalFire('خطا!', 'مدل اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/editSpeaker', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullBrand) {
+                                            swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullModel) {
+                                            swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ویرایش پرینتر موفقیت آمیز بود!', response.message.printerEdited[0], 'success', 'بستن');
+                                        // toggleModal(editPrinterModal.id);
+                                        location.reload();
+                                        resetFields();
                                     }
-                                } else if (response.success) {
-                                    // swalFire('ویرایش پرینتر موفقیت آمیز بود!', response.message.printerEdited[0], 'success', 'بستن');
-                                    // toggleModal(editPrinterModal.id);
-                                    location.reload();
-                                    resetFields();
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
             });
             $('.deactiveSpeakerControl').on('click', function () {
                 Swal.fire({
@@ -3600,37 +3803,41 @@ $(document).ready(function () {
             });
             $('#new-videoProjector').on('submit', function (e) {
                 e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST', url: '/newVideoProjector', data: data, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullBrand) {
-                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullModel) {
-                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                if (!hasOnlyEnglishCharacters(model.value)) {
+                    swalFire('خطا!', 'مدل اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/newVideoProjector', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullBrand) {
+                                            swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullModel) {
+                                            swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ثبت اطلاعات پرینتر موفقیت آمیز بود!', response.message.printerAdded[0], 'success', 'بستن');
+                                        // toggleModal(newPrinterModal.id);
+                                        location.reload();
+                                        resetFields();
                                     }
-                                } else if (response.success) {
-                                    // swalFire('ثبت اطلاعات پرینتر موفقیت آمیز بود!', response.message.printerAdded[0], 'success', 'بستن');
-                                    // toggleModal(newPrinterModal.id);
-                                    location.reload();
-                                    resetFields();
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
             });
             $('.VideoProjectorControl').on('click', function () {
                 $.ajax({
@@ -3647,37 +3854,41 @@ $(document).ready(function () {
             });
             $('#edit-videoProjector').on('submit', function (e) {
                 e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST', url: '/editVideoProjector', data: data, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullBrand) {
-                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullModel) {
-                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                if (!hasOnlyEnglishCharacters(modelForEdit.value)) {
+                    swalFire('خطا!', 'مدل اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/editVideoProjector', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullBrand) {
+                                            swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullModel) {
+                                            swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ویرایش پرینتر موفقیت آمیز بود!', response.message.printerEdited[0], 'success', 'بستن');
+                                        // toggleModal(editPrinterModal.id);
+                                        location.reload();
+                                        resetFields();
                                     }
-                                } else if (response.success) {
-                                    // swalFire('ویرایش پرینتر موفقیت آمیز بود!', response.message.printerEdited[0], 'success', 'بستن');
-                                    // toggleModal(editPrinterModal.id);
-                                    location.reload();
-                                    resetFields();
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
             });
             $('.deactiveVideoProjectorControl').on('click', function () {
                 Swal.fire({
@@ -3718,39 +3929,43 @@ $(document).ready(function () {
             });
             $('#new-videoProjectorCurtain').on('submit', function (e) {
                 e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST', url: '/newVideoProjectorCurtain', data: data, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullBrand) {
-                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullModel) {
-                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullSize) {
-                                        swalFire('خطا!', response.errors.nullSize[0], 'error', 'تلاش مجدد');
+                if (!hasOnlyEnglishCharacters(model.value)) {
+                    swalFire('خطا!', 'مدل اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/newVideoProjectorCurtain', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullBrand) {
+                                            swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullModel) {
+                                            swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullSize) {
+                                            swalFire('خطا!', response.errors.nullSize[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ثبت اطلاعات پرینتر موفقیت آمیز بود!', response.message.printerAdded[0], 'success', 'بستن');
+                                        // toggleModal(newPrinterModal.id);
+                                        location.reload();
+                                        resetFields();
                                     }
-                                } else if (response.success) {
-                                    // swalFire('ثبت اطلاعات پرینتر موفقیت آمیز بود!', response.message.printerAdded[0], 'success', 'بستن');
-                                    // toggleModal(newPrinterModal.id);
-                                    location.reload();
-                                    resetFields();
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
             });
             $('.VideoProjectorCurtainControl').on('click', function () {
                 $.ajax({
@@ -3768,39 +3983,43 @@ $(document).ready(function () {
             });
             $('#edit-videoProjectorCurtain').on('submit', function (e) {
                 e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST', url: '/editVideoProjectorCurtain', data: data, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullBrand) {
-                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullModel) {
-                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.nullSize) {
-                                        swalFire('خطا!', response.errors.nullSize[0], 'error', 'تلاش مجدد');
+                if (!hasOnlyEnglishCharacters(modelForEdit.value)) {
+                    swalFire('خطا!', 'مدل اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/editVideoProjectorCurtain', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullBrand) {
+                                            swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullModel) {
+                                            swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullSize) {
+                                            swalFire('خطا!', response.errors.nullSize[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ویرایش پرینتر موفقیت آمیز بود!', response.message.printerEdited[0], 'success', 'بستن');
+                                        // toggleModal(editPrinterModal.id);
+                                        location.reload();
+                                        resetFields();
                                     }
-                                } else if (response.success) {
-                                    // swalFire('ویرایش پرینتر موفقیت آمیز بود!', response.message.printerEdited[0], 'success', 'بستن');
-                                    // toggleModal(editPrinterModal.id);
-                                    location.reload();
-                                    resetFields();
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
             });
             $('.deactiveVideoProjectorCurtainControl').on('click', function () {
                 Swal.fire({
@@ -3842,37 +4061,41 @@ $(document).ready(function () {
             });
             $('#new-assistance').on('submit', function (e) {
                 e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST', url: '/newAssistance', data: data, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullName) {
-                                        swalFire('خطا!', response.errors.nullName[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.dupName) {
-                                        swalFire('خطا!', response.errors.dupName[0], 'error', 'تلاش مجدد');
+                if (!hasOnlyPersianCharacters(name.value)) {
+                    swalFire('خطا!', 'نام معاونت اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/newAssistance', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullName) {
+                                            swalFire('خطا!', response.errors.nullName[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.dupName) {
+                                            swalFire('خطا!', response.errors.dupName[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ثبت اطلاعات جدید موفقیت آمیز بود!', response.message.assistanceAdded[0], 'success', 'بستن');
+                                        // toggleModal(newAssistanceModal.id);
+                                        location.reload();
+                                        resetFields();
                                     }
-                                } else if (response.success) {
-                                    // swalFire('ثبت اطلاعات جدید موفقیت آمیز بود!', response.message.assistanceAdded[0], 'success', 'بستن');
-                                    // toggleModal(newAssistanceModal.id);
-                                    location.reload();
-                                    resetFields();
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
             });
             $('.AssistanceControl').on('click', function () {
                 $.ajax({
@@ -3888,37 +4111,41 @@ $(document).ready(function () {
             });
             $('#edit-assistance').on('submit', function (e) {
                 e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST', url: '/editAssistance', data: data, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullName) {
-                                        swalFire('خطا!', response.errors.nullName[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.dupName) {
-                                        swalFire('خطا!', response.errors.dupName[0], 'error', 'تلاش مجدد');
+                if (!hasOnlyPersianCharacters(nameForEdit.value)) {
+                    swalFire('خطا!', 'نام معاونت اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/editAssistance', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullName) {
+                                            swalFire('خطا!', response.errors.nullName[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.dupName) {
+                                            swalFire('خطا!', response.errors.dupName[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ویرایش اطلاعات موفقیت آمیز بود!', response.message.assistanceEdited[0], 'success', 'بستن');
+                                        // toggleModal(editAssistanceModal.id);
+                                        location.reload();
+                                        resetFields();
                                     }
-                                } else if (response.success) {
-                                    // swalFire('ویرایش اطلاعات موفقیت آمیز بود!', response.message.assistanceEdited[0], 'success', 'بستن');
-                                    // toggleModal(editAssistanceModal.id);
-                                    location.reload();
-                                    resetFields();
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
             });
             $('.deactiveAssistanceControl').on('click', function () {
                 Swal.fire({
@@ -3933,123 +4160,6 @@ $(document).ready(function () {
                         $.ajax({
                             type: 'POST', url: '/ManageCatalogStatus', data: {
                                 id: $(this).data('id'), work: 'ChangeAssistanceStatus'
-                            }, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                location.reload();
-                            }
-                        });
-                    }
-                });
-
-            });
-            break;
-        case '/JobCatalog':
-            $('#new-job-button, #cancel-new-job').on('click', function () {
-                toggleModal(newJobModal.id);
-            });
-            $('.absolute.inset-0.bg-gray-500.opacity-75.add').on('click', function () {
-                toggleModal(newJobModal.id)
-            });
-            $('.absolute.inset-0.bg-gray-500.opacity-75.edit').on('click', function () {
-                toggleModal(editJobModal.id)
-            });
-            $('.JobControl,#cancel-edit-job').on('click', function () {
-                toggleModal(editJobModal.id);
-            });
-            $('#new-job').on('submit', function (e) {
-                e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST', url: '/newJob', data: data, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullName) {
-                                        swalFire('خطا!', response.errors.nullName[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.dupName) {
-                                        swalFire('خطا!', response.errors.dupName[0], 'error', 'تلاش مجدد');
-                                    }
-                                } else if (response.success) {
-                                    // swalFire('ثبت اطلاعات جدید موفقیت آمیز بود!', response.message.jobAdded[0], 'success', 'بستن');
-                                    // toggleModal(newJobModal.id);
-                                    location.reload();
-                                    resetFields();
-                                }
-                            }
-                        });
-                    }
-                });
-            });
-            $('.JobControl').on('click', function () {
-                $.ajax({
-                    type: 'GET', url: '/getJobInfo', data: {
-                        id: $(this).data('id')
-                    }, success: function (response) {
-                        if (response) {
-                            job_id.value = response.id;
-                            titleForEdit.value = response.title;
-                        }
-                    }
-                });
-            });
-            $('#edit-job').on('submit', function (e) {
-                e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST', url: '/editJob', data: data, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullName) {
-                                        swalFire('خطا!', response.errors.nullName[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.dupName) {
-                                        swalFire('خطا!', response.errors.dupName[0], 'error', 'تلاش مجدد');
-                                    }
-                                } else if (response.success) {
-                                    // swalFire('ویرایش اطلاعات موفقیت آمیز بود!', response.message.jobEdited[0], 'success', 'بستن');
-                                    // toggleModal(editJobModal.id);
-                                    location.reload();
-                                    resetFields();
-                                }
-                            }
-                        });
-                    }
-                });
-            });
-            $('.deactiveJobControl').on('click', function () {
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'وضعیت این کاتالوگ تغییر خواهد کرد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $.ajax({
-                            type: 'POST', url: '/ManageCatalogStatus', data: {
-                                id: $(this).data('id'), work: 'ChangeJobStatus'
                             }, headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                             }, success: function (response) {
@@ -4076,37 +4186,41 @@ $(document).ready(function () {
             });
             $('#new-establishment-place').on('submit', function (e) {
                 e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST', url: '/newEstablishmentPlace', data: data, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullName) {
-                                        swalFire('خطا!', response.errors.nullName[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.dupName) {
-                                        swalFire('خطا!', response.errors.dupName[0], 'error', 'تلاش مجدد');
+                if (!hasOnlyPersianCharacters(title.value)) {
+                    swalFire('خطا!', 'عنوان کار اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/newEstablishmentPlace', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullName) {
+                                            swalFire('خطا!', response.errors.nullName[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.dupName) {
+                                            swalFire('خطا!', response.errors.dupName[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ثبت اطلاعات جدید موفقیت آمیز بود!', response.message.establishmentPlaceAdded[0], 'success', 'بستن');
+                                        // toggleModal(newEstablishmentPlaceModal.id);
+                                        location.reload();
+                                        resetFields();
                                     }
-                                } else if (response.success) {
-                                    // swalFire('ثبت اطلاعات جدید موفقیت آمیز بود!', response.message.establishmentPlaceAdded[0], 'success', 'بستن');
-                                    // toggleModal(newEstablishmentPlaceModal.id);
-                                    location.reload();
-                                    resetFields();
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
             });
             $('.EstablishmentPlaceControl').on('click', function () {
                 $.ajax({
@@ -4122,37 +4236,41 @@ $(document).ready(function () {
             });
             $('#edit-establishment-place').on('submit', function (e) {
                 e.preventDefault();
-                Swal.fire({
-                    title: 'آیا مطمئن هستید؟',
-                    text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بله',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $(this);
-                        var data = form.serialize();
-                        $.ajax({
-                            type: 'POST', url: '/editEstablishmentPlace', data: data, headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            }, success: function (response) {
-                                if (response.errors) {
-                                    if (response.errors.nullName) {
-                                        swalFire('خطا!', response.errors.nullName[0], 'error', 'تلاش مجدد');
-                                    } else if (response.errors.dupName) {
-                                        swalFire('خطا!', response.errors.dupName[0], 'error', 'تلاش مجدد');
+                if (!hasOnlyPersianCharacters(titleForEdit.value)) {
+                    swalFire('خطا!', 'عنوان کار اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/editEstablishmentPlace', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullName) {
+                                            swalFire('خطا!', response.errors.nullName[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.dupName) {
+                                            swalFire('خطا!', response.errors.dupName[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ویرایش اطلاعات موفقیت آمیز بود!', response.message.establishmentPlaceEdited[0], 'success', 'بستن');
+                                        // toggleModal(editEstablishmentPlaceModal.id);
+                                        location.reload();
+                                        resetFields();
                                     }
-                                } else if (response.success) {
-                                    // swalFire('ویرایش اطلاعات موفقیت آمیز بود!', response.message.establishmentPlaceEdited[0], 'success', 'بستن');
-                                    // toggleModal(editEstablishmentPlaceModal.id);
-                                    location.reload();
-                                    resetFields();
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
             });
             $('.deactiveEstablishmentPlaceControl').on('click', function () {
                 Swal.fire({
@@ -4167,6 +4285,131 @@ $(document).ready(function () {
                         $.ajax({
                             type: 'POST', url: '/ManageCatalogStatus', data: {
                                 id: $(this).data('id'), work: 'ChangeEstablishmentPlaceStatus'
+                            }, headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            }, success: function (response) {
+                                location.reload();
+                            }
+                        });
+                    }
+                });
+
+            });
+            break;
+        case '/JobCatalog':
+            $('#new-job-button, #cancel-new-job').on('click', function () {
+                toggleModal(newJobModal.id);
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.add').on('click', function () {
+                toggleModal(newJobModal.id)
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.edit').on('click', function () {
+                toggleModal(editJobModal.id)
+            });
+            $('.JobControl,#cancel-edit-job').on('click', function () {
+                toggleModal(editJobModal.id);
+            });
+            $('#new-job').on('submit', function (e) {
+                e.preventDefault();
+                if (!hasOnlyPersianCharacters(title.value)) {
+                    swalFire('خطا!', 'عنوان کار اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/newJob', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullName) {
+                                            swalFire('خطا!', response.errors.nullName[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.dupName) {
+                                            swalFire('خطا!', response.errors.dupName[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ثبت اطلاعات جدید موفقیت آمیز بود!', response.message.jobAdded[0], 'success', 'بستن');
+                                        // toggleModal(newJobModal.id);
+                                        location.reload();
+                                        resetFields();
+                                    }
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+            $('.JobControl').on('click', function () {
+                $.ajax({
+                    type: 'GET', url: '/getJobInfo', data: {
+                        id: $(this).data('id')
+                    }, success: function (response) {
+                        if (response) {
+                            job_id.value = response.id;
+                            titleForEdit.value = response.title;
+                        }
+                    }
+                });
+            });
+            $('#edit-job').on('submit', function (e) {
+                e.preventDefault();
+                if (!hasOnlyPersianCharacters(titleForEdit.value)) {
+                    swalFire('خطا!', 'عنوان کار اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/editJob', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullName) {
+                                            swalFire('خطا!', response.errors.nullName[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.dupName) {
+                                            swalFire('خطا!', response.errors.dupName[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ویرایش اطلاعات موفقیت آمیز بود!', response.message.jobEdited[0], 'success', 'بستن');
+                                        // toggleModal(editJobModal.id);
+                                        location.reload();
+                                        resetFields();
+                                    }
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+            $('.deactiveJobControl').on('click', function () {
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'وضعیت این کاتالوگ تغییر خواهد کرد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: 'POST', url: '/ManageCatalogStatus', data: {
+                                id: $(this).data('id'), work: 'ChangeJobStatus'
                             }, headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                             }, success: function (response) {

@@ -52,7 +52,7 @@
                                             </div>
                                             <div class="flex flex-col items-right mb-2">
                                                 <label for="size"
-                                                       class="block text-gray-700 text-sm font-bold mb-2">مدل*:</label>
+                                                       class="block text-gray-700 text-sm font-bold mb-2">سایز*:</label>
                                                 <input type="text" id="size" name="size" autocomplete="off"
                                                        class="border rounded-md w-full mb-2 px-3 py-2 text-right"
                                                        placeholder="سایز پرده را بر حسب سانتی متر وارد کنید. به عنوان مثال: 10*50">

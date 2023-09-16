@@ -54,7 +54,7 @@
                                                 <label for="size"
                                                        class="block text-gray-700 text-sm font-bold mb-2">سایز
                                                     صفحه*:</label>
-                                                <input type="number" id="size" name="size" autocomplete="off"
+                                                <input type="text" id="size" name="size" autocomplete="off"
                                                        class="border rounded-md w-full mb-2 px-3 py-2 text-right"
                                                        placeholder="سایز صفحه را وارد کنید">
                                             </div>
@@ -121,7 +121,7 @@
                                                     <label for="sizeForEdit"
                                                            class="block text-gray-700 text-sm font-bold mb-2">سایز
                                                         صفحه*:</label>
-                                                    <input type="number" id="sizeForEdit" name="sizeForEdit"
+                                                    <input type="text" id="sizeForEdit" name="sizeForEdit"
                                                            autocomplete="off"
                                                            class="border rounded-md w-full mb-2 px-3 py-2 text-right"
                                                            placeholder="سایز صفحه را وارد کنید">
