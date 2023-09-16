@@ -16,8 +16,9 @@ return new class extends Migration
             $table->unsignedBigInteger('company_id');
             $table->foreign('company_id')->references('id')->on('companies');
             $table->string('model');
+            $table->string('ports_number');
             $table->string('type');
-            $table->string('connectivity_type');
+            $table->json('connectivity_type');
             $table->boolean('active')->default(1)->comment('1 => active , 0 => deactive');
             $table->timestamps();
             $table->softDeletes();

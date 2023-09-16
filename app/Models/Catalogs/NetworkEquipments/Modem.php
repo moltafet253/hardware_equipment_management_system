@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Catalogs\OtherEquipments;
+namespace App\Models\Catalogs\NetworkEquipments;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -14,6 +14,7 @@ class Modem extends Model
     protected $fillable=[
         'company_id',
         'model',
+        'ports_number',
         'type',
         'connectivity_type',
         'active',

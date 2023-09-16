@@ -12,6 +12,7 @@ use App\Http\Controllers\Catalogs\HarddiskController;
 use App\Http\Controllers\Catalogs\HeadphoneController;
 use App\Http\Controllers\Catalogs\JobController;
 use App\Http\Controllers\Catalogs\MobileController;
+use App\Http\Controllers\Catalogs\ModemController;
 use App\Http\Controllers\Catalogs\MonitorController;
 use App\Http\Controllers\Catalogs\MotherboardController;
 use App\Http\Controllers\Catalogs\NetworkCardController;
@@ -177,6 +178,11 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
             Route::post('/newSwitch', [SwitchController::class, 'newSwitch']);
             Route::get('/getSwitchInfo', [SwitchController::class, 'getSwitchInfo']);
             Route::post('/editSwitch', [SwitchController::class, 'editSwitch']);
+
+            Route::get('/ModemCatalog', [ModemController::class, 'index']);
+            Route::post('/newModem', [ModemController::class, 'newModem']);
+            Route::get('/getModemInfo', [ModemController::class, 'getModemInfo']);
+            Route::post('/editModem', [ModemController::class, 'editModem']);
                 //End Network Catalogs
 
                 //Other Equipments Catalogs

@@ -63,6 +63,10 @@ function resetFields() {
     selectors.forEach(select => select.value = "");
     const textareas = document.querySelectorAll('textarea');
     textareas.forEach(textarea => textarea.value = "");
+    // const radios = document.querySelectorAll('input');
+    // radios.forEach(input => input.selected = "");
+    // const checkboxes = document.querySelectorAll("input");
+    // checkboxes.forEach(input => input.selected = "");
 }
 
 function getParameterByName(name, url) {
@@ -2553,6 +2557,151 @@ $(document).ready(function () {
                         $.ajax({
                             type: 'POST', url: '/ManageCatalogStatus', data: {
                                 id: $(this).data('id'), work: 'ChangeSwitchStatus'
+                            }, headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            }, success: function (response) {
+                                location.reload();
+                            }
+                        });
+                    }
+                });
+
+            });
+            break;
+        case '/ModemCatalog':
+            $('#new-modem-button, #cancel-new-modem').on('click', function () {
+                toggleModal(newModemModal.id);
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.add').on('click', function () {
+                toggleModal(newModemModal.id)
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.edit').on('click', function () {
+                toggleModal(editModemModal.id)
+            });
+            $('.ModemControl,#cancel-edit-modem').on('click', function () {
+                toggleModal(editModemModal.id);
+            });
+            $('#new-modem').on('submit', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var form = $(this);
+                        var data = form.serialize();
+                        $.ajax({
+                            type: 'POST', url: '/newModem', data: data, headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            }, success: function (response) {
+                                if (response.errors) {
+                                    if (response.errors.nullBrand) {
+                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullModel) {
+                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                    }else if (response.errors.nullPortsNumber) {
+                                        swalFire('خطا!', response.errors.nullPortsNumber[0], 'error', 'تلاش مجدد');
+                                    }else if (response.errors.nullType) {
+                                        swalFire('خطا!', response.errors.nullType[0], 'error', 'تلاش مجدد');
+                                    }else if (response.errors.nullConnectivityType) {
+                                        swalFire('خطا!', response.errors.nullConnectivityType[0], 'error', 'تلاش مجدد');
+                                    }else if (response.errors.wrongPortsNumber) {
+                                        swalFire('خطا!', response.errors.wrongPortsNumber[0], 'error', 'تلاش مجدد');
+                                    }
+                                } else if (response.success) {
+                                    // swalFire('ثبت اطلاعات پرینتر موفقیت آمیز بود!', response.message.printerAdded[0], 'success', 'بستن');
+                                    // toggleModal(newPrinterModal.id);
+                                    location.reload();
+                                    resetFields();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+            $('.ModemControl').on('click', function () {
+                $.ajax({
+                    type: 'GET', url: '/getModemInfo', data: {
+                        id: $(this).data('id')
+                    }, success: function (response) {
+                        if (response) {
+                            modem_id.value = response.id;
+                            brandForEdit.value = response.company_id;
+                            modelForEdit.value = response.model;
+                            ports_numberForEdit.value = response.ports_number;
+                            typeForEdit.value = response.type;
+                            let selectElement = document.getElementById('connectivity_typeForEdit[]');
+                            for (let i = 0; i < selectElement.options.length; i++) {
+                                let option = selectElement.options[i];
+                                if (response.connectivity_type.includes(option.value)) {
+                                    option.selected = true;
+                                } else {
+                                    option.selected = false;
+                                }
+                            }
+                        }
+                    }
+                });
+            });
+            $('#edit-modem').on('submit', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var form = $(this);
+                        var data = form.serialize();
+                        $.ajax({
+                            type: 'POST', url: '/editModem', data: data, headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            }, success: function (response) {
+                                if (response.errors) {
+                                    if (response.errors.nullBrand) {
+                                        swalFire('خطا!', response.errors.nullBrand[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullModel) {
+                                        swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
+                                    }else if (response.errors.nullPortsNumber) {
+                                        swalFire('خطا!', response.errors.nullPortsNumber[0], 'error', 'تلاش مجدد');
+                                    }else if (response.errors.nullType) {
+                                        swalFire('خطا!', response.errors.nullType[0], 'error', 'تلاش مجدد');
+                                    }else if (response.errors.nullConnectivityType) {
+                                        swalFire('خطا!', response.errors.nullConnectivityType[0], 'error', 'تلاش مجدد');
+                                    }else if (response.errors.wrongPortsNumber) {
+                                        swalFire('خطا!', response.errors.wrongPortsNumber[0], 'error', 'تلاش مجدد');
+                                    }
+                                } else if (response.success) {
+                                    // swalFire('ویرایش پرینتر موفقیت آمیز بود!', response.message.printerEdited[0], 'success', 'بستن');
+                                    // toggleModal(editPrinterModal.id);
+                                    location.reload();
+                                    resetFields();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+            $('.deactiveModemControl').on('click', function () {
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'وضعیت این کاتالوگ تغییر خواهد کرد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: 'POST', url: '/ManageCatalogStatus', data: {
+                                id: $(this).data('id'), work: 'ChangeModemStatus'
                             }, headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                             }, success: function (response) {
