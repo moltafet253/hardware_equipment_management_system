@@ -96,9 +96,6 @@ class UserManager extends Controller
                 $subject = 'ادمین کل';
                 break;
             case 2:
-                $subject = 'کارشناس ستاد';
-                break;
-            case 3:
                 $subject = 'کارشناس فناوری استان';
                 break;
         }
@@ -109,7 +106,7 @@ class UserManager extends Controller
         $user->password = bcrypt($password);
         $user->type = $type;
         $user->subject = $subject;
-        if ($type == 3 and $request->input('province')) {
+        if ($type == 2 and $request->input('province')) {
             $user->province_id = $request->input('province');
         }
         $user->save();
@@ -124,10 +121,10 @@ class UserManager extends Controller
         $family = $request->input('editedFamily');
         $type = $request->input('editedType');
         $province = null;
-        if ($type == 3 and !$request->input('editedProvince')) {
+        if ($type == 2 and !$request->input('editedProvince')) {
             return $this->alerts(false, 'emptyProvince', 'استان انتخاب نشده است.');
         }
-        if ($type == 3) {
+        if ($type == 2) {
             $province = $request->input('editedProvince');
         }
         switch ($type) {
@@ -135,9 +132,6 @@ class UserManager extends Controller
                 $subject = 'ادمین کل';
                 break;
             case 2:
-                $subject = 'کارشناس ستاد';
-                break;
-            case 3:
                 $subject = 'کارشناس فناوری استان';
                 break;
         }

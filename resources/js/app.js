@@ -406,7 +406,7 @@ $(document).ready(function () {
             });
             $('#type').on('change', function () {
                 let provinceDiv = document.getElementById('provinceDiv');
-                if (this.value === '3') {
+                if (this.value === '2') {
                     provinceDiv.classList.remove('hidden');
                 } else {
                     provinceDiv.classList.add('hidden');
@@ -414,7 +414,7 @@ $(document).ready(function () {
             });
             $('#editedType').on('change', function () {
                 let provinceDiv = document.getElementById('editedProvinceDiv');
-                if (this.value === '3') {
+                if (this.value === '2') {
                     provinceDiv.classList.remove('hidden');
                 } else {
                     provinceDiv.classList.add('hidden');

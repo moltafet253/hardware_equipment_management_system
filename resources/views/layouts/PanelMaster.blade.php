@@ -1,3 +1,4 @@
+@php use App\Models\Province; @endphp
 <!DOCTYPE html>
 <html dir="rtl" lang="en">
 
@@ -139,6 +140,16 @@
                                                 ->first();
                                            echo $userInfo->username.' | '. $userInfo->name . ' '. $userInfo->family
                                     @endphp
+                                </p>
+                                <p class="pt-1 text-cu-light">
+                                    @if($userInfo->type===1)
+                                        {{ $userInfo->subject }}
+                                    @elseif($userInfo->type===2)
+                                        @php
+                                        $provinceInfo=Province::find($userInfo->province_id)
+                                        @endphp
+                                        {{ $userInfo->subject . ' ' . $provinceInfo->name }}
+                                    @endif
                                 </p>
                             </div>
                             <li class="menu-item" id="dashboard">
