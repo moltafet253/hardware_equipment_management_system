@@ -2474,6 +2474,8 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
                                     }else if (response.errors.nullPortsNumber) {
                                         swalFire('خطا!', response.errors.nullPortsNumber[0], 'error', 'تلاش مجدد');
+                                    }else if (response.errors.wrongPortsNumber) {
+                                        swalFire('خطا!', response.errors.wrongPortsNumber[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
                                     // swalFire('ثبت اطلاعات پرینتر موفقیت آمیز بود!', response.message.printerAdded[0], 'success', 'بستن');

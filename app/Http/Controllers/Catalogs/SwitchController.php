@@ -14,6 +14,12 @@ class SwitchController extends Controller
         $brand = $request->input('brand');
         $model = $request->input('model');
         $ports_number = $request->input('ports_number');
+        $validator = Validator::make($request->all(), [
+            'ports_number' => 'required|integer|max:100',
+        ]);
+        if ($validator->fails()) {
+            return $this->alerts(false, 'wrongPortsNumber', 'تعداد پورت اشتباه وارد شده است.');
+        }
         if (!$brand) {
             return $this->alerts(false, 'nullBrand', 'نام برند انتخاب نشده است');
         }
