@@ -79,7 +79,6 @@ function getParameterByName(name, url) {
 }
 
 $(document).ready(function () {
-    resetFields();
     //Check Login Form
     $('#loginForm').submit(function (e) {
         e.preventDefault();
@@ -137,7 +136,10 @@ $(document).ready(function () {
         });
     });
     switch (window.location.pathname) {
+
         case "/Profile":
+            resetFields();
+
             $('#change-password').submit(function (e) {
                 e.preventDefault();
 
@@ -207,6 +209,8 @@ $(document).ready(function () {
             });
             break;
         case "/UserManager":
+            resetFields();
+
             //Search In User Manager
             $('#search-Username-UserManager').on('input', function () {
                 var inputUsername = $('#search-Username-UserManager').val().trim().toLowerCase();
@@ -575,6 +579,8 @@ $(document).ready(function () {
             });
             break;
         case '/Brands':
+            resetFields();
+
             $('#search-brand-catalog-name').on('input', function () {
                 var nameValue = $('#search-brand-catalog-name').val();
                 $.ajax({
@@ -730,6 +736,8 @@ $(document).ready(function () {
             break;
 
         case '/MotherboardCatalog':
+            resetFields();
+
             $('#new-motherboard-button, #cancel-new-motherboard').on('click', function () {
                 toggleModal(newMotherboardModal.id);
             });
@@ -882,6 +890,8 @@ $(document).ready(function () {
             });
             break;
         case '/CaseCatalog':
+            resetFields();
+
             $('#new-case-button, #cancel-new-case').on('click', function () {
                 toggleModal(newCaseModal.id);
             });
@@ -1008,6 +1018,8 @@ $(document).ready(function () {
             });
             break;
         case '/CPUCatalog':
+            resetFields();
+
             $('#new-cpu-button, #cancel-cpu-case').on('click', function () {
                 toggleModal(newCPUModal.id);
             });
@@ -1139,6 +1151,8 @@ $(document).ready(function () {
             });
             break;
         case '/RAMCatalog':
+            resetFields();
+
             $('#new-ram-button, #cancel-new-ram').on('click', function () {
                 toggleModal(newRAMModal.id);
             });
@@ -1280,6 +1294,8 @@ $(document).ready(function () {
             });
             break;
         case '/PowerCatalog':
+            resetFields();
+
             $('#new-power-button, #cancel-new-power').on('click', function () {
                 toggleModal(newPowerModal.id);
             });
@@ -1415,6 +1431,8 @@ $(document).ready(function () {
             });
             break;
         case '/GraphicCardCatalog':
+            resetFields();
+
             $('#new-graphiccard-button, #cancel-new-graphiccard').on('click', function () {
                 toggleModal(newGraphicCardModal.id);
             });
@@ -1546,6 +1564,8 @@ $(document).ready(function () {
             });
             break;
         case '/HarddiskCatalog':
+            resetFields();
+
             $('#new-harddisk-button, #cancel-new-harddisk').on('click', function () {
                 toggleModal(newHarddiskModal.id);
             });
@@ -1687,6 +1707,8 @@ $(document).ready(function () {
             });
             break;
         case '/ODDCatalog':
+            resetFields();
+
             $('#new-ODD-button, #cancel-ODD-case').on('click', function () {
                 toggleModal(newODDModal.id);
             });
@@ -1818,6 +1840,8 @@ $(document).ready(function () {
             });
             break;
         case '/NetworkCardCatalog':
+            resetFields();
+
             $('#new-NetworkCard-button, #cancel-new-NetworkCard').on('click', function () {
                 toggleModal(newNetworkCardModal.id);
             });
@@ -1948,6 +1972,8 @@ $(document).ready(function () {
             });
             break;
         case '/MonitorCatalog':
+            resetFields();
+
             $('#new-Monitor-button, #cancel-new-Monitor').on('click', function () {
                 toggleModal(newMonitorModal.id);
             });
@@ -2083,6 +2109,8 @@ $(document).ready(function () {
             });
             break;
         case '/PrinterCatalog':
+            resetFields();
+
             $('#new-printer-button, #cancel-new-printer').on('click', function () {
                 toggleModal(newPrinterModal.id);
             });
@@ -2214,6 +2242,8 @@ $(document).ready(function () {
             });
             break;
         case '/ScannerCatalog':
+            resetFields();
+
             $('#new-scanner-button, #cancel-new-printer').on('click', function () {
                 toggleModal(newScannerModal.id);
             });
@@ -2340,6 +2370,8 @@ $(document).ready(function () {
             });
             break;
         case '/CopyMachineCatalog':
+            resetFields();
+
             $('#new-copy-machine-button, #cancel-new-copy-machine').on('click', function () {
                 toggleModal(newCopyMachineModal.id);
             });
@@ -2466,6 +2498,8 @@ $(document).ready(function () {
             });
             break;
         case '/VOIPCatalog':
+            resetFields();
+
             $('#new-VOIP-button, #cancel-new-VOIP').on('click', function () {
                 toggleModal(newVOIPModal.id);
             });
@@ -2593,6 +2627,8 @@ $(document).ready(function () {
             break;
 
         case '/SwitchCatalog':
+            resetFields();
+
             $('#new-switch-button, #cancel-new-switch').on('click', function () {
                 toggleModal(newSwitchModal.id);
             });
@@ -2732,6 +2768,8 @@ $(document).ready(function () {
             });
             break;
         case '/ModemCatalog':
+            resetFields();
+
             $('#new-modem-button, #cancel-new-modem').on('click', function () {
                 toggleModal(newModemModal.id);
             });
@@ -2890,6 +2928,8 @@ $(document).ready(function () {
             break;
 
         case '/LaptopCatalog':
+            resetFields();
+
             $('#new-laptop-button, #cancel-new-laptop').on('click', function () {
                 toggleModal(newLaptopModal.id);
             });
@@ -3033,6 +3073,8 @@ $(document).ready(function () {
             });
             break;
         case '/MobileCatalog':
+            resetFields();
+
             $('#new-mobile-button, #cancel-new-mobile').on('click', function () {
                 toggleModal(newMobileModal.id);
             });
@@ -3174,6 +3216,8 @@ $(document).ready(function () {
             });
             break;
         case '/TabletCatalog':
+            resetFields();
+
             $('#new-tablet-button, #cancel-new-tablet').on('click', function () {
                 toggleModal(newTabletModal.id);
             });
@@ -3315,6 +3359,8 @@ $(document).ready(function () {
             });
             break;
         case '/WebcamCatalog':
+            resetFields();
+
             $('#new-webcam-button, #cancel-new-webcam').on('click', function () {
                 toggleModal(newWebcamModal.id);
             });
@@ -3441,6 +3487,8 @@ $(document).ready(function () {
             });
             break;
         case '/RecorderCatalog':
+            resetFields();
+
             $('#new-recorder-button, #cancel-new-recorder').on('click', function () {
                 toggleModal(newRecorderModal.id);
             });
@@ -3567,6 +3615,8 @@ $(document).ready(function () {
             });
             break;
         case '/HeadphoneCatalog':
+            resetFields();
+
             $('#new-headphone-button, #cancel-new-headphone').on('click', function () {
                 toggleModal(newHeadphoneModal.id);
             });
@@ -3693,6 +3743,8 @@ $(document).ready(function () {
             });
             break;
         case '/SpeakerCatalog':
+            resetFields();
+
             $('#new-speaker-button, #cancel-new-speaker').on('click', function () {
                 toggleModal(newSpeakerModal.id);
             });
@@ -3819,6 +3871,8 @@ $(document).ready(function () {
             });
             break;
         case '/VideoProjectorCatalog':
+            resetFields();
+
             $('#new-videoProjector-button, #cancel-new-videoProjector').on('click', function () {
                 toggleModal(newVideoProjectorModal.id);
             });
@@ -3945,6 +3999,8 @@ $(document).ready(function () {
             });
             break;
         case '/VideoProjectorCurtainCatalog':
+            resetFields();
+
             $('#new-videoProjectorCurtain-button, #cancel-new-videoProjectorCurtain').on('click', function () {
                 toggleModal(newVideoProjectorCurtainModal.id);
             });
@@ -4077,6 +4133,8 @@ $(document).ready(function () {
             break;
 
         case '/AssistanceCatalog':
+            resetFields();
+
             $('#new-assistance-button, #cancel-new-assistance').on('click', function () {
                 toggleModal(newAssistanceModal.id);
             });
@@ -4202,6 +4260,8 @@ $(document).ready(function () {
             });
             break;
         case '/EstablishmentPlaceCatalog':
+            resetFields();
+
             $('#new-establishment-place-button, #cancel-new-establishment-place').on('click', function () {
                 toggleModal(newEstablishmentPlaceModal.id);
             });
@@ -4327,6 +4387,8 @@ $(document).ready(function () {
             });
             break;
         case '/JobCatalog':
+            resetFields();
+
             $('#new-job-button, #cancel-new-job').on('click', function () {
                 toggleModal(newJobModal.id);
             });
@@ -4452,6 +4514,8 @@ $(document).ready(function () {
             });
             break;
         case '/Person':
+            resetFields();
+
             $('#new-person-button, #cancel-new-person').on('click', function () {
                 toggleModal(newPersonModal.id);
             });
@@ -4566,6 +4630,8 @@ $(document).ready(function () {
             });
             break;
         case '/showEquipmentStatus':
+            resetFields();
+
             const tab1Button = document.getElementById('tab1');
             const tab2Button = document.getElementById('tab2');
             const tab3Button = document.getElementById('tab3');
@@ -5029,6 +5095,10 @@ $(document).ready(function () {
                     });
                 }
             });
+            break;
+        case '/ExcelAllReports':
+
+            break;
 
     }
 });
