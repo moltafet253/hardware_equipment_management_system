@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use Morilog\Jalali\Jalalian;
 
 class DashboardController extends Controller
@@ -48,9 +49,14 @@ class DashboardController extends Controller
     public function ChangeUserImage(Request $request)
     {
         $file_src = $request->file('image');
+        $validator = Validator::make($request->all(), [
+            'image' => 'required|image|mimes:jpg,png,jpeg,bmp|max:5120',
+        ]);
+        if ($validator->fails()) {
+            return $this->alerts(false, 'wrongImage', 'فایل نامعتبر انتخاب شده است.');
+        }
         if ($file_src) {
-            $folderName = str_replace('/', '', bcrypt($file_src->getClientOriginalName()));
-            $folderName = str_replace('\\', '', $folderName);
+            $folderName = str_replace(array('/', '\\'), '', bcrypt($file_src->getClientOriginalName()));
             $postFilePath = $file_src->storeAs('public/UserImages/' . $folderName, $file_src->getClientOriginalName());
             if ($postFilePath){
                 $user=User::find(session('id'));

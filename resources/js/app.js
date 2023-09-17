@@ -191,9 +191,8 @@ $(document).ready(function () {
                     contentType: false,
                     processData: false,
                     success: function (response) {
-                        console.log(response);
                         if (response.success) {
-                            // location.reload();
+                            location.reload();
                         } else {
                             if (response.errors.wrongImage) {
                                 swalFire('خطا!', response.errors.wrongImage[0], 'error', 'تلاش مجدد');
