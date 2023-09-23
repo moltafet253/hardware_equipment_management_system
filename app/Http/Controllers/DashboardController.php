@@ -69,10 +69,15 @@ class DashboardController extends Controller
         }
     }
 
-    public function jalaliDate()
+    public function jalaliDateAndTime()
     {
         $data = Jalalian::forge('today')->format('%A, %d %B %Y');
         return $data . ' ' . date("h:i");
+    }
+
+    public function jalaliDate()
+    {
+        return Jalalian::now()->format('Y/m/d');
     }
 
     public function index()

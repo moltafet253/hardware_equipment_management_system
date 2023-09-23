@@ -76,7 +76,8 @@ Route::get('/captcha', [LoginController::class, 'getCaptcha'])->name('captcha');
 
 //Panel Routes
 Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class)->group(function () {
-    Route::get('/date', [DashboardController::class, 'jalaliDate'])->name('getNow');
+    Route::get('/dateandtime', [DashboardController::class, 'jalaliDateAndTime']);
+    Route::get('/date', [DashboardController::class, 'jalaliDate']);
     Route::get('/Profile', [DashboardController::class, 'Profile'])->name('Profile');
     Route::post('/ChangePasswordInc', [DashboardController::class, 'ChangePasswordInc']);
     Route::post('/ChangeUserImage', [DashboardController::class, 'ChangeUserImage']);
@@ -260,6 +261,7 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
             //Start Reports
             //ExcelAllReports
             Route::get('/ExcelAllReports', [ExcelAllReportsController::class, 'index']);
+            Route::get('/GetReport', [ExcelAllReportsController::class, 'getReport'])->name('GetReport');
             //End Reports
         });
 

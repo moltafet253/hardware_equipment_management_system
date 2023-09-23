@@ -43,14 +43,14 @@
                                     <label for="delivery_date"
                                            class="block text-gray-700 text-sm font-bold mb-2">تاریخ تحویل</label>
                                     <input type="text" id="delivery_date" name="delivery_date"
-                                           class="border rounded-md w-full mb-4 px-3 py-2 text-right"
+                                           class="border rounded-md w-full mb-4 px-3 py-2 text-right deliveryDate"
                                            placeholder="با فرمت : 1402/05/04">
                                 </div>
                             </div>
                             <div class="mb-4">
                                 <label for="case"
                                        class="block text-gray-700 text-sm font-bold mb-2">کیس*</label>
-                                <select id="case" class="border rounded-md w-full px-3 py-2" name="case">
+                                <select id="case" class="border rounded-md w-96 px-3 py-2 select2" name="case">
                                     <option value="" disabled selected>انتخاب کنید</option>
                                     @php
                                         $cases = \App\Models\Catalogs\Cases::join('companies', 'cases.company_id', '=', 'companies.id')
@@ -67,7 +67,7 @@
                             <div class="mb-4">
                                 <label for="motherboard"
                                        class="block text-gray-700 text-sm font-bold mb-2">مادربورد*</label>
-                                <select id="motherboard" class="border rounded-md w-full px-3 py-2"
+                                <select id="motherboard" class="border rounded-md w-96 px-3 py-2 select2"
                                         name="motherboard">
                                     <option value="" disabled selected>انتخاب کنید</option>
                                     @php
@@ -85,7 +85,7 @@
                             <div class="mb-4">
                                 <label for="power"
                                        class="block text-gray-700 text-sm font-bold mb-2">منبع تغذیه*</label>
-                                <select id="power" class="border rounded-md w-full px-3 py-2" name="power">
+                                <select id="power" class="border rounded-md w-96 px-3 py-2 select2" name="power">
                                     <option value="" disabled selected>انتخاب کنید</option>
                                     @php
                                         $powers = \App\Models\Catalogs\Power::join('companies', 'powers.company_id', '=', 'companies.id')
@@ -102,7 +102,7 @@
                             <div class="mb-4">
                                 <label for="cpu"
                                        class="block text-gray-700 text-sm font-bold mb-2">پردازنده*</label>
-                                <select id="cpu" class="border rounded-md w-full px-3 py-2" name="cpu">
+                                <select id="cpu" class="border rounded-md w-96 px-3 py-2 select2" name="cpu">
                                     <option value="" disabled selected>انتخاب کنید</option>
                                     @php
                                         $cpus = \App\Models\Catalogs\cpu::join('companies', 'cpus.company_id', '=', 'companies.id')
@@ -121,7 +121,7 @@
                                     <label for="ram1"
                                            class="block text-gray-700 text-sm font-bold mt-3 whitespace-nowrap">رم
                                         1*</label>
-                                    <select id="ram1" class="border rounded-md w-full px-3 py-2" name="ram1">
+                                    <select id="ram1" class="border rounded-md w-72 px-3 py-2 select2" name="ram1">
                                         <option value="" disabled selected>انتخاب کنید</option>
                                         @php
                                             $rams = \App\Models\Catalogs\Ram::join('companies', 'rams.company_id', '=', 'companies.id')
@@ -147,7 +147,7 @@
                                     <label for="ram2"
                                            class="block text-gray-700 text-sm font-bold mt-3 whitespace-nowrap">رم
                                         2</label>
-                                    <select id="ram2" class="border rounded-md w-full px-3 py-2" name="ram2">
+                                    <select id="ram2" class="border rounded-md w-96 px-3 py-2 select2" name="ram2">
                                         <option value="" selected>فاقد رم</option>
                                         @php
                                             $rams = \App\Models\Catalogs\Ram::join('companies', 'rams.company_id', '=', 'companies.id')
@@ -167,7 +167,7 @@
                                     <label for="ram3"
                                            class="block text-gray-700 text-sm font-bold mt-3 whitespace-nowrap">رم
                                         3</label>
-                                    <select id="ram3" class="border rounded-md w-full px-3 py-2" name="ram3">
+                                    <select id="ram3" class="border rounded-md w-96 px-3 py-2 select2" name="ram3">
                                         <option value="" selected>فاقد رم</option>
                                         @php
                                             $rams = \App\Models\Catalogs\Ram::join('companies', 'rams.company_id', '=', 'companies.id')
@@ -187,7 +187,7 @@
                                     <label for="ram4"
                                            class="block text-gray-700 text-sm font-bold mt-3 whitespace-nowrap">رم
                                         4</label>
-                                    <select id="ram4" class="border rounded-md w-full px-3 py-2" name="ram4">
+                                    <select id="ram4" class="border rounded-md w-96 px-3 py-2 select2" name="ram4">
                                         <option value="" selected>فاقد رم</option>
                                         @php
                                             $rams = \App\Models\Catalogs\Ram::join('companies', 'rams.company_id', '=', 'companies.id')
@@ -207,7 +207,7 @@
                                     <label for="hdd1"
                                            class="block text-gray-700 text-sm font-bold mt-3 whitespace-nowrap">هارد
                                         1*</label>
-                                    <select id="hdd1" class="border rounded-md w-full px-3 py-2" name="hdd1">
+                                    <select id="hdd1" class="border rounded-md w-72 px-3 py-2 select2" name="hdd1">
                                         <option value="" disabled selected>انتخاب کنید</option>
                                         @php
                                             $hdds = \App\Models\Catalogs\Harddisk::join('companies', 'harddisks.company_id', '=', 'companies.id')
@@ -234,7 +234,7 @@
                                     <label for="hdd2"
                                            class="block text-gray-700 text-sm font-bold mt-3 whitespace-nowrap">هارد
                                         2</label>
-                                    <select id="hdd2" class="border rounded-md w-full px-3 py-2" name="hdd2">
+                                    <select id="hdd2" class="border rounded-md w-96 px-3 py-2 select2" name="hdd2">
                                         <option value="" selected>فاقد هارد</option>
                                         @php
                                             $hdds = \App\Models\Catalogs\Harddisk::join('companies', 'harddisks.company_id', '=', 'companies.id')
@@ -253,7 +253,7 @@
                             <div class="mb-4">
                                 <label for="graphiccard"
                                        class="block text-gray-700 text-sm font-bold mb-2">کارت گرافیک*</label>
-                                <select id="graphiccard" class="border rounded-md w-full px-3 py-2"
+                                <select id="graphiccard" class="border rounded-md w-96 px-3 py-2 select2"
                                         name="graphiccard">
                                     <option value="" selected>فاقد کارت گرافیک</option>
                                     @php
@@ -271,7 +271,7 @@
                             <div class="mb-4">
                                 <label for="networkcard"
                                        class="block text-gray-700 text-sm font-bold mb-2">کارت شبکه*</label>
-                                <select id="networkcard" class="border rounded-md w-full px-3 py-2"
+                                <select id="networkcard" class="border rounded-md w-96 px-3 py-2 select2"
                                         name="networkcard">
                                     <option value="" selected>فاقد کارت شبکه</option>
                                     @php
@@ -289,7 +289,7 @@
                             <div>
                                 <label for="odd"
                                        class="block text-gray-700 text-sm font-bold mb-2">درایو نوری*</label>
-                                <select id="odd" class="border rounded-md w-full px-3 py-2" name="odd">
+                                <select id="odd" class="border rounded-md w-96 px-3 py-2 select2" name="odd">
                                     <option value="" selected>فاقد درایو نوری</option>
                                     @php
                                         $odds = \App\Models\Catalogs\Odd::join('companies', 'odds.company_id', '=', 'companies.id')

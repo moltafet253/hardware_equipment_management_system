@@ -27,14 +27,14 @@
                                     <label for="delivery_date"
                                            class="block text-gray-700 text-sm font-bold mb-2">تاریخ تحویل</label>
                                     <input type="text" id="delivery_date" name="delivery_date"
-                                           class="border rounded-md w-full mb-4 px-3 py-2 text-right"
+                                           class="border rounded-md w-full mb-4 px-3 py-2 text-right deliveryDate"
                                            placeholder="با فرمت : 1402/05/04">
                                 </div>
                             </div>
                             <div class="mb-4">
                                 <label for="scanner"
                                        class="block text-gray-700 text-sm font-bold mb-2">اسکنر*</label>
-                                <select id="scanner" class="border rounded-md w-full px-3 py-2" name="scanner">
+                                <select id="scanner" class="border rounded-md w-96 px-3 py-2 select2" name="scanner">
                                     <option value="" disabled selected>انتخاب کنید</option>
                                     @php
                                         $scanners = \App\Models\Catalogs\Scanner::join('companies', 'scanners.company_id', '=', 'companies.id')

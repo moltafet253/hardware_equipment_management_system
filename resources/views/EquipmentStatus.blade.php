@@ -16,19 +16,13 @@
 
                 <div class="flex border rounded-lg">
                     <button id="tab1"
-                            class="w-1/3 py-2 px-4 bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:bg-blue-600 rounded-tr-box">
+                            class="w-1/3 py-2 px-4 bg-blue-400 text-white hover:bg-blue-600 focus:outline-none focus:bg-blue-600 rounded-tr-box">
                         تجهیزات سخت افزاری
                     </button>
-                    <button id="tab2" class="w-1/3 py-2 px-4 bg-blue-500 text-white rounded-tl-box">تجهیزات شبکه
+                    <button id="tab2" class="w-1/3 py-2 px-4 bg-blue-400 text-white rounded-tl-box">تجهیزات شبکه
                     </button>
-                    <button id="tab3" class="w-1/3 py-2 px-4 bg-blue-500 text-white rounded-tl-box">سایر تجهیزات
+                    <button id="tab3" class="w-1/3 py-2 px-4 bg-blue-400 text-white rounded-tl-box">سایر تجهیزات
                     </button>
-
-                    @if( session('type')!=3 )
-                        <button id="tab4" class="w-1/3 py-2 px-4 bg-blue-500 text-white rounded-tl-box">کارهای انجام
-                            شده
-                        </button>
-                    @endif
                 </div>
                 <div>
                     <div id="content1" class="p-4">
@@ -60,13 +54,6 @@
                     <div id="content3" class="hidden p-4">
 
                     </div>
-
-                    @if( session('type')!=2 )
-                        <div id="content4" class="hidden p-4">
-                            {{--            Comment--}}
-                            @include('layouts.EquipmentManagerLayers.Comments')
-                        </div>
-                    @endif
                 </div>
 
             </div>

@@ -78,6 +78,23 @@ function getParameterByName(name, url) {
     return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
 
+//Get Jalali time and date
+function getJalaliDate() {
+    return new Promise(function (resolve, reject) {
+        $.ajax({
+            type: 'GET',
+            url: "/date",
+            success: function (response) {
+                resolve(response);
+            },
+            error: function (error) {
+                reject(error);
+            }
+        });
+    });
+}
+
+
 $(document).ready(function () {
     //Check Login Form
     $('#loginForm').submit(function (e) {
@@ -4632,27 +4649,39 @@ $(document).ready(function () {
         case '/showEquipmentStatus':
             resetFields();
 
+            //set all delivery date fields to now
+        function setInputValue(date) {
+            let inputElement = $('.deliveryDate');
+            inputElement.val(date);
+        }
+
+            getJalaliDate()
+                .then(function (date) {
+                    setInputValue(date);
+                })
+                .catch(function (error) {
+                    console.error("خطا در دریافت تاریخ: " + error);
+                });
+
+            //tab management scripts
+
             const tab1Button = document.getElementById('tab1');
             const tab2Button = document.getElementById('tab2');
             const tab3Button = document.getElementById('tab3');
-            const tab4Button = document.getElementById('tab4');
             const content1 = document.getElementById('content1');
             const content2 = document.getElementById('content2');
             const content3 = document.getElementById('content3');
-            const content4 = document.getElementById('content4');
 
         function showTabContent(tabButton, tabContent) {
             content1.style.display = 'none';
             content2.style.display = 'none';
             content3.style.display = 'none';
-            content4.style.display = 'none';
 
             tabContent.style.display = 'block';
 
             tab1Button.classList.remove('focus:bg-blue-600');
             tab2Button.classList.remove('focus:bg-blue-600');
             tab3Button.classList.remove('focus:bg-blue-600');
-            tab4Button.classList.remove('focus:bg-blue-600');
 
             tabButton.classList.add('focus:bg-blue-600');
         }
@@ -4670,8 +4699,6 @@ $(document).ready(function () {
                 showTabContent(tab2Button, content2);
             } else if (selectedTab === '3') {
                 showTabContent(tab3Button, content3);
-            } else if (selectedTab === '4') {
-                showTabContent(tab4Button, content4);
             } else {
                 showTabContent(tab1Button, content1);
             }
@@ -4692,12 +4719,11 @@ $(document).ready(function () {
                 saveTabState(3);
             });
 
-            tab4Button.addEventListener('click', function () {
-                showTabContent(tab4Button, content4);
-                saveTabState(4);
-            });
-
             loadTabState();
+
+            //end tab management scripts
+
+
             $('.AddCase, #cancel-add-case').on('click', function () {
                 toggleModal(addCaseModal.id);
             });

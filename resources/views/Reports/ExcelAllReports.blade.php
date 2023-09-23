@@ -8,7 +8,7 @@
             <div class="bg-white rounded shadow p-6 mb-4">
                 <h4 class="text-l font-bold">ستاد - گزارش تجهیزات پرسنل خاص</h4>
                 <hr>
-                <form id="CenterPersonnel">
+                <form id="CenterPersonnel" action="{{ route('GetReport') }}">
                 <div class="flex p-4">
                     <p class=" mt-2">لطفا یک پرسنل را انتخاب کنید:</p>
                     <select id="person" class="border rounded-md w-72 px-3 py-2 select2" name="person">
@@ -25,6 +25,7 @@
                             </option>
                         @endforeach
                     </select>
+                    <input type="hidden" name="work" id="work"  value="GetAllCenterPersonEqiupments">
                     <button type="submit"
                             class="px-4 py-2 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 GetPersonEquipmentsReport">
                         دریافت گزارش
