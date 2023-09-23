@@ -4770,7 +4770,6 @@ $(document).ready(function () {
                 toggleModal(addVOIPModal.id)
             });
 
-
             $('.AddRecorder, #cancel-add-recorder').on('click', function () {
                 toggleModal(addRecorderModal.id);
             });
@@ -4798,6 +4797,7 @@ $(document).ready(function () {
                 hdd2Div.classList.remove('hidden');
                 addHDD.classList.add('hidden');
             });
+
             $('#new-case').on('submit', function (e) {
                 e.preventDefault();
                 Swal.fire({

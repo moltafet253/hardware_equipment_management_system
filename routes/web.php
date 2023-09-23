@@ -32,7 +32,6 @@ use App\Http\Controllers\Catalogs\VOIPController;
 use App\Http\Controllers\Catalogs\WebcamController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EquipmentController;
-use App\Http\Controllers\ExportToExcelController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PersonController;
 use App\Http\Controllers\Reports\ExcelAllReportsController;
