@@ -99,7 +99,7 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
 
             //Catalogs
 
-                //Hardware Catalogs
+            //Hardware Catalogs
             Route::get('/Brands', [BrandController::class, 'index'])->name('Brands');
             Route::post('/newBrand', [BrandController::class, 'newBrand'])->name('newBrand');
             Route::get('/getBrandInfo', [BrandController::class, 'getBrandInfo'])->name('getBrandInfo');
@@ -174,9 +174,9 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
             Route::post('/newVOIP', [VOIPController::class, 'newVOIP'])->name('newVOIP');
             Route::get('/getVOIPInfo', [VOIPController::class, 'getVOIPInfo'])->name('getVOIPInfo');
             Route::post('/editVOIP', [VOIPController::class, 'editVOIP'])->name('editVOIP');
-                //End Hardware Catalogs
+            //End Hardware Catalogs
 
-                //Network Catalogs
+            //Network Catalogs
             Route::get('/SwitchCatalog', [SwitchController::class, 'index']);
             Route::post('/newSwitch', [SwitchController::class, 'newSwitch']);
             Route::get('/getSwitchInfo', [SwitchController::class, 'getSwitchInfo']);
@@ -186,9 +186,9 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
             Route::post('/newModem', [ModemController::class, 'newModem']);
             Route::get('/getModemInfo', [ModemController::class, 'getModemInfo']);
             Route::post('/editModem', [ModemController::class, 'editModem']);
-                //End Network Catalogs
+            //End Network Catalogs
 
-                //Other Equipments Catalogs
+            //Other Equipments Catalogs
 
             Route::get('/LaptopCatalog', [LaptopController::class, 'index']);
             Route::post('/newLaptop', [LaptopController::class, 'newLaptop']);
@@ -234,9 +234,9 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
             Route::post('/newVideoProjectorCurtain', [VideoProjectorCurtainController::class, 'newVideoProjectorCurtain']);
             Route::get('/getVideoProjectorCurtainInfo', [VideoProjectorCurtainController::class, 'getVideoProjectorCurtainInfo']);
             Route::post('/editVideoProjectorCurtain', [VideoProjectorCurtainController::class, 'editVideoProjectorCurtain']);
-                //End Other Equipments Catalogs
+            //End Other Equipments Catalogs
 
-                //System Catalogs
+            //System Catalogs
             Route::get('/AssistanceCatalog', [AssistanceController::class, 'index'])->name('AssistanceCatalog');
             Route::post('/newAssistance', [AssistanceController::class, 'newAssistance'])->name('newAssistance');
             Route::get('/getAssistanceInfo', [AssistanceController::class, 'getAssistanceInfo'])->name('getAssistanceInfo');
@@ -251,7 +251,7 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
             Route::post('/newJob', [JobController::class, 'newJob'])->name('newJob');
             Route::get('/getJobInfo', [JobController::class, 'getJobInfo'])->name('getJobInfo');
             Route::post('/editJob', [JobController::class, 'editJob'])->name('editJob');
-                //End System Catalogs
+            //End System Catalogs
 
             Route::post('/ManageCatalogStatus', [CatalogController::class, 'manage']);
             //End Catalogs
@@ -265,18 +265,41 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
             //End Reports
         });
 
+        //Person Management
         Route::get('/Person', [PersonController::class, 'index'])->name('Person');
         Route::post('/newPerson', [PersonController::class, 'newPerson'])->name('newPerson');
         Route::get('/getPersonInfo', [PersonController::class, 'getPersonInfo'])->name('getPersonInfo');
         Route::post('/editPerson', [PersonController::class, 'editPerson'])->name('editPerson');
+        //End Person Management
 
+        //Equipment status
         Route::get('/showEquipmentStatus', [EquipmentController::class, 'showEquipmentStatus'])->name('showEquipmentStatus');
-        Route::post('/newEquipmentCase', [EquipmentController::class, 'newCase'])->name('newEquipmentCase');
-        Route::post('/newEquipmentMonitor', [EquipmentController::class, 'newMonitor'])->name('newEquipmentMonitor');
-        Route::post('/newEquipmentPrinter', [EquipmentController::class, 'newPrinter'])->name('newEquipmentPrinter');
-        Route::post('/newEquipmentScanner', [EquipmentController::class, 'newScanner'])->name('newEquipmentScanner');
-        Route::post('/newEquipmentCopyMachine', [EquipmentController::class, 'newCopyMachine'])->name('newEquipmentCopyMachine');
-        Route::post('/newEquipmentVOIP', [EquipmentController::class, 'newVOIP'])->name('newEquipmentVOIP');
+
+        //Hardware equipments
+        Route::post('/newEquipmentCase', [EquipmentController::class, 'newCase']);
+        Route::post('/newEquipmentMonitor', [EquipmentController::class, 'newMonitor']);
+        Route::post('/newEquipmentPrinter', [EquipmentController::class, 'newPrinter']);
+        Route::post('/newEquipmentScanner', [EquipmentController::class, 'newScanner']);
+        Route::post('/newEquipmentCopyMachine', [EquipmentController::class, 'newCopyMachine']);
+        Route::post('/newEquipmentVOIP', [EquipmentController::class, 'newVOIP']);
+
+        //Network equipments
+        Route::post('/newEquipmentModem', [EquipmentController::class, 'newModem']);
+        Route::post('/newEquipmentSwitch', [EquipmentController::class, 'newSwitch']);
+
+        //Other equipments
+        Route::post('/newEquipmentHeadphone', [EquipmentController::class, 'newHeadphone']);
+        Route::post('/newEquipmentLaptop', [EquipmentController::class, 'newLaptop']);
+        Route::post('/newEquipmentMobile', [EquipmentController::class, 'newMobile']);
+        Route::post('/newEquipmentRecorder', [EquipmentController::class, 'newRecorder']);
+        Route::post('/newEquipmentSpeaker', [EquipmentController::class, 'newSpeaker']);
+        Route::post('/newEquipmentTablet', [EquipmentController::class, 'newTablet']);
+        Route::post('/newEquipmentVideoProjector', [EquipmentController::class, 'newVideoProjector']);
+        Route::post('/newEquipmentVideoProjectorCurtain', [EquipmentController::class, 'newVideoProjectorCurtain']);
+        Route::post('/newEquipmentWebcam', [EquipmentController::class, 'newWebcam']);
+
+        //End equipment status
+
         Route::post('/editEquipment', [EquipmentController::class, 'editEquipment'])->name('editEquipment');
 
         Route::middleware('roleAuthorization:2')->group(function () {

@@ -4679,11 +4679,11 @@ $(document).ready(function () {
 
             tabContent.style.display = 'block';
 
-            tab1Button.classList.remove('focus:bg-blue-600');
-            tab2Button.classList.remove('focus:bg-blue-600');
-            tab3Button.classList.remove('focus:bg-blue-600');
+            tab1Button.classList.remove('bg-blue-600');
+            tab2Button.classList.remove('bg-blue-600');
+            tab3Button.classList.remove('bg-blue-600');
 
-            tabButton.classList.add('focus:bg-blue-600');
+            tabButton.classList.add('bg-blue-600');
         }
 
         function saveTabState(tabIndex) {
@@ -4695,12 +4695,16 @@ $(document).ready(function () {
 
             if (selectedTab === '1') {
                 showTabContent(tab1Button, content1);
+                tab1Button.classList.add('bg-blue-600');
             } else if (selectedTab === '2') {
                 showTabContent(tab2Button, content2);
+                tab2Button.classList.add('bg-blue-600');
             } else if (selectedTab === '3') {
                 showTabContent(tab3Button, content3);
+                tab3Button.classList.add('bg-blue-600');
             } else {
                 showTabContent(tab1Button, content1);
+                tab1Button.classList.add('bg-blue-600');
             }
         }
 
