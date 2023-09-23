@@ -13,7 +13,14 @@ return new class extends Migration
     {
         Schema::create('equipmented_headphones', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('person_id');
+            $table->foreign('person_id')->references('id')->on('persons');
+            $table->string('delivery_date',20)->nullable();
+            $table->string('property_number');
+            $table->unsignedBigInteger('headphone_id');
+            $table->foreign('headphone_id')->references('id')->on('headphones');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

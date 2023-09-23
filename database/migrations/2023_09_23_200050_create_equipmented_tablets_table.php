@@ -13,7 +13,14 @@ return new class extends Migration
     {
         Schema::create('equipmented_tablets', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('person_id');
+            $table->foreign('person_id')->references('id')->on('persons');
+            $table->string('delivery_date',20)->nullable();
+            $table->string('property_number');
+            $table->unsignedBigInteger('tablet_id');
+            $table->foreign('tablet_id')->references('id')->on('tablets');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

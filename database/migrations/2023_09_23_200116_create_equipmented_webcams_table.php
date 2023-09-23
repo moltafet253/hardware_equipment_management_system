@@ -13,7 +13,14 @@ return new class extends Migration
     {
         Schema::create('equipmented_webcams', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('person_id');
+            $table->foreign('person_id')->references('id')->on('persons');
+            $table->string('delivery_date',20)->nullable();
+            $table->string('property_number');
+            $table->unsignedBigInteger('webcam_id');
+            $table->foreign('webcam_id')->references('id')->on('webcams');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
