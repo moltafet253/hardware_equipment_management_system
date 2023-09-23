@@ -17,8 +17,8 @@ return new class extends Migration
             $table->foreign('person_id')->references('id')->on('persons');
             $table->string('delivery_date',20)->nullable();
             $table->string('property_number');
-            $table->unsignedBigInteger('video_projector_curtain_id');
-            $table->foreign('video_projector_curtain_id')->references('id')->on('video_projector_curtains');
+            $table->unsignedBigInteger('vp_curtain_id');
+            $table->foreign('vp_curtain_id')->references('id')->on('video_projector_curtains');
             $table->timestamps();
             $table->softDeletes();
         });
