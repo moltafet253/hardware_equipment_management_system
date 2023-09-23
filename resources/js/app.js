@@ -4727,63 +4727,12 @@ $(document).ready(function () {
 
             //end tab management scripts
 
-
             $('.AddCase, #cancel-add-case').on('click', function () {
                 toggleModal(addCaseModal.id);
             });
             $('.absolute.inset-0.bg-gray-500.opacity-75.addcase').on('click', function () {
                 toggleModal(addCaseModal.id)
             });
-
-            $('.AddMonitor, #cancel-add-monitor').on('click', function () {
-                toggleModal(addMonitorModal.id);
-            });
-            $('.absolute.inset-0.bg-gray-500.opacity-75.addmonitor').on('click', function () {
-                toggleModal(addMonitorModal.id)
-            });
-
-            $('.AddPrinter, #cancel-add-printer').on('click', function () {
-                toggleModal(addPrinterModal.id);
-            });
-            $('.absolute.inset-0.bg-gray-500.opacity-75.addprinter').on('click', function () {
-                toggleModal(addPrinterModal.id)
-            });
-
-            $('.AddScanner, #cancel-add-scanner').on('click', function () {
-                toggleModal(addScannerModal.id);
-            });
-            $('.absolute.inset-0.bg-gray-500.opacity-75.addscanner').on('click', function () {
-                toggleModal(addScannerModal.id)
-            });
-
-            $('.AddCopyMachine, #cancel-add-copymachine').on('click', function () {
-                toggleModal(addCopyMachineModal.id);
-            });
-            $('.absolute.inset-0.bg-gray-500.opacity-75.addcopymachine').on('click', function () {
-                toggleModal(addCopyMachineModal.id)
-            });
-
-            $('.AddVOIP, #cancel-add-voip').on('click', function () {
-                toggleModal(addVOIPModal.id);
-            });
-            $('.absolute.inset-0.bg-gray-500.opacity-75.addVOIP').on('click', function () {
-                toggleModal(addVOIPModal.id)
-            });
-
-            $('.AddRecorder, #cancel-add-recorder').on('click', function () {
-                toggleModal(addRecorderModal.id);
-            });
-            $('.absolute.inset-0.bg-gray-500.opacity-75.addrecorder').on('click', function () {
-                toggleModal(addRecorderModal.id)
-            });
-
-            $('.AddComment, #cancel-add-comment').on('click', function () {
-                toggleModal(addCommentModal.id);
-            });
-            $('.absolute.inset-0.bg-gray-500.opacity-75.addcomment').on('click', function () {
-                toggleModal(addCommentModal.id)
-            });
-
             $('#addRAM').on('click', function () {
                 if (ram2Div.classList.contains('hidden')) {
                     ram2Div.classList.remove('hidden');
@@ -4797,7 +4746,6 @@ $(document).ready(function () {
                 hdd2Div.classList.remove('hidden');
                 addHDD.classList.add('hidden');
             });
-
             $('#new-case').on('submit', function (e) {
                 e.preventDefault();
                 Swal.fire({
@@ -4849,6 +4797,12 @@ $(document).ready(function () {
                 });
             });
 
+            $('.AddMonitor, #cancel-add-monitor').on('click', function () {
+                toggleModal(addMonitorModal.id);
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.addmonitor').on('click', function () {
+                toggleModal(addMonitorModal.id)
+            });
             $('#new-monitor').on('submit', function (e) {
                 e.preventDefault();
                 Swal.fire({
@@ -4888,6 +4842,12 @@ $(document).ready(function () {
                 });
             });
 
+            $('.AddPrinter, #cancel-add-printer').on('click', function () {
+                toggleModal(addPrinterModal.id);
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.addprinter').on('click', function () {
+                toggleModal(addPrinterModal.id)
+            });
             $('#new-printer').on('submit', function (e) {
                 e.preventDefault();
                 Swal.fire({
@@ -4927,6 +4887,12 @@ $(document).ready(function () {
                 });
             });
 
+            $('.AddScanner, #cancel-add-scanner').on('click', function () {
+                toggleModal(addScannerModal.id);
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.addscanner').on('click', function () {
+                toggleModal(addScannerModal.id)
+            });
             $('#new-scanner').on('submit', function (e) {
                 e.preventDefault();
                 Swal.fire({
@@ -4966,6 +4932,12 @@ $(document).ready(function () {
                 });
             });
 
+            $('.AddCopyMachine, #cancel-add-copymachine').on('click', function () {
+                toggleModal(addCopyMachineModal.id);
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.addcopymachine').on('click', function () {
+                toggleModal(addCopyMachineModal.id)
+            });
             $('#new-copymachine').on('submit', function (e) {
                 e.preventDefault();
                 Swal.fire({
@@ -5005,6 +4977,12 @@ $(document).ready(function () {
                 });
             });
 
+            $('.AddVOIP, #cancel-add-voip').on('click', function () {
+                toggleModal(addVOIPModal.id);
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.addVOIP').on('click', function () {
+                toggleModal(addVOIPModal.id)
+            });
             $('#new-voip').on('submit', function (e) {
                 e.preventDefault();
                 Swal.fire({
@@ -5044,6 +5022,12 @@ $(document).ready(function () {
                 });
             });
 
+            $('.AddRecorder, #cancel-add-recorder').on('click', function () {
+                toggleModal(addRecorderModal.id);
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.addrecorder').on('click', function () {
+                toggleModal(addRecorderModal.id)
+            });
             $('#new-recorder').on('submit', function (e) {
                 e.preventDefault();
                 Swal.fire({
@@ -5083,6 +5067,26 @@ $(document).ready(function () {
                 });
             });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            $('.AddComment, #cancel-add-comment').on('click', function () {
+                toggleModal(addCommentModal.id);
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.addcomment').on('click', function () {
+                toggleModal(addCommentModal.id)
+            });
             $('#new-comment').on('submit', function (e) {
                 e.preventDefault();
                 if (isNaN(ticket_number.value)) {
@@ -5125,6 +5129,7 @@ $(document).ready(function () {
                     });
                 }
             });
+
             break;
         case '/ExcelAllReports':
 
