@@ -4573,6 +4573,8 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.dupPersonnelCode[0], 'error', 'تلاش مجدد');
                                     } else if (response.errors.wrongNationalCode) {
                                         swalFire('خطا!', response.errors.wrongNationalCode[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullAssistance) {
+                                        swalFire('خطا!', response.errors.nullAssistance[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
                                     $('table tbody').append(response.html);
@@ -4633,6 +4635,8 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullPersonnelCode[0], 'error', 'تلاش مجدد');
                                     } else if (response.errors.nullNationalCode) {
                                         swalFire('خطا!', response.errors.nullNationalCode[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullAssistance) {
+                                        swalFire('خطا!', response.errors.nullAssistance[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
                                     // swalFire('ویرایش پرسنل موفقیت آمیز بود!', response.message.personEdited[0], 'success', 'بستن');

@@ -21,6 +21,8 @@ use App\Models\EquipmentedOtherDevices\EquipmentedWebcam;
 use App\Models\EquipmentedPrinter;
 use App\Models\EquipmentedScanner;
 use App\Models\EquipmentedVoip;
+use App\Models\Person;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class EquipmentController extends Controller
@@ -28,6 +30,14 @@ class EquipmentController extends Controller
     public function showEquipmentStatus(Request $request)
     {
         $personId = $request->input('id');
+        $me=User::find(session('id'));
+        if ($me->type!=1) {
+            $check = Person::find($personId);
+            if ($check->work_place==$me->province_id) {
+                return view('EquipmentStatus', ['personId' => $personId]);
+            }
+            abort(500);
+        }
         return view('EquipmentStatus', ['personId' => $personId]);
     }
 

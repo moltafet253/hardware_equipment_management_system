@@ -29,6 +29,9 @@ class PersonController extends Controller
         if (!$family) {
             return $this->alerts(false, 'nullFamily', 'نام خانوادگی وارد نشده است');
         }
+        if (!$assistance) {
+            return $this->alerts(false, 'nullAssistance', 'معاونت انتخاب نشده است');
+        }
         if (!$personnel_code and !$national_code) {
             return $this->alerts(false, 'nullPersonnelCode', 'کد پرسنلی یا کد ملی وارد نشده است');
         }
@@ -54,9 +57,7 @@ class PersonController extends Controller
         $Person->room_number = $room_number;
         $Person->assistance = $assistance;
         $Person->establishment_place = $establishment_place;
-        if ($adder->type == 3) {
-            $Person->work_place = $adder->province_id;
-        }
+        $Person->work_place = $adder->province_id;
         $Person->adder = session('id');
         $Person->save();
         $this->logActivity('Person Added =>' . $Person->id, \request()->ip(), \request()->userAgent(), \session('id'));
@@ -91,6 +92,9 @@ class PersonController extends Controller
         }
         if (!$personnel_code) {
             return $this->alerts(false, 'nullPersonnelCode', 'کد پرسنلی وارد نشده است');
+        }
+        if (!$assistance) {
+            return $this->alerts(false, 'nullAssistance', 'معاونت انتخاب نشده است');
         }
 
         $Person = Person::find($PersonID);
