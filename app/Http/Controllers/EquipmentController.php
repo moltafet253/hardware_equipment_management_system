@@ -10,6 +10,7 @@ use App\Models\EquipmentedCopyMachine;
 use App\Models\EquipmentedMonitor;
 use App\Models\EquipmentedNetworkDevices\EquipmentedModem;
 use App\Models\EquipmentedNetworkDevices\EquipmentedSwitch;
+use App\Models\EquipmentedOtherDevices\EquipmentedHeadphone;
 use App\Models\EquipmentedPrinter;
 use App\Models\EquipmentedScanner;
 use App\Models\EquipmentedVoip;
@@ -281,13 +282,13 @@ class EquipmentController extends Controller
             return $this->alerts(false, 'nullModem', 'مودم انتخاب نشده است');
         }
 
-        $newmodem = new EquipmentedModem();
-        $newmodem->person_id = $personID;
-        $newmodem->property_number = $property_number;
-        $newmodem->delivery_date = $delivery_date;
-        $newmodem->modem_id = $modem;
-        $newmodem->save();
-        $this->logActivity('Modem Added =>' . $newmodem->id, \request()->ip(), \request()->userAgent(), \session('id'));
+        $newModem = new EquipmentedModem();
+        $newModem->person_id = $personID;
+        $newModem->property_number = $property_number;
+        $newModem->delivery_date = $delivery_date;
+        $newModem->modem_id = $modem;
+        $newModem->save();
+        $this->logActivity('Modem Added =>' . $newModem->id, \request()->ip(), \request()->userAgent(), \session('id'));
         return $this->success(true, 'modemAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
@@ -431,7 +432,7 @@ class EquipmentController extends Controller
         $personID = $request->input('person');
         $property_number = $request->input('property_number');
         $delivery_date = $request->input('delivery_date');
-        $modem = $request->input('modem');
+        $headphone = $request->input('headphone');
 
         if (!$personID) {
             return $this->alerts(false, 'nullPersonnelCode', 'کد پرسنلی وارد نشده است');
@@ -439,18 +440,18 @@ class EquipmentController extends Controller
         if (!$property_number) {
             return $this->alerts(false, 'nullPropertyNumber', 'کد اموال وارد نشده است');
         }
-        if (!$modem) {
-            return $this->alerts(false, 'nullModem', 'مودم انتخاب نشده است');
+        if (!$headphone) {
+            return $this->alerts(false, 'nullHeadphone', 'هدفون انتخاب نشده است');
         }
 
-        $newmodem = new EquipmentedModem();
-        $newmodem->person_id = $personID;
-        $newmodem->property_number = $property_number;
-        $newmodem->delivery_date = $delivery_date;
-        $newmodem->modem_id = $modem;
-        $newmodem->save();
-        $this->logActivity('Modem Added =>' . $newmodem->id, \request()->ip(), \request()->userAgent(), \session('id'));
-        return $this->success(true, 'modemAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
+        $newHeadphone = new EquipmentedHeadphone();
+        $newHeadphone->person_id = $personID;
+        $newHeadphone->property_number = $property_number;
+        $newHeadphone->delivery_date = $delivery_date;
+        $newHeadphone->headphone_id = $headphone;
+        $newHeadphone->save();
+        $this->logActivity('Headphone Added =>' . $newHeadphone->id, \request()->ip(), \request()->userAgent(), \session('id'));
+        return $this->success(true, 'headphoneAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
     public function newSpeaker(Request $request)

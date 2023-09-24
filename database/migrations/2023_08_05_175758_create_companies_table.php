@@ -60,7 +60,7 @@ VALUES
 ('Select', '[\"Case\"]'),
 ('TANUS', '[\"Case\"]'),
 ('Target', '[\"Case\"]'),
-('TSCO', '[\"Case\",\"Power\"]'),
+('TSCO', '[\"Case\",\"Power\",\"Headphone\"]'),
 ('VANIA', '[\"Case\"]'),
 ('Viera', '[\"Case\"]'),
 ('Winext', '[\"Case\"]'),
