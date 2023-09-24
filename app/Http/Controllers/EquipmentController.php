@@ -13,6 +13,7 @@ use App\Models\EquipmentedNetworkDevices\EquipmentedSwitch;
 use App\Models\EquipmentedOtherDevices\EquipmentedHeadphone;
 use App\Models\EquipmentedOtherDevices\EquipmentedRecorder;
 use App\Models\EquipmentedOtherDevices\EquipmentedSpeaker;
+use App\Models\EquipmentedOtherDevices\EquipmentedVideoProjector;
 use App\Models\EquipmentedOtherDevices\EquipmentedWebcam;
 use App\Models\EquipmentedPrinter;
 use App\Models\EquipmentedScanner;
@@ -489,7 +490,7 @@ class EquipmentController extends Controller
         $personID = $request->input('person');
         $property_number = $request->input('property_number');
         $delivery_date = $request->input('delivery_date');
-        $modem = $request->input('modem');
+        $videoprojector = $request->input('videoprojector');
 
         if (!$personID) {
             return $this->alerts(false, 'nullPersonnelCode', 'کد پرسنلی وارد نشده است');
@@ -497,18 +498,18 @@ class EquipmentController extends Controller
         if (!$property_number) {
             return $this->alerts(false, 'nullPropertyNumber', 'کد اموال وارد نشده است');
         }
-        if (!$modem) {
-            return $this->alerts(false, 'nullModem', 'مودم انتخاب نشده است');
+        if (!$videoprojector) {
+            return $this->alerts(false, 'nullVideoProjector', 'ویدئو پروژکتور انتخاب نشده است');
         }
 
-        $newmodem = new EquipmentedModem();
-        $newmodem->person_id = $personID;
-        $newmodem->property_number = $property_number;
-        $newmodem->delivery_date = $delivery_date;
-        $newmodem->modem_id = $modem;
-        $newmodem->save();
-        $this->logActivity('Modem Added =>' . $newmodem->id, \request()->ip(), \request()->userAgent(), \session('id'));
-        return $this->success(true, 'modemAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
+        $newVideoProjector = new EquipmentedVideoProjector();
+        $newVideoProjector->person_id = $personID;
+        $newVideoProjector->property_number = $property_number;
+        $newVideoProjector->delivery_date = $delivery_date;
+        $newVideoProjector->video_projector_id = $videoprojector;
+        $newVideoProjector->save();
+        $this->logActivity('Video Projector Added =>' . $newVideoProjector->id, \request()->ip(), \request()->userAgent(), \session('id'));
+        return $this->success(true, 'videoProjectorAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
     public function newVideoProjectorCurtain(Request $request)

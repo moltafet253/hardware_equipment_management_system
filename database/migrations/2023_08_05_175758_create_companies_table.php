@@ -98,7 +98,7 @@ VALUES
 ('Brother', '[\"Printer\"]'),
 ('Canon', '[\"Printer\"]'),
 ('Advision', '[\"Scanner\"]'),
-('Epson', '[\"Scanner\"]'),
+('Epson', '[\"Scanner\",\"Video Projector\"]'),
 ('Fujitsu', '[\"Scanner\"]'),
 ('Kodak', '[\"Scanner\"]'),
 ('Plustek', '[\"Scanner\"]'),
