@@ -30,20 +30,33 @@ class EquipmentController extends Controller
     public function showEquipmentStatus(Request $request)
     {
         $personId = $request->input('id');
-        $me=User::find(session('id'));
-        if ($me->type!=1) {
+        $me = User::find(session('id'));
+        if ($me->type != 1) {
             $check = Person::find($personId);
-            if ($check->work_place==$me->province_id) {
+            if ($check->work_place == $me->province_id) {
                 return view('EquipmentStatus', ['personId' => $personId]);
             }
-            abort(500);
+            abort(403, 'access denied');
         }
         return view('EquipmentStatus', ['personId' => $personId]);
+    }
+
+    public function checkAccessingPerson($personId)
+    {
+        $me = User::find(session('id'));
+        $person = Person::find($personId);
+        if ($person->work_place != $me->province_id) {
+            return false;
+        }
+        return true;
     }
 
     public function newCase(Request $request)
     {
         $personID = $request->input('person');
+        if (!$this->checkAccessingPerson($personID)){
+            return $this->alerts(false, 'wrongPerson', 'access denied');
+        }
         $property_number = $request->input('property_number');
         $stamp_number = $request->input('stamp_number');
         $computer_name = $request->input('computer_name');
@@ -122,6 +135,9 @@ class EquipmentController extends Controller
     public function newMonitor(Request $request)
     {
         $personID = $request->input('person');
+        if (!$this->checkAccessingPerson($personID)){
+            return $this->alerts(false, 'wrongPerson', 'access denied');
+        }
         $property_number = $request->input('property_number');
         $delivery_date = $request->input('delivery_date');
         $monitor = $request->input('monitor');
@@ -150,6 +166,9 @@ class EquipmentController extends Controller
     public function newPrinter(Request $request)
     {
         $personID = $request->input('person');
+        if (!$this->checkAccessingPerson($personID)){
+            return $this->alerts(false, 'wrongPerson', 'access denied');
+        }
         $property_number = $request->input('property_number');
         $delivery_date = $request->input('delivery_date');
         $printer = $request->input('printer');
@@ -177,6 +196,9 @@ class EquipmentController extends Controller
     public function newScanner(Request $request)
     {
         $personID = $request->input('person');
+        if (!$this->checkAccessingPerson($personID)){
+            return $this->alerts(false, 'wrongPerson', 'access denied');
+        }
         $property_number = $request->input('property_number');
         $delivery_date = $request->input('delivery_date');
         $scanner = $request->input('scanner');
@@ -204,6 +226,9 @@ class EquipmentController extends Controller
     public function newCopyMachine(Request $request)
     {
         $personID = $request->input('person');
+        if (!$this->checkAccessingPerson($personID)){
+            return $this->alerts(false, 'wrongPerson', 'access denied');
+        }
         $property_number = $request->input('property_number');
         $delivery_date = $request->input('delivery_date');
         $copymachine = $request->input('copymachine');
@@ -231,6 +256,9 @@ class EquipmentController extends Controller
     public function newVOIP(Request $request)
     {
         $personID = $request->input('person');
+        if (!$this->checkAccessingPerson($personID)){
+            return $this->alerts(false, 'wrongPerson', 'access denied');
+        }
         $property_number = $request->input('property_number');
         $delivery_date = $request->input('delivery_date');
         $VOIP = $request->input('VOIP');
@@ -258,6 +286,9 @@ class EquipmentController extends Controller
     public function newSwitch(Request $request)
     {
         $personID = $request->input('person');
+        if (!$this->checkAccessingPerson($personID)){
+            return $this->alerts(false, 'wrongPerson', 'access denied');
+        }
         $property_number = $request->input('property_number');
         $delivery_date = $request->input('delivery_date');
         $switch = $request->input('switch');
@@ -285,6 +316,9 @@ class EquipmentController extends Controller
     public function newModem(Request $request)
     {
         $personID = $request->input('person');
+        if (!$this->checkAccessingPerson($personID)){
+            return $this->alerts(false, 'wrongPerson', 'access denied');
+        }
         $property_number = $request->input('property_number');
         $delivery_date = $request->input('delivery_date');
         $modem = $request->input('modem');
@@ -312,6 +346,9 @@ class EquipmentController extends Controller
     public function newLaptop(Request $request)
     {
         $personID = $request->input('person');
+        if (!$this->checkAccessingPerson($personID)){
+            return $this->alerts(false, 'wrongPerson', 'access denied');
+        }
         $property_number = $request->input('property_number');
         $delivery_date = $request->input('delivery_date');
         $modem = $request->input('modem');
@@ -339,6 +376,9 @@ class EquipmentController extends Controller
     public function newMobile(Request $request)
     {
         $personID = $request->input('person');
+        if (!$this->checkAccessingPerson($personID)){
+            return $this->alerts(false, 'wrongPerson', 'access denied');
+        }
         $property_number = $request->input('property_number');
         $delivery_date = $request->input('delivery_date');
         $mobile = $request->input('mobile');
@@ -366,6 +406,9 @@ class EquipmentController extends Controller
     public function newTablet(Request $request)
     {
         $personID = $request->input('person');
+        if (!$this->checkAccessingPerson($personID)){
+            return $this->alerts(false, 'wrongPerson', 'access denied');
+        }
         $property_number = $request->input('property_number');
         $delivery_date = $request->input('delivery_date');
         $tablet = $request->input('tablet');
@@ -393,6 +436,9 @@ class EquipmentController extends Controller
     public function newWebcam(Request $request)
     {
         $personID = $request->input('person');
+        if (!$this->checkAccessingPerson($personID)){
+            return $this->alerts(false, 'wrongPerson', 'access denied');
+        }
         $property_number = $request->input('property_number');
         $delivery_date = $request->input('delivery_date');
         $webcam = $request->input('webcam');
@@ -420,6 +466,9 @@ class EquipmentController extends Controller
     public function newRecorder(Request $request)
     {
         $personID = $request->input('person');
+        if (!$this->checkAccessingPerson($personID)){
+            return $this->alerts(false, 'wrongPerson', 'access denied');
+        }
         $property_number = $request->input('property_number');
         $delivery_date = $request->input('delivery_date');
         $recorder = $request->input('recorder');
@@ -447,6 +496,9 @@ class EquipmentController extends Controller
     public function newHeadphone(Request $request)
     {
         $personID = $request->input('person');
+        if (!$this->checkAccessingPerson($personID)){
+            return $this->alerts(false, 'wrongPerson', 'access denied');
+        }
         $property_number = $request->input('property_number');
         $delivery_date = $request->input('delivery_date');
         $headphone = $request->input('headphone');
@@ -474,6 +526,9 @@ class EquipmentController extends Controller
     public function newSpeaker(Request $request)
     {
         $personID = $request->input('person');
+        if (!$this->checkAccessingPerson($personID)){
+            return $this->alerts(false, 'wrongPerson', 'access denied');
+        }
         $property_number = $request->input('property_number');
         $delivery_date = $request->input('delivery_date');
         $speaker = $request->input('speaker');
@@ -501,6 +556,9 @@ class EquipmentController extends Controller
     public function newVideoProjector(Request $request)
     {
         $personID = $request->input('person');
+        if (!$this->checkAccessingPerson($personID)){
+            return $this->alerts(false, 'wrongPerson', 'access denied');
+        }
         $property_number = $request->input('property_number');
         $delivery_date = $request->input('delivery_date');
         $videoprojector = $request->input('videoprojector');
@@ -528,6 +586,9 @@ class EquipmentController extends Controller
     public function newVideoProjectorCurtain(Request $request)
     {
         $personID = $request->input('person');
+        if (!$this->checkAccessingPerson($personID)){
+            return $this->alerts(false, 'wrongPerson', 'access denied');
+        }
         $property_number = $request->input('property_number');
         $delivery_date = $request->input('delivery_date');
         $videoprojectorcurtain = $request->input('videoprojectorcurtain');

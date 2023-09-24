@@ -4789,6 +4789,8 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullRAM[0], 'error', 'تلاش مجدد');
                                     } else if (response.errors.nullHDD) {
                                         swalFire('خطا!', response.errors.nullHDD[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.wrongPerson) {
+                                        swalFire('خطا!', response.errors.wrongPerson[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
                                     // swalFire('ثبت کیس جدید موفقیت آمیز بود!', response.message.caseAdded[0], 'success', 'بستن');
@@ -4834,6 +4836,8 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullPropertyNumber[0], 'error', 'تلاش مجدد');
                                     } else if (response.errors.nullMonitor) {
                                         swalFire('خطا!', response.errors.nullMonitor[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.wrongPerson) {
+                                        swalFire('خطا!', response.errors.wrongPerson[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
                                     // swalFire('ثبت مانیتور جدید موفقیت آمیز بود!', response.message.monitorAdded[0], 'success', 'بستن');
@@ -4879,6 +4883,8 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullPropertyNumber[0], 'error', 'تلاش مجدد');
                                     } else if (response.errors.nullPrinter) {
                                         swalFire('خطا!', response.errors.nullPrinter[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.wrongPerson) {
+                                        swalFire('خطا!', response.errors.wrongPerson[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
                                     // swalFire('ثبت پرینتر جدید موفقیت آمیز بود!', response.message.printerAdded[0], 'success', 'بستن');
@@ -4924,6 +4930,8 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullPropertyNumber[0], 'error', 'تلاش مجدد');
                                     } else if (response.errors.nullScanner) {
                                         swalFire('خطا!', response.errors.nullScanner[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.wrongPerson) {
+                                        swalFire('خطا!', response.errors.wrongPerson[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
                                     // swalFire('ثبت پرینتر جدید موفقیت آمیز بود!', response.message.scannerAdded[0], 'success', 'بستن');
@@ -4969,6 +4977,8 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullPropertyNumber[0], 'error', 'تلاش مجدد');
                                     } else if (response.errors.nullCopyMachine) {
                                         swalFire('خطا!', response.errors.nullCopyMachine[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.wrongPerson) {
+                                        swalFire('خطا!', response.errors.wrongPerson[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
                                     // swalFire('ثبت دستگاه کپی جدید موفقیت آمیز بود!', response.message.copymachineAdded[0], 'success', 'بستن');
@@ -5014,6 +5024,8 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullPropertyNumber[0], 'error', 'تلاش مجدد');
                                     } else if (response.errors.nullVOIP) {
                                         swalFire('خطا!', response.errors.nullVOIP[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.wrongPerson) {
+                                        swalFire('خطا!', response.errors.wrongPerson[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
                                     // swalFire('ثبت VOIP جدید موفقیت آمیز بود!', response.message.VOIPAdded[0], 'success', 'بستن');
@@ -5060,6 +5072,8 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullPropertyNumber[0], 'error', 'تلاش مجدد');
                                     } else if (response.errors.nullSwitch) {
                                         swalFire('خطا!', response.errors.nullSwitch[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.wrongPerson) {
+                                        swalFire('خطا!', response.errors.wrongPerson[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
                                     // swalFire('ثبت پرینتر جدید موفقیت آمیز بود!', response.message.printerAdded[0], 'success', 'بستن');
@@ -5105,6 +5119,8 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullPropertyNumber[0], 'error', 'تلاش مجدد');
                                     } else if (response.errors.nullModem) {
                                         swalFire('خطا!', response.errors.nullModem[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.wrongPerson) {
+                                        swalFire('خطا!', response.errors.wrongPerson[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
                                     // swalFire('ثبت پرینتر جدید موفقیت آمیز بود!', response.message.printerAdded[0], 'success', 'بستن');
@@ -5150,6 +5166,8 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullPropertyNumber[0], 'error', 'تلاش مجدد');
                                     } else if (response.errors.nullLaptop) {
                                         swalFire('خطا!', response.errors.nullLaptop[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.wrongPerson) {
+                                        swalFire('خطا!', response.errors.wrongPerson[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
                                     // swalFire('ثبت پرینتر جدید موفقیت آمیز بود!', response.message.printerAdded[0], 'success', 'بستن');
@@ -5195,6 +5213,8 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullPropertyNumber[0], 'error', 'تلاش مجدد');
                                     } else if (response.errors.nullMobile) {
                                         swalFire('خطا!', response.errors.nullMobile[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.wrongPerson) {
+                                        swalFire('خطا!', response.errors.wrongPerson[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
                                     // swalFire('ثبت پرینتر جدید موفقیت آمیز بود!', response.message.printerAdded[0], 'success', 'بستن');
@@ -5240,6 +5260,8 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullPropertyNumber[0], 'error', 'تلاش مجدد');
                                     } else if (response.errors.nullTablet) {
                                         swalFire('خطا!', response.errors.nullTablet[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.wrongPerson) {
+                                        swalFire('خطا!', response.errors.wrongPerson[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
                                     // swalFire('ثبت پرینتر جدید موفقیت آمیز بود!', response.message.printerAdded[0], 'success', 'بستن');
@@ -5285,6 +5307,8 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullPropertyNumber[0], 'error', 'تلاش مجدد');
                                     } else if (response.errors.nullWebcam) {
                                         swalFire('خطا!', response.errors.nullWebcam[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.wrongPerson) {
+                                        swalFire('خطا!', response.errors.wrongPerson[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
                                     // swalFire('ثبت پرینتر جدید موفقیت آمیز بود!', response.message.printerAdded[0], 'success', 'بستن');
@@ -5330,6 +5354,8 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullPropertyNumber[0], 'error', 'تلاش مجدد');
                                     } else if (response.errors.nullRecorder) {
                                         swalFire('خطا!', response.errors.nullRecorder[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.wrongPerson) {
+                                        swalFire('خطا!', response.errors.wrongPerson[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
                                     // swalFire('ثبت پرینتر جدید موفقیت آمیز بود!', response.message.printerAdded[0], 'success', 'بستن');
@@ -5375,6 +5401,8 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullPropertyNumber[0], 'error', 'تلاش مجدد');
                                     } else if (response.errors.nullHeadphone) {
                                         swalFire('خطا!', response.errors.nullHeadphone[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.wrongPerson) {
+                                        swalFire('خطا!', response.errors.wrongPerson[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
                                     // swalFire('ثبت پرینتر جدید موفقیت آمیز بود!', response.message.printerAdded[0], 'success', 'بستن');
@@ -5420,6 +5448,8 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullPropertyNumber[0], 'error', 'تلاش مجدد');
                                     } else if (response.errors.nullSpeaker) {
                                         swalFire('خطا!', response.errors.nullSpeaker[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.wrongPerson) {
+                                        swalFire('خطا!', response.errors.wrongPerson[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
                                     // swalFire('ثبت پرینتر جدید موفقیت آمیز بود!', response.message.printerAdded[0], 'success', 'بستن');
@@ -5465,6 +5495,8 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullPropertyNumber[0], 'error', 'تلاش مجدد');
                                     } else if (response.errors.nullVideoProjector) {
                                         swalFire('خطا!', response.errors.nullVideoProjector[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.wrongPerson) {
+                                        swalFire('خطا!', response.errors.wrongPerson[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
                                     // swalFire('ثبت پرینتر جدید موفقیت آمیز بود!', response.message.printerAdded[0], 'success', 'بستن');
@@ -5510,6 +5542,8 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullPropertyNumber[0], 'error', 'تلاش مجدد');
                                     } else if (response.errors.nullVideoProjectorCurtain) {
                                         swalFire('خطا!', response.errors.nullVideoProjectorCurtain[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.wrongPerson) {
+                                        swalFire('خطا!', response.errors.wrongPerson[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
                                     // swalFire('ثبت پرینتر جدید موفقیت آمیز بود!', response.message.printerAdded[0], 'success', 'بستن');
