@@ -105,7 +105,8 @@ VALUES
 ('Bizhub', '[\"Copy Machine\"]'),
 ('Sharp', '[\"Copy Machine\"]'),
 ('No Name', '[\"Case\"]'),
-('Cisco', '[\"Switch\",\"Modem\"]')
+('Cisco', '[\"Switch\",\"Modem\"]'),
+('SONY', '[\"Recorder\"]')
 ;
 ";
         DB::statement($query);

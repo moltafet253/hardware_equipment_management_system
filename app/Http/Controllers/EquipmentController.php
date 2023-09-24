@@ -11,6 +11,7 @@ use App\Models\EquipmentedMonitor;
 use App\Models\EquipmentedNetworkDevices\EquipmentedModem;
 use App\Models\EquipmentedNetworkDevices\EquipmentedSwitch;
 use App\Models\EquipmentedOtherDevices\EquipmentedHeadphone;
+use App\Models\EquipmentedOtherDevices\EquipmentedRecorder;
 use App\Models\EquipmentedPrinter;
 use App\Models\EquipmentedScanner;
 use App\Models\EquipmentedVoip;
@@ -405,7 +406,7 @@ class EquipmentController extends Controller
         $personID = $request->input('person');
         $property_number = $request->input('property_number');
         $delivery_date = $request->input('delivery_date');
-        $modem = $request->input('modem');
+        $recorder = $request->input('recorder');
 
         if (!$personID) {
             return $this->alerts(false, 'nullPersonnelCode', 'کد پرسنلی وارد نشده است');
@@ -413,18 +414,18 @@ class EquipmentController extends Controller
         if (!$property_number) {
             return $this->alerts(false, 'nullPropertyNumber', 'کد اموال وارد نشده است');
         }
-        if (!$modem) {
-            return $this->alerts(false, 'nullModem', 'مودم انتخاب نشده است');
+        if (!$recorder) {
+            return $this->alerts(false, 'nullRecorder', 'رکوردر انتخاب نشده است');
         }
 
-        $newmodem = new EquipmentedModem();
-        $newmodem->person_id = $personID;
-        $newmodem->property_number = $property_number;
-        $newmodem->delivery_date = $delivery_date;
-        $newmodem->modem_id = $modem;
-        $newmodem->save();
-        $this->logActivity('Modem Added =>' . $newmodem->id, \request()->ip(), \request()->userAgent(), \session('id'));
-        return $this->success(true, 'modemAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
+        $newRecorder = new EquipmentedRecorder();
+        $newRecorder->person_id = $personID;
+        $newRecorder->property_number = $property_number;
+        $newRecorder->delivery_date = $delivery_date;
+        $newRecorder->recorder_id = $recorder;
+        $newRecorder->save();
+        $this->logActivity('Recorder Added =>' . $newRecorder->id, \request()->ip(), \request()->userAgent(), \session('id'));
+        return $this->success(true, 'recorderAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
     public function newHeadphone(Request $request)
