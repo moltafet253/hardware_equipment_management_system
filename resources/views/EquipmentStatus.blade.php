@@ -54,9 +54,6 @@
                     </div>
 
                     <div id="content3" class="hidden p-4">
-                        {{--                        Headphones--}}
-                        @include('layouts.EquipmentManagerLayers.OtherEquipments.Headphones')
-
                         {{--                        Laptops--}}
                         @include('layouts.EquipmentManagerLayers.OtherEquipments.Laptops')
 
@@ -65,6 +62,9 @@
 
                         {{--                        Tablets--}}
                         @include('layouts.EquipmentManagerLayers.OtherEquipments.Tablets')
+
+                        {{--                        Headphones--}}
+                        @include('layouts.EquipmentManagerLayers.OtherEquipments.Headphones')
 
                         {{--                        Recorders--}}
                         @include('layouts.EquipmentManagerLayers.OtherEquipments.Recorders')
