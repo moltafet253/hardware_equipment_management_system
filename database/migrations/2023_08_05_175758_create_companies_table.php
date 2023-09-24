@@ -28,7 +28,7 @@ return new class extends Migration
 INSERT INTO companies (name, products)
 VALUES
     ('Acbel', '[\"Power\"]'),
-('Asus', '[\"Power\",\"Motherboard\",\"Monitor\",\"Graphic Card\"]'),
+('Asus', '[\"Power\",\"Motherboard\",\"Monitor\",\"Graphic Card\",\"Laptop\",\"Tablet\",\"Mobile\"]'),
 ('Coolermaster', '[\"Power\"]'),
 ('GLT', '[\"Power\"]'),
 ('Hreen', '[\"Power\"]'),

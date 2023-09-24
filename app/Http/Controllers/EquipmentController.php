@@ -11,6 +11,7 @@ use App\Models\EquipmentedMonitor;
 use App\Models\EquipmentedNetworkDevices\EquipmentedModem;
 use App\Models\EquipmentedNetworkDevices\EquipmentedSwitch;
 use App\Models\EquipmentedOtherDevices\EquipmentedHeadphone;
+use App\Models\EquipmentedOtherDevices\EquipmentedMobile;
 use App\Models\EquipmentedOtherDevices\EquipmentedRecorder;
 use App\Models\EquipmentedOtherDevices\EquipmentedSpeaker;
 use App\Models\EquipmentedOtherDevices\EquipmentedVideoProjector;
@@ -329,7 +330,7 @@ class EquipmentController extends Controller
         $personID = $request->input('person');
         $property_number = $request->input('property_number');
         $delivery_date = $request->input('delivery_date');
-        $modem = $request->input('modem');
+        $mobile = $request->input('mobile');
 
         if (!$personID) {
             return $this->alerts(false, 'nullPersonnelCode', 'کد پرسنلی وارد نشده است');
@@ -337,18 +338,18 @@ class EquipmentController extends Controller
         if (!$property_number) {
             return $this->alerts(false, 'nullPropertyNumber', 'کد اموال وارد نشده است');
         }
-        if (!$modem) {
-            return $this->alerts(false, 'nullModem', 'مودم انتخاب نشده است');
+        if (!$mobile) {
+            return $this->alerts(false, 'nullMobile', 'موبایل انتخاب نشده است');
         }
 
-        $newmodem = new EquipmentedModem();
+        $newmodem = new EquipmentedMobile();
         $newmodem->person_id = $personID;
         $newmodem->property_number = $property_number;
         $newmodem->delivery_date = $delivery_date;
-        $newmodem->modem_id = $modem;
+        $newmodem->mobile_id = $mobile;
         $newmodem->save();
-        $this->logActivity('Modem Added =>' . $newmodem->id, \request()->ip(), \request()->userAgent(), \session('id'));
-        return $this->success(true, 'modemAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
+        $this->logActivity('Mobile Added =>' . $newmodem->id, \request()->ip(), \request()->userAgent(), \session('id'));
+        return $this->success(true, 'mobileAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
     public function newTablet(Request $request)
