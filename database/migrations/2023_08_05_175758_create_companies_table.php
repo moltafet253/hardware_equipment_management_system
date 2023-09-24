@@ -106,7 +106,7 @@ VALUES
 ('Sharp', '[\"Copy Machine\"]'),
 ('No Name', '[\"Case\"]'),
 ('Cisco', '[\"Switch\",\"Modem\"]'),
-('SONY', '[\"Recorder\"]')
+('SONY', '[\"Recorder\",\"Webcam\"]')
 ;
 ";
         DB::statement($query);
