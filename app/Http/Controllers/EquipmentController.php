@@ -14,6 +14,7 @@ use App\Models\EquipmentedOtherDevices\EquipmentedHeadphone;
 use App\Models\EquipmentedOtherDevices\EquipmentedMobile;
 use App\Models\EquipmentedOtherDevices\EquipmentedRecorder;
 use App\Models\EquipmentedOtherDevices\EquipmentedSpeaker;
+use App\Models\EquipmentedOtherDevices\EquipmentedTablet;
 use App\Models\EquipmentedOtherDevices\EquipmentedVideoProjector;
 use App\Models\EquipmentedOtherDevices\EquipmentedVideoProjectorCurtain;
 use App\Models\EquipmentedOtherDevices\EquipmentedWebcam;
@@ -342,13 +343,13 @@ class EquipmentController extends Controller
             return $this->alerts(false, 'nullMobile', 'موبایل انتخاب نشده است');
         }
 
-        $newmodem = new EquipmentedMobile();
-        $newmodem->person_id = $personID;
-        $newmodem->property_number = $property_number;
-        $newmodem->delivery_date = $delivery_date;
-        $newmodem->mobile_id = $mobile;
-        $newmodem->save();
-        $this->logActivity('Mobile Added =>' . $newmodem->id, \request()->ip(), \request()->userAgent(), \session('id'));
+        $newMobile = new EquipmentedMobile();
+        $newMobile->person_id = $personID;
+        $newMobile->property_number = $property_number;
+        $newMobile->delivery_date = $delivery_date;
+        $newMobile->mobile_id = $mobile;
+        $newMobile->save();
+        $this->logActivity('Mobile Added =>' . $newMobile->id, \request()->ip(), \request()->userAgent(), \session('id'));
         return $this->success(true, 'mobileAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
@@ -357,7 +358,7 @@ class EquipmentController extends Controller
         $personID = $request->input('person');
         $property_number = $request->input('property_number');
         $delivery_date = $request->input('delivery_date');
-        $modem = $request->input('modem');
+        $tablet = $request->input('tablet');
 
         if (!$personID) {
             return $this->alerts(false, 'nullPersonnelCode', 'کد پرسنلی وارد نشده است');
@@ -365,18 +366,18 @@ class EquipmentController extends Controller
         if (!$property_number) {
             return $this->alerts(false, 'nullPropertyNumber', 'کد اموال وارد نشده است');
         }
-        if (!$modem) {
-            return $this->alerts(false, 'nullModem', 'مودم انتخاب نشده است');
+        if (!$tablet) {
+            return $this->alerts(false, 'nullTablet', 'موبایل انتخاب نشده است');
         }
 
-        $newmodem = new EquipmentedModem();
-        $newmodem->person_id = $personID;
-        $newmodem->property_number = $property_number;
-        $newmodem->delivery_date = $delivery_date;
-        $newmodem->modem_id = $modem;
-        $newmodem->save();
-        $this->logActivity('Modem Added =>' . $newmodem->id, \request()->ip(), \request()->userAgent(), \session('id'));
-        return $this->success(true, 'modemAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
+        $newTablet = new EquipmentedTablet();
+        $newTablet->person_id = $personID;
+        $newTablet->property_number = $property_number;
+        $newTablet->delivery_date = $delivery_date;
+        $newTablet->tablet_id = $tablet;
+        $newTablet->save();
+        $this->logActivity('Tablet Added =>' . $newTablet->id, \request()->ip(), \request()->userAgent(), \session('id'));
+        return $this->success(true, 'tabletAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
     public function newWebcam(Request $request)
