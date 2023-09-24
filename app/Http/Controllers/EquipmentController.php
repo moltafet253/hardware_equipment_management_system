@@ -12,6 +12,7 @@ use App\Models\EquipmentedNetworkDevices\EquipmentedModem;
 use App\Models\EquipmentedNetworkDevices\EquipmentedSwitch;
 use App\Models\EquipmentedOtherDevices\EquipmentedHeadphone;
 use App\Models\EquipmentedOtherDevices\EquipmentedRecorder;
+use App\Models\EquipmentedOtherDevices\EquipmentedSpeaker;
 use App\Models\EquipmentedOtherDevices\EquipmentedWebcam;
 use App\Models\EquipmentedPrinter;
 use App\Models\EquipmentedScanner;
@@ -461,7 +462,7 @@ class EquipmentController extends Controller
         $personID = $request->input('person');
         $property_number = $request->input('property_number');
         $delivery_date = $request->input('delivery_date');
-        $modem = $request->input('modem');
+        $speaker = $request->input('speaker');
 
         if (!$personID) {
             return $this->alerts(false, 'nullPersonnelCode', 'کد پرسنلی وارد نشده است');
@@ -469,18 +470,18 @@ class EquipmentController extends Controller
         if (!$property_number) {
             return $this->alerts(false, 'nullPropertyNumber', 'کد اموال وارد نشده است');
         }
-        if (!$modem) {
-            return $this->alerts(false, 'nullModem', 'مودم انتخاب نشده است');
+        if (!$speaker) {
+            return $this->alerts(false, 'nullSpeaker', 'اسپیکر انتخاب نشده است');
         }
 
-        $newmodem = new EquipmentedModem();
-        $newmodem->person_id = $personID;
-        $newmodem->property_number = $property_number;
-        $newmodem->delivery_date = $delivery_date;
-        $newmodem->modem_id = $modem;
-        $newmodem->save();
-        $this->logActivity('Modem Added =>' . $newmodem->id, \request()->ip(), \request()->userAgent(), \session('id'));
-        return $this->success(true, 'modemAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
+        $newSpeaker = new EquipmentedSpeaker();
+        $newSpeaker->person_id = $personID;
+        $newSpeaker->property_number = $property_number;
+        $newSpeaker->delivery_date = $delivery_date;
+        $newSpeaker->speaker_id = $speaker;
+        $newSpeaker->save();
+        $this->logActivity('Speaker Added =>' . $newSpeaker->id, \request()->ip(), \request()->userAgent(), \session('id'));
+        return $this->success(true, 'speakerAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
     public function newVideoProjector(Request $request)
