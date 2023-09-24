@@ -26,7 +26,6 @@
                 </div>
                 <div>
                     <div id="content1" class="p-4">
-
                         {{--            Cases--}}
                         @include('layouts.EquipmentManagerLayers.HardwareEquipments.Cases')
 
@@ -44,15 +43,43 @@
 
                         {{--            VOIPs--}}
                         @include('layouts.EquipmentManagerLayers.HardwareEquipments.VOIPs')
-
                     </div>
 
                     <div id="content2" class="hidden p-4">
+                        {{--                        Switches--}}
+                        @include('layouts.EquipmentManagerLayers.NetworkEquipments.Switches')
 
+                        {{--                        Modems--}}
+                        @include('layouts.EquipmentManagerLayers.NetworkEquipments.Modems')
                     </div>
 
                     <div id="content3" class="hidden p-4">
+                        {{--                        Headphones--}}
+                        @include('layouts.EquipmentManagerLayers.OtherEquipments.Headphones')
 
+                        {{--                        Laptops--}}
+                        @include('layouts.EquipmentManagerLayers.OtherEquipments.Laptops')
+
+                        {{--                        Mobiles--}}
+                        @include('layouts.EquipmentManagerLayers.OtherEquipments.Mobiles')
+
+                        {{--                        Tablets--}}
+                        @include('layouts.EquipmentManagerLayers.OtherEquipments.Tablets')
+
+                        {{--                        Recorders--}}
+                        @include('layouts.EquipmentManagerLayers.OtherEquipments.Recorders')
+
+                        {{--                        Speakers--}}
+                        @include('layouts.EquipmentManagerLayers.OtherEquipments.Speakers')
+
+                        {{--                        VideoProjectors--}}
+                        @include('layouts.EquipmentManagerLayers.OtherEquipments.VideoProjectors')
+
+                        {{--                        VideoProjectorCurtains--}}
+                        @include('layouts.EquipmentManagerLayers.OtherEquipments.VideoProjectorCurtains')
+
+                        {{--                        Webcams--}}
+                        @include('layouts.EquipmentManagerLayers.OtherEquipments.Webcams')
                     </div>
                 </div>
 
