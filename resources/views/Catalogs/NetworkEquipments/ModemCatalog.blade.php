@@ -72,7 +72,7 @@
                                                 <label for="connectivity_type"
                                                        class="block text-gray-700 text-sm font-bold mb-2 pl-3">نوع اتصال به مودم*:</label>
                                                 <select multiple id="connectivity_type[]" class="border rounded-md w-full h-20 px-3 py-2 mb-2"
-                                                        name="connectivity_type" title="با گرفتن کلید ctrl میتوانید چند انتخاب داشته باشید.">
+                                                        name="connectivity_type[]" title="با گرفتن کلید ctrl میتوانید چند انتخاب داشته باشید.">
                                                     <option value="wired">wired</option>
                                                     <option value="wireless">wireless</option>
                                                 </select>

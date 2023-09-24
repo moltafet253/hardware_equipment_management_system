@@ -11,7 +11,6 @@ class ModemController extends Controller
 {
     public function newModem(Request $request)
     {
-//        dd($request->all());
         $brand = $request->input('brand');
         $model = $request->input('model');
         $ports_number = $request->input('ports_number');

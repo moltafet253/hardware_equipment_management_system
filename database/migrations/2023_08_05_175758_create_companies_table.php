@@ -104,7 +104,8 @@ VALUES
 ('Plustek', '[\"Scanner\"]'),
 ('Bizhub', '[\"Copy Machine\"]'),
 ('Sharp', '[\"Copy Machine\"]'),
-('No Name', '[\"Case\"]')
+('No Name', '[\"Case\"]'),
+('Cisco', '[\"Switch\",\"Modem\"]')
 ;
 ";
         DB::statement($query);

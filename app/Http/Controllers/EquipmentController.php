@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Catalogs\Job;
+use App\Models\Catalogs\NetworkEquipments\Switches;
 use App\Models\Comment;
 use App\Models\EquipmentedCase;
 use App\Models\EquipmentedCopyMachine;
 use App\Models\EquipmentedMonitor;
+use App\Models\EquipmentedNetworkDevices\EquipmentedModem;
+use App\Models\EquipmentedNetworkDevices\EquipmentedSwitch;
 use App\Models\EquipmentedPrinter;
 use App\Models\EquipmentedScanner;
 use App\Models\EquipmentedVoip;
@@ -22,7 +25,6 @@ class EquipmentController extends Controller
 
     public function newCase(Request $request)
     {
-        $request->all();
         $personID = $request->input('person');
         $property_number = $request->input('property_number');
         $stamp_number = $request->input('stamp_number');
@@ -101,7 +103,6 @@ class EquipmentController extends Controller
 
     public function newMonitor(Request $request)
     {
-        $request->all();
         $personID = $request->input('person');
         $property_number = $request->input('property_number');
         $delivery_date = $request->input('delivery_date');
@@ -130,7 +131,6 @@ class EquipmentController extends Controller
 
     public function newPrinter(Request $request)
     {
-        $request->all();
         $personID = $request->input('person');
         $property_number = $request->input('property_number');
         $delivery_date = $request->input('delivery_date');
@@ -158,7 +158,6 @@ class EquipmentController extends Controller
 
     public function newScanner(Request $request)
     {
-        $request->all();
         $personID = $request->input('person');
         $property_number = $request->input('property_number');
         $delivery_date = $request->input('delivery_date');
@@ -186,7 +185,6 @@ class EquipmentController extends Controller
 
     public function newCopyMachine(Request $request)
     {
-        $request->all();
         $personID = $request->input('person');
         $property_number = $request->input('property_number');
         $delivery_date = $request->input('delivery_date');
@@ -214,7 +212,6 @@ class EquipmentController extends Controller
 
     public function newVOIP(Request $request)
     {
-        $request->all();
         $personID = $request->input('person');
         $property_number = $request->input('property_number');
         $delivery_date = $request->input('delivery_date');
@@ -238,6 +235,60 @@ class EquipmentController extends Controller
         $newVOIP->save();
         $this->logActivity('VOIP Added =>' . $newVOIP->id, \request()->ip(), \request()->userAgent(), \session('id'));
         return $this->success(true, 'VOIPAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
+    }
+
+    public function newSwitch(Request $request)
+    {
+        $personID = $request->input('person');
+        $property_number = $request->input('property_number');
+        $delivery_date = $request->input('delivery_date');
+        $switch = $request->input('switch');
+
+        if (!$personID) {
+            return $this->alerts(false, 'nullPersonnelCode', 'کد پرسنلی وارد نشده است');
+        }
+        if (!$property_number) {
+            return $this->alerts(false, 'nullPropertyNumber', 'کد اموال وارد نشده است');
+        }
+        if (!$switch) {
+            return $this->alerts(false, 'nullSwitch', 'سوییچ انتخاب نشده است');
+        }
+
+        $newswitch = new EquipmentedSwitch();
+        $newswitch->person_id = $personID;
+        $newswitch->property_number = $property_number;
+        $newswitch->delivery_date = $delivery_date;
+        $newswitch->switch_id = $switch;
+        $newswitch->save();
+        $this->logActivity('Switch Added =>' . $newswitch->id, \request()->ip(), \request()->userAgent(), \session('id'));
+        return $this->success(true, 'switchAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
+    }
+
+    public function newModem(Request $request)
+    {
+        $personID = $request->input('person');
+        $property_number = $request->input('property_number');
+        $delivery_date = $request->input('delivery_date');
+        $modem = $request->input('modem');
+
+        if (!$personID) {
+            return $this->alerts(false, 'nullPersonnelCode', 'کد پرسنلی وارد نشده است');
+        }
+        if (!$property_number) {
+            return $this->alerts(false, 'nullPropertyNumber', 'کد اموال وارد نشده است');
+        }
+        if (!$modem) {
+            return $this->alerts(false, 'nullModem', 'مودم انتخاب نشده است');
+        }
+
+        $newmodem = new EquipmentedModem();
+        $newmodem->person_id = $personID;
+        $newmodem->property_number = $property_number;
+        $newmodem->delivery_date = $delivery_date;
+        $newmodem->modem_id = $modem;
+        $newmodem->save();
+        $this->logActivity('Modem Added =>' . $newmodem->id, \request()->ip(), \request()->userAgent(), \session('id'));
+        return $this->success(true, 'modemAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
     public function newComment(Request $request)
