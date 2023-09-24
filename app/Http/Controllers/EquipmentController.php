@@ -291,6 +291,249 @@ class EquipmentController extends Controller
         return $this->success(true, 'modemAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
+    public function newLaptop(Request $request)
+    {
+        $personID = $request->input('person');
+        $property_number = $request->input('property_number');
+        $delivery_date = $request->input('delivery_date');
+        $modem = $request->input('modem');
+
+        if (!$personID) {
+            return $this->alerts(false, 'nullPersonnelCode', 'کد پرسنلی وارد نشده است');
+        }
+        if (!$property_number) {
+            return $this->alerts(false, 'nullPropertyNumber', 'کد اموال وارد نشده است');
+        }
+        if (!$modem) {
+            return $this->alerts(false, 'nullModem', 'مودم انتخاب نشده است');
+        }
+
+        $newmodem = new EquipmentedModem();
+        $newmodem->person_id = $personID;
+        $newmodem->property_number = $property_number;
+        $newmodem->delivery_date = $delivery_date;
+        $newmodem->modem_id = $modem;
+        $newmodem->save();
+        $this->logActivity('Modem Added =>' . $newmodem->id, \request()->ip(), \request()->userAgent(), \session('id'));
+        return $this->success(true, 'modemAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
+    }
+
+    public function newMobile(Request $request)
+    {
+        $personID = $request->input('person');
+        $property_number = $request->input('property_number');
+        $delivery_date = $request->input('delivery_date');
+        $modem = $request->input('modem');
+
+        if (!$personID) {
+            return $this->alerts(false, 'nullPersonnelCode', 'کد پرسنلی وارد نشده است');
+        }
+        if (!$property_number) {
+            return $this->alerts(false, 'nullPropertyNumber', 'کد اموال وارد نشده است');
+        }
+        if (!$modem) {
+            return $this->alerts(false, 'nullModem', 'مودم انتخاب نشده است');
+        }
+
+        $newmodem = new EquipmentedModem();
+        $newmodem->person_id = $personID;
+        $newmodem->property_number = $property_number;
+        $newmodem->delivery_date = $delivery_date;
+        $newmodem->modem_id = $modem;
+        $newmodem->save();
+        $this->logActivity('Modem Added =>' . $newmodem->id, \request()->ip(), \request()->userAgent(), \session('id'));
+        return $this->success(true, 'modemAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
+    }
+
+    public function newTablet(Request $request)
+    {
+        $personID = $request->input('person');
+        $property_number = $request->input('property_number');
+        $delivery_date = $request->input('delivery_date');
+        $modem = $request->input('modem');
+
+        if (!$personID) {
+            return $this->alerts(false, 'nullPersonnelCode', 'کد پرسنلی وارد نشده است');
+        }
+        if (!$property_number) {
+            return $this->alerts(false, 'nullPropertyNumber', 'کد اموال وارد نشده است');
+        }
+        if (!$modem) {
+            return $this->alerts(false, 'nullModem', 'مودم انتخاب نشده است');
+        }
+
+        $newmodem = new EquipmentedModem();
+        $newmodem->person_id = $personID;
+        $newmodem->property_number = $property_number;
+        $newmodem->delivery_date = $delivery_date;
+        $newmodem->modem_id = $modem;
+        $newmodem->save();
+        $this->logActivity('Modem Added =>' . $newmodem->id, \request()->ip(), \request()->userAgent(), \session('id'));
+        return $this->success(true, 'modemAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
+    }
+
+    public function newWebcam(Request $request)
+    {
+        $personID = $request->input('person');
+        $property_number = $request->input('property_number');
+        $delivery_date = $request->input('delivery_date');
+        $modem = $request->input('modem');
+
+        if (!$personID) {
+            return $this->alerts(false, 'nullPersonnelCode', 'کد پرسنلی وارد نشده است');
+        }
+        if (!$property_number) {
+            return $this->alerts(false, 'nullPropertyNumber', 'کد اموال وارد نشده است');
+        }
+        if (!$modem) {
+            return $this->alerts(false, 'nullModem', 'مودم انتخاب نشده است');
+        }
+
+        $newmodem = new EquipmentedModem();
+        $newmodem->person_id = $personID;
+        $newmodem->property_number = $property_number;
+        $newmodem->delivery_date = $delivery_date;
+        $newmodem->modem_id = $modem;
+        $newmodem->save();
+        $this->logActivity('Modem Added =>' . $newmodem->id, \request()->ip(), \request()->userAgent(), \session('id'));
+        return $this->success(true, 'modemAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
+    }
+
+    public function newRecorder(Request $request)
+    {
+        $personID = $request->input('person');
+        $property_number = $request->input('property_number');
+        $delivery_date = $request->input('delivery_date');
+        $modem = $request->input('modem');
+
+        if (!$personID) {
+            return $this->alerts(false, 'nullPersonnelCode', 'کد پرسنلی وارد نشده است');
+        }
+        if (!$property_number) {
+            return $this->alerts(false, 'nullPropertyNumber', 'کد اموال وارد نشده است');
+        }
+        if (!$modem) {
+            return $this->alerts(false, 'nullModem', 'مودم انتخاب نشده است');
+        }
+
+        $newmodem = new EquipmentedModem();
+        $newmodem->person_id = $personID;
+        $newmodem->property_number = $property_number;
+        $newmodem->delivery_date = $delivery_date;
+        $newmodem->modem_id = $modem;
+        $newmodem->save();
+        $this->logActivity('Modem Added =>' . $newmodem->id, \request()->ip(), \request()->userAgent(), \session('id'));
+        return $this->success(true, 'modemAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
+    }
+
+    public function newHeadphone(Request $request)
+    {
+        $personID = $request->input('person');
+        $property_number = $request->input('property_number');
+        $delivery_date = $request->input('delivery_date');
+        $modem = $request->input('modem');
+
+        if (!$personID) {
+            return $this->alerts(false, 'nullPersonnelCode', 'کد پرسنلی وارد نشده است');
+        }
+        if (!$property_number) {
+            return $this->alerts(false, 'nullPropertyNumber', 'کد اموال وارد نشده است');
+        }
+        if (!$modem) {
+            return $this->alerts(false, 'nullModem', 'مودم انتخاب نشده است');
+        }
+
+        $newmodem = new EquipmentedModem();
+        $newmodem->person_id = $personID;
+        $newmodem->property_number = $property_number;
+        $newmodem->delivery_date = $delivery_date;
+        $newmodem->modem_id = $modem;
+        $newmodem->save();
+        $this->logActivity('Modem Added =>' . $newmodem->id, \request()->ip(), \request()->userAgent(), \session('id'));
+        return $this->success(true, 'modemAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
+    }
+
+    public function newSpeaker(Request $request)
+    {
+        $personID = $request->input('person');
+        $property_number = $request->input('property_number');
+        $delivery_date = $request->input('delivery_date');
+        $modem = $request->input('modem');
+
+        if (!$personID) {
+            return $this->alerts(false, 'nullPersonnelCode', 'کد پرسنلی وارد نشده است');
+        }
+        if (!$property_number) {
+            return $this->alerts(false, 'nullPropertyNumber', 'کد اموال وارد نشده است');
+        }
+        if (!$modem) {
+            return $this->alerts(false, 'nullModem', 'مودم انتخاب نشده است');
+        }
+
+        $newmodem = new EquipmentedModem();
+        $newmodem->person_id = $personID;
+        $newmodem->property_number = $property_number;
+        $newmodem->delivery_date = $delivery_date;
+        $newmodem->modem_id = $modem;
+        $newmodem->save();
+        $this->logActivity('Modem Added =>' . $newmodem->id, \request()->ip(), \request()->userAgent(), \session('id'));
+        return $this->success(true, 'modemAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
+    }
+
+    public function newVideoProjector(Request $request)
+    {
+        $personID = $request->input('person');
+        $property_number = $request->input('property_number');
+        $delivery_date = $request->input('delivery_date');
+        $modem = $request->input('modem');
+
+        if (!$personID) {
+            return $this->alerts(false, 'nullPersonnelCode', 'کد پرسنلی وارد نشده است');
+        }
+        if (!$property_number) {
+            return $this->alerts(false, 'nullPropertyNumber', 'کد اموال وارد نشده است');
+        }
+        if (!$modem) {
+            return $this->alerts(false, 'nullModem', 'مودم انتخاب نشده است');
+        }
+
+        $newmodem = new EquipmentedModem();
+        $newmodem->person_id = $personID;
+        $newmodem->property_number = $property_number;
+        $newmodem->delivery_date = $delivery_date;
+        $newmodem->modem_id = $modem;
+        $newmodem->save();
+        $this->logActivity('Modem Added =>' . $newmodem->id, \request()->ip(), \request()->userAgent(), \session('id'));
+        return $this->success(true, 'modemAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
+    }
+
+    public function newVideoProjectorCurtain(Request $request)
+    {
+        $personID = $request->input('person');
+        $property_number = $request->input('property_number');
+        $delivery_date = $request->input('delivery_date');
+        $modem = $request->input('modem');
+
+        if (!$personID) {
+            return $this->alerts(false, 'nullPersonnelCode', 'کد پرسنلی وارد نشده است');
+        }
+        if (!$property_number) {
+            return $this->alerts(false, 'nullPropertyNumber', 'کد اموال وارد نشده است');
+        }
+        if (!$modem) {
+            return $this->alerts(false, 'nullModem', 'مودم انتخاب نشده است');
+        }
+
+        $newmodem = new EquipmentedModem();
+        $newmodem->person_id = $personID;
+        $newmodem->property_number = $property_number;
+        $newmodem->delivery_date = $delivery_date;
+        $newmodem->modem_id = $modem;
+        $newmodem->save();
+        $this->logActivity('Modem Added =>' . $newmodem->id, \request()->ip(), \request()->userAgent(), \session('id'));
+        return $this->success(true, 'modemAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
+    }
+
     public function newComment(Request $request)
     {
         $request->all();
