@@ -19,7 +19,7 @@ class NTCPMiddleware
         $NTCPFieldValue = User::where('username', session('username'))->value('NTCP');
 
         if ($NTCPFieldValue === 1) {
-            return redirect()->route('ChangePassword');
+            return redirect()->route('Profile');
         }
 
         return $next($request);
