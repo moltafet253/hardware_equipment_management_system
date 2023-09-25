@@ -103,9 +103,6 @@ class EquipmentController extends Controller
         if (!$hdd1) {
             return $this->alerts(false, 'nullHDD', 'هارد انتخاب نشده است');
         }
-        if (!$graphiccard) {
-            $graphiccard = 1;
-        }
         if (!$networkcard) {
             $networkcard = 1;
         }
