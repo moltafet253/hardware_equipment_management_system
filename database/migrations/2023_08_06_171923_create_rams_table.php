@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -23,6 +24,8 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+        $query="insert into rams(company_id, model, type, size, frequency) values (82,'Vengence LPX','DDR4','8GB',3200)";
+        DB::statement($query);
     }
 
     /**

@@ -4748,8 +4748,14 @@ $(document).ready(function () {
                 }
             });
             $('#addHDD').on('click', function () {
-                hdd2Div.classList.remove('hidden');
-                addHDD.classList.add('hidden');
+                if (hdd2Div.classList.contains('hidden')) {
+                    hdd2Div.classList.remove('hidden');
+                } else if (hdd3Div.classList.contains('hidden')) {
+                    hdd3Div.classList.remove('hidden');
+                } else if (hdd4Div.classList.contains('hidden')) {
+                    hdd4Div.classList.remove('hidden');
+                    addHDD.classList.add('hidden');
+                }
             });
             $('#new-case').on('submit', function (e) {
                 e.preventDefault();

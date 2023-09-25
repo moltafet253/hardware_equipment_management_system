@@ -229,8 +229,8 @@
                                     </button>
                                 </div>
                             </div>
-                            <div class="flex mb-4">
-                                <div id="hdd2Div" class="w-full hidden">
+                            <div id="hdd2Div" class="flex hidden">
+                                <div class="w-full">
                                     <label for="hdd2"
                                            class="block text-gray-700 text-sm font-bold mt-3 whitespace-nowrap">هارد
                                         2</label>
@@ -250,9 +250,51 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="mb-4">
+                            <div id="hdd3Div" class="flex hidden">
+                                <div class="w-full">
+                                    <label for="hdd3"
+                                           class="block text-gray-700 text-sm font-bold mt-3 whitespace-nowrap">هارد
+                                        3</label>
+                                    <select id="hdd3" class="border rounded-md w-96 px-3 py-2 select2" name="hdd3">
+                                        <option value="" selected>فاقد هارد</option>
+                                        @php
+                                            $hdds = \App\Models\Catalogs\Harddisk::join('companies', 'harddisks.company_id', '=', 'companies.id')
+                                                ->where('harddisks.type','!=','External')
+                                                ->where('harddisks.active',1)->orderBy('companies.name')
+                                                ->get(['harddisks.id', 'companies.name', 'harddisks.model', 'harddisks.capacity','harddisks.connectivity_type',]);
+                                        @endphp
+                                        @foreach($hdds as $hdd)
+                                            <option value="{{ $hdd->id }}">
+                                                {{ $hdd->name . ' - ' . $hdd->model . ' - ' . $hdd->capacity. ' - ' . $hdd->connectivity_type}}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div id="hdd4Div" class="flex hidden">
+                                <div class="w-full">
+                                    <label for="hdd4"
+                                           class="block text-gray-700 text-sm font-bold mt-3 whitespace-nowrap">هارد
+                                        4</label>
+                                    <select id="hdd4" class="border rounded-md w-96 px-3 py-2 select2" name="hdd4">
+                                        <option value="" selected>فاقد هارد</option>
+                                        @php
+                                            $hdds = \App\Models\Catalogs\Harddisk::join('companies', 'harddisks.company_id', '=', 'companies.id')
+                                                ->where('harddisks.type','!=','External')
+                                                ->where('harddisks.active',1)->orderBy('companies.name')
+                                                ->get(['harddisks.id', 'companies.name', 'harddisks.model', 'harddisks.capacity','harddisks.connectivity_type',]);
+                                        @endphp
+                                        @foreach($hdds as $hdd)
+                                            <option value="{{ $hdd->id }}">
+                                                {{ $hdd->name . ' - ' . $hdd->model . ' - ' . $hdd->capacity. ' - ' . $hdd->connectivity_type}}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="mb-4 mt-4">
                                 <label for="graphiccard"
-                                       class="block text-gray-700 text-sm font-bold mb-2">کارت گرافیک*</label>
+                                       class="block text-gray-700 text-sm font-bold mb-2">کارت گرافیک مجزا*</label>
                                 <select id="graphiccard" class="border rounded-md w-96 px-3 py-2 select2"
                                         name="graphiccard">
                                     <option value="" selected>فاقد کارت گرافیک</option>
@@ -394,46 +436,50 @@
                                 ->select('rams.*', 'companies.name as company_name')
                                 ->find($case->ram1);
                             @endphp
-                            {{ $ramInfo->company_name . ' ' . $ramInfo->model. ' ' . $ramInfo->generation  }}
+                            {{ $ramInfo->company_name . ' ' . $ramInfo->model. ' ' . $ramInfo->size. ' ' . $ramInfo->type. ' ' . $ramInfo->frequency  }}
 
                             @if($case->ram2)
-                                <br>
+                                <hr>
                                 @php
                                     $ramInfo = \App\Models\Catalogs\ram::join('companies', 'rams.company_id', '=', 'companies.id')
                                     ->select('rams.*', 'companies.name as company_name')
                                     ->find($case->ram2);
                                 @endphp
-                                {{ $ramInfo->company_name . ' ' . $ramInfo->model. ' ' . $ramInfo->generation  }}
+                                {{ $ramInfo->company_name . ' ' . $ramInfo->model. ' ' . $ramInfo->size. ' ' . $ramInfo->type. ' ' . $ramInfo->frequency }}
                             @endif
 
                             @if($case->ram3)
-                                <br>
+                                <hr>
                                 @php
                                     $ramInfo = \App\Models\Catalogs\ram::join('companies', 'rams.company_id', '=', 'companies.id')
                                     ->select('rams.*', 'companies.name as company_name')
                                     ->find($case->ram3);
                                 @endphp
-                                {{ $ramInfo->company_name . ' ' . $ramInfo->model. ' ' . $ramInfo->generation  }}
+                                {{ $ramInfo->company_name . ' ' . $ramInfo->model. ' ' . $ramInfo->size. ' ' . $ramInfo->type. ' ' . $ramInfo->frequency }}
                             @endif
 
                             @if($case->ram4)
-                                <br>
+                                <hr>
                                 @php
                                     $ramInfo = \App\Models\Catalogs\ram::join('companies', 'rams.company_id', '=', 'companies.id')
                                     ->select('rams.*', 'companies.name as company_name')
                                     ->find($case->ram4);
                                 @endphp
-                                {{ $ramInfo->company_name . ' ' . $ramInfo->model. ' ' . $ramInfo->generation  }}
+                                {{ $ramInfo->company_name . ' ' . $ramInfo->model. ' ' . $ramInfo->size. ' ' . $ramInfo->type. ' ' . $ramInfo->frequency }}
                             @endif
 
                         </td>
                         <td class=" px-3 py-3 ">
+                            @if($case->graphic_card)
                             @php
                                 $graphicCardInfo = \App\Models\Catalogs\GraphicCard::join('companies', 'graphic_cards.company_id', '=', 'companies.id')
                                 ->select('graphic_cards.*', 'companies.name as company_name')
                                 ->find($case->graphic_card);
                             @endphp
-                            {{ $graphicCardInfo->company_name . ' ' . $graphicCardInfo->model. ' ' . $graphicCardInfo->ram_size  }}
+                            {{ $graphicCardInfo->company_name . ' ' . $graphicCardInfo->model. ' ' . $graphicCardInfo->ram_size }}
+                            @else
+                                Onboard
+                            @endif
                         </td>
                         <td class=" px-3 py-3 ">
                             @php
@@ -441,10 +487,10 @@
                                 ->select('harddisks.*', 'companies.name as company_name')
                                 ->find($case->hdd1);
                             @endphp
-                            {{ $hddInfo->company_name . ' ' . $hddInfo->model. ' ' . $hddInfo->capacity  }}
+                            {{ $hddInfo->company_name . ' ' . $hddInfo->model. ' ' . $hddInfo->capacity }}
 
                             @if($case->hdd2)
-                                <br>
+                                <hr>
                                 @php
                                     $hddInfo = \App\Models\Catalogs\Harddisk::join('companies', 'harddisks.company_id', '=', 'companies.id')
                                     ->select('harddisks.*', 'companies.name as company_name')
@@ -454,23 +500,23 @@
                             @endif
 
                             @if($case->hdd3)
-                                <br>
+                                <hr>
                                 @php
                                     $hddInfo = \App\Models\Catalogs\Harddisk::join('companies', 'harddisks.company_id', '=', 'companies.id')
                                     ->select('harddisks.*', 'companies.name as company_name')
                                     ->find($case->hdd3);
                                 @endphp
-                                {{ $hddInfo->company_name . ' ' . $hddInfo->model. ' ' . $hddInfo->capacity  }}
+                                {{ $hddInfo->company_name . ' ' . $hddInfo->model. ' ' . $hddInfo->capacity }}
                             @endif
 
                             @if($case->hdd4)
-                                <br>
+                                <hr>
                                 @php
                                     $hddInfo = \App\Models\Catalogs\Harddisk::join('companies', 'harddisks.company_id', '=', 'companies.id')
                                     ->select('harddisks.*', 'companies.name as company_name')
                                     ->find($case->hdd4);
                                 @endphp
-                                {{ $hddInfo->company_name . ' ' . $hddInfo->model. ' ' . $hddInfo->capacity  }}
+                                {{ $hddInfo->company_name . ' ' . $hddInfo->model. ' ' . $hddInfo->capacity }}
                             @endif
                         </td>
                         <td class=" px-3 py-3 ">

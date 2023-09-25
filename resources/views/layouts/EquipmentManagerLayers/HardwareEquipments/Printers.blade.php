@@ -85,6 +85,7 @@
                     <th class=" px-6 py-3  font-bold ">کد اموال</th>
                     <th class=" px-3 py-3  font-bold ">شرکت سازنده</th>
                     <th class=" px-3 py-3  font-bold ">مدل</th>
+                    <th class=" px-3 py-3  font-bold ">نوع کارکرد</th>
                     <th class=" px-3 py-3  font-bold ">عملیات</th>
                 </tr>
                 </thead>
@@ -102,6 +103,9 @@
                         </td>
                         <td class=" px-3 py-3 ">
                             {{ $printerInfo->model }}
+                        </td>
+                        <td class=" px-3 py-3 ">
+                            {{ $printerInfo->function_type }}
                         </td>
                         <td class=" px-3 py-3 ">
                             <button type="submit"

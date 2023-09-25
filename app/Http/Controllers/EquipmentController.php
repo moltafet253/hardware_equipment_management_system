@@ -71,6 +71,8 @@ class EquipmentController extends Controller
         $ram4 = $request->input('ram4');
         $hdd1 = $request->input('hdd1');
         $hdd2 = $request->input('hdd2');
+        $hdd3 = $request->input('hdd3');
+        $hdd4 = $request->input('hdd4');
         $graphiccard = $request->input('graphiccard');
         $networkcard = $request->input('networkcard');
 
@@ -124,6 +126,8 @@ class EquipmentController extends Controller
         $case->ram4 = $ram4;
         $case->hdd1 = $hdd1;
         $case->hdd2 = $hdd2;
+        $case->hdd3 = $hdd3;
+        $case->hdd4 = $hdd4;
         $case->graphic_card = $graphiccard;
         $case->network_card = $networkcard;
         $case->save();

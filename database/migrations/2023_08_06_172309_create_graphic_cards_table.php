@@ -21,10 +21,7 @@ return new class extends Migration {
             $table->timestamps();
             $table->softDeletes();
         });
-        $query = "INSERT INTO graphic_cards (company_id,model, ram_size) VALUES
-                                                       (1,'ONBOARD','CPU')
-; ";
-        DB::statement($query);
+
         $query = "INSERT INTO graphic_cards (company_id, model, ram_size) VALUES
 	('3', 'NVIDIA GeForce 9400 GT', '512MB'),
 	('3', 'NVIDIA GeForce 6200 TurboCache', '64MB'),
