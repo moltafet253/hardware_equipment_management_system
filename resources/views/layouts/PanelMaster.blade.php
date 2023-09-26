@@ -16,8 +16,8 @@
         src="https://code.jquery.com/jquery-3.7.1.js"
         integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
         crossorigin="anonymous"></script>
-    <link href="./plugins/select2/dist/css/select2.min.css" rel="stylesheet" />
-    <script src="./plugins/select2/dist/js/select2.min.js"></script>
+    <link href="./build/plugins/select2/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="./build/plugins/select2/dist/js/select2.min.js"></script>
     <script>
         $(document).ready(function() {
             $('.select2').select2({
