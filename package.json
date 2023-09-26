@@ -3,9 +3,10 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "npm-run-all build-app copy-files",
+        "build": "npm-run-all build-app && copy-files",
         "build-app": "vite build",
-        "copy-files": "mkdir -p plugins/ && find node_modules/select2/ -type f -exec cp {} public/plugins/select2 \\;"
+        "copy-files": "mkdir -p public/plugins/assets/select2 && find node_modules/select2/ -type f -exec cp {} public/plugins/assets/select2/ \\;",
+        "build:prod": "cross-env NODE_ENV=production vite build"
     },
     "devDependencies": {
         "axios": "^1.1.2",
