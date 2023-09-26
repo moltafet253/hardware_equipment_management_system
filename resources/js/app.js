@@ -2,6 +2,7 @@ import './bootstrap';
 import '@fortawesome/fontawesome-free/css/all.css';
 import $ from 'jquery';
 import Swal from 'sweetalert2';
+window.Swal = Swal;
 
 function swalFire(title = null, text, icon, confirmButtonText) {
     Swal.fire({
@@ -94,8 +95,8 @@ function getJalaliDate() {
     });
 }
 
-
 $(document).ready(function () {
+
     //Check Login Form
     $('#loginForm').submit(function (e) {
         e.preventDefault();
@@ -152,6 +153,7 @@ $(document).ready(function () {
             }
         });
     });
+
     switch (window.location.pathname) {
 
         case "/Profile":
@@ -5562,7 +5564,8 @@ $(document).ready(function () {
                     }
                 });
             })
-
+            break;
+        case '/Works':
             $('.AddComment, #cancel-add-comment').on('click', function () {
                 toggleModal(addCommentModal.id);
             });
