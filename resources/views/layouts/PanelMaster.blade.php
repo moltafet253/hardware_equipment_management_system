@@ -12,10 +12,11 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 {{--    <link href="http://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">--}}
 {{--    <script src="http://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>--}}
-    <script
-        src="https://code.jquery.com/jquery-3.7.1.js"
-        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-        crossorigin="anonymous"></script>
+{{--    <script--}}
+{{--        src="https://code.jquery.com/jquery-3.7.1.js"--}}
+{{--        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="--}}
+{{--        crossorigin="anonymous"></script>--}}
+    <script src="./build/plugins/jquery/dist/jquery.js"></script>
     <link href="./build/plugins/select2/dist/css/select2.min.css" rel="stylesheet" />
     <script src="./build/plugins/select2/dist/js/select2.min.js"></script>
     <script>
