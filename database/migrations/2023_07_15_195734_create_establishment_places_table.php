@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('establishment_places', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->string('title')->unique();
             $table->boolean('active')->default(1)->comment('1 => active , 0 => deactive');
             $table->timestamps();
             $table->softDeletes();

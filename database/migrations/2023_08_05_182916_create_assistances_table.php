@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('assistances', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->integer('place')->default(0)->comment('0 For Qom - 1 For States');
             $table->boolean('active')->default(1)->comment('1 => active , 0 => deactive');
             $table->timestamps();

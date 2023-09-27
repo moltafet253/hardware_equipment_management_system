@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('phone',11)->nullable();
             $table->string('mobile',11)->nullable();
             $table->string('net_username')->nullable();
+            $table->unsignedBigInteger('executive_position')->nullable();
+            $table->foreign('executive_position')->references('id')->on('executive_positions');
             $table->unsignedBigInteger('work_place')->default(35);
             $table->foreign('work_place')->references('id')->on('provinces');
             $table->unsignedBigInteger('assistance')->nullable();
