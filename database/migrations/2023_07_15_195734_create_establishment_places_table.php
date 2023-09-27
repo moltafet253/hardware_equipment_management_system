@@ -19,20 +19,7 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
-        $query="insert into establishment_places (title) values
-                                             ('مجتمع شهید صدوقی'),
-                                             ('ساختمان امام رضا(ع)'),
-                                             ('ساختمان معصومیه'),
-                                             ('ستاد جمکران'),
-                                             ('دارالشفاء'),
-                                             ('مرکز مشاوره'),
-                                             ('انجمن های علمی'),
-                                             ('مرکز رسانه و فضای مجازی'),
-                                             ('جعفریه'),
-                                             ('دیتاسنتر امین'),
-                                             ('دیتاسنتر شاتل')
-                                             ";
-        DB::statement($query);
+        DB::unprepared(file_get_contents('database/migrations/establishment_places.sql'));
     }
 
     /**
