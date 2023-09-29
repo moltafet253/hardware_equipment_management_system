@@ -8,6 +8,7 @@ use App\Models\Catalogs\Cases;
 use App\Models\Catalogs\Company;
 use App\Models\Catalogs\CopyMachine;
 use App\Models\Catalogs\cpu;
+use App\Models\Catalogs\ExecutivePosition;
 use App\Models\Catalogs\GraphicCard;
 use App\Models\Catalogs\Harddisk;
 use App\Models\Catalogs\Job;
@@ -158,6 +159,10 @@ class CatalogController extends Controller
             case 'ChangeEstablishmentPlaceStatus':
                 $this->logActivity('Change Status Of Establishment Place =>' . $id, \request()->ip(), \request()->userAgent(), \session('id'));
                 $model = EstablishmentPlace::class;
+                break;
+            case 'ChangeExecutivePositionStatus':
+                $this->logActivity('Change Status Of Executive Position =>' . $id, \request()->ip(), \request()->userAgent(), \session('id'));
+                $model = ExecutivePosition::class;
                 break;
             default:
                 return 0;

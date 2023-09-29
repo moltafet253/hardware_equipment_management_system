@@ -27,7 +27,7 @@ function toggleModal(modalID) {
 }
 
 function hasOnlyPersianCharacters(input) {
-    var persianPattern = /^[\u0600-\u06FF\s]+$/;
+    var persianPattern = /^[\u0600-\u06FF0-9()\s]+$/;
     return persianPattern.test(input);
 }
 
@@ -4211,6 +4211,133 @@ $(document).ready(function () {
                         $.ajax({
                             type: 'POST', url: '/ManageCatalogStatus', data: {
                                 id: $(this).data('id'), work: 'ChangeAssistanceStatus'
+                            }, headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            }, success: function (response) {
+                                location.reload();
+                            }
+                        });
+                    }
+                });
+
+            });
+            break;
+        case '/ExecutivePositionCatalog':
+            resetFields();
+
+            $('#new-executivePosition-button, #cancel-new-executivePosition').on('click', function () {
+                toggleModal(newExecutivePositionModal.id);
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.add').on('click', function () {
+                toggleModal(newExecutivePositionModal.id)
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.edit').on('click', function () {
+                toggleModal(editExecutivePositionModal.id)
+            });
+            $('.ExecutivePositionControl,#cancel-edit-executivePosition').on('click', function () {
+                toggleModal(editExecutivePositionModal.id);
+            });
+            $('#new-executivePosition').on('submit', function (e) {
+                e.preventDefault();
+                if (!hasOnlyPersianCharacters(title.value)) {
+                    swalFire('خطا!', 'نام سمت اجرایی اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/newExecutivePosition', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullName) {
+                                            swalFire('خطا!', response.errors.nullName[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.dupName) {
+                                            swalFire('خطا!', response.errors.dupName[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ثبت اطلاعات جدید موفقیت آمیز بود!', response.message.assistanceAdded[0], 'success', 'بستن');
+                                        // toggleModal(newAssistanceModal.id);
+                                        location.reload();
+                                        resetFields();
+                                    }
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+            $('.ExecutivePositionControl').on('click', function () {
+                $.ajax({
+                    type: 'GET', url: '/getExecutivePositionInfo', data: {
+                        id: $(this).data('id')
+                    }, success: function (response) {
+                        if (response) {
+                            executivePosition_id.value = response.id;
+                            titleForEdit.value = response.title;
+                        }
+                    }
+                });
+            });
+            $('#edit-executivePosition').on('submit', function (e) {
+                e.preventDefault();
+                if (!hasOnlyPersianCharacters(titleForEdit.value)) {
+                    swalFire('خطا!', 'نام سمت اجرایی اشتباه وارد شده است.', 'error', 'تلاش مجدد');
+                } else {
+                    Swal.fire({
+                        title: 'آیا مطمئن هستید؟',
+                        text: 'با ویرایش این مقدار، تمامی فیلدها تغییر خواهند کرد.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بله',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form = $(this);
+                            var data = form.serialize();
+                            $.ajax({
+                                type: 'POST', url: '/editExecutivePosition', data: data, headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                }, success: function (response) {
+                                    if (response.errors) {
+                                        if (response.errors.nullName) {
+                                            swalFire('خطا!', response.errors.nullName[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.dupName) {
+                                            swalFire('خطا!', response.errors.dupName[0], 'error', 'تلاش مجدد');
+                                        }
+                                    } else if (response.success) {
+                                        // swalFire('ویرایش اطلاعات موفقیت آمیز بود!', response.message.assistanceEdited[0], 'success', 'بستن');
+                                        // toggleModal(editAssistanceModal.id);
+                                        location.reload();
+                                        resetFields();
+                                    }
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+            $('.deactiveExecutivePositionControl').on('click', function () {
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'وضعیت این کاتالوگ تغییر خواهد کرد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: 'POST', url: '/ManageCatalogStatus', data: {
+                                id: $(this).data('id'), work: 'ChangeExecutivePositionStatus'
                             }, headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                             }, success: function (response) {

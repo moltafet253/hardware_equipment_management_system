@@ -7,6 +7,7 @@ use App\Http\Controllers\Catalogs\CatalogController;
 use App\Http\Controllers\Catalogs\CopyMachineController;
 use App\Http\Controllers\Catalogs\CPUController;
 use App\Http\Controllers\Catalogs\EstablishmentPlaceController;
+use App\Http\Controllers\Catalogs\ExecutivePositionController;
 use App\Http\Controllers\Catalogs\GraphicCardController;
 use App\Http\Controllers\Catalogs\HarddiskController;
 use App\Http\Controllers\Catalogs\HeadphoneController;
@@ -37,6 +38,7 @@ use App\Http\Controllers\PersonController;
 use App\Http\Controllers\Reports\ExcelAllReportsController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\UserManager;
+use App\Http\Controllers\WorkController;
 use App\Http\Middleware\CheckLoginMiddleware;
 use App\Http\Middleware\MenuMiddleware;
 use App\Http\Middleware\NTCPMiddleware;
@@ -246,6 +248,11 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
             Route::get('/getEstablishmentPlaceInfo', [EstablishmentPlaceController::class, 'getEstablishmentPlaceInfo'])->name('getEstablishmentPlaceInfo');
             Route::post('/editEstablishmentPlace', [EstablishmentPlaceController::class, 'editEstablishmentPlace'])->name('editEstablishmentPlace');
 
+            Route::get('/ExecutivePositionCatalog', [ExecutivePositionController::class, 'index']);
+            Route::post('/newExecutivePosition', [ExecutivePositionController::class, 'newExecutivePosition']);
+            Route::get('/getExecutivePositionInfo', [ExecutivePositionController::class, 'getExecutivePositionInfo']);
+            Route::post('/editExecutivePosition', [ExecutivePositionController::class, 'editExecutivePosition']);
+
             Route::get('/JobCatalog', [JobController::class, 'index'])->name('JobCatalog');
             Route::post('/newJob', [JobController::class, 'newJob'])->name('newJob');
             Route::get('/getJobInfo', [JobController::class, 'getJobInfo'])->name('getJobInfo');
@@ -255,7 +262,10 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
             Route::post('/ManageCatalogStatus', [CatalogController::class, 'manage']);
             //End Catalogs
 
-            Route::post('/newComment', [EquipmentController::class, 'newComment'])->name('newComment');
+            //Start Works Manager
+            Route::get('/Works', [WorkController::class, 'index']);
+            Route::post('/getHistory', [WorkController::class, 'getHistory'])->name('getHistory');
+            //End Works Manager
 
             //Start Reports
             //ExcelAllReports
