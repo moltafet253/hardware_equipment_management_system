@@ -22,6 +22,7 @@ class PersonController extends Controller
         $room_number = $request->input('room_number');
         $assistance = $request->input('assistance');
         $establishment_place = $request->input('establishmentplace');
+        $executivePosition = $request->input('executive_position');
 
         if (!$name) {
             return $this->alerts(false, 'nullName', 'نام وارد نشده است');
@@ -57,6 +58,7 @@ class PersonController extends Controller
         $Person->room_number = $room_number;
         $Person->assistance = $assistance;
         $Person->establishment_place = $establishment_place;
+        $Person->executive_position = $executivePosition;
         $Person->work_place = $adder->province_id;
         $Person->adder = session('id');
         $Person->save();
@@ -77,6 +79,7 @@ class PersonController extends Controller
         $net_username = $request->input('net_usernameForEdit');
         $room_number = $request->input('room_numberForEdit');
         $assistance = $request->input('assistanceForEdit');
+        $executivePosition = $request->input('executive_positionForEdit');
         $establishment_place = $request->input('establishmentplaceForEdit');
         if (!$name) {
             return $this->alerts(false, 'nullName', 'نام وارد نشده است');
@@ -96,6 +99,12 @@ class PersonController extends Controller
         if (!$assistance) {
             return $this->alerts(false, 'nullAssistance', 'معاونت انتخاب نشده است');
         }
+        if (!$executivePosition) {
+            return $this->alerts(false, 'nullExecutivePosition', 'سمت اجرایی انتخاب نشده است');
+        }
+        if (!$establishment_place) {
+            return $this->alerts(false, 'nullEstablishmentPlace', 'محل استقرار انتخاب نشده است');
+        }
 
         $Person = Person::find($PersonID);
         $Person->fill([
@@ -109,6 +118,7 @@ class PersonController extends Controller
             'room_number' => $room_number,
             'assistance' => $assistance,
             'establishment_place' => $establishment_place,
+            'executive_position' => $executivePosition,
             'editor' => session('id'),
         ]);
         $Person->save();

@@ -3,7 +3,6 @@ import '@fortawesome/fontawesome-free/css/all.css';
 import $ from 'jquery';
 import Swal from 'sweetalert2';
 window.Swal = Swal;
-
 function swalFire(title = null, text, icon, confirmButtonText) {
     Swal.fire({
         title: title, text: text, icon: icon, confirmButtonText: confirmButtonText,
@@ -4661,27 +4660,7 @@ $(document).ready(function () {
                     }
                 });
             });
-            $('.PersonControl').on('click', function () {
-                $.ajax({
-                    type: 'GET', url: '/getPersonInfo', data: {
-                        id: $(this).data('id')
-                    }, success: function (response) {
-                        if (response) {
-                            personID.value = response.id;
-                            nameForEdit.value = response.name;
-                            familyForEdit.value = response.family;
-                            national_codeForEdit.value = response.national_code;
-                            personnel_codeForEdit.value = response.personnel_code;
-                            phoneForEdit.value = response.phone;
-                            mobileForEdit.value = response.mobile;
-                            net_usernameForEdit.value = response.net_username;
-                            room_numberForEdit.value = response.room_number;
-                            assistanceForEdit.value = response.assistance;
-                            establishmentplaceForEdit.value = response.establishment_place;
-                        }
-                    }
-                });
-            });
+
             $('#edit-person').on('submit', function (e) {
                 e.preventDefault();
                 Swal.fire({
@@ -4710,6 +4689,10 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullNationalCode[0], 'error', 'تلاش مجدد');
                                     } else if (response.errors.nullAssistance) {
                                         swalFire('خطا!', response.errors.nullAssistance[0], 'error', 'تلاش مجدد');
+                                    }else if (response.errors.nullExecutivePosition) {
+                                        swalFire('خطا!', response.errors.nullExecutivePosition[0], 'error', 'تلاش مجدد');
+                                    }else if (response.errors.nullEstablishmentPlace) {
+                                        swalFire('خطا!', response.errors.nullEstablishmentPlace[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
                                     // swalFire('ویرایش پرسنل موفقیت آمیز بود!', response.message.personEdited[0], 'success', 'بستن');

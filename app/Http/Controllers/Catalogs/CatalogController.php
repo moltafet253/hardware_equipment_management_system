@@ -8,7 +8,7 @@ use App\Models\Catalogs\Cases;
 use App\Models\Catalogs\Company;
 use App\Models\Catalogs\CopyMachine;
 use App\Models\Catalogs\cpu;
-use App\Models\Catalogs\ExecutivePosition;
+use App\Models\ExecutivePosition;
 use App\Models\Catalogs\GraphicCard;
 use App\Models\Catalogs\Harddisk;
 use App\Models\Catalogs\Job;

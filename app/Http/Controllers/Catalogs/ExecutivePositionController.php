@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Catalogs;
 
 use App\Http\Controllers\Controller;
-use App\Models\Catalogs\ExecutivePosition;
+use App\Models\ExecutivePosition;
 use Illuminate\Http\Request;
 
 class ExecutivePositionController extends Controller
