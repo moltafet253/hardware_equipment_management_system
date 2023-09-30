@@ -83,12 +83,12 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
     Route::post('/ChangePasswordInc', [DashboardController::class, 'ChangePasswordInc']);
     Route::post('/ChangeUserImage', [DashboardController::class, 'ChangeUserImage']);
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+    Route::get('/Search', [SearchController::class, 'search'])->name('Search');
 
     Route::middleware(NTCPMiddleware::class)->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
         //Search Route
         Route::middleware('roleAuthorization:1')->group(callback: function () {
-            Route::get('/Search', [SearchController::class, 'search'])->name('Search');
             //User Manager
             Route::get('/UserManager', [UserManager::class, 'index'])->name('UserManager');
             Route::get('/GetUserInfo', [UserManager::class, 'getUserInfo'])->name('GetUserInfo');

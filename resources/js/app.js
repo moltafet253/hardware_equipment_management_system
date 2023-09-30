@@ -2,6 +2,7 @@ import './bootstrap';
 import '@fortawesome/fontawesome-free/css/all.css';
 import $ from 'jquery';
 import Swal from 'sweetalert2';
+
 window.Swal = Swal;
 function swalFire(title = null, text, icon, confirmButtonText) {
     Swal.fire({
@@ -4605,18 +4606,15 @@ $(document).ready(function () {
         case '/Person':
             resetFields();
 
+
+
             $('#new-person-button, #cancel-new-person').on('click', function () {
                 toggleModal(newPersonModal.id);
             });
             $('.absolute.inset-0.bg-gray-500.opacity-75.add').on('click', function () {
                 toggleModal(newPersonModal.id)
             });
-            $('.absolute.inset-0.bg-gray-500.opacity-75.edit').on('click', function () {
-                toggleModal(editPersonModal.id)
-            });
-            $('.PersonControl,#cancel-edit-person').on('click', function () {
-                toggleModal(editPersonModal.id);
-            });
+
             $('#new-person').on('submit', function (e) {
                 e.preventDefault();
                 Swal.fire({
@@ -4705,6 +4703,67 @@ $(document).ready(function () {
                     }
                 });
             });
+
+            // $('#search-person').on('submit', function (e) {
+            //     e.preventDefault();
+            //     var inputName = $('#search-name').val().trim().toLowerCase();
+            //     var inputFamily = $('#search-family').val().trim().toLowerCase();
+            //     var inputCode = $('#search-personnel-code').val().trim().toLowerCase();
+            //     if (!inputName && !inputFamily && !inputCode) {
+            //         swalFire('خطا!', 'لطفا یکی از فیلدها را وارد نمایید.', 'error', 'تلاش مجدد');
+            //     }else {
+            //         $.ajax({
+            //             url: '/Search', type: 'GET', data: {
+            //                 name: inputName,
+            //                 family: inputFamily,
+            //                 code: inputCode,
+            //                 work: 'PersonManagerSearch'
+            //             }, success: function (data) {
+            //                 console.log(data);
+            //                 var tableBody = $('.w-full.border-collapse.rounded-lg.overflow-hidden.text-center tbody');
+            //                 tableBody.empty();
+            //                 var filteredData = data.filter(function (person) {
+            //                     return person !== null;
+            //                 });
+            //                 filteredData.forEach(function (person) {
+            //                     var row = '<tr class="bg-white">';
+            //                     var personnel_code = person.personnel_code !== null ? person.personnel_code : "ثبت نشده";
+            //                     var name = person.name !== null ? person.name : "ثبت نشده";
+            //                     var family = person.family !== null ? person.family : "ثبت نشده";
+            //                     var national_code = person.national_code !== null ? person.national_code : "ثبت نشده";
+            //                     var phone = person.phone !== null ? person.phone : "ثبت نشده";
+            //                     var mobile = person.mobile !== null ? person.mobile : "ثبت نشده";
+            //                     var net_username = person.net_username !== null ? person.net_username : "ثبت نشده";
+            //                     var assistance = person.assistance !== null ? person.assistance : "ثبت نشده";
+            //                     var establishment_place = person.establishment_place !== null ? person.establishment_place : "ثبت نشده";
+            //                     var executive_position = person.executive_position !== null ? person.executive_position : "ثبت نشده";
+            //                     var room_number = person.room_number !== null ? person.room_number : "ثبت نشده";
+            //                     row += '<td class="px-6 py-4">' + personnel_code + '</td>';
+            //                     row += '<td class="px-6 py-4">' + name + ' ' + family + '</td>';
+            //                     row += '<td class="px-6 py-4">' + national_code + '</td>';
+            //                     row += '<td class="px-6 py-4">' + phone + '</td>';
+            //                     row += '<td class="px-6 py-4">' + mobile + '</td>';
+            //                     row += '<td class="px-6 py-4">' + net_username + '</td>';
+            //                     row += '<td class="px-6 py-4">' + assistance + '</td>';
+            //                     row += '<td class="px-6 py-4">' + establishment_place + '</td>';
+            //                     row += '<td class="px-6 py-4">' + executive_position + '</td>';
+            //                     row += '<td class="px-6 py-4">' + room_number + '</td>';
+            //                     row += '<td class="px-6 py-4">' + '<button type="submit" data-id="' + person.id + '" class="px-4 py-2 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 PersonControl">جزئیات و ویرایش</button>';
+            //                     row += '<button type="submit" data-id="' + person.id + '" class="px-4 py-2 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 EquipmentControl">وضعیت تجهیزات این کاربر</button>'+'</td>';
+            //                     row += '</tr>';
+            //                     tableBody.append(row);
+            //                 });
+            //             }, error: function () {
+            //                 console.log('خطا در ارتباط با سرور');
+            //             }
+            //         });
+            //     }
+            // });
+
+            $('.Reset').on('click', function () {
+                location.reload();
+            });
+
             break;
         case '/showEquipmentStatus':
             resetFields();

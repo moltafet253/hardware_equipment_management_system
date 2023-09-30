@@ -12,7 +12,7 @@
                 <form id="new-person">
                     @csrf
                     <div class="mt-4 mb-4 flex items-center">
-{{--                        <div class="fixed z-10 inset-0 overflow-y-auto " id="newPersonModal">--}}
+                        {{--                        <div class="fixed z-10 inset-0 overflow-y-auto " id="newPersonModal">--}}
                         <div class="fixed z-10 inset-0 overflow-y-auto hidden" id="newPersonModal">
                             <div
                                 class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center  sm:block sm:p-0">
@@ -98,8 +98,10 @@
                                             </div>
                                             <div class="mb-4">
                                                 <label for="establishmentplace"
-                                                       class="block text-gray-700 text-sm font-bold mb-2">محل استقرار:</label>
-                                                <select id="establishmentplace" class="border rounded-md w-96 px-3 py-2 select2"
+                                                       class="block text-gray-700 text-sm font-bold mb-2">محل
+                                                    استقرار:</label>
+                                                <select id="establishmentplace"
+                                                        class="border rounded-md w-96 px-3 py-2 select2"
                                                         name="establishmentplace"
                                                         title="محل استقرار را انتخاب کنید (اختیاری)">
                                                     <option value="" disabled selected>انتخاب کنید</option>
@@ -114,8 +116,10 @@
                                             </div>
                                             <div class="mb-4">
                                                 <label for="executive_position"
-                                                       class="block text-gray-700 text-sm font-bold mb-2">سمت اجرایی:</label>
-                                                <select id="executive_position" class="border rounded-md w-96 px-3 py-2 select2"
+                                                       class="block text-gray-700 text-sm font-bold mb-2">سمت
+                                                    اجرایی:</label>
+                                                <select id="executive_position"
+                                                        class="border rounded-md w-96 px-3 py-2 select2"
                                                         name="executive_position"
                                                         title="سمت اجرایی را انتخاب کنید (اختیاری)">
                                                     <option value="" disabled selected>انتخاب کنید</option>
@@ -197,7 +201,7 @@
                                                 <label for="personnel_codeForEdit"
                                                        class="block text-gray-700 text-sm font-bold mb-2">کد
                                                     پرسنلی*:</label>
-                                                <input type="text"  name="personnel_codeForEdit"
+                                                <input type="text" name="personnel_codeForEdit"
                                                        id="personnel_codeForEdit"
                                                        class="border rounded-md  w-full mb-4 px-3 py-2"
                                                        placeholder="کد پرسنلی را وارد کنید">
@@ -245,8 +249,10 @@
                                             </div>
                                             <div class="mb-4">
                                                 <label for="establishmentplaceForEdit"
-                                                       class="block text-gray-700 text-sm font-bold mb-2">محل استقرار:</label>
-                                                <select id="establishmentplaceForEdit" class="border rounded-md w-96 px-3 py-2 select2 establishmentplaceForEdit"
+                                                       class="block text-gray-700 text-sm font-bold mb-2">محل
+                                                    استقرار:</label>
+                                                <select id="establishmentplaceForEdit"
+                                                        class="border rounded-md w-96 px-3 py-2 select2 establishmentplaceForEdit"
                                                         name="establishmentplaceForEdit"
                                                         title="محل استقرار را انتخاب کنید (اختیاری)">
                                                     <option value="" disabled selected>انتخاب کنید</option>
@@ -261,8 +267,10 @@
                                             </div>
                                             <div class="mb-4">
                                                 <label for="executive_positionForEdit"
-                                                       class="block text-gray-700 text-sm font-bold mb-2">سمت اجرایی:</label>
-                                                <select id="executive_positionForEdit" class="border rounded-md w-96 px-3 py-2 select2 executive_positionForEdit"
+                                                       class="block text-gray-700 text-sm font-bold mb-2">سمت
+                                                    اجرایی:</label>
+                                                <select id="executive_positionForEdit"
+                                                        class="border rounded-md w-96 px-3 py-2 select2 executive_positionForEdit"
                                                         name="executive_positionForEdit"
                                                         title="سمت اجرایی را انتخاب کنید (اختیاری)">
                                                     <option value="" disabled selected>انتخاب کنید</option>
@@ -303,25 +311,38 @@
                 </form>
             </div>
             <div class="bg-white rounded shadow p-6 flex flex-col items-center">
-                <div class=" mb-4 flex w-full">
-                    {{--                    <label for="search-Username-UserManager" class="block mt-3 text-sm font-bold text-gray-700">جستجو در--}}
-                    {{--                        کد--}}
-                    {{--                        پرسنلی:</label>--}}
-                    {{--                    <input id="search-Username-UserManager" autocomplete="off"--}}
-                    {{--                           placeholder="لطفا کد پرسنلی را وارد نمایید."--}}
-                    {{--                           type="text" name="search-Username-UserManager"--}}
-                    {{--                           class="ml-4 mt-1 px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"/>--}}
-                    {{--                    <label for="search-type-UserManager"--}}
-                    {{--                           class="block text-gray-700 text-sm font-bold mt-3 ">جستجو در نقش--}}
-                    {{--                        پرسنلی:</label>--}}
-                    {{--                    <select id="search-type-UserManager" class="border rounded-md  px-3 "--}}
-                    {{--                            name="search-type-UserManager">--}}
-                    {{--                        <option value="">بدون فیلتر</option>--}}
-                    {{--                        @foreach($personList->pluck('type', 'subject')->unique() as $type => $subject)--}}
-                    {{--                            <option value="{{ $subject }}">{{ $type }}</option>--}}
-                    {{--                        @endforeach--}}
-                    {{--                    </select>--}}
+                <form id="search-person">
+                <div class="mb-4 flex w-full">
+                    <label for="search-personnel-code" class="block mt-3 text-sm font-bold text-gray-700">
+                        کد پرسنلی:</label>
+                    <input id="search-personnel-code" autocomplete="off"
+                           type="text" name="search-personnel-code"
+                           class="ml-4 mt-1 px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300 w-24"/>
+
+                    <label for="search-name" class="block mt-3 text-sm font-bold text-gray-700">
+                        نام:</label>
+                    <input id="search-name" autocomplete="off"
+                           placeholder="نام را وارد نمایید."
+                           type="text" name="search-name"
+                           class="ml-4 mt-1 px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300 w-48"/>
+
+                    <label for="search-family" class="block mt-3 text-sm font-bold text-gray-700">
+                        نام خانوادگی:</label>
+                    <input id="search-family" autocomplete="off"
+                           placeholder="نام خانوادگی را وارد نمایید."
+                           type="text" name="search-family"
+                           class="ml-4 mt-1 px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300 w-48"/>
+
+                    <button type="submit"
+                            class="px-4 py-2 h-11 mt-1 ml-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300">
+                        فیلتر
+                    </button>
+                    <button type="button"
+                            class="px-4 py-2 h-11 mt-1 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring focus:border-red-300 Reset">
+                        بازنشانی
+                    </button>
                 </div>
+                </form>
                 <div class="max-w-full overflow-x-auto">
                     <table class="w-full border-collapse rounded-lg overflow-hidden text-center">
                         <thead>
@@ -332,7 +353,7 @@
                             <th class=" px-3 py-3  font-bold ">شماره داخلی</th>
                             <th class=" px-3 py-3  font-bold ">شماره همراه</th>
                             <th class=" px-3 py-3  font-bold ">یوزر شبکه</th>
-                            <th class=" px-3 py-3  font-bold ">معاونت</th>
+                            <th class=" px-3 py-3  font-bold ">معاونت/بخش</th>
                             <th class=" px-3 py-3  font-bold ">محل استقرار</th>
                             <th class=" px-3 py-3  font-bold ">سمت اجرایی</th>
                             <th class=" px-3 py-3  font-bold ">شماره اتاق</th>
@@ -392,7 +413,34 @@
         </div>
     </main>
     <script>
-        $('.PersonControl').on('click', function () {
+        function swalFire(title = null, text, icon, confirmButtonText) {
+            Swal.fire({
+                title: title, text: text, icon: icon, confirmButtonText: confirmButtonText,
+            });
+        }
+
+        function toggleModal(modalID) {
+            var modal = document.getElementById(modalID);
+            if (modal.classList.contains('modal-active')) {
+                modal.classList.remove('animate-fade-in');
+                modal.classList.add('animate-fade-out');
+                setTimeout(() => {
+                    modal.classList.remove('modal-active');
+                    modal.classList.remove('animate-fade-out');
+                }, 150);
+            } else {
+                modal.classList.add('modal-active');
+                modal.classList.remove('animate-fade-out');
+                modal.classList.add('animate-fade-in');
+            }
+        }
+        $(document).on('click', '#cancel-edit-person', function () {
+            toggleModal(editPersonModal.id)
+        });
+        $(document).on('click', '.absolute.inset-0.bg-gray-500.opacity-75.edit', function () {
+            toggleModal(editPersonModal.id)
+        });
+        $(document).on('click', '.PersonControl', function () {
             $.ajax({
                 type: 'GET', url: '/getPersonInfo', data: {
                     id: $(this).data('id')
@@ -413,7 +461,171 @@
                     }
                 }
             });
+            toggleModal(editPersonModal.id)
         });
+
+        $('#search-person').on('submit', async function (e) {
+            e.preventDefault();
+            var inputName = $('#search-name').val().trim().toLowerCase();
+            var inputFamily = $('#search-family').val().trim().toLowerCase();
+            var inputCode = $('#search-personnel-code').val().trim().toLowerCase();
+
+            if (!inputName && !inputFamily && !inputCode) {
+                swalFire('خطا!', 'لطفاً یکی از فیلدها را وارد نمایید.', 'error', 'تلاش مجدد');
+            } else {
+                try {
+                    const data = await fetchData(inputName, inputFamily, inputCode);
+                    displayData(data);
+                } catch (error) {
+                    console.error(error);
+                    // در صورت بروز خطا، می‌توانید پیام خطا را نمایش دهید
+                    console.log('خطا در ارتباط با سرور');
+                }
+            }
+        });
+
+        async function fetchData(inputName, inputFamily, inputCode) {
+            return new Promise(async (resolve, reject) => {
+                try {
+                    const data = await $.ajax({
+                        url: '/Search',
+                        type: 'GET',
+                        data: {
+                            name: inputName,
+                            family: inputFamily,
+                            code: inputCode,
+                            work: 'PersonManagerSearch'
+                        }
+                    });
+                    resolve(data);
+                } catch (error) {
+                    reject(error);
+                }
+            });
+        }
+
+        function displayData(data) {
+            var tableBody = $('.w-full.border-collapse.rounded-lg.overflow-hidden.text-center tbody');
+            tableBody.empty();
+
+            data.forEach(async function (person) {
+                var row = '<tr class="bg-white">';
+                var personnel_code = person.personnel_code !== null ? person.personnel_code : "ثبت نشده";
+                var name = person.name !== null ? person.name : "ثبت نشده";
+                var family = person.family !== null ? person.family : "ثبت نشده";
+                var national_code = person.national_code !== null ? person.national_code : "ثبت نشده";
+                var phone = person.phone !== null ? person.phone : "ثبت نشده";
+                var mobile = person.mobile !== null ? person.mobile : "ثبت نشده";
+                var net_username = person.net_username !== null ? person.net_username : "ثبت نشده";
+                var assistance = person.assistance !== null ? person.assistance : "ثبت نشده";
+                var establishment_place = person.establishment_place !== null ? person.establishment_place : "ثبت نشده";
+                var executive_position = person.executive_position !== null ? person.executive_position : "ثبت نشده";
+                var room_number = person.room_number !== null ? person.room_number : "ثبت نشده";
+
+                row += '<td class="px-6 py-4">' + personnel_code + '</td>';
+                row += '<td class="px-6 py-4">' + name + ' ' + family + '</td>';
+                row += '<td class="px-6 py-4">' + national_code + '</td>';
+                row += '<td class="px-6 py-4">' + phone + '</td>';
+                row += '<td class="px-6 py-4">' + mobile + '</td>';
+                row += '<td class="px-6 py-4">' + net_username + '</td>';
+
+                try {
+                    const assistanceName = await getAssistanceInfo(assistance);
+                    row += '<td class="px-6 py-4">' + assistanceName + '</td>';
+                } catch (error) {
+                    console.error(error);
+                    row += '<td class="px-6 py-4">مشکل در دریافت اطلاعات</td>';
+                }
+
+                try {
+                    const establishment_placeName = await getEstablishmentPlaceInfo(establishment_place);
+                    row += '<td class="px-6 py-4">' + establishment_placeName + '</td>';
+                } catch (error) {
+                    console.error(error);
+                    row += '<td class="px-6 py-4">مشکل در دریافت اطلاعات</td>';
+                }
+
+                try {
+                    const executive_positionName = await getExecutivePositionInfo(executive_position);
+                    row += '<td class="px-6 py-4">' + executive_positionName + '</td>';
+                } catch (error) {
+                    console.error(error);
+                    row += '<td class="px-6 py-4">مشکل در دریافت اطلاعات</td>';
+                }
+
+                row += '<td class="px-6 py-4">' + room_number + '</td>';
+                row += '<td class="px-6 py-4"><button type="button" data-id="' + person.id + '" class="px-4 py-2 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 PersonControl">جزئیات و ویرایش</button>';
+                row += '<button type="button" data-id="' + person.id + '" class="px-4 py-2 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 EquipmentControl">وضعیت تجهیزات این کاربر</button>' + '</td>';
+                row += '</tr>';
+                tableBody.append(row);
+            });
+        }
+
+        async function getAssistanceInfo(assistanceID) {
+            return new Promise(async (resolve, reject) => {
+                try {
+                    const response = await $.ajax({
+                        type: 'GET',
+                        url: '/getAssistanceInfo',
+                        data: {
+                            id: assistanceID
+                        }
+                    });
+                    if (response) {
+                        resolve(response['name']);
+                    } else {
+                        reject('اطلاعاتی یافت نشد.');
+                    }
+                } catch (error) {
+                    reject('خطا در ارتباط با سرور.');
+                }
+            });
+        }
+
+        async function getEstablishmentPlaceInfo(establishmentPlaceID) {
+            return new Promise(async (resolve, reject) => {
+                try {
+                    const response = await $.ajax({
+                        type: 'GET',
+                        url: '/getEstablishmentPlaceInfo',
+                        data: {
+                            id: establishmentPlaceID
+                        }
+                    });
+                    if (response) {
+                        resolve(response['title']);
+                    } else {
+                        reject('اطلاعاتی یافت نشد.');
+                    }
+                } catch (error) {
+                    reject('خطا در ارتباط با سرور.');
+                }
+            });
+        }
+
+        async function getExecutivePositionInfo(assistanceID) {
+            return new Promise(async (resolve, reject) => {
+                try {
+                    const response = await $.ajax({
+                        type: 'GET',
+                        url: '/getExecutivePositionInfo',
+                        data: {
+                            id: assistanceID
+                        }
+                    });
+                    if (response) {
+                        resolve(response['title']);
+                    } else {
+                        reject('اطلاعاتی یافت نشد.');
+                    }
+                } catch (error) {
+                    reject('خطا در ارتباط با سرور.');
+                }
+            });
+        }
+
+
+
     </script>
     @include('layouts.JSScripts')
 @endsection

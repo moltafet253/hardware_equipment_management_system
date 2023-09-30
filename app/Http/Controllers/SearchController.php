@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Catalogs\Company;
+use App\Models\Person;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -48,6 +49,19 @@ class SearchController extends Controller
                 }
                 $result = $search->get();
                 return response()->json($result);
+            case 'PersonManagerSearch':
+                $name = $request->input('name');
+                $family = $request->input('family');
+                $code = $request->input('code');
+                $search = Person::query();
+                $search->where('name', 'LIKE', '%' . $name . '%');
+                $search->where('family', 'LIKE', '%' . $family . '%');
+                if ($code) {
+                    $search->where('personnel_code', $code);
+                }
+                $result = $search->get();
+                return response()->json($result);
+                break;
         }
     }
 }
