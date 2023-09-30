@@ -18,13 +18,13 @@ class SearchController extends Controller
                 $search = Company::query();
                 if ($name) {
                     $search->where('name', 'LIKE', '%' . $name . '%');
-                    $search->where('name','!=','ONBOARD');
+                    $search->where('name', '!=', 'ONBOARD');
                     $this->logActivity('Search In Company Catalog With Name => ' . $name, request()->ip(), request()->userAgent(), session('id'));
-                }else{
+                } else {
                     $search->where('name', 'LIKE', '%' . '%');
-                    $search->where('name','!=','ONBOARD');
+                    $search->where('name', '!=', 'ONBOARD');
                 }
-                $search->orderBy('name','asc');
+                $search->orderBy('name', 'asc');
                 $result = $search->get();
                 return response()->json($result);
                 break;
@@ -60,6 +60,7 @@ class SearchController extends Controller
                     $search->where('personnel_code', $code);
                 }
                 $result = $search->get();
+                $this->logActivity('Search In Person Manager With ID => ' . $code . ' Name => ' . $name . ' Family => ' . $family, request()->ip(), request()->userAgent(), session('id'));
                 return response()->json($result);
                 break;
         }
