@@ -12,7 +12,7 @@
         <div class=" mx-auto lg:mr-72">
             <div class="border rounded-lg shadow-md">
                 <h1 class="text-xl font-bold m-4">مدیریت اطلاعات تجهیزات کاربر با
-                    مشخصات {{ $personInfo->name .' '. $personInfo->family}}</h1>
+                    مشخصات {{ $personInfo->name .' '. $personInfo->family}} با کد پرسنلی {{ $personInfo->personnel_code }}</h1>
 
                 <div class="flex border rounded-lg">
                     <button id="tab1"

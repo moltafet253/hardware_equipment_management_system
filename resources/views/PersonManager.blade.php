@@ -413,6 +413,10 @@
         </div>
     </main>
     <script>
+        function redirectToEquipmentStatus(id) {
+            window.location.href = `{{ route('showEquipmentStatus') }}?id=${id}`;
+        }
+
         function swalFire(title = null, text, icon, confirmButtonText) {
             Swal.fire({
                 title: title, text: text, icon: icon, confirmButtonText: confirmButtonText,
@@ -434,6 +438,10 @@
                 modal.classList.add('animate-fade-in');
             }
         }
+        $(document).on('click', '.EquipmentControl', function () {
+            const id = $(this).data('id');
+            redirectToEquipmentStatus(id);
+        });
         $(document).on('click', '#cancel-edit-person', function () {
             toggleModal(editPersonModal.id)
         });

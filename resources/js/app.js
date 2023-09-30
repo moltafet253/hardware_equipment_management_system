@@ -4606,8 +4606,6 @@ $(document).ready(function () {
             break;
         case '/Person':
             resetFields();
-
-
             $('#new-person-button, #cancel-new-person').on('click', function () {
                 toggleModal(newPersonModal.id);
             });
