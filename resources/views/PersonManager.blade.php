@@ -483,10 +483,11 @@
             } else {
                 try {
                     const data = await fetchData(inputName, inputFamily, inputCode);
+                    let paginationDiv=document.getElementById('laravel-next-prev');
+                    paginationDiv.style.display='none';
                     displayData(data);
                 } catch (error) {
                     console.error(error);
-                    // در صورت بروز خطا، می‌توانید پیام خطا را نمایش دهید
                     console.log('خطا در ارتباط با سرور');
                 }
             }
@@ -631,8 +632,6 @@
                 }
             });
         }
-
-
 
     </script>
     @include('layouts.JSScripts')
