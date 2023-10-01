@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('person_id');
-            $table->foreign('person_id')->references('id')->on('persons');
+            $table->integer('property_id');
+            $table->unsignedBigInteger('device');
+            $table->foreign('device')->references('id')->on('devices');
             $table->string('title');
             $table->integer('ticket_number')->nullable();
             $table->json('jobs')->nullable();
