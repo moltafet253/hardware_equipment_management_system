@@ -9,6 +9,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class EquipmentLog extends Model
 {
     use HasFactory,SoftDeletes;
-    protected $table='equipmented_logs';
+    protected $table='equipment_logs';
     protected $hidden=['updated_at','deleted_at'];
 }
