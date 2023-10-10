@@ -613,4 +613,18 @@ class EquipmentController extends Controller
         $this->logActivity('Equipmented Video Projector Curtain Added =>' . $newVideoProjectorCurtain->id, \request()->ip(), \request()->userAgent(), \session('id'));
         return $this->success(true, 'videoProjectorCurtainAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
+
+    public function getEquipmentInfo(Request $request)
+    {
+        $id=$request->input('id');
+        if ($id) {
+            switch ($request->input('type')) {
+                case 'case':
+                    $equipmentInfo=EquipmentedCase::find($id);
+                    break;
+            }
+            return $equipmentInfo;
+
+        }
+    }
 }

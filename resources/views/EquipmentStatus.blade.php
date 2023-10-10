@@ -13,7 +13,6 @@
             <div class="border rounded-lg shadow-md">
                 <h1 class="text-xl font-bold m-4">مدیریت اطلاعات تجهیزات کاربر با
                     مشخصات {{ $personInfo->name .' '. $personInfo->family}} با کد پرسنلی {{ $personInfo->personnel_code }}</h1>
-
                 <div class="flex border rounded-lg">
                     <button id="tab1"
                             class="w-1/3 py-2 px-4 bg-blue-400 text-white hover:bg-blue-600 focus:outline-none focus:bg-blue-600 rounded-tr-box">

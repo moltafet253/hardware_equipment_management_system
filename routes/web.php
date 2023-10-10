@@ -32,6 +32,7 @@ use App\Http\Controllers\Catalogs\VideoProjectorCurtainController;
 use App\Http\Controllers\Catalogs\VOIPController;
 use App\Http\Controllers\Catalogs\WebcamController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EditEquipmentController;
 use App\Http\Controllers\EquipmentController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PersonController;
@@ -307,9 +308,11 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
         Route::post('/newEquipmentVideoProjectorCurtain', [EquipmentController::class, 'newVideoProjectorCurtain']);
         Route::post('/newEquipmentWebcam', [EquipmentController::class, 'newWebcam']);
 
+        Route::get('/getEquipmentInfo', [EquipmentController::class, 'getEquipmentInfo']);
+        Route::post('/editEquipment', [EditEquipmentController::class, 'editEquipment']);
+
         //End equipment status
 
-        Route::post('/editEquipment', [EquipmentController::class, 'editEquipment'])->name('editEquipment');
 
         Route::middleware('roleAuthorization:2')->group(function () {
 

@@ -11,21 +11,7 @@ function swalFire(title = null, text, icon, confirmButtonText) {
     });
 }
 
-function toggleModal(modalID) {
-    var modal = document.getElementById(modalID);
-    if (modal.classList.contains('modal-active')) {
-        modal.classList.remove('animate-fade-in');
-        modal.classList.add('animate-fade-out');
-        setTimeout(() => {
-            modal.classList.remove('modal-active');
-            modal.classList.remove('animate-fade-out');
-        }, 150);
-    } else {
-        modal.classList.add('modal-active');
-        modal.classList.remove('animate-fade-out');
-        modal.classList.add('animate-fade-in');
-    }
-}
+
 
 function hasOnlyPersianCharacters(input) {
     var persianPattern = /^[\u0600-\u06FF0-9()\s]+$/;
@@ -4604,6 +4590,7 @@ $(document).ready(function () {
 
             });
             break;
+
         case '/Person':
             resetFields();
             $('#new-person-button, #cancel-new-person').on('click', function () {
@@ -4792,8 +4779,16 @@ $(document).ready(function () {
             $('.AddCase, #cancel-add-case').on('click', function () {
                 toggleModal(addCaseModal.id);
             });
+
+
+            $('#cancel-edit-case').on('click', function () {
+                toggleModal(editCaseModal.id);
+            });
             $('.absolute.inset-0.bg-gray-500.opacity-75.addcase').on('click', function () {
                 toggleModal(addCaseModal.id)
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.editcase').on('click', function () {
+                toggleModal(editCaseModal.id)
             });
             $('#addRAM').on('click', function () {
                 if (ram2Div.classList.contains('hidden')) {
@@ -4802,6 +4797,7 @@ $(document).ready(function () {
                     ram3Div.classList.remove('hidden');
                 } else if (ram4Div.classList.contains('hidden')) {
                     ram4Div.classList.remove('hidden');
+                    addRAM.classList.add('hidden');
                 }
             });
             $('#addHDD').on('click', function () {
@@ -4812,6 +4808,26 @@ $(document).ready(function () {
                 } else if (hdd4Div.classList.contains('hidden')) {
                     hdd4Div.classList.remove('hidden');
                     addHDD.classList.add('hidden');
+                }
+            });
+            $('#edited_addRAM').on('click', function () {
+                if (edited_ram2Div.classList.contains('hidden')) {
+                    edited_ram2Div.classList.remove('hidden');
+                } else if (edited_ram3Div.classList.contains('hidden')) {
+                    edited_ram3Div.classList.remove('hidden');
+                } else if (edited_ram4Div.classList.contains('hidden')) {
+                    edited_ram4Div.classList.remove('hidden');
+                    edited_addRAM.classList.add('hidden');
+                }
+            });
+            $('#edited_addHDD').on('click', function () {
+                if (edited_hdd2Div.classList.contains('hidden')) {
+                    edited_hdd2Div.classList.remove('hidden');
+                } else if (edited_hdd3Div.classList.contains('hidden')) {
+                    edited_hdd3Div.classList.remove('hidden');
+                } else if (edited_hdd4Div.classList.contains('hidden')) {
+                    edited_hdd4Div.classList.remove('hidden');
+                    edited_addHDD.classList.add('hidden');
                 }
             });
             $('#new-case').on('submit', function (e) {
@@ -4860,6 +4876,59 @@ $(document).ready(function () {
                                     // toggleModal(addCaseModal.id);
                                     location.reload();
                                     resetFields();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+            $('#edit-case').on('submit', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'این مقدار ویرایش خواهد شد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var form = $(this);
+                        var data = form.serialize();
+                        $.ajax({
+                            type: 'POST',
+                            url: '/editEquipment',
+                            data: data,
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            }, success: function (response) {
+                                if (response.errors) {
+                                    if (response.errors.nullPersonnelCode) {
+                                        swalFire('خطا!', response.errors.nullPersonnelCode[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullPropertyNumber) {
+                                        swalFire('خطا!', response.errors.nullPropertyNumber[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullStampNumber) {
+                                        swalFire('خطا!', response.errors.nullStampNumber[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullCaseInfo) {
+                                        swalFire('خطا!', response.errors.nullCaseInfo[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullMotherboard) {
+                                        swalFire('خطا!', response.errors.nullMotherboard[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullPower) {
+                                        swalFire('خطا!', response.errors.nullPower[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullCPU) {
+                                        swalFire('خطا!', response.errors.nullCPU[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullRAM) {
+                                        swalFire('خطا!', response.errors.nullRAM[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullHDD) {
+                                        swalFire('خطا!', response.errors.nullHDD[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.wrongPerson) {
+                                        swalFire('خطا!', response.errors.wrongPerson[0], 'error', 'تلاش مجدد');
+                                    }
+                                }
+                                    else if (response.success) {
+                                    // swalFire('ثبت کیس جدید موفقیت آمیز بود!', response.message.caseAdded[0], 'success', 'بستن');
+                                    // toggleModal(addCaseModal.id);
+                                    location.reload();
                                 }
                             }
                         });
@@ -5620,6 +5689,7 @@ $(document).ready(function () {
                 });
             })
             break;
+
         case '/Works':
             $('.AddComment, #cancel-add-comment').on('click', function () {
                 toggleModal(addCommentModal.id);
