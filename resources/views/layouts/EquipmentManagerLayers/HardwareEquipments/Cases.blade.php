@@ -382,10 +382,10 @@
                         <div class="mt-4">
                             <div class="flex">
                                 <div class="ml-3 w-full">
-                                    <label for="edited_property_number"
+                                    <label for="edited_case_property_number"
                                            class="block text-gray-700 text-sm font-bold mb-2">کد اموال*</label>
-                                    <input type="text" id="edited_property_number" name="edited_property_number"
-                                           class="border rounded-md w-full mb-4 px-3 py-2 text-right "
+                                    <input type="text" id="edited_case_property_number" name="edited_case_property_number"
+                                           class="border rounded-md w-full mb-4 px-3 py-2 text-right edited_property_number"
                                            placeholder="کد اموال را وارد کنید">
                                 </div>
                                 <div class="w-full">
@@ -405,10 +405,10 @@
                                            placeholder="نام کامپیوتر را وارد کنید">
                                 </div>
                                 <div class="w-full">
-                                    <label for="edited_delivery_date"
+                                    <label for="edited_case_delivery_date"
                                            class="block text-gray-700 text-sm font-bold mb-2">تاریخ تحویل</label>
-                                    <input type="text" id="edited_delivery_date" name="edited_delivery_date"
-                                           class="border rounded-md w-full mb-4 px-3 py-2 text-right deliveryDate"
+                                    <input type="text" id="edited_case_delivery_date" name="edited_case_delivery_date"
+                                           class="border rounded-md w-full mb-4 px-3 py-2 text-right edited_delivery_date"
                                            placeholder="با فرمت : 1402/05/04">
                                 </div>
                             </div>
@@ -713,8 +713,8 @@
                         </div>
                     </div>
                     <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                        <input type="hidden" name="eq_id" value="" id="eq_id">
-                        <input type="hidden" name="eq_type" value="" id="eq_type">
+                        <input type="hidden" name="eq_id" value="" class="eq_id">
+                        <input type="hidden" name="eq_type" value="" class="eq_type">
                         <button type="submit"
                                 class="px-4 py-2 mr-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300">
                             ویرایش
@@ -754,12 +754,12 @@
                 type: $(this).data('type')
             }, success: function (response) {
                 if (response) {
-                    eq_id.value = response.id;
-                    eq_type.value='case';
-                    edited_property_number.value=response.property_number;
+                    $(".eq_id").val(response.id);
+                    $(".eq_type").val('case');
+                    edited_case_property_number.value=response.property_number;
                     edited_stamp_number.value=response.stamp_number;
                     edited_computer_name.value=response.computer_name;
-                    edited_delivery_date.value=response.delivery_date;
+                    edited_case_delivery_date.value=response.delivery_date;
                     $("#edited_case").val(response.case).trigger("change");
                     $("#edited_motherboard").val(response.motherboard).trigger("change");
                     $("#edited_power").val(response.power).trigger("change");

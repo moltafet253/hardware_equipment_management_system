@@ -4779,8 +4779,6 @@ $(document).ready(function () {
             $('.AddCase, #cancel-add-case').on('click', function () {
                 toggleModal(addCaseModal.id);
             });
-
-
             $('#cancel-edit-case').on('click', function () {
                 toggleModal(editCaseModal.id);
             });
@@ -4943,6 +4941,12 @@ $(document).ready(function () {
             $('.absolute.inset-0.bg-gray-500.opacity-75.addmonitor').on('click', function () {
                 toggleModal(addMonitorModal.id)
             });
+            $('#cancel-edit-monitor').on('click', function () {
+                toggleModal(editMonitorModal.id);
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.editmonitor').on('click', function () {
+                toggleModal(editMonitorModal.id)
+            });
             $('#new-monitor').on('submit', function (e) {
                 e.preventDefault();
                 Swal.fire({
@@ -4960,6 +4964,44 @@ $(document).ready(function () {
                         data += "&person=" + idFromLink;
                         $.ajax({
                             type: 'POST', url: '/newEquipmentMonitor', data: data, headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            }, success: function (response) {
+                                if (response.errors) {
+                                    if (response.errors.nullPersonnelCode) {
+                                        swalFire('خطا!', response.errors.nullPersonnelCode[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullPropertyNumber) {
+                                        swalFire('خطا!', response.errors.nullPropertyNumber[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullMonitor) {
+                                        swalFire('خطا!', response.errors.nullMonitor[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.wrongPerson) {
+                                        swalFire('خطا!', response.errors.wrongPerson[0], 'error', 'تلاش مجدد');
+                                    }
+                                } else if (response.success) {
+                                    // swalFire('ثبت مانیتور جدید موفقیت آمیز بود!', response.message.monitorAdded[0], 'success', 'بستن');
+                                    // toggleModal(addMonitorModal.id);
+                                    location.reload();
+                                    resetFields();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+            $('#edit-monitor').on('submit', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'این مقدار ویرایش خواهد شد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var form = $(this);
+                        var data = form.serialize();
+                        $.ajax({
+                            type: 'POST', url: '/editEquipment', data: data, headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                             }, success: function (response) {
                                 if (response.errors) {
