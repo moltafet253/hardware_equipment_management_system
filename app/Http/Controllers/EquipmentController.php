@@ -11,6 +11,7 @@ use App\Models\EquipmentedMonitor;
 use App\Models\EquipmentedNetworkDevices\EquipmentedModem;
 use App\Models\EquipmentedNetworkDevices\EquipmentedSwitch;
 use App\Models\EquipmentedOtherDevices\EquipmentedHeadphone;
+use App\Models\EquipmentedOtherDevices\EquipmentedLaptop;
 use App\Models\EquipmentedOtherDevices\EquipmentedMobile;
 use App\Models\EquipmentedOtherDevices\EquipmentedRecorder;
 use App\Models\EquipmentedOtherDevices\EquipmentedSpeaker;
@@ -621,6 +622,54 @@ class EquipmentController extends Controller
             switch ($request->input('type')) {
                 case 'case':
                     $equipmentInfo=EquipmentedCase::find($id);
+                    break;
+                case 'copy_machine':
+                    $equipmentInfo=EquipmentedCopyMachine::find($id);
+                    break;
+                case 'monitor':
+                    $equipmentInfo=EquipmentedMonitor::find($id);
+                    break;
+                case 'printer':
+                    $equipmentInfo=EquipmentedPrinter::find($id);
+                    break;
+                case 'scanner':
+                    $equipmentInfo=EquipmentedScanner::find($id);
+                    break;
+                case 'voip':
+                    $equipmentInfo=EquipmentedVoip::find($id);
+                    break;
+                case 'modem':
+                    $equipmentInfo=EquipmentedModem::find($id);
+                    break;
+                case 'switch':
+                    $equipmentInfo=EquipmentedSwitch::find($id);
+                    break;
+                case 'headphone':
+                    $equipmentInfo=EquipmentedHeadphone::find($id);
+                    break;
+                case 'laptop':
+                    $equipmentInfo=EquipmentedLaptop::find($id);
+                    break;
+                case 'mobile':
+                    $equipmentInfo=EquipmentedMobile::find($id);
+                    break;
+                case 'recorder':
+                    $equipmentInfo=EquipmentedRecorder::find($id);
+                    break;
+                case 'speaker':
+                    $equipmentInfo=EquipmentedSpeaker::find($id);
+                    break;
+                case 'tablet':
+                    $equipmentInfo=EquipmentedTablet::find($id);
+                    break;
+                case 'videoprojector':
+                    $equipmentInfo=EquipmentedVideoProjector::find($id);
+                    break;
+                case 'videoprojectorcurtain':
+                    $equipmentInfo=EquipmentedVideoProjectorCurtain::find($id);
+                    break;
+                case 'webcam':
+                    $equipmentInfo=EquipmentedWebcam::find($id);
                     break;
             }
             return $equipmentInfo;
