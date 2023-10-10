@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\EquipmentedCase;
+use App\Models\EquipmentLog;
 use Illuminate\Http\Request;
 
 class EditEquipmentController extends Controller
@@ -10,9 +11,9 @@ class EditEquipmentController extends Controller
     public function editEquipment(Request $request)
     {
         $eq_id = $request->input('eq_id');
-
+        $eq_type=$request->input('eq_type');
         if ($eq_id) {
-            switch ($request->input('eq_type')) {
+            switch ($eq_type) {
                 case 'case':
                     $property_number = $request->input('edited_property_number');
                     $stamp_number = $request->input('edited_stamp_number');
@@ -62,6 +63,9 @@ class EditEquipmentController extends Controller
                     }
 
                     $case = EquipmentedCase::find($eq_id);
+
+                    $originalData = $case->getOriginal();
+
                     $case->property_number = $property_number;
                     $case->stamp_number = $stamp_number;
                     $case->computer_name = $computer_name;
@@ -81,7 +85,48 @@ class EditEquipmentController extends Controller
                     $case->graphic_card = $graphiccard;
                     $case->network_card = $networkcard;
                     $case->save();
+
+                    $updatedData = [
+                        'property_number' => $property_number,
+                        'stamp_number' => $stamp_number,
+                        'computer_name' => $computer_name,
+                        'delivery_date' => $delivery_date,
+                        'case' => $caseInfo,
+                        'motherboard' => $motherboard,
+                        'power' => $power,
+                        'cpu' => $cpu,
+                        'ram1' => $ram1,
+                        'ram2' => $ram2,
+                        'ram3' => $ram3,
+                        'ram4' => $ram4,
+                        'hdd1' => $hdd1,
+                        'hdd2' => $hdd2,
+                        'hdd3' => $hdd3,
+                        'hdd4' => $hdd4,
+                        'graphic_card' => $graphiccard,
+                        'network_card' => $networkcard,
+                    ];
+
+                    $changes = array_diff_assoc($updatedData, $originalData);
+
+                    if ($changes){
+                        $eq_log=new EquipmentLog();
+                        $eq_log->equipment_id=$eq_id;
+                        $eq_log->equipment_type=$eq_type;
+
+                        $title = '';
+                        foreach ($changes as $field => $value) {
+                            $previousValue = $originalData[$field];
+                            $title .= "{$field}: from {$previousValue} to {$value}, ";
+                        }
+                        $title = rtrim($title, ', ');
+
+                        $eq_log->title=$title;
+                        $eq_log->operator=session('id');
+                        $eq_log->save();
+                    }
                     $this->logActivity('Equipmented Case Edited =>' . $case->id, \request()->ip(), \request()->userAgent(), \session('id'));
+
                     return $this->success(true, 'caseEdited', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
                     break;
             }

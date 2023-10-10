@@ -4902,6 +4902,7 @@ $(document).ready(function () {
                             headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                             }, success: function (response) {
+                                console.log(response);
                                 if (response.errors) {
                                     if (response.errors.nullPersonnelCode) {
                                         swalFire('خطا!', response.errors.nullPersonnelCode[0], 'error', 'تلاش مجدد');
