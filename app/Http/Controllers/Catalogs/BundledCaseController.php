@@ -10,49 +10,86 @@ class BundledCaseController extends Controller
 {
     public function newBundledCase(Request $request)
     {
-        $brand = $request->input('brand');
-        $model = $request->input('model');
-        if (!$brand) {
-            return $this->alerts(false, 'nullBrand', 'نام برند انتخاب نشده است');
+        $caseInfo = $request->input('case');
+        $motherboard = $request->input('motherboard');
+        $power = $request->input('power');
+        $cpu = $request->input('cpu');
+        $ram1 = $request->input('ram1');
+        $ram2 = $request->input('ram2');
+        $ram3 = $request->input('ram3');
+        $ram4 = $request->input('ram4');
+        $hdd1 = $request->input('hdd1');
+        $hdd2 = $request->input('hdd2');
+        $hdd3 = $request->input('hdd3');
+        $hdd4 = $request->input('hdd4');
+        $graphiccard = $request->input('graphiccard');
+        $networkcard = $request->input('networkcard');
+
+        if (!$caseInfo) {
+            return $this->alerts(false, 'nullCaseInfo', 'کیس انتخاب نشده است');
         }
-        if (!$model) {
-            return $this->alerts(false, 'nullModel', 'مدل وارد نشده است');
+        if (!$motherboard) {
+            return $this->alerts(false, 'nullMotherboard', 'مادربورد انتخاب نشده است');
+        }
+        if (!$power) {
+            return $this->alerts(false, 'nullPower', 'منبع تغذیه انتخاب نشده است');
+        }
+        if (!$cpu) {
+            return $this->alerts(false, 'nullCPU', 'پردازنده انتخاب نشده است');
+        }
+        if (!$ram1) {
+            return $this->alerts(false, 'nullRAM', 'رم انتخاب نشده است');
+        }
+        if (!$hdd1) {
+            return $this->alerts(false, 'nullHDD', 'هارد انتخاب نشده است');
+        }
+        if (!$networkcard) {
+            $networkcard = 1;
         }
 
-        $Scanner = new Scanner();
-        $Scanner->company_id = $brand;
-        $Scanner->model = $model;
-        $Scanner->save();
-        $this->logActivity('Scanner Added =>' . $Scanner->id, \request()->ip(), \request()->userAgent(), \session('id'));
-        return $this->success(true, 'scannerAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
-    }
-    public function editBundledCase(Request $request)
-    {
-        $scannerID = $request->input('scanner_id');
-        $brand = $request->input('brandForEdit');
-        $model = $request->input('modelForEdit');
-        if (!$brand) {
-            return $this->alerts(false, 'nullBrand', 'نام برند انتخاب نشده است');
-        }
-        if (!$model) {
-            return $this->alerts(false, 'nullModel', 'مدل وارد نشده است');
-        }
+        $data = [
+            'case' => $caseInfo,
+            'motherboard' => $motherboard,
+            'power' => $power,
+            'cpu' => $cpu,
+            'ram1' => $ram1,
+            'ram2' => $ram2,
+            'ram3' => $ram3,
+            'ram4' => $ram4,
+            'hdd1' => $hdd1,
+            'hdd2' => $hdd2,
+            'hdd3' => $hdd3,
+            'hdd4' => $hdd4,
+            'graphiccard' => $graphiccard,
+            'networkcard' => $networkcard,
+        ];
 
-        $Scanner = Scanner::find($scannerID);
-        $Scanner->fill([
-            'company_id' => $brand,
-            'model' => $model,
-        ]);
-        $Scanner->save();
-        $this->logActivity('Scanner Edited =>' . $scannerID, \request()->ip(), \request()->userAgent(), \session('id'));
-        return $this->success(true, 'scannerEdited', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
+        $bundle = json_encode($data);
+
+        $case = new BundledCase();
+        $case->bundle_info = $bundle;
+        $case->save();
+        $this->logActivity('Bundled Case Added =>' . $case->id, \request()->ip(), \request()->userAgent(), \session('id'));
+        return $this->success(true, 'caseAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
     public function getBundledCaseInfo(Request $request)
     {
-        $ScannerID = $request->input('id');
-        if ($ScannerID) {
-            return Scanner::find($ScannerID);
+        $BundledCaseID = $request->input('id');
+        if ($BundledCaseID) {
+            return BundledCase::find($BundledCaseID);
         }
+    }
+
+    public function removeBundledCase(Request $request)
+    {
+        $BundledCaseID = $request->input('id');
+        if ($BundledCaseID) {
+            $case=BundledCase::find($BundledCaseID);
+            $case->delete();
+            $this->logActivity('Bundled Case Deleted =>' . $case->id, \request()->ip(), \request()->userAgent(), \session('id'));
+            return $this->success(true, 'caseDeleted', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
+        }
+            return $this->alerts(false, 'nullCase', 'کیس انتخاب نشده است');
     }
     public function index()
     {

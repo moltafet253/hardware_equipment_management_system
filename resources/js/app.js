@@ -2589,6 +2589,117 @@ $(document).ready(function () {
 
             });
             break;
+        case '/BundledCaseCatalog':
+            $('#AddCase, #cancel-add-case').on('click', function () {
+                toggleModal(addCaseModal.id);
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.addcase').on('click', function () {
+                toggleModal(addCaseModal.id)
+            });
+            $('#addRAM').on('click', function () {
+                if (ram2Div.classList.contains('hidden')) {
+                    ram2Div.classList.remove('hidden');
+                } else if (ram3Div.classList.contains('hidden')) {
+                    ram3Div.classList.remove('hidden');
+                } else if (ram4Div.classList.contains('hidden')) {
+                    ram4Div.classList.remove('hidden');
+                    addRAM.classList.add('hidden');
+                }
+            });
+            $('#addHDD').on('click', function () {
+                if (hdd2Div.classList.contains('hidden')) {
+                    hdd2Div.classList.remove('hidden');
+                } else if (hdd3Div.classList.contains('hidden')) {
+                    hdd3Div.classList.remove('hidden');
+                } else if (hdd4Div.classList.contains('hidden')) {
+                    hdd4Div.classList.remove('hidden');
+                    addHDD.classList.add('hidden');
+                }
+            });
+            $('#new-case').on('submit', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'این مقدار به صورت دائمی اضافه خواهد شد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var form = $(this);
+                        var data = form.serialize();
+                        var idFromLink = getParameterByName('id', window.location.href);
+                        data += "&person=" + idFromLink;
+                        $.ajax({
+                            type: 'POST', url: '/newBundledCase', data: data, headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            }, success: function (response) {
+                                if (response.errors) {
+                                    if (response.errors.nullCaseInfo) {
+                                        swalFire('خطا!', response.errors.nullCaseInfo[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullMotherboard) {
+                                        swalFire('خطا!', response.errors.nullMotherboard[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullPower) {
+                                        swalFire('خطا!', response.errors.nullPower[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullCPU) {
+                                        swalFire('خطا!', response.errors.nullCPU[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullRAM) {
+                                        swalFire('خطا!', response.errors.nullRAM[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullHDD) {
+                                        swalFire('خطا!', response.errors.nullHDD[0], 'error', 'تلاش مجدد');
+                                    }
+                                } else if (response.success) {
+                                    // swalFire('ثبت کیس جدید موفقیت آمیز بود!', response.message.caseAdded[0], 'success', 'بستن');
+                                    // toggleModal(addCaseModal.id);
+                                    location.reload();
+                                    resetFields();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+            $('#remove-bundled-case').on('submit', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'این مقدار به صورت دائمی حذف خواهد شد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var form = $(this);
+                        var data = form.serialize();
+                        $.ajax({
+                            type: 'POST',
+                            url: '/removeBundledCase',
+                            data: {
+                                id: $('.RemoveBundledCase').data('id')
+                            },
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            }, success: function (response) {
+                                console.log(response);
+                                if (response.errors) {
+                                    if (response.errors.nullCase) {
+                                        swalFire('خطا!', response.errors.nullCase[0], 'error', 'تلاش مجدد');
+                                    }
+                                } else if (response.success) {
+                                    // swalFire('ثبت کیس جدید موفقیت آمیز بود!', response.message.caseAdded[0], 'success', 'بستن');
+                                    // toggleModal(addCaseModal.id);
+                                    location.reload();
+                                    resetFields();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+
+            break;
 
         case '/SwitchCatalog':
             resetFields();

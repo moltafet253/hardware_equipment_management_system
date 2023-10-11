@@ -181,6 +181,7 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
             Route::get('/BundledCaseCatalog', [BundledCaseController::class, 'index']);
             Route::post('/newBundledCase', [BundledCaseController::class, 'newBundledCase']);
             Route::get('/getBundledCaseInfo', [BundledCaseController::class, 'getBundledCaseInfo']);
+            Route::post('/removeBundledCase', [BundledCaseController::class, 'removeBundledCase']);
             //End Hardware Catalogs
 
             //Network Catalogs
