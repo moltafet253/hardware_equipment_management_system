@@ -5032,6 +5032,12 @@ $(document).ready(function () {
             $('.absolute.inset-0.bg-gray-500.opacity-75.addprinter').on('click', function () {
                 toggleModal(addPrinterModal.id)
             });
+            $('#cancel-edit-printer').on('click', function () {
+                toggleModal(editPrinterModal.id);
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.editprinter').on('click', function () {
+                toggleModal(editPrinterModal.id)
+            });
             $('#new-printer').on('submit', function (e) {
                 e.preventDefault();
                 Swal.fire({
@@ -5072,6 +5078,46 @@ $(document).ready(function () {
                     }
                 });
             });
+            $('#edit-printer').on('submit', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'این مقدار ویرایش خواهد شد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var form = $(this);
+                        var data = form.serialize();
+                        $.ajax({
+                            type: 'POST', url: '/editEquipment', data: data, headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            }, success: function (response) {
+                                console.log(response);
+                                if (response.errors) {
+                                    if (response.errors.nullPersonnelCode) {
+                                        swalFire('خطا!', response.errors.nullPersonnelCode[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullPropertyNumber) {
+                                        swalFire('خطا!', response.errors.nullPropertyNumber[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullPrinter) {
+                                        swalFire('خطا!', response.errors.nullPrinter[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.wrongPerson) {
+                                        swalFire('خطا!', response.errors.wrongPerson[0], 'error', 'تلاش مجدد');
+                                    }
+                                } else if (response.success) {
+                                    // swalFire('ثبت مانیتور جدید موفقیت آمیز بود!', response.message.monitorAdded[0], 'success', 'بستن');
+                                    // toggleModal(addMonitorModal.id);
+                                    location.reload();
+                                    resetFields();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+
 
             $('.AddScanner, #cancel-add-scanner').on('click', function () {
                 toggleModal(addScannerModal.id);

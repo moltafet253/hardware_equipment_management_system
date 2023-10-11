@@ -125,7 +125,7 @@
                                 class="px-4 py-2 mr-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300">
                             ویرایش
                         </button>
-                        <button id="cancel-add-monitor" type="button"
+                        <button id="cancel-edit-monitor" type="button"
                                 class="mt-3 w-full inline-flex justify-center px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring focus:border-blue-300 sm:mt-0 sm:w-auto">
                             انصراف
                         </button>

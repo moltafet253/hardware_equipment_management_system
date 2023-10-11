@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\EquipmentedCase;
 use App\Models\EquipmentedMonitor;
+use App\Models\EquipmentedPrinter;
 use App\Models\EquipmentLog;
 use Illuminate\Http\Request;
 
@@ -108,24 +109,6 @@ class EditEquipmentController extends Controller
                         'network_card' => $networkcard,
                     ];
 
-                    $changes = array_diff_assoc($updatedData, $originalData);
-
-                    if ($changes){
-                        $eq_log=new EquipmentLog();
-                        $eq_log->equipment_id=$eq_id;
-                        $eq_log->equipment_type=$eq_type;
-
-                        $title = '';
-                        foreach ($changes as $field => $value) {
-                            $previousValue = $originalData[$field];
-                            $title .= "{$field}: from {$previousValue} to {$value}, ";
-                        }
-                        $title = rtrim($title, ', ');
-
-                        $eq_log->title=$title;
-                        $eq_log->operator=session('id');
-                        $eq_log->save();
-                    }
                     $this->logActivity('Equipmented Case Edited =>' . $case->id, \request()->ip(), \request()->userAgent(), \session('id'));
 
                     break;
@@ -156,29 +139,61 @@ class EditEquipmentController extends Controller
                         'monitor_id' => $monitor,
                     ];
 
-                    $changes = array_diff_assoc($updatedData, $originalData);
-
-                    if ($changes){
-                        $eq_log=new EquipmentLog();
-                        $eq_log->equipment_id=$eq_id;
-                        $eq_log->equipment_type=$eq_type;
-
-                        $title = '';
-                        foreach ($changes as $field => $value) {
-                            $previousValue = $originalData[$field];
-                            $title .= "{$field}: from {$previousValue} to {$value}, ";
-                        }
-                        $title = rtrim($title, ', ');
-
-                        $eq_log->title=$title;
-                        $eq_log->operator=session('id');
-                        $eq_log->save();
-                    }
-
                     $this->logActivity('Equipmented Monitor Edited =>' . $monitorEdited->id, \request()->ip(), \request()->userAgent(), \session('id'));
 
                     break;
+                case 'printer':
+                    $property_number = $request->input('edited_printer_property_number');
+                    $delivery_date = $request->input('edited_printer_delivery_date');
+                    $printer = $request->input('edited_printer');
+
+                    if (!$property_number) {
+                        return $this->alerts(false, 'nullPropertyNumber', 'کد اموال وارد نشده است');
+                    }
+                    if (!$printer) {
+                        return $this->alerts(false, 'nullPrinter', 'پرینتر انتخاب نشده است');
+                    }
+
+                    $printerEdited = EquipmentedPrinter::find($eq_id);
+
+                    $originalData = $printerEdited->getOriginal();
+
+                    $printerEdited->property_number = $property_number;
+                    $printerEdited->delivery_date = $delivery_date;
+                    $printerEdited->printer_id = $printer;
+                    $printerEdited->save();
+
+                    $updatedData = [
+                        'property_number' => $property_number,
+                        'delivery_date' => $delivery_date,
+                        'printer_id' => $printer,
+                    ];
+
+                    $this->logActivity('Equipmented Printer Edited =>' . $printerEdited->id, \request()->ip(), \request()->userAgent(), \session('id'));
+
+                    break;
             }
+
+            //Equipment Changes Log
+            $changes = array_diff_assoc($updatedData, $originalData);
+
+            if ($changes){
+                $eq_log=new EquipmentLog();
+                $eq_log->equipment_id=$eq_id;
+                $eq_log->equipment_type=$eq_type;
+
+                $title = '';
+                foreach ($changes as $field => $value) {
+                    $previousValue = $originalData[$field];
+                    $title .= "{$field}: from {$previousValue} to {$value}, ";
+                }
+                $title = rtrim($title, ', ');
+
+                $eq_log->title=$title;
+                $eq_log->operator=session('id');
+                $eq_log->save();
+            }
+
             return $this->success(true, 'Edited', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
 
         }
