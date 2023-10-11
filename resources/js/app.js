@@ -11,7 +11,21 @@ function swalFire(title = null, text, icon, confirmButtonText) {
     });
 }
 
-
+function toggleModal(modalID) {
+    var modal = document.getElementById(modalID);
+    if (modal.classList.contains('modal-active')) {
+        modal.classList.remove('animate-fade-in');
+        modal.classList.add('animate-fade-out');
+        setTimeout(() => {
+            modal.classList.remove('modal-active');
+            modal.classList.remove('animate-fade-out');
+        }, 150);
+    } else {
+        modal.classList.add('modal-active');
+        modal.classList.remove('animate-fade-out');
+        modal.classList.add('animate-fade-in');
+    }
+}
 
 function hasOnlyPersianCharacters(input) {
     var persianPattern = /^[\u0600-\u06FF0-9()\s]+$/;
