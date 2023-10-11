@@ -3,7 +3,7 @@ import laravel from 'laravel-vite-plugin';
 import vue from '@vitejs/plugin-vue';
 import tailwindcss from 'tailwindcss';
 export default defineConfig({
-    base: 'https://hib.ismc.ir/build/assets/',
+    base: 'https://hib.ismc.ir/',
     plugins: [
         laravel({
             input: ['resources/css/login.css','resources/js/login.js','resources/css/app.css', 'resources/js/app.js'],
