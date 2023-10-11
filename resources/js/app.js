@@ -65,6 +65,7 @@ function resetFields() {
     selectors.forEach(select => select.value = "");
     const textareas = document.querySelectorAll('textarea');
     textareas.forEach(textarea => textarea.value = "");
+
     // const radios = document.querySelectorAll('input');
     // radios.forEach(input => input.selected = "");
     // const checkboxes = document.querySelectorAll("input");

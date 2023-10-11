@@ -1,7 +1,7 @@
 <form id="new-case">
     @csrf
     <div class="mb-4 flex items-center">
-        {{--            <div class="fixed z-10 inset-0 overflow-y-auto " id="addCaseModal">--}}
+{{--                    <div class="fixed z-10 inset-0 overflow-y-auto " id="addCaseModal">--}}
         <div class="fixed z-10 inset-0 overflow-y-auto hidden" id="addCaseModal">
             <div
                 class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center  sm:block sm:p-0">
@@ -46,6 +46,25 @@
                                            class="border rounded-md w-full mb-4 px-3 py-2 text-right deliveryDate"
                                            placeholder="با فرمت : 1402/05/04">
                                 </div>
+                            </div>
+                            <div class="mb-4">
+                                <label for="bundled-case"
+                                       class="block text-gray-700 text-sm font-bold mb-2">استفاده از کیس آماده*</label>
+                                <select id="bundled-case" class="border rounded-md w-96 px-3 py-2 "
+                                        name="bundled-case">
+                                    <option value="" disabled selected>انتخاب کنید</option>
+                                    @php
+                                        $bundledCases = \App\Models\BundledCase::get();
+                                    @endphp
+                                    @foreach($bundledCases as $key=>$case)
+                                        @php
+                                            $decodedBundle=json_decode($case->bundle_info);
+                                        @endphp
+                                        <option value="{{ $case->id }}">
+                                            کیس آماده {{ $key+=1 }}
+                                        </option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="mb-4">
                                 <label for="case"
@@ -729,7 +748,10 @@
         </div>
     </div>
 </form>
+
 <script>
+    $(".select2").val('').trigger("change");
+
     function toggleModal(modalID) {
         var modal = document.getElementById(modalID);
         if (modal.classList.contains('modal-active')) {
@@ -802,6 +824,58 @@
             }
         });
     });
+
+    $('#bundled-case').on('change', function () {
+        $.ajax({
+            type: 'GET', url: '/getBundledCaseInfo', data: {
+                id: $(this).val(),
+            }, success: function (response) {
+                if (response) {
+                    var bundleInfo = JSON.parse(response.bundle_info);
+                    $("#case").val(bundleInfo.case).trigger("change");
+                    $("#motherboard").val(bundleInfo.motherboard).trigger("change");
+                    $("#power").val(bundleInfo.power).trigger("change");
+                    $("#cpu").val(bundleInfo.cpu).trigger("change");
+                    if (bundleInfo.ram1){
+                        $("#ram1").val(bundleInfo.ram1).trigger("change");
+                        ram1Div.classList.remove('hidden');
+                    }
+                    if (bundleInfo.ram2){
+                        $("#ram2").val(bundleInfo.ram2).trigger("change");
+                        ram2Div.classList.remove('hidden');
+                    }
+                    if (bundleInfo.ram3){
+                        $("#ram3").val(bundleInfo.ram3).trigger("change");
+                        ram3Div.classList.remove('hidden');
+                    }
+                    if (bundleInfo.ram4){
+                        $("#ram4").val(bundleInfo.ram4).trigger("change");
+                        ram4Div.classList.remove('hidden');
+                        addRAM.classList.add('hidden');
+                    }
+                    if (bundleInfo.hdd1){
+                        $("#hdd1").val(bundleInfo.hdd1).trigger("change");
+                    }
+                    if (bundleInfo.hdd2){
+                        $("#hdd2").val(bundleInfo.hdd2).trigger("change");
+                        hdd2Div.classList.remove('hidden');
+                    }
+                    if (bundleInfo.hdd3){
+                        $("#hdd3").val(bundleInfo.hdd3).trigger("change");
+                        hdd3Div.classList.remove('hidden');
+                    }
+                    if (bundleInfo.hdd4){
+                        $("#hdd4").val(bundleInfo.hdd4).trigger("change");
+                        hdd4Div.classList.remove('hidden');
+                        addHDD.classList.add('hidden');
+                    }
+                    $("#graphiccard").val(bundleInfo.graphiccard).trigger("change");
+                    $("#networkcard").val(bundleInfo.networkcard).trigger("change");
+                    $("#odd").val(bundleInfo.odd).trigger("change");
+                }
+            }
+        });
+    });
 </script>
 <div class="flex pb-3">
     <h3 class="font-bold pr-5 pt-2 ml-3">اطلاعات کیس</h3>
@@ -810,6 +884,7 @@
         ثبت کیس جدید
     </button>
 </div>
+
 <div class="bg-white rounded shadow flex flex-col">
     <div class="max-w-full items-center overflow-x-auto">
         @php
