@@ -80,7 +80,7 @@
                     class="inline-block align-bottom bg-white rounded-lg text-right overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:w-full sm:max-w-[550px]">
                     <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                         <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
-                            تخصیص پرینتر به کاربر
+                            ویرایش پرینتر اختصاص داده شده به کاربر
                         </h3>
                         <div class="mt-4">
                             <div class="flex">

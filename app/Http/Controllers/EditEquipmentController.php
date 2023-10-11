@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\EquipmentedCase;
 use App\Models\EquipmentedMonitor;
 use App\Models\EquipmentedPrinter;
+use App\Models\EquipmentedScanner;
 use App\Models\EquipmentLog;
 use Illuminate\Http\Request;
 
@@ -170,6 +171,36 @@ class EditEquipmentController extends Controller
                     ];
 
                     $this->logActivity('Equipmented Printer Edited =>' . $printerEdited->id, \request()->ip(), \request()->userAgent(), \session('id'));
+
+                    break;
+                case 'scanner':
+                    $property_number = $request->input('edited_scanner_property_number');
+                    $delivery_date = $request->input('edited_scanner_delivery_date');
+                    $scanner = $request->input('edited_scanner');
+
+                    if (!$property_number) {
+                        return $this->alerts(false, 'nullPropertyNumber', 'کد اموال وارد نشده است');
+                    }
+                    if (!$scanner) {
+                        return $this->alerts(false, 'nullPrinter', 'پرینتر انتخاب نشده است');
+                    }
+
+                    $scannerEdited = EquipmentedScanner::find($eq_id);
+
+                    $originalData = $scannerEdited->getOriginal();
+
+                    $scannerEdited->property_number = $property_number;
+                    $scannerEdited->delivery_date = $delivery_date;
+                    $scannerEdited->scanner_id = $scanner;
+                    $scannerEdited->save();
+
+                    $updatedData = [
+                        'property_number' => $property_number,
+                        'delivery_date' => $delivery_date,
+                        'scanner_id' => $scanner,
+                    ];
+
+                    $this->logActivity('Equipmented Scanner Edited =>' . $scannerEdited->id, \request()->ip(), \request()->userAgent(), \session('id'));
 
                     break;
             }

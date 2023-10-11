@@ -5095,7 +5095,6 @@ $(document).ready(function () {
                             type: 'POST', url: '/editEquipment', data: data, headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                             }, success: function (response) {
-                                console.log(response);
                                 if (response.errors) {
                                     if (response.errors.nullPersonnelCode) {
                                         swalFire('خطا!', response.errors.nullPersonnelCode[0], 'error', 'تلاش مجدد');
@@ -5118,12 +5117,17 @@ $(document).ready(function () {
                 });
             });
 
-
             $('.AddScanner, #cancel-add-scanner').on('click', function () {
                 toggleModal(addScannerModal.id);
             });
             $('.absolute.inset-0.bg-gray-500.opacity-75.addscanner').on('click', function () {
                 toggleModal(addScannerModal.id)
+            });
+            $('#cancel-edit-scanner').on('click', function () {
+                toggleModal(editScannerModal.id);
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.editscanner').on('click', function () {
+                toggleModal(editScannerModal.id)
             });
             $('#new-scanner').on('submit', function (e) {
                 e.preventDefault();
@@ -5157,6 +5161,44 @@ $(document).ready(function () {
                                 } else if (response.success) {
                                     // swalFire('ثبت پرینتر جدید موفقیت آمیز بود!', response.message.scannerAdded[0], 'success', 'بستن');
                                     // toggleModal(addScannerModal.id);
+                                    location.reload();
+                                    resetFields();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+            $('#edit-scanner').on('submit', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'این مقدار ویرایش خواهد شد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var form = $(this);
+                        var data = form.serialize();
+                        $.ajax({
+                            type: 'POST', url: '/editEquipment', data: data, headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            }, success: function (response) {
+                                if (response.errors) {
+                                    if (response.errors.nullPersonnelCode) {
+                                        swalFire('خطا!', response.errors.nullPersonnelCode[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullPropertyNumber) {
+                                        swalFire('خطا!', response.errors.nullPropertyNumber[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.nullScanner) {
+                                        swalFire('خطا!', response.errors.nullScanner[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.wrongPerson) {
+                                        swalFire('خطا!', response.errors.wrongPerson[0], 'error', 'تلاش مجدد');
+                                    }
+                                } else if (response.success) {
+                                    // swalFire('ثبت مانیتور جدید موفقیت آمیز بود!', response.message.monitorAdded[0], 'success', 'بستن');
+                                    // toggleModal(addMonitorModal.id);
                                     location.reload();
                                     resetFields();
                                 }
