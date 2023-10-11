@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Catalogs\AssistanceController;
 use App\Http\Controllers\Catalogs\BrandController;
+use App\Http\Controllers\Catalogs\BundledCaseController;
 use App\Http\Controllers\Catalogs\CaseController;
 use App\Http\Controllers\Catalogs\CatalogController;
 use App\Http\Controllers\Catalogs\CopyMachineController;
@@ -176,6 +177,10 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
             Route::post('/newVOIP', [VOIPController::class, 'newVOIP'])->name('newVOIP');
             Route::get('/getVOIPInfo', [VOIPController::class, 'getVOIPInfo'])->name('getVOIPInfo');
             Route::post('/editVOIP', [VOIPController::class, 'editVOIP'])->name('editVOIP');
+
+            Route::get('/BundledCaseCatalog', [BundledCaseController::class, 'index']);
+            Route::post('/newBundledCase', [BundledCaseController::class, 'newBundledCase']);
+            Route::get('/getBundledCaseInfo', [BundledCaseController::class, 'getBundledCaseInfo']);
             //End Hardware Catalogs
 
             //Network Catalogs
