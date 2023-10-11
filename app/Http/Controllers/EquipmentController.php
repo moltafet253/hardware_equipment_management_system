@@ -130,6 +130,7 @@ class EquipmentController extends Controller
         $case->network_card = $networkcard;
         $case->save();
         $this->logActivity('Equipmented Case Added =>' . $case->id, \request()->ip(), \request()->userAgent(), \session('id'));
+        $this->logEquipmentChanges('Equipment Added' , $case->id, 'case',\session('id'));
         return $this->success(true, 'caseAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
 
     }
@@ -161,6 +162,7 @@ class EquipmentController extends Controller
         $newmonitor->monitor_id = $monitor;
         $newmonitor->save();
         $this->logActivity('Equipmented Monitor Added =>' . $newmonitor->id, \request()->ip(), \request()->userAgent(), \session('id'));
+        $this->logEquipmentChanges('Equipment Added' , $newmonitor->id, 'monitor',\session('id'));
         return $this->success(true, 'monitorAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
 
     }
@@ -192,6 +194,7 @@ class EquipmentController extends Controller
         $newprinter->printer_id = $printer;
         $newprinter->save();
         $this->logActivity('Equipmented Printer Added =>' . $newprinter->id, \request()->ip(), \request()->userAgent(), \session('id'));
+        $this->logEquipmentChanges('Equipment Added' , $newprinter->id, 'printer',\session('id'));
         return $this->success(true, 'printerAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
@@ -252,6 +255,7 @@ class EquipmentController extends Controller
         $newcopymachine->copy_machine_id = $copymachine;
         $newcopymachine->save();
         $this->logActivity('Equipmented Copy Machine Added =>' . $newcopymachine->id, \request()->ip(), \request()->userAgent(), \session('id'));
+        $this->logEquipmentChanges('Equipment Added' , $newcopymachine->id, 'copy machine',\session('id'));
         return $this->success(true, 'copymachineAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
@@ -282,6 +286,7 @@ class EquipmentController extends Controller
         $newVOIP->VOIP_id = $VOIP;
         $newVOIP->save();
         $this->logActivity('Equipmented VOIP Added =>' . $newVOIP->id, \request()->ip(), \request()->userAgent(), \session('id'));
+        $this->logEquipmentChanges('Equipment Added' , $newVOIP->id, 'voip',\session('id'));
         return $this->success(true, 'VOIPAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
@@ -312,6 +317,7 @@ class EquipmentController extends Controller
         $newswitch->switch_id = $switch;
         $newswitch->save();
         $this->logActivity('Equipmented Switch Added =>' . $newswitch->id, \request()->ip(), \request()->userAgent(), \session('id'));
+        $this->logEquipmentChanges('Equipment Added' , $newswitch->id, 'switch',\session('id'));
         return $this->success(true, 'switchAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
@@ -342,6 +348,7 @@ class EquipmentController extends Controller
         $newModem->modem_id = $modem;
         $newModem->save();
         $this->logActivity('Equipmented Modem Added =>' . $newModem->id, \request()->ip(), \request()->userAgent(), \session('id'));
+        $this->logEquipmentChanges('Equipment Added' , $newModem->id, 'modem',\session('id'));
         return $this->success(true, 'modemAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
@@ -365,13 +372,14 @@ class EquipmentController extends Controller
             return $this->alerts(false, 'nullModem', 'مودم انتخاب نشده است');
         }
 
-        $newmodem = new EquipmentedModem();
-        $newmodem->person_id = $personID;
-        $newmodem->property_number = $property_number;
-        $newmodem->delivery_date = $delivery_date;
-        $newmodem->modem_id = $modem;
-        $newmodem->save();
-        $this->logActivity('Equipmented Modem Added =>' . $newmodem->id, \request()->ip(), \request()->userAgent(), \session('id'));
+        $newLaptop = new EquipmentedModem();
+        $newLaptop->person_id = $personID;
+        $newLaptop->property_number = $property_number;
+        $newLaptop->delivery_date = $delivery_date;
+        $newLaptop->modem_id = $modem;
+        $newLaptop->save();
+        $this->logActivity('Equipmented Modem Added =>' . $newLaptop->id, \request()->ip(), \request()->userAgent(), \session('id'));
+        $this->logEquipmentChanges('Equipment Added' , $newLaptop->id, 'laptop',\session('id'));
         return $this->success(true, 'modemAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
@@ -402,6 +410,7 @@ class EquipmentController extends Controller
         $newMobile->mobile_id = $mobile;
         $newMobile->save();
         $this->logActivity('Equipmented Mobile Added =>' . $newMobile->id, \request()->ip(), \request()->userAgent(), \session('id'));
+        $this->logEquipmentChanges('Equipment Added' , $newMobile->id, 'mobile',\session('id'));
         return $this->success(true, 'mobileAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
@@ -432,6 +441,7 @@ class EquipmentController extends Controller
         $newTablet->tablet_id = $tablet;
         $newTablet->save();
         $this->logActivity('Equipmented Tablet Added =>' . $newTablet->id, \request()->ip(), \request()->userAgent(), \session('id'));
+        $this->logEquipmentChanges('Equipment Added' , $newTablet->id, 'tablet',\session('id'));
         return $this->success(true, 'tabletAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
@@ -462,6 +472,7 @@ class EquipmentController extends Controller
         $newWebcam->webcam_id = $webcam;
         $newWebcam->save();
         $this->logActivity('Equipmented Webcam Added =>' . $newWebcam->id, \request()->ip(), \request()->userAgent(), \session('id'));
+        $this->logEquipmentChanges('Equipment Added' , $newWebcam->id, 'webcam',\session('id'));
         return $this->success(true, 'webcamAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
@@ -492,6 +503,7 @@ class EquipmentController extends Controller
         $newRecorder->recorder_id = $recorder;
         $newRecorder->save();
         $this->logActivity('Equipmented Recorder Added =>' . $newRecorder->id, \request()->ip(), \request()->userAgent(), \session('id'));
+        $this->logEquipmentChanges('Equipment Added' , $newRecorder->id, 'recorder',\session('id'));
         return $this->success(true, 'recorderAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
@@ -522,6 +534,7 @@ class EquipmentController extends Controller
         $newHeadphone->headphone_id = $headphone;
         $newHeadphone->save();
         $this->logActivity('Equipmented Headphone Added =>' . $newHeadphone->id, \request()->ip(), \request()->userAgent(), \session('id'));
+        $this->logEquipmentChanges('Equipment Added' , $newHeadphone->id, 'headphone',\session('id'));
         return $this->success(true, 'headphoneAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
@@ -552,6 +565,7 @@ class EquipmentController extends Controller
         $newSpeaker->speaker_id = $speaker;
         $newSpeaker->save();
         $this->logActivity('Equipmented Speaker Added =>' . $newSpeaker->id, \request()->ip(), \request()->userAgent(), \session('id'));
+        $this->logEquipmentChanges('Equipment Added' , $newSpeaker->id, 'speaker',\session('id'));
         return $this->success(true, 'speakerAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
@@ -582,6 +596,7 @@ class EquipmentController extends Controller
         $newVideoProjector->video_projector_id = $videoprojector;
         $newVideoProjector->save();
         $this->logActivity('Equipmented Video Projector Added =>' . $newVideoProjector->id, \request()->ip(), \request()->userAgent(), \session('id'));
+        $this->logEquipmentChanges('Equipment Added' , $newVideoProjector->id, 'video projector',\session('id'));
         return $this->success(true, 'videoProjectorAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
@@ -612,6 +627,7 @@ class EquipmentController extends Controller
         $newVideoProjectorCurtain->vp_curtain_id = $videoprojectorcurtain;
         $newVideoProjectorCurtain->save();
         $this->logActivity('Equipmented Video Projector Curtain Added =>' . $newVideoProjectorCurtain->id, \request()->ip(), \request()->userAgent(), \session('id'));
+        $this->logEquipmentChanges('Equipment Added' , $newVideoProjectorCurtain->id, 'video projector curtain',\session('id'));
         return $this->success(true, 'videoProjectorCurtainAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 

@@ -47,9 +47,9 @@ function swalFireWithQuestion() {
         confirmButtonText: 'بله',
     }).then((result) => {
         if (result.isConfirmed) {
-            // کدی که برای حالت بله نوشته می‌شود
+
         } else if (result.dismiss === Swal.DismissReason.cancel) {
-            // کدی که برای حالت خیر نوشته می‌شود
+
         }
     });
 }
