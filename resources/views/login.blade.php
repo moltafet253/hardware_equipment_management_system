@@ -17,7 +17,7 @@
         </label>
         <div class="login-form text-right">
             <form id="loginForm" method="post"
-                  action="{{ route('login') }}">
+                  action="/login">
                 @csrf
                 <div class="sign-in-htm">
                     <div class="group">
@@ -32,7 +32,7 @@
 
                     <div class="group flex">
                         <div class="flex justify-evenly md:justify-normal">
-                            <img id="captchaImg" src="{{ route('captcha') }}" alt="Captcha" class="w-32 h-10  mt-2 rounded">
+                            <img id="captchaImg" src="/captcha" alt="Captcha" class="w-32 h-10  mt-2 rounded">
                             <button type="button" onclick="reloadCaptcha()" title="تازه سازی کلمه امنیتی"
                                     class="h-10 p-1 bg-gray-300 hover:bg-gray-400 rounded mt-2">
                                 <i class="fas fa-sync-alt"></i>
@@ -55,7 +55,7 @@
 <script>
     function reloadCaptcha() {
         var captchaImg = document.getElementById('captchaImg');
-        var captchaUrl = "{{ route('captcha') }}";
+        var captchaUrl = "/captcha";
         captchaImg.src = captchaUrl + '?' + Date.now();
     }
 </script>
