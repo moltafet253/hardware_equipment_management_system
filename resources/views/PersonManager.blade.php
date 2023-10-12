@@ -319,6 +319,12 @@
                            type="text" name="search-personnel-code"
                            class="ml-4 mt-1 px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300 w-24"/>
 
+                    <label for="search-personnel-national_code" class="block mt-3 text-sm font-bold text-gray-700">
+                        کد ملی:</label>
+                    <input id="search-personnel-national-code" autocomplete="off"
+                           type="text" name="search-personnel-national-code" placeholder="کد ملی را وارد نمایید"
+                           class="ml-4 mt-1 px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300 w-48"/>
+
                     <label for="search-name" class="block mt-3 text-sm font-bold text-gray-700">
                         نام:</label>
                     <input id="search-name" autocomplete="off"
@@ -477,12 +483,13 @@
             var inputName = $('#search-name').val().trim().toLowerCase();
             var inputFamily = $('#search-family').val().trim().toLowerCase();
             var inputCode = $('#search-personnel-code').val().trim().toLowerCase();
+            var inputNationalCode = $('#search-personnel-national-code').val().trim().toLowerCase();
 
-            if (!inputName && !inputFamily && !inputCode) {
+            if (!inputName && !inputFamily && !inputCode && !inputNationalCode) {
                 swalFire('خطا!', 'لطفاً یکی از فیلدها را وارد نمایید.', 'error', 'تلاش مجدد');
             } else {
                 try {
-                    const data = await fetchData(inputName, inputFamily, inputCode);
+                    const data = await fetchData(inputName, inputFamily, inputCode,inputNationalCode);
                     let paginationDiv=document.getElementById('laravel-next-prev');
                     paginationDiv.style.display='none';
                     displayData(data);
@@ -493,7 +500,7 @@
             }
         });
 
-        async function fetchData(inputName, inputFamily, inputCode) {
+        async function fetchData(inputName, inputFamily, inputCode,inputNationalCode) {
             return new Promise(async (resolve, reject) => {
                 try {
                     const data = await $.ajax({
@@ -503,6 +510,7 @@
                             name: inputName,
                             family: inputFamily,
                             code: inputCode,
+                            national_code: inputNationalCode,
                             work: 'PersonManagerSearch'
                         }
                     });

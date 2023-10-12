@@ -53,11 +53,15 @@ class SearchController extends Controller
                 $name = $request->input('name');
                 $family = $request->input('family');
                 $code = $request->input('code');
+                $national_code = $request->input('national_code');
                 $search = Person::query();
                 $search->where('name', 'LIKE', '%' . $name . '%');
                 $search->where('family', 'LIKE', '%' . $family . '%');
                 if ($code) {
                     $search->where('personnel_code', $code);
+                }
+                if ($national_code){
+                    $search->where('national_code', $national_code);
                 }
                 $result = $search->get();
                 $this->logActivity('Search In Person Manager With ID => ' . $code . ' Name => ' . $name . ' Family => ' . $family, request()->ip(), request()->userAgent(), session('id'));
