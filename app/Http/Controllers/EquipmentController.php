@@ -52,13 +52,64 @@ class EquipmentController extends Controller
         return true;
     }
 
+    public function checkPropertyNumber($pNumber,$product)
+    {
+        switch ($product) {
+            case 'Case':
+                $check=EquipmentedCase::where('property_number',$pNumber)->first();
+                if ($check){
+                    return true;
+                }
+                break;
+            case 'Monitor':
+                break;
+            case 'Printer':
+                break;
+            case 'Scanner':
+                break;
+            case 'CopyMachine':
+                break;
+            case 'VOIP':
+                break;
+            case 'Switch':
+                break;
+            case 'Modem':
+                break;
+            case 'Laptop':
+                break;
+            case 'Mobile':
+                break;
+            case 'Tablet':
+                break;
+            case 'Webcam':
+                break;
+            case 'Recorder':
+                break;
+            case 'Headphone':
+                break;
+            case 'Speaker':
+                break;
+            case 'VideoProjector':
+                break;
+            case 'VideoProjectorCurtain':
+                break;
+            default:
+                return false;
+        }
+    }
+
     public function newCase(Request $request)
     {
         $personID = $request->input('person');
         if (!$this->checkAccessingPerson($personID)) {
             return $this->alerts(false, 'wrongPerson', 'access denied');
         }
+
         $property_number = $request->input('property_number');
+        if ($this->checkPropertyNumber($property_number,'Case')){
+            return $this->alerts(false, 'duplicatePropertyNumber', 'کد اموال تکراری وارد شده است');
+        }
+
         $stamp_number = $request->input('stamp_number');
         $computer_name = $request->input('computer_name');
         $delivery_date = $request->input('delivery_date');
@@ -142,7 +193,12 @@ class EquipmentController extends Controller
         if (!$this->checkAccessingPerson($personID)) {
             return $this->alerts(false, 'wrongPerson', 'access denied');
         }
+
         $property_number = $request->input('property_number');
+        if ($this->checkPropertyNumber($property_number,'Monitor')){
+            return $this->alerts(false, 'duplicatePropertyNumber', 'کد اموال تکراری وارد شده است');
+        }
+
         $delivery_date = $request->input('delivery_date');
         $monitor = $request->input('monitor');
 
@@ -175,7 +231,12 @@ class EquipmentController extends Controller
         if (!$this->checkAccessingPerson($personID)) {
             return $this->alerts(false, 'wrongPerson', 'access denied');
         }
+
         $property_number = $request->input('property_number');
+        if ($this->checkPropertyNumber($property_number,'Printer')){
+            return $this->alerts(false, 'duplicatePropertyNumber', 'کد اموال تکراری وارد شده است');
+        }
+
         $delivery_date = $request->input('delivery_date');
         $printer = $request->input('printer');
 
@@ -207,7 +268,12 @@ class EquipmentController extends Controller
         if (!$this->checkAccessingPerson($personID)) {
             return $this->alerts(false, 'wrongPerson', 'access denied');
         }
+
         $property_number = $request->input('property_number');
+        if ($this->checkPropertyNumber($property_number,'Scanner')){
+            return $this->alerts(false, 'duplicatePropertyNumber', 'کد اموال تکراری وارد شده است');
+        }
+
         $delivery_date = $request->input('delivery_date');
         $scanner = $request->input('scanner');
 
@@ -239,7 +305,12 @@ class EquipmentController extends Controller
         if (!$this->checkAccessingPerson($personID)) {
             return $this->alerts(false, 'wrongPerson', 'access denied');
         }
+
         $property_number = $request->input('property_number');
+        if ($this->checkPropertyNumber($property_number,'CopyMachine')){
+            return $this->alerts(false, 'duplicatePropertyNumber', 'کد اموال تکراری وارد شده است');
+        }
+
         $delivery_date = $request->input('delivery_date');
         $copymachine = $request->input('copymachine');
 
@@ -271,7 +342,12 @@ class EquipmentController extends Controller
         if (!$this->checkAccessingPerson($personID)) {
             return $this->alerts(false, 'wrongPerson', 'access denied');
         }
+
         $property_number = $request->input('property_number');
+        if ($this->checkPropertyNumber($property_number,'VOIP')){
+            return $this->alerts(false, 'duplicatePropertyNumber', 'کد اموال تکراری وارد شده است');
+        }
+
         $delivery_date = $request->input('delivery_date');
         $VOIP = $request->input('VOIP');
 
@@ -303,7 +379,12 @@ class EquipmentController extends Controller
         if (!$this->checkAccessingPerson($personID)) {
             return $this->alerts(false, 'wrongPerson', 'access denied');
         }
+
         $property_number = $request->input('property_number');
+        if ($this->checkPropertyNumber($property_number,'Switch')){
+            return $this->alerts(false, 'duplicatePropertyNumber', 'کد اموال تکراری وارد شده است');
+        }
+
         $delivery_date = $request->input('delivery_date');
         $switch = $request->input('switch');
 
@@ -335,7 +416,12 @@ class EquipmentController extends Controller
         if (!$this->checkAccessingPerson($personID)) {
             return $this->alerts(false, 'wrongPerson', 'access denied');
         }
+
         $property_number = $request->input('property_number');
+        if ($this->checkPropertyNumber($property_number,'Modem')){
+            return $this->alerts(false, 'duplicatePropertyNumber', 'کد اموال تکراری وارد شده است');
+        }
+
         $delivery_date = $request->input('delivery_date');
         $modem = $request->input('modem');
 
@@ -367,7 +453,12 @@ class EquipmentController extends Controller
         if (!$this->checkAccessingPerson($personID)) {
             return $this->alerts(false, 'wrongPerson', 'access denied');
         }
+
         $property_number = $request->input('property_number');
+        if ($this->checkPropertyNumber($property_number,'Laptop')){
+            return $this->alerts(false, 'duplicatePropertyNumber', 'کد اموال تکراری وارد شده است');
+        }
+
         $delivery_date = $request->input('delivery_date');
         $modem = $request->input('modem');
 
@@ -399,7 +490,12 @@ class EquipmentController extends Controller
         if (!$this->checkAccessingPerson($personID)) {
             return $this->alerts(false, 'wrongPerson', 'access denied');
         }
+
         $property_number = $request->input('property_number');
+        if ($this->checkPropertyNumber($property_number,'Mobile')){
+            return $this->alerts(false, 'duplicatePropertyNumber', 'کد اموال تکراری وارد شده است');
+        }
+
         $delivery_date = $request->input('delivery_date');
         $mobile = $request->input('mobile');
 
@@ -431,7 +527,12 @@ class EquipmentController extends Controller
         if (!$this->checkAccessingPerson($personID)) {
             return $this->alerts(false, 'wrongPerson', 'access denied');
         }
+
         $property_number = $request->input('property_number');
+        if ($this->checkPropertyNumber($property_number,'Tablet')){
+            return $this->alerts(false, 'duplicatePropertyNumber', 'کد اموال تکراری وارد شده است');
+        }
+
         $delivery_date = $request->input('delivery_date');
         $tablet = $request->input('tablet');
 
@@ -463,7 +564,12 @@ class EquipmentController extends Controller
         if (!$this->checkAccessingPerson($personID)) {
             return $this->alerts(false, 'wrongPerson', 'access denied');
         }
+
         $property_number = $request->input('property_number');
+        if ($this->checkPropertyNumber($property_number,'Webcam')){
+            return $this->alerts(false, 'duplicatePropertyNumber', 'کد اموال تکراری وارد شده است');
+        }
+
         $delivery_date = $request->input('delivery_date');
         $webcam = $request->input('webcam');
 
@@ -495,7 +601,12 @@ class EquipmentController extends Controller
         if (!$this->checkAccessingPerson($personID)) {
             return $this->alerts(false, 'wrongPerson', 'access denied');
         }
+
         $property_number = $request->input('property_number');
+        if ($this->checkPropertyNumber($property_number,'Recorder')){
+            return $this->alerts(false, 'duplicatePropertyNumber', 'کد اموال تکراری وارد شده است');
+        }
+
         $delivery_date = $request->input('delivery_date');
         $recorder = $request->input('recorder');
 
@@ -527,7 +638,12 @@ class EquipmentController extends Controller
         if (!$this->checkAccessingPerson($personID)) {
             return $this->alerts(false, 'wrongPerson', 'access denied');
         }
+
         $property_number = $request->input('property_number');
+        if ($this->checkPropertyNumber($property_number,'Headphone')){
+            return $this->alerts(false, 'duplicatePropertyNumber', 'کد اموال تکراری وارد شده است');
+        }
+
         $delivery_date = $request->input('delivery_date');
         $headphone = $request->input('headphone');
 
@@ -559,7 +675,12 @@ class EquipmentController extends Controller
         if (!$this->checkAccessingPerson($personID)) {
             return $this->alerts(false, 'wrongPerson', 'access denied');
         }
+
         $property_number = $request->input('property_number');
+        if ($this->checkPropertyNumber($property_number,'Speaker')){
+            return $this->alerts(false, 'duplicatePropertyNumber', 'کد اموال تکراری وارد شده است');
+        }
+
         $delivery_date = $request->input('delivery_date');
         $speaker = $request->input('speaker');
 
@@ -591,7 +712,12 @@ class EquipmentController extends Controller
         if (!$this->checkAccessingPerson($personID)) {
             return $this->alerts(false, 'wrongPerson', 'access denied');
         }
+
         $property_number = $request->input('property_number');
+        if ($this->checkPropertyNumber($property_number,'VideoProjector')){
+            return $this->alerts(false, 'duplicatePropertyNumber', 'کد اموال تکراری وارد شده است');
+        }
+
         $delivery_date = $request->input('delivery_date');
         $videoprojector = $request->input('videoprojector');
 
@@ -623,7 +749,12 @@ class EquipmentController extends Controller
         if (!$this->checkAccessingPerson($personID)) {
             return $this->alerts(false, 'wrongPerson', 'access denied');
         }
+
         $property_number = $request->input('property_number');
+        if ($this->checkPropertyNumber($property_number,'VideoProjectorCurtain')){
+            return $this->alerts(false, 'duplicatePropertyNumber', 'کد اموال تکراری وارد شده است');
+        }
+
         $delivery_date = $request->input('delivery_date');
         $videoprojectorcurtain = $request->input('videoprojectorcurtain');
 
