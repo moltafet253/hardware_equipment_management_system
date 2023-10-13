@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('person_id');
             $table->foreign('person_id')->references('id')->on('persons');
             $table->string('delivery_date',20)->nullable();
-            $table->string('property_number');
+            $table->string('property_number')->unique();
             $table->unsignedBigInteger('mobile_id');
             $table->foreign('mobile_id')->references('id')->on('mobiles');
             $table->timestamps();

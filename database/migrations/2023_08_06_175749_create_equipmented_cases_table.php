@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('person_id');
             $table->foreign('person_id')->references('id')->on('persons');
-            $table->string('property_number');
+            $table->string('property_number')->unique();
             $table->integer('stamp_number');
             $table->string('computer_name')->nullable();
             $table->string('delivery_date',20)->nullable();
