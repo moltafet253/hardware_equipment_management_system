@@ -8,7 +8,7 @@
             <div class="bg-white rounded shadow p-6 mb-4">
                 <h4 class="text-l font-bold">ستاد - گزارش تجهیزات پرسنل خاص</h4>
                 <hr>
-                <form id="CenterPersonnel" action="{{ route('GetReport') }}">
+                <form id="CenterPersonnel" action="/GetReport">
                 <div class="flex p-4">
                     <p class=" mt-2">لطفا یک پرسنل را انتخاب کنید:</p>
                     <select id="person" class="border rounded-md w-72 px-3 py-2 select2" name="person">

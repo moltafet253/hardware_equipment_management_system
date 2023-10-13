@@ -20,14 +20,13 @@ class ExcelAllReportsController extends Controller
 
                 $spreadsheet = new Spreadsheet();
                 $sheet = $spreadsheet->getActiveSheet();
-                $sheet ->set();
 
                 $sheet->setCellValue('A1', 'نام');
                 $sheet->setCellValue('B1', 'نام خانوادگی');
                 $sheet->setCellValue('A2', 'John');
                 $sheet->setCellValue('B2', 'Doe');
                 $writer = new Xlsx($spreadsheet);
-                $filename = $person. '.xlsx';
+                $filename = $personInfo->personnel_code. '.xlsx';
                 $writer->save($filename);
 
                 return response()->download($filename)->deleteFileAfterSend(true);
