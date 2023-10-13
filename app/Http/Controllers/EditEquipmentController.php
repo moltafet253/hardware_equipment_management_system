@@ -18,7 +18,6 @@ class EditEquipmentController extends Controller
         if ($eq_id) {
             switch ($eq_type) {
                 case 'case':
-                    $property_number = $request->input('edited_case_property_number');
                     $stamp_number = $request->input('edited_stamp_number');
                     $computer_name = $request->input('edited_computer_name');
                     $delivery_date = $request->input('edited_case_delivery_date');
@@ -37,9 +36,6 @@ class EditEquipmentController extends Controller
                     $graphiccard = $request->input('edited_graphiccard');
                     $networkcard = $request->input('edited_networkcard');
 
-                    if (!$property_number) {
-                        return $this->alerts(false, 'nullPropertyNumber', 'کد اموال وارد نشده است');
-                    }
                     if (!$stamp_number) {
                         return $this->alerts(false, 'nullStampNumber', 'شماره پلمپ وارد نشده است');
                     }
@@ -65,32 +61,30 @@ class EditEquipmentController extends Controller
                         $networkcard = 1;
                     }
 
-                    $case = EquipmentedCase::find($eq_id);
+                    $equipmentedDevice = EquipmentedCase::find($eq_id);
 
-                    $originalData = $case->getOriginal();
+                    $originalData = $equipmentedDevice->getOriginal();
 
-                    $case->property_number = $property_number;
-                    $case->stamp_number = $stamp_number;
-                    $case->computer_name = $computer_name;
-                    $case->delivery_date = $delivery_date;
-                    $case->case = $caseInfo;
-                    $case->motherboard = $motherboard;
-                    $case->power = $power;
-                    $case->cpu = $cpu;
-                    $case->ram1 = $ram1;
-                    $case->ram2 = $ram2;
-                    $case->ram3 = $ram3;
-                    $case->ram4 = $ram4;
-                    $case->hdd1 = $hdd1;
-                    $case->hdd2 = $hdd2;
-                    $case->hdd3 = $hdd3;
-                    $case->hdd4 = $hdd4;
-                    $case->graphic_card = $graphiccard;
-                    $case->network_card = $networkcard;
-                    $case->save();
+                    $equipmentedDevice->stamp_number = $stamp_number;
+                    $equipmentedDevice->computer_name = $computer_name;
+                    $equipmentedDevice->delivery_date = $delivery_date;
+                    $equipmentedDevice->case = $caseInfo;
+                    $equipmentedDevice->motherboard = $motherboard;
+                    $equipmentedDevice->power = $power;
+                    $equipmentedDevice->cpu = $cpu;
+                    $equipmentedDevice->ram1 = $ram1;
+                    $equipmentedDevice->ram2 = $ram2;
+                    $equipmentedDevice->ram3 = $ram3;
+                    $equipmentedDevice->ram4 = $ram4;
+                    $equipmentedDevice->hdd1 = $hdd1;
+                    $equipmentedDevice->hdd2 = $hdd2;
+                    $equipmentedDevice->hdd3 = $hdd3;
+                    $equipmentedDevice->hdd4 = $hdd4;
+                    $equipmentedDevice->graphic_card = $graphiccard;
+                    $equipmentedDevice->network_card = $networkcard;
+                    $equipmentedDevice->save();
 
                     $updatedData = [
-                        'property_number' => $property_number,
                         'stamp_number' => $stamp_number,
                         'computer_name' => $computer_name,
                         'delivery_date' => $delivery_date,
@@ -110,97 +104,79 @@ class EditEquipmentController extends Controller
                         'network_card' => $networkcard,
                     ];
 
-                    $this->logActivity('Equipmented Case Edited =>' . $case->id, \request()->ip(), \request()->userAgent(), \session('id'));
+                    $this->logActivity('Equipmented Case Edited =>' . $equipmentedDevice->id, \request()->ip(), \request()->userAgent(), \session('id'));
 
                     break;
                 case 'monitor':
-                    $property_number = $request->input('edited_monitor_property_number');
                     $delivery_date = $request->input('edited_monitor_delivery_date');
                     $monitor = $request->input('edited_monitor');
 
-                    if (!$property_number) {
-                        return $this->alerts(false, 'nullPropertyNumber', 'کد اموال وارد نشده است');
-                    }
                     if (!$monitor) {
                         return $this->alerts(false, 'nullMonitor', 'مانیتور انتخاب نشده است');
                     }
 
-                    $monitorEdited = EquipmentedMonitor::find($eq_id);
+                    $equipmentedDevice = EquipmentedMonitor::find($eq_id);
 
-                    $originalData = $monitorEdited->getOriginal();
+                    $originalData = $equipmentedDevice->getOriginal();
 
-                    $monitorEdited->property_number = $property_number;
-                    $monitorEdited->delivery_date = $delivery_date;
-                    $monitorEdited->monitor_id = $monitor;
-                    $monitorEdited->save();
+                    $equipmentedDevice->delivery_date = $delivery_date;
+                    $equipmentedDevice->monitor_id = $monitor;
+                    $equipmentedDevice->save();
 
                     $updatedData = [
-                        'property_number' => $property_number,
                         'delivery_date' => $delivery_date,
                         'monitor_id' => $monitor,
                     ];
 
-                    $this->logActivity('Equipmented Monitor Edited =>' . $monitorEdited->id, \request()->ip(), \request()->userAgent(), \session('id'));
+                    $this->logActivity('Equipmented Monitor Edited =>' . $equipmentedDevice->id, \request()->ip(), \request()->userAgent(), \session('id'));
 
                     break;
                 case 'printer':
-                    $property_number = $request->input('edited_printer_property_number');
                     $delivery_date = $request->input('edited_printer_delivery_date');
                     $printer = $request->input('edited_printer');
 
-                    if (!$property_number) {
-                        return $this->alerts(false, 'nullPropertyNumber', 'کد اموال وارد نشده است');
-                    }
                     if (!$printer) {
                         return $this->alerts(false, 'nullPrinter', 'پرینتر انتخاب نشده است');
                     }
 
-                    $printerEdited = EquipmentedPrinter::find($eq_id);
+                    $equipmentedDevice = EquipmentedPrinter::find($eq_id);
 
-                    $originalData = $printerEdited->getOriginal();
+                    $originalData = $equipmentedDevice->getOriginal();
 
-                    $printerEdited->property_number = $property_number;
-                    $printerEdited->delivery_date = $delivery_date;
-                    $printerEdited->printer_id = $printer;
-                    $printerEdited->save();
+                    $equipmentedDevice->delivery_date = $delivery_date;
+                    $equipmentedDevice->printer_id = $printer;
+                    $equipmentedDevice->save();
 
                     $updatedData = [
-                        'property_number' => $property_number,
                         'delivery_date' => $delivery_date,
                         'printer_id' => $printer,
                     ];
 
-                    $this->logActivity('Equipmented Printer Edited =>' . $printerEdited->id, \request()->ip(), \request()->userAgent(), \session('id'));
+                    $this->logActivity('Equipmented Printer Edited =>' . $equipmentedDevice->id, \request()->ip(), \request()->userAgent(), \session('id'));
 
                     break;
                 case 'scanner':
-                    $property_number = $request->input('edited_scanner_property_number');
                     $delivery_date = $request->input('edited_scanner_delivery_date');
                     $scanner = $request->input('edited_scanner');
 
-                    if (!$property_number) {
-                        return $this->alerts(false, 'nullPropertyNumber', 'کد اموال وارد نشده است');
-                    }
                     if (!$scanner) {
                         return $this->alerts(false, 'nullPrinter', 'پرینتر انتخاب نشده است');
                     }
 
-                    $scannerEdited = EquipmentedScanner::find($eq_id);
+                    $equipmentedDevice = EquipmentedScanner::find($eq_id);
 
-                    $originalData = $scannerEdited->getOriginal();
+                    $originalData = $equipmentedDevice->getOriginal();
 
-                    $scannerEdited->property_number = $property_number;
-                    $scannerEdited->delivery_date = $delivery_date;
-                    $scannerEdited->scanner_id = $scanner;
-                    $scannerEdited->save();
+                    $equipmentedDevice->delivery_date = $delivery_date;
+                    $equipmentedDevice->scanner_id = $scanner;
+                    $equipmentedDevice->save();
 
                     $updatedData = [
-                        'property_number' => $property_number,
                         'delivery_date' => $delivery_date,
                         'scanner_id' => $scanner,
                     ];
 
-                    $this->logActivity('Equipmented Scanner Edited =>' . $scannerEdited->id, \request()->ip(), \request()->userAgent(), \session('id'));
+                    $this->logActivity('Equipmented Scanner Edited =>' . $equipmentedDevice->id, \request()->ip(), \request()->userAgent(), \session('id'));
 
                     break;
             }
@@ -209,18 +185,24 @@ class EditEquipmentController extends Controller
             $changes = array_diff_assoc($updatedData, $originalData);
 
             if ($changes){
+                $lastLog=EquipmentLog::where('property_number',$equipmentedDevice->property_number)->orderBy('id','desc')->first();
                 $eq_log=new EquipmentLog();
                 $eq_log->equipment_id=$eq_id;
                 $eq_log->equipment_type=$eq_type;
+                $eq_log->property_number=$lastLog->property_number;
+                $eq_log->personal_code=$lastLog->personal_code;
 
-                $title = '';
+                $changesArray = [];
                 foreach ($changes as $field => $value) {
                     $previousValue = $originalData[$field];
-                    $title .= "{$field}: from {$previousValue} to {$value}, ";
+                    $changesArray[] = [
+                        'field' => $field,
+                        'from' => $previousValue,
+                        'to' => $value,
+                    ];
                 }
-                $title = rtrim($title, ', ');
 
-                $eq_log->title=$title;
+                $eq_log->title = json_encode($changesArray);
                 $eq_log->operator=session('id');
                 $eq_log->save();
             }

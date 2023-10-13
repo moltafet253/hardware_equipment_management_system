@@ -55,7 +55,7 @@ class EquipmentController extends Controller
     public function newCase(Request $request)
     {
         $personID = $request->input('person');
-        if (!$this->checkAccessingPerson($personID)){
+        if (!$this->checkAccessingPerson($personID)) {
             return $this->alerts(false, 'wrongPerson', 'access denied');
         }
         $property_number = $request->input('property_number');
@@ -130,7 +130,8 @@ class EquipmentController extends Controller
         $case->network_card = $networkcard;
         $case->save();
         $this->logActivity('Equipmented Case Added =>' . $case->id, \request()->ip(), \request()->userAgent(), \session('id'));
-        $this->logEquipmentChanges('Equipment Added' , $case->id, 'case',\session('id'));
+        $this->logEquipmentChanges('Equipment Added', $case->id, 'case', $property_number, \session('id'), $personID);
+        $this->logEquipmentChanges('Assigned to this user => ' . $personID, $case->id, 'case', $property_number, \session('id'), $personID);
         return $this->success(true, 'caseAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
 
     }
@@ -138,7 +139,7 @@ class EquipmentController extends Controller
     public function newMonitor(Request $request)
     {
         $personID = $request->input('person');
-        if (!$this->checkAccessingPerson($personID)){
+        if (!$this->checkAccessingPerson($personID)) {
             return $this->alerts(false, 'wrongPerson', 'access denied');
         }
         $property_number = $request->input('property_number');
@@ -162,7 +163,8 @@ class EquipmentController extends Controller
         $newmonitor->monitor_id = $monitor;
         $newmonitor->save();
         $this->logActivity('Equipmented Monitor Added =>' . $newmonitor->id, \request()->ip(), \request()->userAgent(), \session('id'));
-        $this->logEquipmentChanges('Equipment Added' , $newmonitor->id, 'monitor',\session('id'));
+        $this->logEquipmentChanges('Equipment Added', $newmonitor->id, 'monitor', $property_number, \session('id'), $personID);
+        $this->logEquipmentChanges('Assigned to this user => ' . $personID, $newmonitor->id, 'monitor', $property_number, \session('id'), $personID);
         return $this->success(true, 'monitorAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
 
     }
@@ -170,7 +172,7 @@ class EquipmentController extends Controller
     public function newPrinter(Request $request)
     {
         $personID = $request->input('person');
-        if (!$this->checkAccessingPerson($personID)){
+        if (!$this->checkAccessingPerson($personID)) {
             return $this->alerts(false, 'wrongPerson', 'access denied');
         }
         $property_number = $request->input('property_number');
@@ -194,14 +196,15 @@ class EquipmentController extends Controller
         $newprinter->printer_id = $printer;
         $newprinter->save();
         $this->logActivity('Equipmented Printer Added =>' . $newprinter->id, \request()->ip(), \request()->userAgent(), \session('id'));
-        $this->logEquipmentChanges('Equipment Added' , $newprinter->id, 'printer',\session('id'));
+        $this->logEquipmentChanges('Equipment Added', $newprinter->id, 'printer', $property_number, \session('id'), $personID);
+        $this->logEquipmentChanges('Assigned to this user => ' . $personID, $newprinter->id, 'printer', $property_number, \session('id'), $personID);
         return $this->success(true, 'printerAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
     public function newScanner(Request $request)
     {
         $personID = $request->input('person');
-        if (!$this->checkAccessingPerson($personID)){
+        if (!$this->checkAccessingPerson($personID)) {
             return $this->alerts(false, 'wrongPerson', 'access denied');
         }
         $property_number = $request->input('property_number');
@@ -225,13 +228,15 @@ class EquipmentController extends Controller
         $newscanner->scanner_id = $scanner;
         $newscanner->save();
         $this->logActivity('Equipmented Scanner Added =>' . $newscanner->id, \request()->ip(), \request()->userAgent(), \session('id'));
+        $this->logEquipmentChanges('Equipment Added', $newscanner->id, 'scanner', $property_number, \session('id'), $personID);
+        $this->logEquipmentChanges('Assigned to this user => ' . $personID, $newscanner->id, 'scanner', $property_number, \session('id'), $personID);
         return $this->success(true, 'scannerAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
     public function newCopyMachine(Request $request)
     {
         $personID = $request->input('person');
-        if (!$this->checkAccessingPerson($personID)){
+        if (!$this->checkAccessingPerson($personID)) {
             return $this->alerts(false, 'wrongPerson', 'access denied');
         }
         $property_number = $request->input('property_number');
@@ -255,14 +260,15 @@ class EquipmentController extends Controller
         $newcopymachine->copy_machine_id = $copymachine;
         $newcopymachine->save();
         $this->logActivity('Equipmented Copy Machine Added =>' . $newcopymachine->id, \request()->ip(), \request()->userAgent(), \session('id'));
-        $this->logEquipmentChanges('Equipment Added' , $newcopymachine->id, 'copy machine',\session('id'));
+        $this->logEquipmentChanges('Equipment Added', $newcopymachine->id, 'copy machine', $property_number, \session('id'), $personID);
+        $this->logEquipmentChanges('Assigned to this user => ' . $personID, $newcopymachine->id, 'copy machine', $property_number, \session('id'));
         return $this->success(true, 'copymachineAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
     public function newVOIP(Request $request)
     {
         $personID = $request->input('person');
-        if (!$this->checkAccessingPerson($personID)){
+        if (!$this->checkAccessingPerson($personID)) {
             return $this->alerts(false, 'wrongPerson', 'access denied');
         }
         $property_number = $request->input('property_number');
@@ -286,14 +292,15 @@ class EquipmentController extends Controller
         $newVOIP->VOIP_id = $VOIP;
         $newVOIP->save();
         $this->logActivity('Equipmented VOIP Added =>' . $newVOIP->id, \request()->ip(), \request()->userAgent(), \session('id'));
-        $this->logEquipmentChanges('Equipment Added' , $newVOIP->id, 'voip',\session('id'));
+        $this->logEquipmentChanges('Equipment Added', $newVOIP->id, 'voip', $property_number, \session('id'), $personID);
+        $this->logEquipmentChanges('Assigned to this user => ' . $personID, $newVOIP->id, 'voip', $property_number, \session('id'), $personID);
         return $this->success(true, 'VOIPAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
     public function newSwitch(Request $request)
     {
         $personID = $request->input('person');
-        if (!$this->checkAccessingPerson($personID)){
+        if (!$this->checkAccessingPerson($personID)) {
             return $this->alerts(false, 'wrongPerson', 'access denied');
         }
         $property_number = $request->input('property_number');
@@ -317,14 +324,15 @@ class EquipmentController extends Controller
         $newswitch->switch_id = $switch;
         $newswitch->save();
         $this->logActivity('Equipmented Switch Added =>' . $newswitch->id, \request()->ip(), \request()->userAgent(), \session('id'));
-        $this->logEquipmentChanges('Equipment Added' , $newswitch->id, 'switch',\session('id'));
+        $this->logEquipmentChanges('Equipment Added', $newswitch->id, 'switch', $property_number, \session('id'), $personID);
+        $this->logEquipmentChanges('Assigned to this user => ' . $personID, $newswitch->id, 'switch', $property_number, \session('id'), $personID);
         return $this->success(true, 'switchAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
     public function newModem(Request $request)
     {
         $personID = $request->input('person');
-        if (!$this->checkAccessingPerson($personID)){
+        if (!$this->checkAccessingPerson($personID)) {
             return $this->alerts(false, 'wrongPerson', 'access denied');
         }
         $property_number = $request->input('property_number');
@@ -348,14 +356,15 @@ class EquipmentController extends Controller
         $newModem->modem_id = $modem;
         $newModem->save();
         $this->logActivity('Equipmented Modem Added =>' . $newModem->id, \request()->ip(), \request()->userAgent(), \session('id'));
-        $this->logEquipmentChanges('Equipment Added' , $newModem->id, 'modem',\session('id'));
+        $this->logEquipmentChanges('Equipment Added', $newModem->id, 'modem', $property_number, \session('id'), $personID);
+        $this->logEquipmentChanges('Assigned to this user => ' . $personID, $newModem->id, 'modem', $property_number, \session('id'), $personID);
         return $this->success(true, 'modemAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
     public function newLaptop(Request $request)
     {
         $personID = $request->input('person');
-        if (!$this->checkAccessingPerson($personID)){
+        if (!$this->checkAccessingPerson($personID)) {
             return $this->alerts(false, 'wrongPerson', 'access denied');
         }
         $property_number = $request->input('property_number');
@@ -379,14 +388,15 @@ class EquipmentController extends Controller
         $newLaptop->modem_id = $modem;
         $newLaptop->save();
         $this->logActivity('Equipmented Modem Added =>' . $newLaptop->id, \request()->ip(), \request()->userAgent(), \session('id'));
-        $this->logEquipmentChanges('Equipment Added' , $newLaptop->id, 'laptop',\session('id'));
+        $this->logEquipmentChanges('Equipment Added', $newLaptop->id, 'laptop', $property_number, \session('id'), $personID);
+        $this->logEquipmentChanges('Assigned to this user => ' . $personID, $newLaptop->id, 'laptop', $property_number, \session('id'), $personID);
         return $this->success(true, 'modemAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
     public function newMobile(Request $request)
     {
         $personID = $request->input('person');
-        if (!$this->checkAccessingPerson($personID)){
+        if (!$this->checkAccessingPerson($personID)) {
             return $this->alerts(false, 'wrongPerson', 'access denied');
         }
         $property_number = $request->input('property_number');
@@ -410,14 +420,15 @@ class EquipmentController extends Controller
         $newMobile->mobile_id = $mobile;
         $newMobile->save();
         $this->logActivity('Equipmented Mobile Added =>' . $newMobile->id, \request()->ip(), \request()->userAgent(), \session('id'));
-        $this->logEquipmentChanges('Equipment Added' , $newMobile->id, 'mobile',\session('id'));
+        $this->logEquipmentChanges('Equipment Added', $newMobile->id, 'mobile', $property_number, \session('id'), $personID);
+        $this->logEquipmentChanges('Assigned to this user => ' . $personID, $newMobile->id, 'mobile', $property_number, \session('id'), $personID);
         return $this->success(true, 'mobileAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
     public function newTablet(Request $request)
     {
         $personID = $request->input('person');
-        if (!$this->checkAccessingPerson($personID)){
+        if (!$this->checkAccessingPerson($personID)) {
             return $this->alerts(false, 'wrongPerson', 'access denied');
         }
         $property_number = $request->input('property_number');
@@ -441,14 +452,15 @@ class EquipmentController extends Controller
         $newTablet->tablet_id = $tablet;
         $newTablet->save();
         $this->logActivity('Equipmented Tablet Added =>' . $newTablet->id, \request()->ip(), \request()->userAgent(), \session('id'));
-        $this->logEquipmentChanges('Equipment Added' , $newTablet->id, 'tablet',\session('id'));
+        $this->logEquipmentChanges('Equipment Added', $newTablet->id, 'tablet', $property_number, \session('id'), $personID);
+        $this->logEquipmentChanges('Assigned to this user => ' . $personID, $newTablet->id, 'tablet', $property_number, \session('id'), $personID);
         return $this->success(true, 'tabletAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
     public function newWebcam(Request $request)
     {
         $personID = $request->input('person');
-        if (!$this->checkAccessingPerson($personID)){
+        if (!$this->checkAccessingPerson($personID)) {
             return $this->alerts(false, 'wrongPerson', 'access denied');
         }
         $property_number = $request->input('property_number');
@@ -472,14 +484,15 @@ class EquipmentController extends Controller
         $newWebcam->webcam_id = $webcam;
         $newWebcam->save();
         $this->logActivity('Equipmented Webcam Added =>' . $newWebcam->id, \request()->ip(), \request()->userAgent(), \session('id'));
-        $this->logEquipmentChanges('Equipment Added' , $newWebcam->id, 'webcam',\session('id'));
+        $this->logEquipmentChanges('Equipment Added', $newWebcam->id, 'webcam', $property_number, \session('id'), $personID);
+        $this->logEquipmentChanges('Assigned to this user => ' . $personID, $newWebcam->id, 'webcam', $property_number, \session('id'), $personID);
         return $this->success(true, 'webcamAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
     public function newRecorder(Request $request)
     {
         $personID = $request->input('person');
-        if (!$this->checkAccessingPerson($personID)){
+        if (!$this->checkAccessingPerson($personID)) {
             return $this->alerts(false, 'wrongPerson', 'access denied');
         }
         $property_number = $request->input('property_number');
@@ -503,14 +516,15 @@ class EquipmentController extends Controller
         $newRecorder->recorder_id = $recorder;
         $newRecorder->save();
         $this->logActivity('Equipmented Recorder Added =>' . $newRecorder->id, \request()->ip(), \request()->userAgent(), \session('id'));
-        $this->logEquipmentChanges('Equipment Added' , $newRecorder->id, 'recorder',\session('id'));
+        $this->logEquipmentChanges('Equipment Added', $newRecorder->id, 'recorder', $property_number, \session('id'), $personID);
+        $this->logEquipmentChanges('Assigned to this user => ' . $personID, $newRecorder->id, 'recorder', $property_number, \session('id'), $personID);
         return $this->success(true, 'recorderAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
     public function newHeadphone(Request $request)
     {
         $personID = $request->input('person');
-        if (!$this->checkAccessingPerson($personID)){
+        if (!$this->checkAccessingPerson($personID)) {
             return $this->alerts(false, 'wrongPerson', 'access denied');
         }
         $property_number = $request->input('property_number');
@@ -534,14 +548,15 @@ class EquipmentController extends Controller
         $newHeadphone->headphone_id = $headphone;
         $newHeadphone->save();
         $this->logActivity('Equipmented Headphone Added =>' . $newHeadphone->id, \request()->ip(), \request()->userAgent(), \session('id'));
-        $this->logEquipmentChanges('Equipment Added' , $newHeadphone->id, 'headphone',\session('id'));
+        $this->logEquipmentChanges('Equipment Added', $newHeadphone->id, 'headphone', $property_number, \session('id'), $personID);
+        $this->logEquipmentChanges('Assigned to this user => ' . $personID, $newHeadphone->id, 'headphone', $property_number, \session('id'), $personID);
         return $this->success(true, 'headphoneAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
     public function newSpeaker(Request $request)
     {
         $personID = $request->input('person');
-        if (!$this->checkAccessingPerson($personID)){
+        if (!$this->checkAccessingPerson($personID)) {
             return $this->alerts(false, 'wrongPerson', 'access denied');
         }
         $property_number = $request->input('property_number');
@@ -565,14 +580,15 @@ class EquipmentController extends Controller
         $newSpeaker->speaker_id = $speaker;
         $newSpeaker->save();
         $this->logActivity('Equipmented Speaker Added =>' . $newSpeaker->id, \request()->ip(), \request()->userAgent(), \session('id'));
-        $this->logEquipmentChanges('Equipment Added' , $newSpeaker->id, 'speaker',\session('id'));
+        $this->logEquipmentChanges('Equipment Added', $newSpeaker->id, 'speaker', $property_number, \session('id'), $personID);
+        $this->logEquipmentChanges('Assigned to this user => ' . $personID, $newSpeaker->id, 'speaker', $property_number, \session('id'), $personID);
         return $this->success(true, 'speakerAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
     public function newVideoProjector(Request $request)
     {
         $personID = $request->input('person');
-        if (!$this->checkAccessingPerson($personID)){
+        if (!$this->checkAccessingPerson($personID)) {
             return $this->alerts(false, 'wrongPerson', 'access denied');
         }
         $property_number = $request->input('property_number');
@@ -596,14 +612,15 @@ class EquipmentController extends Controller
         $newVideoProjector->video_projector_id = $videoprojector;
         $newVideoProjector->save();
         $this->logActivity('Equipmented Video Projector Added =>' . $newVideoProjector->id, \request()->ip(), \request()->userAgent(), \session('id'));
-        $this->logEquipmentChanges('Equipment Added' , $newVideoProjector->id, 'video projector',\session('id'));
+        $this->logEquipmentChanges('Equipment Added', $newVideoProjector->id, 'video projector', $property_number, \session('id'), $personID);
+        $this->logEquipmentChanges('Assigned to this user => ' . $personID, $newVideoProjector->id, 'video projector', $property_number, \session('id'), $personID);
         return $this->success(true, 'videoProjectorAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
     public function newVideoProjectorCurtain(Request $request)
     {
         $personID = $request->input('person');
-        if (!$this->checkAccessingPerson($personID)){
+        if (!$this->checkAccessingPerson($personID)) {
             return $this->alerts(false, 'wrongPerson', 'access denied');
         }
         $property_number = $request->input('property_number');
@@ -627,65 +644,66 @@ class EquipmentController extends Controller
         $newVideoProjectorCurtain->vp_curtain_id = $videoprojectorcurtain;
         $newVideoProjectorCurtain->save();
         $this->logActivity('Equipmented Video Projector Curtain Added =>' . $newVideoProjectorCurtain->id, \request()->ip(), \request()->userAgent(), \session('id'));
-        $this->logEquipmentChanges('Equipment Added' , $newVideoProjectorCurtain->id, 'video projector curtain',\session('id'));
+        $this->logEquipmentChanges('Equipment Added', $newVideoProjectorCurtain->id, 'video projector curtain', $property_number, \session('id'), $personID);
+        $this->logEquipmentChanges('Assigned to this user => ' . $personID, $newVideoProjectorCurtain->id, 'video projector curtain', $property_number, \session('id'), $personID);
         return $this->success(true, 'videoProjectorCurtainAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
     public function getEquipmentInfo(Request $request)
     {
-        $id=$request->input('id');
+        $id = $request->input('id');
         if ($id) {
             switch ($request->input('type')) {
                 case 'case':
-                    $equipmentInfo=EquipmentedCase::find($id);
+                    $equipmentInfo = EquipmentedCase::find($id);
                     break;
                 case 'copy_machine':
-                    $equipmentInfo=EquipmentedCopyMachine::find($id);
+                    $equipmentInfo = EquipmentedCopyMachine::find($id);
                     break;
                 case 'monitor':
-                    $equipmentInfo=EquipmentedMonitor::find($id);
+                    $equipmentInfo = EquipmentedMonitor::find($id);
                     break;
                 case 'printer':
-                    $equipmentInfo=EquipmentedPrinter::find($id);
+                    $equipmentInfo = EquipmentedPrinter::find($id);
                     break;
                 case 'scanner':
-                    $equipmentInfo=EquipmentedScanner::find($id);
+                    $equipmentInfo = EquipmentedScanner::find($id);
                     break;
                 case 'voip':
-                    $equipmentInfo=EquipmentedVoip::find($id);
+                    $equipmentInfo = EquipmentedVoip::find($id);
                     break;
                 case 'modem':
-                    $equipmentInfo=EquipmentedModem::find($id);
+                    $equipmentInfo = EquipmentedModem::find($id);
                     break;
                 case 'switch':
-                    $equipmentInfo=EquipmentedSwitch::find($id);
+                    $equipmentInfo = EquipmentedSwitch::find($id);
                     break;
                 case 'headphone':
-                    $equipmentInfo=EquipmentedHeadphone::find($id);
+                    $equipmentInfo = EquipmentedHeadphone::find($id);
                     break;
                 case 'laptop':
-                    $equipmentInfo=EquipmentedLaptop::find($id);
+                    $equipmentInfo = EquipmentedLaptop::find($id);
                     break;
                 case 'mobile':
-                    $equipmentInfo=EquipmentedMobile::find($id);
+                    $equipmentInfo = EquipmentedMobile::find($id);
                     break;
                 case 'recorder':
-                    $equipmentInfo=EquipmentedRecorder::find($id);
+                    $equipmentInfo = EquipmentedRecorder::find($id);
                     break;
                 case 'speaker':
-                    $equipmentInfo=EquipmentedSpeaker::find($id);
+                    $equipmentInfo = EquipmentedSpeaker::find($id);
                     break;
                 case 'tablet':
-                    $equipmentInfo=EquipmentedTablet::find($id);
+                    $equipmentInfo = EquipmentedTablet::find($id);
                     break;
                 case 'videoprojector':
-                    $equipmentInfo=EquipmentedVideoProjector::find($id);
+                    $equipmentInfo = EquipmentedVideoProjector::find($id);
                     break;
                 case 'videoprojectorcurtain':
-                    $equipmentInfo=EquipmentedVideoProjectorCurtain::find($id);
+                    $equipmentInfo = EquipmentedVideoProjectorCurtain::find($id);
                     break;
                 case 'webcam':
-                    $equipmentInfo=EquipmentedWebcam::find($id);
+                    $equipmentInfo = EquipmentedWebcam::find($id);
                     break;
             }
             return $equipmentInfo;

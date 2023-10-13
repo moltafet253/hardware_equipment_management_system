@@ -14,6 +14,8 @@ class EquipmentLog extends Model
     protected $fillable = [
         'equipment_id',
         'equipment_type',
+        'personal_code',
+        'property_number',
         'title',
         'operator',
     ];

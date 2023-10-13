@@ -15,6 +15,9 @@ return new class extends Migration
             $table->id();
             $table->integer('equipment_id');
             $table->string('equipment_type');
+            $table->unsignedBigInteger('personal_code')->nullable();
+            $table->foreign('personal_code')->references('id')->on('persons');
+            $table->integer('property_number');
             $table->string('title');
             $table->unsignedBigInteger('operator');
             $table->foreign('operator')->references('id')->on('users');

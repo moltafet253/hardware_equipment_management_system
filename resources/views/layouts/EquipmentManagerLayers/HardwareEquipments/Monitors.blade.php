@@ -88,7 +88,7 @@
                                     <label for="edited_monitor_property_number"
                                            class="block text-gray-700 text-sm font-bold mb-2">کد اموال*</label>
                                     <input type="text" id="edited_monitor_property_number" name="edited_monitor_property_number"
-                                           class="border rounded-md w-full mb-4 px-3 py-2 text-right "
+                                           class="border rounded-md w-full mb-4 px-3 py-2 text-right " disabled
                                            placeholder="کد اموال را وارد کنید">
                                 </div>
                                 <div class="w-full">
@@ -177,7 +177,6 @@
         @php
             $eq_monitors=\App\Models\EquipmentedMonitor::where('person_id',$personId)->get();
         @endphp
-        @if(!$eq_monitors->isEmpty())
             <table class="w-full border-collapse rounded-lg overflow-hidden text-center">
                 <thead>
                 <tr class="bg-gradient-to-r from-blue-400 to-purple-500 items-center text-center text-white">
@@ -194,6 +193,7 @@
                     <th class="font-bold">عملیات</th>
                 </tr>
                 </thead>
+                @if(!$eq_monitors->isEmpty())
                 <tbody>
                 @foreach($eq_monitors as $monitors)
                     <tr class="even:bg-gray-300 odd:bg-white">
@@ -222,12 +222,7 @@
                     </tr>
                 @endforeach
                 </tbody>
+                @endif
             </table>
-        @else
-            <div class="flex p-3">
-                <h3 class="font-bold text-red-500 ml-4 mt-2">این کاربر مانیتور ثبت شده
-                    ندارد</h3>
-            </div>
-        @endif
     </div>
 </div>

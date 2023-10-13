@@ -41,6 +41,7 @@ use App\Http\Controllers\Reports\ExcelAllReportsController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\UserManager;
 //use App\Http\Controllers\WorkController;
+use App\Http\Controllers\WorkController;
 use App\Http\Middleware\CheckLoginMiddleware;
 use App\Http\Middleware\MenuMiddleware;
 use App\Http\Middleware\NTCPMiddleware;
@@ -270,8 +271,8 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
             //End Catalogs
 
             //Start Works Manager
-//            Route::get('/Works', [WorkController::class, 'index']);
-//            Route::post('/getHistory', [WorkController::class, 'getHistory'])->name('getHistory');
+            Route::get('/Works', [WorkController::class, 'index']);
+            Route::post('/getHistory', [WorkController::class, 'getHistory'])->name('getHistory');
             //End Works Manager
 
             //Start Reports

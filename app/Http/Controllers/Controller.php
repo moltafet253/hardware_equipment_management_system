@@ -25,14 +25,15 @@ class Controller extends BaseController
         ]);
     }
 
-    public function logEquipmentChanges($title, $equipment_id, $equipment_type, $user_id)
+    public function logEquipmentChanges($title, $equipment_id, $equipment_type,$property_number, $operator,$personal_code=null)
     {
-        $agent = new Agent();
         EquipmentLog::create([
             'equipment_id' => $equipment_id,
             'equipment_type' => $equipment_type,
             'title' => $title,
-            'operator' => $user_id,
+            'personal_code' => $personal_code,
+            'property_number' => $property_number,
+            'operator' => $operator,
         ]);
     }
 

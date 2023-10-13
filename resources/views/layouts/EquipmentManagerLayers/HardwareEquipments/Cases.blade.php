@@ -403,7 +403,7 @@
                                 <div class="ml-3 w-full">
                                     <label for="edited_case_property_number"
                                            class="block text-gray-700 text-sm font-bold mb-2">کد اموال*</label>
-                                    <input type="text" id="edited_case_property_number" name="edited_case_property_number"
+                                    <input type="text" id="edited_case_property_number" name="edited_case_property_number" disabled
                                            class="border rounded-md w-full mb-4 px-3 py-2 text-right edited_property_number"
                                            placeholder="کد اموال را وارد کنید">
                                 </div>

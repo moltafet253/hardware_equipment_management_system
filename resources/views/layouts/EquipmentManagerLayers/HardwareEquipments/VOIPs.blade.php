@@ -74,7 +74,7 @@
             <table class="w-full border-collapse rounded-lg overflow-hidden text-center">
                 <thead>
                 <tr class="bg-gradient-to-r from-blue-400 to-purple-500 items-center text-center text-white">
-                    <th class="font-bold ">
+                    <th class="font-bold w-8">
                         <button type="submit"
                                 class="px-4 py-2 mr-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300 AddVOIP">
                             جدید

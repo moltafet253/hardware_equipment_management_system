@@ -1,8 +1,8 @@
 <form id="new-comment">
     @csrf
     <div class="mb-4 flex items-center">
-        {{--                        <div class="fixed z-10 inset-0 overflow-y-auto " id="addCommentModal">--}}
-        <div class="fixed z-10 inset-0 overflow-y-auto hidden" id="addCommentModal">
+{{--        <div class="fixed z-10 inset-0 overflow-y-auto " id="addCommentModal">--}}
+                    <div class="fixed z-10 inset-0 overflow-y-auto hidden" id="addCommentModal">
             <div
                 class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center  sm:block sm:p-0">
                 <div class="fixed inset-0 transition-opacity" aria-hidden="true">
@@ -15,6 +15,23 @@
                             ثبت کار جدید
                         </h3>
                         <div class="mt-4">
+                            <div class="flex w-full">
+                                <div class="ml-4">
+                                    <label for="property_id"
+                                           class="block text-gray-700 text-sm font-bold mb-2">شماره اموال*</label>
+                                    <input type="text" id="property_id" name="property_id"
+                                           class="border rounded-md w-full mb-4 px-3 py-2 text-right "
+                                           placeholder="شماره اموال را وارد کنید">
+                                </div>
+                                <div>
+                                    <label for="title"
+                                           class="block text-gray-700 text-sm font-bold mb-2">نوع دستگاه</label>
+                                    <input type="text" id="property_id" name="property_id" value="{{ $product }}"
+                                           class="border rounded-md w-full mb-4 px-3 py-2 text-right bg-gray-200"
+                                           disabled
+                                           placeholder="شماره اموال را وارد کنید">
+                                </div>
+                            </div>
                             <div class="">
                                 <div class="ml-3 w-full">
                                     <label for="title"
@@ -79,59 +96,58 @@
         ثبت کار جدید
     </button>
 </div>
-<div class="bg-white rounded shadow flex flex-col">
-    <div class="max-w-full items-center overflow-x-auto">
-        @php
-            $comments=\App\Models\Comment::where('person_id',$personId)->get();
-        @endphp
 
-        <table class="w-full border-collapse rounded-lg overflow-hidden text-center">
-            <thead>
-            <tr class="bg-gradient-to-r from-blue-400 to-purple-500 items-center text-center text-white">
-                <th class=" px-6 py-3  font-bold ">موضوع</th>
-                <th class=" px-6 py-3  font-bold ">شماره تیکت</th>
-                <th class=" px-3 py-3  font-bold ">کارها</th>
-                <th class=" px-3 py-3  font-bold ">توضیحات</th>
-                <th class=" px-3 py-3  font-bold ">عملیات</th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach($comments as $comment)
-                <tr class="even:bg-gray-300 odd:bg-white">
-                    <td class=" px-3 py-3 "> {{ $comment->title }}</td>
-                    <td class=" px-3 py-3 "> {{ $comment->ticket_number }}</td>
-                    <td class=" px-3 py-3 ">
-                        @if($comment->jobs)
-                            @foreach (json_decode($comment->jobs) as $job)
-                                @php
-                                    $jobInfo=\App\Models\Catalogs\Job::find($job);
-                                @endphp
-                                {{ $jobInfo->title }}
-                                @unless ($loop->last)
-                                    |
-                                @endunless
-                            @endforeach
-                        @endif
-                    </td>
-                    <td class=" px-3 py-3 ">
-                        {{ $comment->description }}
-                    </td>
-                    <td class=" px-3 py-3 ">
-                        <button type="submit"
-                                class="px-4 py-2 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 EditComment">
-                            ویرایش
-                        </button>
-                    </td>
+@if( isset($comments) )
+    <div class="bg-white rounded shadow flex flex-col">
+        <div class="max-w-full items-center overflow-x-auto">
+            <table class="w-full border-collapse rounded-lg overflow-hidden text-center">
+                <thead>
+                <tr class="bg-gradient-to-r from-blue-400 to-purple-500 items-center text-center text-white">
+                    <th class=" px-6 py-3  font-bold ">موضوع</th>
+                    <th class=" px-6 py-3  font-bold ">شماره تیکت</th>
+                    <th class=" px-3 py-3  font-bold ">کارها</th>
+                    <th class=" px-3 py-3  font-bold ">توضیحات</th>
+                    <th class=" px-3 py-3  font-bold ">عملیات</th>
                 </tr>
-            @endforeach
-            </tbody>
-        </table>
-        <div class="flex p-3">
-            <h3 @if(!$comments->isEmpty()) hidden="hidden"
-                @endif class="font-bold text-red-500 ml-4 mt-2" id="CommentErr">برای این
-                پرسنل، کار ثبت
-                نشده است.</h3>
+                </thead>
+                <tbody>
+                @foreach($comments as $comment)
+                    <tr class="even:bg-gray-300 odd:bg-white">
+                        <td class=" px-3 py-3 "> {{ $comment->title }}</td>
+                        <td class=" px-3 py-3 "> {{ $comment->ticket_number }}</td>
+                        <td class=" px-3 py-3 ">
+                            @if($comment->jobs)
+                                @foreach (json_decode($comment->jobs) as $job)
+                                    @php
+                                        $jobInfo=\App\Models\Catalogs\Job::find($job);
+                                    @endphp
+                                    {{ $jobInfo->title }}
+                                    @unless ($loop->last)
+                                        |
+                                    @endunless
+                                @endforeach
+                            @endif
+                        </td>
+                        <td class=" px-3 py-3 ">
+                            {{ $comment->description }}
+                        </td>
+                        <td class=" px-3 py-3 ">
+                            <button type="submit"
+                                    class="px-4 py-2 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 EditComment">
+                                ویرایش
+                            </button>
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+            <div class="flex p-3">
+                <h3 @if(!$comments->isEmpty()) hidden="hidden"
+                    @endif class="font-bold text-red-500 ml-4 mt-2" id="CommentErr">برای این
+                    پرسنل، کار ثبت
+                    نشده است.</h3>
+            </div>
         </div>
     </div>
-</div>
 
+@endif
