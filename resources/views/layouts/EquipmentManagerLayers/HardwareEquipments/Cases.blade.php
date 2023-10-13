@@ -1,6 +1,6 @@
 <form id="new-case">
     @csrf
-    <div class="mb-4 flex items-center">
+    <div class=" flex items-center">
 {{--                    <div class="fixed z-10 inset-0 overflow-y-auto " id="addCaseModal">--}}
         <div class="fixed z-10 inset-0 overflow-y-auto hidden" id="addCaseModal">
             <div
@@ -384,7 +384,7 @@
 
 <form id="edit-case">
     @csrf
-    <div class="mb-4 flex items-center">
+    <div class="flex items-center">
         {{--            <div class="fixed z-10 inset-0 overflow-y-auto " id="addCaseModal">--}}
         <div class="fixed z-10 inset-0 overflow-y-auto hidden" id="editCaseModal">
             <div
@@ -877,43 +877,43 @@
         });
     });
 </script>
-<div class="flex pb-3">
-    <h3 class="font-bold pr-5 pt-2 ml-3">اطلاعات کیس</h3>
-    <button type="submit"
-            class="px-4 py-2 mr-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300 AddCase">
-        ثبت کیس جدید
-    </button>
-</div>
 
 <div class="bg-white rounded shadow flex flex-col">
     <div class="max-w-full items-center overflow-x-auto">
         @php
             $eq_cases=\App\Models\EquipmentedCase::where('person_id',$personId)->get();
         @endphp
-        @if(!$eq_cases->isEmpty())
             <table class="w-full border-collapse rounded-lg overflow-hidden text-center">
                 <thead>
                 <tr class="bg-gradient-to-r from-blue-400 to-purple-500 items-center text-center text-white">
-                    <th class=" px-6 py-3  font-bold ">کد اموال</th>
-                    <th class=" px-6 py-3  font-bold ">کد پلمپ</th>
-                    <th class=" px-3 py-3  font-bold ">نام کامپیوتر</th>
-                    <th class=" px-3 py-3  font-bold ">کیس</th>
-                    <th class=" px-3 py-3  font-bold ">پاور</th>
-                    <th class=" px-3 py-3  font-bold ">مادربورد</th>
-                    <th class=" px-3 py-3  font-bold ">پردازنده</th>
-                    <th class=" px-3 py-3  font-bold ">رم</th>
-                    <th class=" px-3 py-3  font-bold ">کارت گرافیک</th>
-                    <th class=" px-3 py-3  font-bold ">هارد</th>
-                    <th class=" px-3 py-3  font-bold ">عملیات</th>
+                    <th class=" font-bold w-8">
+                        <button type="submit"
+                                class="px-4 py-2 mr-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300 AddCase">
+                            جدید
+                        </button>
+                    </th>
+                    <th class="font-bold ">کد اموال</th>
+                    <th class="font-bold ">کد پلمپ</th>
+                    <th class="font-bold ">نام کامپیوتر</th>
+                    <th class="font-bold ">کیس</th>
+                    <th class="font-bold ">پاور</th>
+                    <th class="font-bold ">مادربورد</th>
+                    <th class="font-bold ">پردازنده</th>
+                    <th class="font-bold ">رم</th>
+                    <th class="font-bold ">کارت گرافیک</th>
+                    <th class="font-bold ">هارد</th>
+                    <th class="font-bold ">عملیات</th>
                 </tr>
                 </thead>
+                @if(!$eq_cases->isEmpty())
                 <tbody>
                 @foreach($eq_cases as $case)
                     <tr class="even:bg-gray-300 odd:bg-white">
-                        <td class=" px-3 py-3 "> {{ $case->property_number }}</td>
-                        <td class=" px-3 py-3 ">{{ $case->stamp_number }}</td>
-                        <td class=" px-3 py-3 ">{{ $case->computer_name  }}</td>
-                        <td class=" px-3 py-3 ">
+                        <td class=" px-3 py-1 "></td>
+                        <td class=" px-3 py-1 "> {{ $case->property_number }}</td>
+                        <td class=" px-3 py-1 ">{{ $case->stamp_number }}</td>
+                        <td class=" px-3 py-1 ">{{ $case->computer_name  }}</td>
+                        <td class=" px-3 py-1 ">
                             @php
                                 $caseInfo = \App\Models\Catalogs\Cases::join('companies', 'cases.company_id', '=', 'companies.id')
                                 ->select('cases.*', 'companies.name as company_name') // انتخاب فیلدهای مورد نیاز
@@ -921,7 +921,7 @@
                             @endphp
                             {{ $caseInfo->company_name . ' ' . $caseInfo->model  }}
                         </td>
-                        <td class=" px-3 py-3 ">
+                        <td class=" px-3 py-1 ">
                             @php
                                 $powerInfo = \App\Models\Catalogs\Power::join('companies', 'powers.company_id', '=', 'companies.id')
                                 ->select('powers.*', 'companies.name as company_name')
@@ -929,7 +929,7 @@
                             @endphp
                             {{ $powerInfo->company_name . ' ' . $powerInfo->model. ' ' . $powerInfo->output_voltage  }}
                         </td>
-                        <td class=" px-3 py-3 ">
+                        <td class=" px-3 py-1 ">
                             @php
                                 $motherboardInfo = \App\Models\Catalogs\Motherboard::join('companies', 'motherboards.company_id', '=', 'companies.id')
                                 ->select('motherboards.*', 'companies.name as company_name')
@@ -937,7 +937,7 @@
                             @endphp
                             {{ $motherboardInfo->company_name . ' ' . $motherboardInfo->model. ' ' . $motherboardInfo->ram_slot_generation  }}
                         </td>
-                        <td class=" px-3 py-3 ">
+                        <td class=" px-3 py-1 ">
                             @php
                                 $cpuInfo = \App\Models\Catalogs\cpu::join('companies', 'cpus.company_id', '=', 'companies.id')
                                 ->select('cpus.*', 'companies.name as company_name')
@@ -945,7 +945,7 @@
                             @endphp
                             {{ $cpuInfo->company_name . ' ' . $cpuInfo->model. ' ' . $cpuInfo->generation  }}
                         </td>
-                        <td class=" px-3 py-3 ">
+                        <td class=" px-3 py-1 ">
                             @php
                                 $ramInfo = \App\Models\Catalogs\ram::join('companies', 'rams.company_id', '=', 'companies.id')
                                 ->select('rams.*', 'companies.name as company_name')
@@ -984,7 +984,7 @@
                             @endif
 
                         </td>
-                        <td class=" px-3 py-3 ">
+                        <td class=" px-3 py-1 ">
                             @if($case->graphic_card)
                             @php
                                 $graphicCardInfo = \App\Models\Catalogs\GraphicCard::join('companies', 'graphic_cards.company_id', '=', 'companies.id')
@@ -996,7 +996,7 @@
                                 Onboard
                             @endif
                         </td>
-                        <td class=" px-3 py-3 ">
+                        <td class=" px-3 py-1 ">
                             @php
                                 $hddInfo = \App\Models\Catalogs\Harddisk::join('companies', 'harddisks.company_id', '=', 'companies.id')
                                 ->select('harddisks.*', 'companies.name as company_name')
@@ -1034,20 +1034,16 @@
                                 {{ $hddInfo->company_name . ' ' . $hddInfo->model. ' ' . $hddInfo->capacity }}
                             @endif
                         </td>
-                        <td class=" px-3 py-3 ">
+                        <td class=" px-3 py-1 ">
                             <button type="submit" data-type="case" data-id="{{ $case->id }}"
-                                    class="px-4 py-2 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 EditEqCase">
+                                    class="px-1 py-1 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 EditEqCase">
                                 ویرایش
                             </button>
                         </td>
                     </tr>
                 @endforeach
                 </tbody>
+                @endif
             </table>
-        @else
-            <div class="flex p-3">
-                <h3 class="font-bold text-red-500 ml-4">این کاربر کیس ثبت شده ندارد</h3>
-            </div>
-        @endif
     </div>
 </div>

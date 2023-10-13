@@ -1,6 +1,6 @@
 <form id="new-monitor">
     @csrf
-    <div class="mb-4 flex items-center">
+    <div class="flex items-center">
         {{--            <div class="fixed z-10 inset-0 overflow-y-auto " id="addMonitorModal">--}}
         <div class="fixed z-10 inset-0 overflow-y-auto hidden" id="addMonitorModal">
             <div
@@ -68,7 +68,7 @@
 
 <form id="edit-monitor">
     @csrf
-    <div class="mb-4 flex items-center">
+    <div class="mb-2 flex items-center">
         {{--            <div class="fixed z-10 inset-0 overflow-y-auto " id="addMonitorModal">--}}
         <div class="fixed z-10 inset-0 overflow-y-auto hidden" id="editMonitorModal">
             <div
@@ -172,13 +172,6 @@
     });
 </script>
 
-<div class="flex pb-3 pt-6">
-    <h3 class="font-bold pr-5 pt-2 ml-3">اطلاعات مانیتور</h3>
-    <button type="submit"
-            class="px-4 py-2 mr-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300 AddMonitor">
-        ثبت مانیتور جدید
-    </button>
-</div>
 <div class="bg-white rounded shadow flex flex-col">
     <div class="max-w-full items-center overflow-x-auto">
         @php
@@ -188,18 +181,25 @@
             <table class="w-full border-collapse rounded-lg overflow-hidden text-center">
                 <thead>
                 <tr class="bg-gradient-to-r from-blue-400 to-purple-500 items-center text-center text-white">
-                    <th class="px-6 py-3 font-bold">کد اموال</th>
-                    <th class="px-3 py-3 font-bold">شرکت سازنده</th>
-                    <th class="px-3 py-3 font-bold">مدل</th>
-                    <th class="px-3 py-3 font-bold">سایز</th>
-                    <th class="px-3 py-3 font-bold">عملیات</th>
+                    <th class="font-bold w-8">
+                        <button type="submit"
+                                class="px-4 py-2 mr-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300 AddMonitor">
+                            جدید
+                        </button>
+                    </th>
+                    <th class="font-bold">کد اموال مانیتور</th>
+                    <th class="font-bold">شرکت سازنده مانیتور</th>
+                    <th class="font-bold">مدل مانیتور</th>
+                    <th class="font-bold">سایز مانیتور</th>
+                    <th class="font-bold">عملیات</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($eq_monitors as $monitors)
                     <tr class="even:bg-gray-300 odd:bg-white">
-                        <td class="px-3 py-3"> {{ $monitors->property_number }}</td>
-                        <td class="px-3 py-3">
+                        <td class="px-3 py-1"></td>
+                        <td class="px-3 py-1"> {{ $monitors->property_number }}</td>
+                        <td class="px-3 py-1">
                             @php
                                 $monitorInfo = \App\Models\Catalogs\Monitor::join('companies', 'monitors.company_id', '=', 'companies.id')
                                 ->select('monitors.*', 'companies.name as company_name')
@@ -207,15 +207,15 @@
                             @endphp
                             {{ $monitorInfo->company_name }}
                         </td>
-                        <td class="px-3 py-3">
+                        <td class="px-3 py-1">
                             {{ $monitorInfo->model }}
                         </td>
-                        <td class="px-3 py-3">
+                        <td class="px-3 py-1">
                             {{ $monitorInfo->size }}
                         </td>
-                        <td class="px-3 py-3">
+                        <td class="px-3 py-1">
                             <button type="submit" data-type="monitor" data-id="{{ $monitors->id }}"
-                                    class="px-4 py-2 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 EditEqMonitor">
+                                    class="px-1 py-1 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 EditEqMonitor">
                                 ویرایش
                             </button>
                         </td>
