@@ -23,7 +23,7 @@
         </div>
         @if(isset($_POST['personal_code']))
             <div class="mx-auto lg:mr-72">
-                <h1 class="text-2xl font-bold mb-4">تاریخچه تغییرات</h1>
+                <h1 class="text-2xl font-bold mb-4">تاریخچه تغییرات بر اساس کد پرسنلی</h1>
                 <div class="bg-white rounded shadow p-6">
                     <p>
                     @if( isset($message) )
