@@ -271,8 +271,12 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
             //End Catalogs
 
             //Start Works Manager
-            Route::get('/Works', [WorkController::class, 'index']);
-            Route::post('/getHistory', [WorkController::class, 'getHistory'])->name('getHistory');
+            Route::prefix('History')->group(function () {
+                Route::get('/PropertyNumber', [WorkController::class, 'indexPropertyNumber']);
+                Route::get('/PersonalCode', [WorkController::class, 'indexPersonalCode']);
+                Route::post('/getPropertyNumberHistory', [WorkController::class, 'getPropertyNumberHistory'])->name('getPropertyNumberHistory');
+                Route::post('/getPersonalCodeHistory', [WorkController::class, 'getPersonalCodeHistory'])->name('getPersonalCodeHistory');
+            });
             //End Works Manager
 
             //Start Reports

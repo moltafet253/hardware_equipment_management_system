@@ -9,7 +9,7 @@
                         $from=Monitor::find($change['from']);
                         $from_company=Company::find($from->company_id);
                         $to=Monitor::find($change['to']);
-                        $to_company=Company::find($from->company_id);
+                        $to_company=Company::find($to->company_id);
                         echo 'تغییر مانیتور از: '.$from_company->name. ' ' . $from->model . ' به: ' . $to_company->name. ' ' .$to->model;
                         break;
                     case 'delivery_date':

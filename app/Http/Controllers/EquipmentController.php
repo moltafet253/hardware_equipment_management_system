@@ -145,8 +145,10 @@ class EquipmentController extends Controller
         $case->network_card = $networkcard;
         $case->save();
         $this->logActivity('Equipmented Case Added =>' . $case->id, \request()->ip(), \request()->userAgent(), \session('id'));
+
+        $person=Person::find($personID);
         $this->logEquipmentChanges('Equipment Added', $case->id, 'case', $property_number, \session('id'), $personID);
-        $this->logEquipmentChanges('Assigned to this user => ' . $personID, $case->id, 'case', $property_number, \session('id'), $personID);
+        $this->logEquipmentChanges('Assigned to this user => ' . $person->personnel_code , $case->id, 'case', $property_number, \session('id'), $personID);
         return $this->success(true, 'caseAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
 
     }
@@ -183,8 +185,10 @@ class EquipmentController extends Controller
         $newmonitor->monitor_id = $monitor;
         $newmonitor->save();
         $this->logActivity('Equipmented Monitor Added =>' . $newmonitor->id, \request()->ip(), \request()->userAgent(), \session('id'));
+
+        $person=Person::find($personID);
         $this->logEquipmentChanges('Equipment Added', $newmonitor->id, 'monitor', $property_number, \session('id'), $personID);
-        $this->logEquipmentChanges('Assigned to this user => ' . $personID, $newmonitor->id, 'monitor', $property_number, \session('id'), $personID);
+        $this->logEquipmentChanges('Assigned to this user => ' . $person->personnel_code , $newmonitor->id, 'monitor', $property_number, \session('id'), $personID);
         return $this->success(true, 'monitorAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
 
     }
@@ -221,8 +225,10 @@ class EquipmentController extends Controller
         $newprinter->printer_id = $printer;
         $newprinter->save();
         $this->logActivity('Equipmented Printer Added =>' . $newprinter->id, \request()->ip(), \request()->userAgent(), \session('id'));
+
+        $person=Person::find($personID);
         $this->logEquipmentChanges('Equipment Added', $newprinter->id, 'printer', $property_number, \session('id'), $personID);
-        $this->logEquipmentChanges('Assigned to this user => ' . $personID, $newprinter->id, 'printer', $property_number, \session('id'), $personID);
+        $this->logEquipmentChanges('Assigned to this user => ' . $person->personnel_code , $newprinter->id, 'printer', $property_number, \session('id'), $personID);
         return $this->success(true, 'printerAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
@@ -258,8 +264,10 @@ class EquipmentController extends Controller
         $newscanner->scanner_id = $scanner;
         $newscanner->save();
         $this->logActivity('Equipmented Scanner Added =>' . $newscanner->id, \request()->ip(), \request()->userAgent(), \session('id'));
+
+        $person=Person::find($personID);
         $this->logEquipmentChanges('Equipment Added', $newscanner->id, 'scanner', $property_number, \session('id'), $personID);
-        $this->logEquipmentChanges('Assigned to this user => ' . $personID, $newscanner->id, 'scanner', $property_number, \session('id'), $personID);
+        $this->logEquipmentChanges('Assigned to this user => ' . $person->personnel_code , $newscanner->id, 'scanner', $property_number, \session('id'), $personID);
         return $this->success(true, 'scannerAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
@@ -295,8 +303,10 @@ class EquipmentController extends Controller
         $newcopymachine->copy_machine_id = $copymachine;
         $newcopymachine->save();
         $this->logActivity('Equipmented Copy Machine Added =>' . $newcopymachine->id, \request()->ip(), \request()->userAgent(), \session('id'));
+
+        $person=Person::find($personID);
         $this->logEquipmentChanges('Equipment Added', $newcopymachine->id, 'copy machine', $property_number, \session('id'), $personID);
-        $this->logEquipmentChanges('Assigned to this user => ' . $personID, $newcopymachine->id, 'copy machine', $property_number, \session('id'));
+        $this->logEquipmentChanges('Assigned to this user => ' . $person->personnel_code , $newcopymachine->id, 'copy machine', $property_number, \session('id'));
         return $this->success(true, 'copymachineAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
@@ -332,8 +342,10 @@ class EquipmentController extends Controller
         $newVOIP->VOIP_id = $VOIP;
         $newVOIP->save();
         $this->logActivity('Equipmented VOIP Added =>' . $newVOIP->id, \request()->ip(), \request()->userAgent(), \session('id'));
+
+        $person=Person::find($personID);
         $this->logEquipmentChanges('Equipment Added', $newVOIP->id, 'voip', $property_number, \session('id'), $personID);
-        $this->logEquipmentChanges('Assigned to this user => ' . $personID, $newVOIP->id, 'voip', $property_number, \session('id'), $personID);
+        $this->logEquipmentChanges('Assigned to this user => ' . $person->personnel_code , $newVOIP->id, 'voip', $property_number, \session('id'), $personID);
         return $this->success(true, 'VOIPAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
@@ -369,8 +381,10 @@ class EquipmentController extends Controller
         $newswitch->switch_id = $switch;
         $newswitch->save();
         $this->logActivity('Equipmented Switch Added =>' . $newswitch->id, \request()->ip(), \request()->userAgent(), \session('id'));
+
+        $person=Person::find($personID);
         $this->logEquipmentChanges('Equipment Added', $newswitch->id, 'switch', $property_number, \session('id'), $personID);
-        $this->logEquipmentChanges('Assigned to this user => ' . $personID, $newswitch->id, 'switch', $property_number, \session('id'), $personID);
+        $this->logEquipmentChanges('Assigned to this user => ' . $person->personnel_code , $newswitch->id, 'switch', $property_number, \session('id'), $personID);
         return $this->success(true, 'switchAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
@@ -406,8 +420,10 @@ class EquipmentController extends Controller
         $newModem->modem_id = $modem;
         $newModem->save();
         $this->logActivity('Equipmented Modem Added =>' . $newModem->id, \request()->ip(), \request()->userAgent(), \session('id'));
+
+        $person=Person::find($personID);
         $this->logEquipmentChanges('Equipment Added', $newModem->id, 'modem', $property_number, \session('id'), $personID);
-        $this->logEquipmentChanges('Assigned to this user => ' . $personID, $newModem->id, 'modem', $property_number, \session('id'), $personID);
+        $this->logEquipmentChanges('Assigned to this user => ' . $person->personnel_code , $newModem->id, 'modem', $property_number, \session('id'), $personID);
         return $this->success(true, 'modemAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
@@ -443,8 +459,10 @@ class EquipmentController extends Controller
         $newLaptop->modem_id = $modem;
         $newLaptop->save();
         $this->logActivity('Equipmented Modem Added =>' . $newLaptop->id, \request()->ip(), \request()->userAgent(), \session('id'));
+
+        $person=Person::find($personID);
         $this->logEquipmentChanges('Equipment Added', $newLaptop->id, 'laptop', $property_number, \session('id'), $personID);
-        $this->logEquipmentChanges('Assigned to this user => ' . $personID, $newLaptop->id, 'laptop', $property_number, \session('id'), $personID);
+        $this->logEquipmentChanges('Assigned to this user => ' . $person->personnel_code , $newLaptop->id, 'laptop', $property_number, \session('id'), $personID);
         return $this->success(true, 'modemAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
@@ -480,8 +498,10 @@ class EquipmentController extends Controller
         $newMobile->mobile_id = $mobile;
         $newMobile->save();
         $this->logActivity('Equipmented Mobile Added =>' . $newMobile->id, \request()->ip(), \request()->userAgent(), \session('id'));
+
+        $person=Person::find($personID);
         $this->logEquipmentChanges('Equipment Added', $newMobile->id, 'mobile', $property_number, \session('id'), $personID);
-        $this->logEquipmentChanges('Assigned to this user => ' . $personID, $newMobile->id, 'mobile', $property_number, \session('id'), $personID);
+        $this->logEquipmentChanges('Assigned to this user => ' . $person->personnel_code , $newMobile->id, 'mobile', $property_number, \session('id'), $personID);
         return $this->success(true, 'mobileAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
@@ -517,8 +537,10 @@ class EquipmentController extends Controller
         $newTablet->tablet_id = $tablet;
         $newTablet->save();
         $this->logActivity('Equipmented Tablet Added =>' . $newTablet->id, \request()->ip(), \request()->userAgent(), \session('id'));
+
+        $person=Person::find($personID);
         $this->logEquipmentChanges('Equipment Added', $newTablet->id, 'tablet', $property_number, \session('id'), $personID);
-        $this->logEquipmentChanges('Assigned to this user => ' . $personID, $newTablet->id, 'tablet', $property_number, \session('id'), $personID);
+        $this->logEquipmentChanges('Assigned to this user => ' . $person->personnel_code , $newTablet->id, 'tablet', $property_number, \session('id'), $personID);
         return $this->success(true, 'tabletAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
@@ -554,8 +576,10 @@ class EquipmentController extends Controller
         $newWebcam->webcam_id = $webcam;
         $newWebcam->save();
         $this->logActivity('Equipmented Webcam Added =>' . $newWebcam->id, \request()->ip(), \request()->userAgent(), \session('id'));
+
+        $person=Person::find($personID);
         $this->logEquipmentChanges('Equipment Added', $newWebcam->id, 'webcam', $property_number, \session('id'), $personID);
-        $this->logEquipmentChanges('Assigned to this user => ' . $personID, $newWebcam->id, 'webcam', $property_number, \session('id'), $personID);
+        $this->logEquipmentChanges('Assigned to this user => ' . $person->personnel_code , $newWebcam->id, 'webcam', $property_number, \session('id'), $personID);
         return $this->success(true, 'webcamAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
@@ -591,8 +615,10 @@ class EquipmentController extends Controller
         $newRecorder->recorder_id = $recorder;
         $newRecorder->save();
         $this->logActivity('Equipmented Recorder Added =>' . $newRecorder->id, \request()->ip(), \request()->userAgent(), \session('id'));
+
+        $person=Person::find($personID);
         $this->logEquipmentChanges('Equipment Added', $newRecorder->id, 'recorder', $property_number, \session('id'), $personID);
-        $this->logEquipmentChanges('Assigned to this user => ' . $personID, $newRecorder->id, 'recorder', $property_number, \session('id'), $personID);
+        $this->logEquipmentChanges('Assigned to this user => ' . $person->personnel_code , $newRecorder->id, 'recorder', $property_number, \session('id'), $personID);
         return $this->success(true, 'recorderAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
@@ -628,8 +654,10 @@ class EquipmentController extends Controller
         $newHeadphone->headphone_id = $headphone;
         $newHeadphone->save();
         $this->logActivity('Equipmented Headphone Added =>' . $newHeadphone->id, \request()->ip(), \request()->userAgent(), \session('id'));
+
+        $person=Person::find($personID);
         $this->logEquipmentChanges('Equipment Added', $newHeadphone->id, 'headphone', $property_number, \session('id'), $personID);
-        $this->logEquipmentChanges('Assigned to this user => ' . $personID, $newHeadphone->id, 'headphone', $property_number, \session('id'), $personID);
+        $this->logEquipmentChanges('Assigned to this user => ' . $person->personnel_code , $newHeadphone->id, 'headphone', $property_number, \session('id'), $personID);
         return $this->success(true, 'headphoneAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
@@ -665,8 +693,10 @@ class EquipmentController extends Controller
         $newSpeaker->speaker_id = $speaker;
         $newSpeaker->save();
         $this->logActivity('Equipmented Speaker Added =>' . $newSpeaker->id, \request()->ip(), \request()->userAgent(), \session('id'));
+
+        $person=Person::find($personID);
         $this->logEquipmentChanges('Equipment Added', $newSpeaker->id, 'speaker', $property_number, \session('id'), $personID);
-        $this->logEquipmentChanges('Assigned to this user => ' . $personID, $newSpeaker->id, 'speaker', $property_number, \session('id'), $personID);
+        $this->logEquipmentChanges('Assigned to this user => ' . $person->personnel_code , $newSpeaker->id, 'speaker', $property_number, \session('id'), $personID);
         return $this->success(true, 'speakerAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
@@ -702,8 +732,10 @@ class EquipmentController extends Controller
         $newVideoProjector->video_projector_id = $videoprojector;
         $newVideoProjector->save();
         $this->logActivity('Equipmented Video Projector Added =>' . $newVideoProjector->id, \request()->ip(), \request()->userAgent(), \session('id'));
+
+        $person=Person::find($personID);
         $this->logEquipmentChanges('Equipment Added', $newVideoProjector->id, 'video projector', $property_number, \session('id'), $personID);
-        $this->logEquipmentChanges('Assigned to this user => ' . $personID, $newVideoProjector->id, 'video projector', $property_number, \session('id'), $personID);
+        $this->logEquipmentChanges('Assigned to this user => ' . $person->personnel_code , $newVideoProjector->id, 'video projector', $property_number, \session('id'), $personID);
         return $this->success(true, 'videoProjectorAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
@@ -739,8 +771,10 @@ class EquipmentController extends Controller
         $newVideoProjectorCurtain->vp_curtain_id = $videoprojectorcurtain;
         $newVideoProjectorCurtain->save();
         $this->logActivity('Equipmented Video Projector Curtain Added =>' . $newVideoProjectorCurtain->id, \request()->ip(), \request()->userAgent(), \session('id'));
+
+        $person=Person::find($personID);
         $this->logEquipmentChanges('Equipment Added', $newVideoProjectorCurtain->id, 'video projector curtain', $property_number, \session('id'), $personID);
-        $this->logEquipmentChanges('Assigned to this user => ' . $personID, $newVideoProjectorCurtain->id, 'video projector curtain', $property_number, \session('id'), $personID);
+        $this->logEquipmentChanges('Assigned to this user => ' . $person->personnel_code , $newVideoProjectorCurtain->id, 'video projector curtain', $property_number, \session('id'), $personID);
         return $this->success(true, 'videoProjectorCurtainAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
