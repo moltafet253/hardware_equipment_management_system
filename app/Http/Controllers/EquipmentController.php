@@ -306,7 +306,7 @@ class EquipmentController extends Controller
 
         $person=Person::find($personID);
         $this->logEquipmentChanges('Equipment Added', $newcopymachine->id, 'copy machine', $property_number, \session('id'), $personID);
-        $this->logEquipmentChanges('Assigned to this user => ' . $person->personnel_code , $newcopymachine->id, 'copy machine', $property_number, \session('id'));
+        $this->logEquipmentChanges('Assigned to this user => ' . $person->personnel_code , $newcopymachine->id, 'copy machine', $property_number, \session('id'), $personID);
         return $this->success(true, 'copymachineAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
