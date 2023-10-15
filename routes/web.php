@@ -38,6 +38,7 @@ use App\Http\Controllers\EquipmentController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PersonController;
 use App\Http\Controllers\Reports\ExcelAllReportsController;
+use App\Http\Controllers\Reports\PDFReportController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\UserManager;
 //use App\Http\Controllers\WorkController;
@@ -280,9 +281,13 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
             //End Works Manager
 
             //Start Reports
-            //ExcelAllReports
+            //Excel Reports
             Route::get('/ExcelAllReports', [ExcelAllReportsController::class, 'index']);
             Route::get('/GetReport', [ExcelAllReportsController::class, 'getReport'])->name('GetReport');
+
+            //PDF Reports
+            Route::get('/PDFReports', [PDFReportController::class, 'index']);
+            Route::get('/GeneratePDF', [PDFReportController::class, 'generatePDF']);
             //End Reports
         });
 

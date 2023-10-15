@@ -170,6 +170,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Jenssegers\Agent\AgentServiceProvider::class,
         Ybazli\Faker\FakerServiceProvider::class,
+        niklasravnsborg\LaravelPdf\PdfServiceProvider::class,
     ])->toArray(),
 
     /*
@@ -187,6 +188,7 @@ return [
         // 'Example' => App\Facades\Example::class,
         'Agent' => Jenssegers\Agent\Facades\Agent::class,
         'Faker' => Ybazli\Faker\Facades\Faker::class,
+        'PDF' => niklasravnsborg\LaravelPdf\Facades\Pdf::class
     ])->toArray(),
 
 ];
