@@ -20,4 +20,8 @@ class Harddisk extends Model
         'connectivity_type',
         'active',
     ];
+    public function company()
+    {
+        return $this->belongsTo(Company::class, 'company_id', 'id');
+    }
 }

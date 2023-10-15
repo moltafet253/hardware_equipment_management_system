@@ -17,4 +17,8 @@ class Power extends Model
         'output_voltage',
         'active',
     ];
+    public function company()
+    {
+        return $this->belongsTo(Company::class, 'company_id', 'id');
+    }
 }

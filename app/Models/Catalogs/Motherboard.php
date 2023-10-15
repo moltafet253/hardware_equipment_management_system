@@ -21,4 +21,8 @@ class Motherboard extends Model
         'ram_slots_number',
         'active',
     ];
+    public function company()
+    {
+        return $this->belongsTo(Company::class, 'company_id', 'id');
+    }
 }

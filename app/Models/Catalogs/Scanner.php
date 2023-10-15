@@ -16,4 +16,8 @@ class Scanner extends Model
         'model',
         'active',
     ];
+    public function company()
+    {
+        return $this->belongsTo(Company::class, 'company_id', 'id');
+    }
 }

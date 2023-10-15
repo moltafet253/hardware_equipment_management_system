@@ -17,4 +17,8 @@ class cpu extends Model
         'generation',
         'active',
     ];
+    public function company()
+    {
+        return $this->belongsTo(Company::class, 'company_id', 'id');
+    }
 }
