@@ -1,4 +1,4 @@
-@php use App\Models\Catalogs\Cases;use App\Models\Catalogs\cpu;use App\Models\Catalogs\GraphicCard;use App\Models\Catalogs\Harddisk;use App\Models\Catalogs\Motherboard;use App\Models\Catalogs\NetworkCard;use App\Models\Catalogs\NetworkEquipments\Switches;use App\Models\Catalogs\Odd;use App\Models\Catalogs\Power;use App\Models\Catalogs\Ram;use App\Models\EquipmentedCase;use App\Models\EquipmentedNetworkDevices\EquipmentedSwitch;use App\Models\EquipmentedVoip; @endphp
+@php use App\Models\Catalogs\Cases;use App\Models\Catalogs\cpu;use App\Models\Catalogs\GraphicCard;use App\Models\Catalogs\Harddisk;use App\Models\Catalogs\Motherboard;use App\Models\Catalogs\NetworkCard;use App\Models\Catalogs\NetworkEquipments\Modem;use App\Models\Catalogs\NetworkEquipments\Switches;use App\Models\Catalogs\Odd;use App\Models\Catalogs\Power;use App\Models\Catalogs\Ram;use App\Models\EquipmentedCase;use App\Models\EquipmentedNetworkDevices\EquipmentedModem;use App\Models\EquipmentedNetworkDevices\EquipmentedSwitch;use App\Models\EquipmentedVoip; @endphp
     <!DOCTYPE html>
 <html lang="fa">
 <head>
@@ -347,13 +347,14 @@
         <table class="GeneratedTable">
             <thead>
             <tr style="background-color:#ffcc00">
-                <th colspan="4">سوئیچ های ثبت شده</th>
+                <th colspan="5">سوئیچ های ثبت شده</th>
             </tr>
             <tr>
                 <th style="width:7%">ردیف</th>
                 <th style="width:10%">کد اموال</th>
                 <th style="width:15%">تاریخ تحویل</th>
                 <th>مشخصات</th>
+                <th style="width:10%">تعداد پورت</th>
             </tr>
             </thead>
             <tbody>
@@ -368,9 +369,58 @@
                     <td style="text-align: center">
                         @php
                             $switchInfo = Switches::with('company')->find($switch->switch_id);
-                            echo $switchInfo->company->name . ' ' . $switchInfo->model . ' ' . $switchInfo->ports_number . '<br>';
+                            echo $switchInfo->company->name . ' ' . $switchInfo->model . '<br>';
                         @endphp
                     </td>
+                    <td>{{ $switchInfo->ports_number }}</td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+    </div>
+
+    {{--    modems--}}
+    <div style="text-align: center; margin-top: 20px">
+        <table class="GeneratedTable">
+            <thead>
+            <tr style="background-color:#ffcc00">
+                <th colspan="7">مودم های ثبت شده</th>
+            </tr>
+            <tr>
+                <th style="width:7%">ردیف</th>
+                <th style="width:10%">کد اموال</th>
+                <th style="width:15%">تاریخ تحویل</th>
+                <th>مشخصات</th>
+                <th style="width:15%">نوع</th>
+                <th style="width:10%">نوع اتصال</th>
+                <th style="width:10%">تعداد پورت</th>
+            </tr>
+            </thead>
+            <tbody>
+            @php
+                $modems=EquipmentedModem::where('person_id',$personInfo->id)->get();
+            @endphp
+            @foreach($modems as $key=>$modem)
+                <tr>
+                    <td style="text-align: center">{{ ++$key }}</td>
+                    <td style="text-align: center">{{ $modem->property_number }}</td>
+                    <td style="text-align: center">{{ $modem->delivery_date }}</td>
+                    <td style="text-align: center">
+                        @php
+                            $modemInfo = Modem::with('company')->find($modem->modem_id);
+                            echo $modemInfo->company->name . ' ' . $modemInfo->model . '<br>';
+                        @endphp
+                    </td>
+                    <td>{{ $modemInfo->type }}</td>
+                    <td>
+                        @php
+                        $connectivity_types=json_decode($modemInfo->connectivity_type);
+                        @endphp
+                        @foreach ($connectivity_types as $types)
+                            {{ $types }}
+                        @endforeach
+                    </td>
+                    <td style="text-align: center">{{ $modemInfo->ports_number }}</td>
                 </tr>
             @endforeach
             </tbody>
