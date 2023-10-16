@@ -8,7 +8,7 @@
  use App\Models\Catalogs\NetworkEquipments\Switches;
  use App\Models\Catalogs\Odd;
  use App\Models\Catalogs\OtherEquipments\Headphone;use App\Models\Catalogs\OtherEquipments\Mobile;
- use App\Models\Catalogs\OtherEquipments\Recorder;use App\Models\Catalogs\OtherEquipments\Tablet;
+ use App\Models\Catalogs\OtherEquipments\Recorder;use App\Models\Catalogs\OtherEquipments\Speaker;use App\Models\Catalogs\OtherEquipments\Tablet;
  use App\Models\Catalogs\OtherEquipments\Webcam;use App\Models\Catalogs\Power;
  use App\Models\Catalogs\Ram;
  use App\Models\EquipmentedCase;
@@ -16,7 +16,7 @@
  use App\Models\EquipmentedNetworkDevices\EquipmentedSwitch;
  use App\Models\EquipmentedOtherDevices\EquipmentedHeadphone;
  use App\Models\EquipmentedOtherDevices\EquipmentedMobile;
- use App\Models\EquipmentedOtherDevices\EquipmentedRecorder;use App\Models\EquipmentedOtherDevices\EquipmentedTablet;
+ use App\Models\EquipmentedOtherDevices\EquipmentedRecorder;use App\Models\EquipmentedOtherDevices\EquipmentedSpeaker;use App\Models\EquipmentedOtherDevices\EquipmentedTablet;
  use App\Models\EquipmentedOtherDevices\EquipmentedWebcam;use App\Models\EquipmentedVoip;
 @endphp
     <!DOCTYPE html>
@@ -626,6 +626,41 @@
                         @php
                             $webcamInfo = Webcam::with('company')->find($webcam->webcam_id);
                             echo $webcamInfo->company->name . ' ' . $webcamInfo->model . '<br>';
+                        @endphp
+                    </td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+    </div>
+
+    {{--    speakers--}}
+    <div style="text-align: center; margin-top: 20px">
+        <table class="GeneratedTable">
+            <thead>
+            <tr style="background-color:#ffcc00">
+                <th colspan="4">اسپیکرهای ثبت شده</th>
+            </tr>
+            <tr>
+                <th style="width:7%">ردیف</th>
+                <th style="width:10%">کد اموال</th>
+                <th style="width:15%">تاریخ تحویل</th>
+                <th>مشخصات</th>
+            </tr>
+            </thead>
+            <tbody>
+            @php
+                $speakers=EquipmentedSpeaker::where('person_id',$personInfo->id)->get();
+            @endphp
+            @foreach($speakers as $key=>$speaker)
+                <tr>
+                    <td style="text-align: center">{{ ++$key }}</td>
+                    <td style="text-align: center">{{ $speaker->property_number }}</td>
+                    <td style="text-align: center">{{ $speaker->delivery_date }}</td>
+                    <td style="text-align: center">
+                        @php
+                            $speakerInfo = Speaker::with('company')->find($speaker->speaker_id);
+                            echo $speakerInfo->company->name . ' ' . $speakerInfo->model . '<br>';
                         @endphp
                     </td>
                 </tr>
