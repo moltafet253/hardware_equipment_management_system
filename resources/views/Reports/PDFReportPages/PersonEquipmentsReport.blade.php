@@ -1,4 +1,4 @@
-@php use App\Models\Catalogs\Cases;use App\Models\Catalogs\Company;use App\Models\Catalogs\cpu;use App\Models\Catalogs\GraphicCard;use App\Models\Catalogs\Harddisk;use App\Models\Catalogs\Motherboard;use App\Models\Catalogs\NetworkCard;use App\Models\Catalogs\Odd;use App\Models\Catalogs\Power;use App\Models\Catalogs\Ram;use App\Models\EquipmentedCase; @endphp
+@php use App\Models\Catalogs\Cases;use App\Models\Catalogs\cpu;use App\Models\Catalogs\GraphicCard;use App\Models\Catalogs\Harddisk;use App\Models\Catalogs\Motherboard;use App\Models\Catalogs\NetworkCard;use App\Models\Catalogs\NetworkEquipments\Switches;use App\Models\Catalogs\Odd;use App\Models\Catalogs\Power;use App\Models\Catalogs\Ram;use App\Models\EquipmentedCase;use App\Models\EquipmentedNetworkDevices\EquipmentedSwitch;use App\Models\EquipmentedVoip; @endphp
     <!DOCTYPE html>
 <html lang="fa">
 <head>
@@ -299,6 +299,76 @@
                         @php
                             $copymachineInfo = \App\Models\Catalogs\CopyMachine::with('company')->find($copymachine->copy_machine_id);
                             echo $copymachineInfo->company->name . ' ' . $copymachineInfo->model . '<br>';
+                        @endphp
+                    </td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+    </div>
+
+    {{--    voips--}}
+    <div style="text-align: center; margin-top: 20px">
+        <table class="GeneratedTable">
+            <thead>
+            <tr style="background-color:#ffcc00">
+                <th colspan="4">voip های ثبت شده</th>
+            </tr>
+            <tr>
+                <th style="width:7%">ردیف</th>
+                <th style="width:10%">کد اموال</th>
+                <th style="width:15%">تاریخ تحویل</th>
+                <th>مشخصات</th>
+            </tr>
+            </thead>
+            <tbody>
+            @php
+                $voips=EquipmentedVoip::where('person_id',$personInfo->id)->get();
+            @endphp
+            @foreach($voips as $key=>$voip)
+                <tr>
+                    <td style="text-align: center">{{ ++$key }}</td>
+                    <td style="text-align: center">{{ $voip->property_number }}</td>
+                    <td style="text-align: center">{{ $voip->delivery_date }}</td>
+                    <td style="text-align: center">
+                        @php
+                            $voipInfo = \App\Models\Catalogs\Voip::with('company')->find($voip->copy_machine_id);
+                            echo $voipInfo->company->name . ' ' . $voipInfo->model . '<br>';
+                        @endphp
+                    </td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+    </div>
+
+    {{--    switches--}}
+    <div style="text-align: center; margin-top: 20px">
+        <table class="GeneratedTable">
+            <thead>
+            <tr style="background-color:#ffcc00">
+                <th colspan="4">سوئیچ های ثبت شده</th>
+            </tr>
+            <tr>
+                <th style="width:7%">ردیف</th>
+                <th style="width:10%">کد اموال</th>
+                <th style="width:15%">تاریخ تحویل</th>
+                <th>مشخصات</th>
+            </tr>
+            </thead>
+            <tbody>
+            @php
+                $switches=EquipmentedSwitch::where('person_id',$personInfo->id)->get();
+            @endphp
+            @foreach($switches as $key=>$switch)
+                <tr>
+                    <td style="text-align: center">{{ ++$key }}</td>
+                    <td style="text-align: center">{{ $switch->property_number }}</td>
+                    <td style="text-align: center">{{ $switch->delivery_date }}</td>
+                    <td style="text-align: center">
+                        @php
+                            $switchInfo = Switches::with('company')->find($switch->switch_id);
+                            echo $switchInfo->company->name . ' ' . $switchInfo->model . ' ' . $switchInfo->ports_number . '<br>';
                         @endphp
                     </td>
                 </tr>
