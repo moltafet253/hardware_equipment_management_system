@@ -9,7 +9,7 @@
  use App\Models\Catalogs\Odd;
  use App\Models\Catalogs\OtherEquipments\Headphone;use App\Models\Catalogs\OtherEquipments\Mobile;
  use App\Models\Catalogs\OtherEquipments\Recorder;use App\Models\Catalogs\OtherEquipments\Speaker;use App\Models\Catalogs\OtherEquipments\Tablet;
- use App\Models\Catalogs\OtherEquipments\Webcam;use App\Models\Catalogs\Power;
+ use App\Models\Catalogs\OtherEquipments\VideoProjector;use App\Models\Catalogs\OtherEquipments\Webcam;use App\Models\Catalogs\Power;
  use App\Models\Catalogs\Ram;
  use App\Models\EquipmentedCase;
  use App\Models\EquipmentedNetworkDevices\EquipmentedModem;
@@ -17,7 +17,7 @@
  use App\Models\EquipmentedOtherDevices\EquipmentedHeadphone;
  use App\Models\EquipmentedOtherDevices\EquipmentedMobile;
  use App\Models\EquipmentedOtherDevices\EquipmentedRecorder;use App\Models\EquipmentedOtherDevices\EquipmentedSpeaker;use App\Models\EquipmentedOtherDevices\EquipmentedTablet;
- use App\Models\EquipmentedOtherDevices\EquipmentedWebcam;use App\Models\EquipmentedVoip;
+ use App\Models\EquipmentedOtherDevices\EquipmentedVideoProjector;use App\Models\EquipmentedOtherDevices\EquipmentedWebcam;use App\Models\EquipmentedVoip;
 @endphp
     <!DOCTYPE html>
 <html lang="fa">
@@ -661,6 +661,41 @@
                         @php
                             $speakerInfo = Speaker::with('company')->find($speaker->speaker_id);
                             echo $speakerInfo->company->name . ' ' . $speakerInfo->model . '<br>';
+                        @endphp
+                    </td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+    </div>
+
+    {{--    video projector--}}
+    <div style="text-align: center; margin-top: 20px">
+        <table class="GeneratedTable">
+            <thead>
+            <tr style="background-color:#ffcc00">
+                <th colspan="4">ویدئو پروژکتورهای ثبت شده</th>
+            </tr>
+            <tr>
+                <th style="width:7%">ردیف</th>
+                <th style="width:10%">کد اموال</th>
+                <th style="width:15%">تاریخ تحویل</th>
+                <th>مشخصات</th>
+            </tr>
+            </thead>
+            <tbody>
+            @php
+                $videoprojectors=EquipmentedVideoProjector::where('person_id',$personInfo->id)->get();
+            @endphp
+            @foreach($videoprojectors as $key=>$videoprojector)
+                <tr>
+                    <td style="text-align: center">{{ ++$key }}</td>
+                    <td style="text-align: center">{{ $videoprojector->property_number }}</td>
+                    <td style="text-align: center">{{ $videoprojector->delivery_date }}</td>
+                    <td style="text-align: center">
+                        @php
+                            $videoprojectorInfo = VideoProjector::with('company')->find($videoprojector->video_projector_id);
+                            echo $videoprojectorInfo->company->name . ' ' . $videoprojectorInfo->model . '<br>';
                         @endphp
                     </td>
                 </tr>
