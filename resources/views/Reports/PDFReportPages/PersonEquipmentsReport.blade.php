@@ -9,7 +9,7 @@
  use App\Models\Catalogs\Odd;
  use App\Models\Catalogs\OtherEquipments\Headphone;use App\Models\Catalogs\OtherEquipments\Mobile;
  use App\Models\Catalogs\OtherEquipments\Recorder;use App\Models\Catalogs\OtherEquipments\Speaker;use App\Models\Catalogs\OtherEquipments\Tablet;
- use App\Models\Catalogs\OtherEquipments\VideoProjector;use App\Models\Catalogs\OtherEquipments\Webcam;use App\Models\Catalogs\Power;
+ use App\Models\Catalogs\OtherEquipments\VideoProjector;use App\Models\Catalogs\OtherEquipments\VideoProjectorCurtain;use App\Models\Catalogs\OtherEquipments\Webcam;use App\Models\Catalogs\Power;
  use App\Models\Catalogs\Ram;
  use App\Models\EquipmentedCase;
  use App\Models\EquipmentedNetworkDevices\EquipmentedModem;
@@ -17,7 +17,7 @@
  use App\Models\EquipmentedOtherDevices\EquipmentedHeadphone;
  use App\Models\EquipmentedOtherDevices\EquipmentedMobile;
  use App\Models\EquipmentedOtherDevices\EquipmentedRecorder;use App\Models\EquipmentedOtherDevices\EquipmentedSpeaker;use App\Models\EquipmentedOtherDevices\EquipmentedTablet;
- use App\Models\EquipmentedOtherDevices\EquipmentedVideoProjector;use App\Models\EquipmentedOtherDevices\EquipmentedWebcam;use App\Models\EquipmentedVoip;
+ use App\Models\EquipmentedOtherDevices\EquipmentedVideoProjector;use App\Models\EquipmentedOtherDevices\EquipmentedVideoProjectorCurtain;use App\Models\EquipmentedOtherDevices\EquipmentedWebcam;use App\Models\EquipmentedVoip;
 @endphp
     <!DOCTYPE html>
 <html lang="fa">
@@ -669,7 +669,7 @@
         </table>
     </div>
 
-    {{--    video projector--}}
+    {{--    video projectors--}}
     <div style="text-align: center; margin-top: 20px">
         <table class="GeneratedTable">
             <thead>
@@ -704,7 +704,44 @@
         </table>
     </div>
 
-
+    {{--    video projector curtains--}}
+    <div style="text-align: center; margin-top: 20px">
+        <table class="GeneratedTable">
+            <thead>
+            <tr style="background-color:#ffcc00">
+                <th colspan="5">پرده ویدئو پروژکتورهای ثبت شده</th>
+            </tr>
+            <tr>
+                <th style="width:7%">ردیف</th>
+                <th style="width:10%">کد اموال</th>
+                <th style="width:15%">تاریخ تحویل</th>
+                <th>مشخصات</th>
+                <th>سایز</th>
+            </tr>
+            </thead>
+            <tbody>
+            @php
+                $videoprojectorCurtains=EquipmentedVideoProjectorCurtain::where('person_id',$personInfo->id)->get();
+            @endphp
+            @foreach($videoprojectorCurtains as $key=>$videoprojectorCurtain)
+                <tr>
+                    <td style="text-align: center">{{ ++$key }}</td>
+                    <td style="text-align: center">{{ $videoprojectorCurtain->property_number }}</td>
+                    <td style="text-align: center">{{ $videoprojectorCurtain->delivery_date }}</td>
+                    <td style="text-align: center">
+                        @php
+                            $videoprojectorCurtainInfo = VideoProjectorCurtain::with('company')->find($videoprojectorCurtain->vp_curtain_id);
+                            echo $videoprojectorCurtainInfo->company->name . ' ' . $videoprojectorCurtainInfo->model . '<br>';
+                        @endphp
+                    </td>
+                    <td>
+                        {{ $videoprojectorCurtainInfo->size }}
+                    </td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+    </div>
 </div>
 <htmlpagefooter name="page-footer">
     <p style="text-align:center">
