@@ -8,7 +8,7 @@
  use App\Models\Catalogs\NetworkEquipments\Switches;
  use App\Models\Catalogs\Odd;
  use App\Models\Catalogs\OtherEquipments\Headphone;use App\Models\Catalogs\OtherEquipments\Mobile;
- use App\Models\Catalogs\OtherEquipments\Tablet;
+ use App\Models\Catalogs\OtherEquipments\Recorder;use App\Models\Catalogs\OtherEquipments\Tablet;
  use App\Models\Catalogs\Power;
  use App\Models\Catalogs\Ram;
  use App\Models\EquipmentedCase;
@@ -16,7 +16,7 @@
  use App\Models\EquipmentedNetworkDevices\EquipmentedSwitch;
  use App\Models\EquipmentedOtherDevices\EquipmentedHeadphone;
  use App\Models\EquipmentedOtherDevices\EquipmentedMobile;
- use App\Models\EquipmentedOtherDevices\EquipmentedTablet;
+ use App\Models\EquipmentedOtherDevices\EquipmentedRecorder;use App\Models\EquipmentedOtherDevices\EquipmentedTablet;
  use App\Models\EquipmentedVoip;
 @endphp
     <!DOCTYPE html>
@@ -554,8 +554,43 @@
                     <td style="text-align: center">{{ $headphone->delivery_date }}</td>
                     <td style="text-align: center">
                         @php
-                            $headphoneInfo = Headphone::with('company')->find($headphone->scanner_id);
+                            $headphoneInfo = Headphone::with('company')->find($headphone->headphone_id);
                             echo $headphoneInfo->company->name . ' ' . $headphoneInfo->model . '<br>';
+                        @endphp
+                    </td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+    </div>
+
+    {{--    recorders--}}
+    <div style="text-align: center; margin-top: 20px">
+        <table class="GeneratedTable">
+            <thead>
+            <tr style="background-color:#ffcc00">
+                <th colspan="4">رکوردرهای ثبت شده</th>
+            </tr>
+            <tr>
+                <th style="width:7%">ردیف</th>
+                <th style="width:10%">کد اموال</th>
+                <th style="width:15%">تاریخ تحویل</th>
+                <th>مشخصات</th>
+            </tr>
+            </thead>
+            <tbody>
+            @php
+                $recorders=EquipmentedRecorder::where('person_id',$personInfo->id)->get();
+            @endphp
+            @foreach($recorders as $key=>$recorder)
+                <tr>
+                    <td style="text-align: center">{{ ++$key }}</td>
+                    <td style="text-align: center">{{ $recorder->property_number }}</td>
+                    <td style="text-align: center">{{ $recorder->delivery_date }}</td>
+                    <td style="text-align: center">
+                        @php
+                            $recorderInfo = Recorder::with('company')->find($recorder->recorder_id);
+                            echo $recorderInfo->company->name . ' ' . $recorderInfo->model . '<br>';
                         @endphp
                     </td>
                 </tr>
