@@ -13,7 +13,7 @@ return [
     'font_data' => [
         'vazir' => [
             'R' => 'Vazir.ttf', // regular font
-            'B' => 'Vazir-bold.ttf', // optional: bold font
+            'B' => 'Vazir-Bold.ttf', // optional: bold font
             'useOTL' => 0xFF, // required for complicated langs like Persian, Arabic and Chinese
             'useKashida' => 75, // required for complicated langs like Persian, Arabic and Chinese
         ]
