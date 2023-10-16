@@ -1,4 +1,4 @@
-@php use App\Models\Catalogs\Cases;use App\Models\Catalogs\cpu;use App\Models\Catalogs\GraphicCard;use App\Models\Catalogs\Harddisk;use App\Models\Catalogs\Motherboard;use App\Models\Catalogs\NetworkCard;use App\Models\Catalogs\NetworkEquipments\Modem;use App\Models\Catalogs\NetworkEquipments\Switches;use App\Models\Catalogs\Odd;use App\Models\Catalogs\Power;use App\Models\Catalogs\Ram;use App\Models\EquipmentedCase;use App\Models\EquipmentedNetworkDevices\EquipmentedModem;use App\Models\EquipmentedNetworkDevices\EquipmentedSwitch;use App\Models\EquipmentedVoip; @endphp
+@php use App\Models\Catalogs\Cases;use App\Models\Catalogs\cpu;use App\Models\Catalogs\GraphicCard;use App\Models\Catalogs\Harddisk;use App\Models\Catalogs\Motherboard;use App\Models\Catalogs\NetworkCard;use App\Models\Catalogs\NetworkEquipments\Modem;use App\Models\Catalogs\NetworkEquipments\Switches;use App\Models\Catalogs\Odd;use App\Models\Catalogs\OtherEquipments\Mobile;use App\Models\Catalogs\Power;use App\Models\Catalogs\Ram;use App\Models\EquipmentedCase;use App\Models\EquipmentedNetworkDevices\EquipmentedModem;use App\Models\EquipmentedNetworkDevices\EquipmentedSwitch;use App\Models\EquipmentedOtherDevices\EquipmentedMobile;use App\Models\EquipmentedVoip; @endphp
     <!DOCTYPE html>
 <html lang="fa">
 <head>
@@ -414,13 +414,54 @@
                     <td>{{ $modemInfo->type }}</td>
                     <td>
                         @php
-                        $connectivity_types=json_decode($modemInfo->connectivity_type);
+                            $connectivity_types=json_decode($modemInfo->connectivity_type);
                         @endphp
                         @foreach ($connectivity_types as $types)
                             {{ $types }}
                         @endforeach
                     </td>
                     <td style="text-align: center">{{ $modemInfo->ports_number }}</td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+    </div>
+
+    {{--    mobiles--}}
+    <div style="text-align: center; margin-top: 20px">
+        <table class="GeneratedTable">
+            <thead>
+            <tr style="background-color:#ffcc00">
+                <th colspan="6">تلفن همراه های ثبت شده</th>
+            </tr>
+            <tr>
+                <th style="width:7%">ردیف</th>
+                <th style="width:10%">کد اموال</th>
+                <th style="width:15%">تاریخ تحویل</th>
+                <th>مشخصات</th>
+                <th style="width:10%">رم</th>
+                <th style="width:10%">حافظه</th>
+                <th style="width:10%">تعداد سیمکارت</th>
+            </tr>
+            </thead>
+            <tbody>
+            @php
+                $mobiles=EquipmentedMobile::where('person_id',$personInfo->id)->get();
+            @endphp
+            @foreach($mobiles as $key=>$mobile)
+                <tr>
+                    <td style="text-align: center">{{ ++$key }}</td>
+                    <td style="text-align: center">{{ $mobile->property_number }}</td>
+                    <td style="text-align: center">{{ $mobile->delivery_date }}</td>
+                    <td style="text-align: center">
+                        @php
+                            $mobileInfo = Mobile::with('company')->find($mobile->mobile_id);
+                            echo $mobileInfo->company->name . ' ' . $mobileInfo->model . '<br>';
+                        @endphp
+                    </td>
+                    <td style="text-align: center">{{ $mobileInfo->ram }}</td>
+                    <td style="text-align: center">{{ $mobileInfo->internal_memory }}</td>
+                    <td style="text-align: center">{{ $mobileInfo->simcards_number }}</td>
                 </tr>
             @endforeach
             </tbody>
