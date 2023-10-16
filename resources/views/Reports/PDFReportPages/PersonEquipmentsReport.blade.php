@@ -63,10 +63,10 @@
     </h2>
 
     {{--    cases--}}
-    <div style="text-align: center;margin: 0 auto;">
+    <div style="text-align: center">
         <table class="GeneratedTable">
             <thead>
-            <tr>
+            <tr style="background-color:#ffcc00">
                 <th colspan="5">کیس های ثبت شده</th>
             </tr>
             <tr>
@@ -80,13 +80,6 @@
             <tbody>
             @php
                 $cases=EquipmentedCase::where('person_id',$personInfo->id)->get();
-                function getCompanyInfo($company_id){
-                    $company=Company::find($company_id);
-                    if ($company){
-                        return $company;
-                    }
-                    return null;
-                }
             @endphp
             @foreach($cases as $key=>$case)
                 <tr>
@@ -170,10 +163,116 @@
             @endforeach
             </tbody>
         </table>
-        <!-- Codes by Quackit.com -->
-
-
     </div>
+
+    {{--    monitors--}}
+    <div style="text-align: center; margin-top: 20px">
+        <table class="GeneratedTable">
+            <thead>
+            <tr style="background-color:#ffcc00">
+                <th colspan="4">مانیتور های ثبت شده</th>
+            </tr>
+            <tr>
+                <th style="width:7%">ردیف</th>
+                <th style="width:10%">کد اموال</th>
+                <th style="width:15%">تاریخ تحویل</th>
+                <th>مشخصات</th>
+            </tr>
+            </thead>
+            <tbody>
+            @php
+                $monitors=\App\Models\EquipmentedMonitor::where('person_id',$personInfo->id)->get();
+            @endphp
+            @foreach($monitors as $key=>$monitor)
+                <tr>
+                    <td style="text-align: center">{{ ++$key }}</td>
+                    <td style="text-align: center">{{ $monitor->property_number }}</td>
+                    <td style="text-align: center">{{ $monitor->delivery_date }}</td>
+                    <td style="text-align: center">
+                        @php
+                            $monitorInfo = \App\Models\Catalogs\Monitor::with('company')->find($monitor->monitor_id);
+                            echo $monitorInfo->company->name . ' ' . $monitorInfo->model . ' ' . $monitorInfo->size . 'inch <br>';
+                        @endphp
+                    </td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+    </div>
+
+    {{--    printers--}}
+    <div style="text-align: center; margin-top: 20px">
+        <table class="GeneratedTable">
+            <thead>
+            <tr style="background-color:#ffcc00">
+                <th colspan="5">پرینترهای ثبت شده</th>
+            </tr>
+            <tr>
+                <th style="width:7%">ردیف</th>
+                <th style="width:10%">کد اموال</th>
+                <th style="width:15%">تاریخ تحویل</th>
+                <th>مشخصات</th>
+                <th>نوع</th>
+            </tr>
+            </thead>
+            <tbody>
+            @php
+                $printers=\App\Models\EquipmentedPrinter::where('person_id',$personInfo->id)->get();
+            @endphp
+            @foreach($printers as $key=>$printer)
+                <tr>
+                    <td style="text-align: center">{{ ++$key }}</td>
+                    <td style="text-align: center">{{ $printer->property_number }}</td>
+                    <td style="text-align: center">{{ $printer->delivery_date }}</td>
+                    <td style="text-align: center">
+                        @php
+                            $printerInfo = \App\Models\Catalogs\Printer::with('company')->find($printer->printer_id);
+                            echo $printerInfo->company->name . ' ' . $printerInfo->model . '<br>';
+                        @endphp
+                    </td>
+                    <td style="text-align: center">{{ $printerInfo->function_type }}</td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+    </div>
+
+    {{--    scanners--}}
+    <div style="text-align: center; margin-top: 20px">
+        <table class="GeneratedTable">
+            <thead>
+            <tr style="background-color:#ffcc00">
+                <th colspan="4">اسکنرهای ثبت شده</th>
+            </tr>
+            <tr>
+                <th style="width:7%">ردیف</th>
+                <th style="width:10%">کد اموال</th>
+                <th style="width:15%">تاریخ تحویل</th>
+                <th>مشخصات</th>
+            </tr>
+            </thead>
+            <tbody>
+            @php
+                $scanners=\App\Models\EquipmentedScanner::where('person_id',$personInfo->id)->get();
+            @endphp
+            @foreach($scanners as $key=>$scanner)
+                <tr>
+                    <td style="text-align: center">{{ ++$key }}</td>
+                    <td style="text-align: center">{{ $scanner->property_number }}</td>
+                    <td style="text-align: center">{{ $scanner->delivery_date }}</td>
+                    <td style="text-align: center">
+                        @php
+                            $scannerInfo = \App\Models\Catalogs\Printer::with('company')->find($scanner->scanner_id);
+                            echo $scannerInfo->company->name . ' ' . $scannerInfo->model . '<br>';
+                        @endphp
+                    </td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+    </div>
+
+
 </div>
 <htmlpagefooter name="page-footer">
     <p style="text-align:center">
