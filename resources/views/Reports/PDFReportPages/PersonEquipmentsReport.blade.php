@@ -1,4 +1,24 @@
-@php use App\Models\Catalogs\Cases;use App\Models\Catalogs\cpu;use App\Models\Catalogs\GraphicCard;use App\Models\Catalogs\Harddisk;use App\Models\Catalogs\Motherboard;use App\Models\Catalogs\NetworkCard;use App\Models\Catalogs\NetworkEquipments\Modem;use App\Models\Catalogs\NetworkEquipments\Switches;use App\Models\Catalogs\Odd;use App\Models\Catalogs\OtherEquipments\Mobile;use App\Models\Catalogs\OtherEquipments\Tablet;use App\Models\Catalogs\Power;use App\Models\Catalogs\Ram;use App\Models\EquipmentedCase;use App\Models\EquipmentedNetworkDevices\EquipmentedModem;use App\Models\EquipmentedNetworkDevices\EquipmentedSwitch;use App\Models\EquipmentedOtherDevices\EquipmentedMobile;use App\Models\EquipmentedOtherDevices\EquipmentedTablet;use App\Models\EquipmentedVoip; @endphp
+@php use App\Models\Catalogs\Cases;
+ use App\Models\Catalogs\cpu;
+ use App\Models\Catalogs\GraphicCard;
+ use App\Models\Catalogs\Harddisk;
+ use App\Models\Catalogs\Motherboard;
+ use App\Models\Catalogs\NetworkCard;
+ use App\Models\Catalogs\NetworkEquipments\Modem;
+ use App\Models\Catalogs\NetworkEquipments\Switches;
+ use App\Models\Catalogs\Odd;
+ use App\Models\Catalogs\OtherEquipments\Headphone;use App\Models\Catalogs\OtherEquipments\Mobile;
+ use App\Models\Catalogs\OtherEquipments\Tablet;
+ use App\Models\Catalogs\Power;
+ use App\Models\Catalogs\Ram;
+ use App\Models\EquipmentedCase;
+ use App\Models\EquipmentedNetworkDevices\EquipmentedModem;
+ use App\Models\EquipmentedNetworkDevices\EquipmentedSwitch;
+ use App\Models\EquipmentedOtherDevices\EquipmentedHeadphone;
+ use App\Models\EquipmentedOtherDevices\EquipmentedMobile;
+ use App\Models\EquipmentedOtherDevices\EquipmentedTablet;
+ use App\Models\EquipmentedVoip;
+@endphp
     <!DOCTYPE html>
 <html lang="fa">
 <head>
@@ -503,6 +523,41 @@
                     <td style="text-align: center">{{ $tabletInfo->ram }}</td>
                     <td style="text-align: center">{{ $tabletInfo->internal_memory }}</td>
                     <td style="text-align: center">{{ $tabletInfo->simcards_number }}</td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+    </div>
+
+    {{--    headphones--}}
+    <div style="text-align: center; margin-top: 20px">
+        <table class="GeneratedTable">
+            <thead>
+            <tr style="background-color:#ffcc00">
+                <th colspan="4">هدفون های ثبت شده</th>
+            </tr>
+            <tr>
+                <th style="width:7%">ردیف</th>
+                <th style="width:10%">کد اموال</th>
+                <th style="width:15%">تاریخ تحویل</th>
+                <th>مشخصات</th>
+            </tr>
+            </thead>
+            <tbody>
+            @php
+                $headphones=EquipmentedHeadphone::where('person_id',$personInfo->id)->get();
+            @endphp
+            @foreach($headphones as $key=>$headphone)
+                <tr>
+                    <td style="text-align: center">{{ ++$key }}</td>
+                    <td style="text-align: center">{{ $headphone->property_number }}</td>
+                    <td style="text-align: center">{{ $headphone->delivery_date }}</td>
+                    <td style="text-align: center">
+                        @php
+                            $headphoneInfo = Headphone::with('company')->find($headphone->scanner_id);
+                            echo $headphoneInfo->company->name . ' ' . $headphoneInfo->model . '<br>';
+                        @endphp
+                    </td>
                 </tr>
             @endforeach
             </tbody>
