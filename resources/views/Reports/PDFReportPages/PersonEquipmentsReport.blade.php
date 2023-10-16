@@ -272,6 +272,41 @@
         </table>
     </div>
 
+    {{--    copy machines--}}
+    <div style="text-align: center; margin-top: 20px">
+        <table class="GeneratedTable">
+            <thead>
+            <tr style="background-color:#ffcc00">
+                <th colspan="4">دستگاه کپی های ثبت شده</th>
+            </tr>
+            <tr>
+                <th style="width:7%">ردیف</th>
+                <th style="width:10%">کد اموال</th>
+                <th style="width:15%">تاریخ تحویل</th>
+                <th>مشخصات</th>
+            </tr>
+            </thead>
+            <tbody>
+            @php
+                $copymachines=\App\Models\EquipmentedCopyMachine::where('person_id',$personInfo->id)->get();
+            @endphp
+            @foreach($copymachines as $key=>$copymachine)
+                <tr>
+                    <td style="text-align: center">{{ ++$key }}</td>
+                    <td style="text-align: center">{{ $copymachine->property_number }}</td>
+                    <td style="text-align: center">{{ $copymachine->delivery_date }}</td>
+                    <td style="text-align: center">
+                        @php
+                            $copymachineInfo = \App\Models\Catalogs\CopyMachine::with('company')->find($copymachine->copy_machine_id);
+                            echo $copymachineInfo->company->name . ' ' . $copymachineInfo->model . '<br>';
+                        @endphp
+                    </td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+    </div>
+
 
 </div>
 <htmlpagefooter name="page-footer">
