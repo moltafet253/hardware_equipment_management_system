@@ -33,7 +33,7 @@ function hasOnlyPersianCharacters(input) {
 }
 
 function hasOnlyEnglishCharacters(input) {
-    var englishPattern = /^[a-zA-Z0-9\s]+$/;
+    var englishPattern = /^[a-zA-Z0-9\s-]+$/;
     return englishPattern.test(input);
 }
 
