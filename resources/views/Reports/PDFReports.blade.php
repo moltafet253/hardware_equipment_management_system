@@ -1,4 +1,4 @@
-@php use App\Models\Catalogs\Assistance;use App\Models\Person; @endphp
+@php use App\Models\Catalogs\Assistance;use App\Models\ExecutivePosition;use App\Models\Person;use App\Models\Province; @endphp
 @extends('layouts.PanelMaster')
 
 @section('content')
@@ -9,35 +9,37 @@
                 <h4 class="text-l font-bold">گزارش تجهیزات پرسنل خاص</h4>
                 <hr>
                 <form id="CenterPersonnel" action="/GeneratePDF">
-                <div class="flex p-4">
-                    <p class=" mt-2">لطفا یک پرسنل را انتخاب کنید:</p>
-                    <select id="person" class="border rounded-md w-96 px-3 py-2 select2" name="person">
-                        <option value="" disabled selected>انتخاب کنید</option>
-                        @php
-                            $persons = Person::where('work_place',35)->orderBy('family','asc')->get();
-                        @endphp
-                        @foreach($persons as $person)
-                            <option value="{{ $person->id }}">
-                                @php
-                                    $assistance=Assistance::find($person->assistance);
-                                @endphp
-                                {{ $person->personnel_code . ' - ' .$person->name . ' ' . $person->family. ' - ' . $assistance->name }}
-                            </option>
-                        @endforeach
-                    </select>
-                    <input type="hidden" name="work" id="work"  value="GetAllPersonEqiupments">
-                    <button type="submit"
-                            class="px-4 py-2 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 GetPersonEquipmentsReport">
-                        دریافت گزارش
-                    </button>
-                </div>
+                    <p class=" mt-4">لطفا پرسنل را انتخاب کنید:</p>
+                    <div class="flex p-4">
+                        <select id="person" class="border rounded-md w-full px-3 py-2 select2" name="person">
+                            <option value="" disabled selected>انتخاب کنید</option>
+                            @php
+                                $persons = Person::where('work_place',35)->orderBy('family','asc')->get();
+                            @endphp
+                            @foreach($persons as $person)
+                                <option value="{{ $person->id }}">
+                                    @php
+                                        $assistance=Assistance::find($person->assistance);
+                                        $province=Province::find($person->work_place);
+                                        $executivePosition=ExecutivePosition::find($person->executive_position);
+                                    @endphp
+                                    {{ $person->personnel_code . ' - ' .$person->name . ' ' . $person->family. ' - ' . $province->name. ' - ' . $assistance->name. ' - ' . $executivePosition->title }}
+                                </option>
+                            @endforeach
+                        </select>
+                        <input type="hidden" name="work" id="work" value="GetAllPersonEqiupments">
+                        <button type="submit"
+                                class="px-4 py-2 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 GetPersonEquipmentsReport">
+                            دریافت
+                        </button>
+                    </div>
                 </form>
             </div>
             <div class="bg-white rounded shadow p-6 mb-4">
-                <h4 class="text-l font-bold">گزارش تجهیزات معاونت خاص</h4>
+                <h4 class="text-l font-bold">گزارش تجهیزات معاونت/بخش خاص</h4>
                 <hr>
                 <div class="flex p-4">
-                    <p class=" mt-2">لطفا یک معاونت را انتخاب کنید:</p>
+                    <p class=" mt-2">لطفا یک معاونت/بخش را انتخاب کنید:</p>
                     <select id="assistance" class="border rounded-md w-96 px-3 py-2 select2" name="assistance">
                         <option value="" disabled selected>انتخاب کنید</option>
                         @php

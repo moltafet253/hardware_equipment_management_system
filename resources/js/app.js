@@ -99,7 +99,6 @@ function getJalaliDate() {
 
 $(document).ready(function () {
 
-
     switch (window.location.pathname) {
 
         case "/Profile":
