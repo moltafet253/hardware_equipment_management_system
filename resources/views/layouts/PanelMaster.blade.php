@@ -30,6 +30,11 @@
 </head>
 
 <body class="flex flex-col min-h-screen mt-14">
+<div id="loading_popup" class="hidden">
+    <div class="loader_popup"></div>
+    <p class="animate-pulse text-blue-700 text-xl mr-3">در حال پردازش اطلاعات...</p>
+</div>
+
 <header class="w-full fixed top-0 right-0 bg-cu-light py-5 md:px-2 lg:px-0">
     <div class="flex items-center lg:mx-2 mx-5">
         <div>
@@ -116,8 +121,6 @@
             </style>
 
             <aside data-theme="wireframe" class="bg-cu-light ">
-
-
                 <div class="drawer lg:drawer-open">
                     <input id="my-drawer-2" type="checkbox" class="drawer-toggle"/>
                     <div class="drawer-content flex flex-col items-center justify-center">

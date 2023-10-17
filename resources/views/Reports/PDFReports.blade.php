@@ -8,13 +8,13 @@
             <div class="bg-white rounded shadow p-6 mb-4">
                 <h4 class="text-l font-bold">گزارش تجهیزات پرسنل خاص</h4>
                 <hr>
-                <form id="CenterPersonnel" action="/GeneratePDF">
+                <form id="Personnel">
                     <p class=" mt-4">لطفا پرسنل را انتخاب کنید:</p>
                     <div class="flex p-4">
                         <select id="person" class="border rounded-md w-full px-3 py-2 select2" name="person">
-                            <option value="" disabled selected>انتخاب کنید</option>
+                            <option value="" selected>انتخاب کنید</option>
                             @php
-                                $persons = Person::where('work_place',35)->orderBy('family','asc')->get();
+                                $persons = Person::orderBy('family','asc')->get();
                             @endphp
                             @foreach($persons as $person)
                                 <option value="{{ $person->id }}">
@@ -38,8 +38,8 @@
             <div class="bg-white rounded shadow p-6 mb-4">
                 <h4 class="text-l font-bold">گزارش تجهیزات معاونت/بخش خاص</h4>
                 <hr>
+                <p class=" mt-2">لطفا یک معاونت/بخش را انتخاب کنید:</p>
                 <div class="flex p-4">
-                    <p class=" mt-2">لطفا یک معاونت/بخش را انتخاب کنید:</p>
                     <select id="assistance" class="border rounded-md w-96 px-3 py-2 select2" name="assistance">
                         <option value="" disabled selected>انتخاب کنید</option>
                         @php

@@ -287,7 +287,7 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
 
             //PDF Reports
             Route::get('/PDFReports', [PDFReportController::class, 'index']);
-            Route::get('/GeneratePDF', [PDFReportController::class, 'generatePDF']);
+            Route::post('/GeneratePDF', [PDFReportController::class, 'generatePDF']);
             //End Reports
         });
 

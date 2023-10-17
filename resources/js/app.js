@@ -72,6 +72,15 @@ function resetFields() {
     // checkboxes.forEach(input => input.selected = "");
 }
 
+function showLoadingPopup() {
+    loading_popup.style.display = 'flex';
+}
+
+// Function to hide the loading popup
+function hideLoadingPopup() {
+    loading_popup.style.display = '';
+}
+
 function getParameterByName(name, url) {
     if (!url) url = window.location.href;
     name = name.replace(/[\[\]]/g, '\\$&');
@@ -98,7 +107,7 @@ function getJalaliDate() {
 }
 
 $(document).ready(function () {
-
+    hideLoadingPopup();
     switch (window.location.pathname) {
 
         case "/Profile":
@@ -6029,6 +6038,26 @@ $(document).ready(function () {
 
             break;
         case '/ExcelAllReports':
+            break;
+        case '/PDFReports':
+            $('#Personnel').on('submit', function (e) {
+                e.preventDefault();
+                showLoadingPopup();
+                var form = $(this);
+                var data = form.serialize();
+                $.ajax({
+                    type: 'POST', url: '/GeneratePDF', data: data, headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    }, success: function (response) {
+                        if (response.errors) {
+                            if (response.errors.nullPersonnelCode) {
+                                swalFire('خطا!', response.errors.nullPersonnelCode[0], 'error', 'تلاش مجدد');
+                            }
+                        }
+                    }
+                });
+                hideLoadingPopup();
+            });
 
             break;
 
