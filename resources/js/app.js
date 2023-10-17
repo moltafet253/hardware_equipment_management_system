@@ -76,9 +76,8 @@ function showLoadingPopup() {
     loading_popup.style.display = 'flex';
 }
 
-// Function to hide the loading popup
 function hideLoadingPopup() {
-    loading_popup.style.display = '';
+    loading_popup.style.display = 'none';
 }
 
 function getParameterByName(name, url) {
@@ -6041,6 +6040,26 @@ $(document).ready(function () {
             break;
         case '/PDFReports':
             $('#Personnel').on('submit', function (e) {
+                e.preventDefault();
+                showLoadingPopup();
+                setTimeout(hideLoadingPopup, 2000);
+                var form = $(this);
+                var data = form.serialize();
+                $.ajax({
+                    type: 'POST', url: '/GeneratePDF', data: data, headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    }, success: function (response) {
+                        if (response.errors) {
+                            if (response.errors.nullPersonnelCode) {
+                                swalFire('خطا!', response.errors.nullPersonnelCode[0], 'error', 'تلاش مجدد');
+                            }else if (response.errors.nullPersonnelEquipment) {
+                                swalFire('خطا!', response.errors.nullPersonnelEquipment[0], 'error', 'تلاش مجدد');
+                            }
+                        }
+                    }
+                });
+            });
+            $('#Assistance').on('submit', function (e) {
                 e.preventDefault();
                 showLoadingPopup();
                 var form = $(this);
