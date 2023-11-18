@@ -145,11 +145,11 @@
                                         @php
                                             $rams = \App\Models\Catalogs\Ram::join('companies', 'rams.company_id', '=', 'companies.id')
                                                 ->where('rams.active',1)->orderBy('companies.name')
-                                                ->get(['rams.id', 'companies.name', 'rams.model', 'rams.type', 'rams.size']);
+                                                ->get(['rams.id', 'companies.name', 'rams.model', 'rams.type', 'rams.size', 'rams.frequency']);
                                         @endphp
                                         @foreach($rams as $ram)
                                             <option value="{{ $ram->id }}">
-                                                {{ $ram->name . ' - ' . $ram->model . ' - ' . $ram->type. ' - ' . $ram->size}}
+                                                {{ $ram->name . ' - ' . $ram->model . ' - ' . $ram->type. ' - ' . $ram->size. ' - ' . $ram->frequency}}
                                             </option>
                                         @endforeach
                                     </select>
@@ -171,11 +171,11 @@
                                         @php
                                             $rams = \App\Models\Catalogs\Ram::join('companies', 'rams.company_id', '=', 'companies.id')
                                                 ->where('rams.active',1)->orderBy('companies.name')
-                                                ->get(['rams.id', 'companies.name', 'rams.model', 'rams.type', 'rams.size']);
+                                                ->get(['rams.id', 'companies.name', 'rams.model', 'rams.type', 'rams.size', 'rams.frequency']);
                                         @endphp
                                         @foreach($rams as $ram)
                                             <option value="{{ $ram->id }}">
-                                                {{ $ram->name . ' - ' . $ram->model . ' - ' . $ram->type. ' - ' . $ram->size}}
+                                                {{ $ram->name . ' - ' . $ram->model . ' - ' . $ram->type. ' - ' . $ram->size. ' - ' . $ram->frequency}}
                                             </option>
                                         @endforeach
                                     </select>
@@ -191,11 +191,11 @@
                                         @php
                                             $rams = \App\Models\Catalogs\Ram::join('companies', 'rams.company_id', '=', 'companies.id')
                                                 ->where('rams.active',1)->orderBy('companies.name')
-                                                ->get(['rams.id', 'companies.name', 'rams.model', 'rams.type', 'rams.size']);
+                                                ->get(['rams.id', 'companies.name', 'rams.model', 'rams.type', 'rams.size', 'rams.frequency']);
                                         @endphp
                                         @foreach($rams as $ram)
                                             <option value="{{ $ram->id }}">
-                                                {{ $ram->name . ' - ' . $ram->model . ' - ' . $ram->type. ' - ' . $ram->size}}
+                                                {{ $ram->name . ' - ' . $ram->model . ' - ' . $ram->type. ' - ' . $ram->size. ' - ' . $ram->frequency}}
                                             </option>
                                         @endforeach
                                     </select>
@@ -211,11 +211,11 @@
                                         @php
                                             $rams = \App\Models\Catalogs\Ram::join('companies', 'rams.company_id', '=', 'companies.id')
                                                 ->where('rams.active',1)->orderBy('companies.name')
-                                                ->get(['rams.id', 'companies.name', 'rams.model', 'rams.type', 'rams.size']);
+                                                ->get(['rams.id', 'companies.name', 'rams.model', 'rams.type', 'rams.size', 'rams.frequency']);
                                         @endphp
                                         @foreach($rams as $ram)
                                             <option value="{{ $ram->id }}">
-                                                {{ $ram->name . ' - ' . $ram->model . ' - ' . $ram->type. ' - ' . $ram->size}}
+                                                {{ $ram->name . ' - ' . $ram->model . ' - ' . $ram->type. ' - ' . $ram->size. ' - ' . $ram->frequency}}
                                             </option>
                                         @endforeach
                                     </select>
@@ -510,11 +510,11 @@
                                         @php
                                             $rams = \App\Models\Catalogs\Ram::join('companies', 'rams.company_id', '=', 'companies.id')
                                                 ->where('rams.active',1)->orderBy('companies.name')
-                                                ->get(['rams.id', 'companies.name', 'rams.model', 'rams.type', 'rams.size']);
+                                                ->get(['rams.id', 'companies.name', 'rams.model', 'rams.type', 'rams.size', 'rams.frequency']);
                                         @endphp
                                         @foreach($rams as $ram)
                                             <option value="{{ $ram->id }}">
-                                                {{ $ram->name . ' - ' . $ram->model . ' - ' . $ram->type. ' - ' . $ram->size}}
+                                                {{ $ram->name . ' - ' . $ram->model . ' - ' . $ram->type. ' - ' . $ram->size. ' - ' . $ram->frequency}}
                                             </option>
                                         @endforeach
                                     </select>
@@ -536,11 +536,11 @@
                                         @php
                                             $rams = \App\Models\Catalogs\Ram::join('companies', 'rams.company_id', '=', 'companies.id')
                                                 ->where('rams.active',1)->orderBy('companies.name')
-                                                ->get(['rams.id', 'companies.name', 'rams.model', 'rams.type', 'rams.size']);
+                                                ->get(['rams.id', 'companies.name', 'rams.model', 'rams.type', 'rams.size', 'rams.frequency']);
                                         @endphp
                                         @foreach($rams as $ram)
                                             <option value="{{ $ram->id }}">
-                                                {{ $ram->name . ' - ' . $ram->model . ' - ' . $ram->type. ' - ' . $ram->size}}
+                                                {{ $ram->name . ' - ' . $ram->model . ' - ' . $ram->type. ' - ' . $ram->size. ' - ' . $ram->frequency}}
                                             </option>
                                         @endforeach
                                     </select>
@@ -556,11 +556,11 @@
                                         @php
                                             $rams = \App\Models\Catalogs\Ram::join('companies', 'rams.company_id', '=', 'companies.id')
                                                 ->where('rams.active',1)->orderBy('companies.name')
-                                                ->get(['rams.id', 'companies.name', 'rams.model', 'rams.type', 'rams.size']);
+                                                ->get(['rams.id', 'companies.name', 'rams.model', 'rams.type', 'rams.size', 'rams.frequency']);
                                         @endphp
                                         @foreach($rams as $ram)
                                             <option value="{{ $ram->id }}">
-                                                {{ $ram->name . ' - ' . $ram->model . ' - ' . $ram->type. ' - ' . $ram->size}}
+                                                {{ $ram->name . ' - ' . $ram->model . ' - ' . $ram->type. ' - ' . $ram->size. ' - ' . $ram->frequency}}
                                             </option>
                                         @endforeach
                                     </select>
@@ -576,11 +576,11 @@
                                         @php
                                             $rams = \App\Models\Catalogs\Ram::join('companies', 'rams.company_id', '=', 'companies.id')
                                                 ->where('rams.active',1)->orderBy('companies.name')
-                                                ->get(['rams.id', 'companies.name', 'rams.model', 'rams.type', 'rams.size']);
+                                                ->get(['rams.id', 'companies.name', 'rams.model', 'rams.type', 'rams.size', 'rams.frequency']);
                                         @endphp
                                         @foreach($rams as $ram)
                                             <option value="{{ $ram->id }}">
-                                                {{ $ram->name . ' - ' . $ram->model . ' - ' . $ram->type. ' - ' . $ram->size}}
+                                                {{ $ram->name . ' - ' . $ram->model . ' - ' . $ram->type. ' - ' . $ram->size. ' - ' . $ram->frequency}}
                                             </option>
                                         @endforeach
                                     </select>
