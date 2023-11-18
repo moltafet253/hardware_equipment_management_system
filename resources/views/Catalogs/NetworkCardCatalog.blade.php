@@ -173,6 +173,7 @@
                         <th class="px-6 py-3  font-bold ">نام سازنده</th>
                         <th class="px-6 py-3  font-bold ">مدل</th>
                         <th class="px-6 py-3  font-bold ">نوع اتصال</th>
+                        <th class="px-6 py-3  font-bold ">نوع عملکرد</th>
                         <th class="px-6 py-3  font-bold ">عملیات</th>
                     </tr>
                     </thead>
@@ -187,6 +188,7 @@
                                 {{ $NetworkCardInfo->name }}</td>
                             <td class="px-6 py-4">{{ $NetworkCard->model }}</td>
                             <td class="px-6 py-4">{{ $NetworkCard->connectivity_type }}</td>
+                            <td class="px-6 py-4">{{ $NetworkCard->function_type }}</td>
                             <td class="px-6 py-4">
                                 <button type="submit" data-id="{{ $NetworkCard->id }}"
                                         class="px-4 py-2 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 NetworkCardControl">
