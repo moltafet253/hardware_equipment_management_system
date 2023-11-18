@@ -35,7 +35,7 @@
                                                     @php
                                                         $brands=\App\Models\Catalogs\Company::
                                                         where('name','!=','ONBOARD')
-                                                        ->whereJsonContains('products', ['LAN/WLAN Card'])
+                                                        ->whereJsonContains('products', ['Network Card'])
                                                         ->orderBy('name')->get();
                                                     @endphp
                                                     @foreach($brands as $brand)
@@ -58,6 +58,16 @@
                                                     <option value="" disabled selected>انتخاب کنید</option>
                                                     <option value="PCI/PCIe">PCI/PCIe</option>
                                                     <option value="USB">USB</option>
+                                                </select>
+                                            </div>
+                                            <div class="flex flex-col items-right mb-2">
+                                                <label for="function_type"
+                                                       class="block text-gray-700 text-sm font-bold mb-2">نوع عملکرد*:</label>
+                                                <select id="function_type" class="border rounded-md w-full px-3 py-2"
+                                                        name="function_type">
+                                                    <option value="" disabled selected>انتخاب کنید</option>
+                                                    <option value="LAN">LAN</option>
+                                                    <option value="WLAN">WLAN</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -102,7 +112,7 @@
                                                     @php
                                                         $brands=\App\Models\Catalogs\Company::
                                                         where('name','!=','ONBOARD')
-                                                        ->whereJsonContains('products', ['LAN/WLAN Card'])
+                                                        ->whereJsonContains('products', ['Network Card'])
                                                         ->orderBy('name')->get();
                                                     @endphp
                                                     @foreach($brands as $brand)
@@ -126,6 +136,16 @@
                                                     <option value="" disabled selected>انتخاب کنید</option>
                                                     <option value="PCI/PCIe">PCI/PCIe</option>
                                                     <option value="USB">USB</option>
+                                                </select>
+                                            </div>
+                                            <div class="flex flex-col items-right mb-2">
+                                                <label for="function_typeForEdit"
+                                                       class="block text-gray-700 text-sm font-bold mb-2">نوع عملکرد*:</label>
+                                                <select id="function_typeForEdit" class="border rounded-md w-full px-3 py-2"
+                                                        name="function_typeForEdit">
+                                                    <option value="" disabled selected>انتخاب کنید</option>
+                                                    <option value="LAN">LAN</option>
+                                                    <option value="WLAN">WLAN</option>
                                                 </select>
                                             </div>
                                         </div>

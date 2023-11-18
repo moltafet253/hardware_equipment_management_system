@@ -1852,7 +1852,9 @@ $(document).ready(function () {
                                         } else if (response.errors.nullModel) {
                                             swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
                                         } else if (response.errors.nullConnectivityType) {
-                                            swalFire('خطا!', response.errors.nullGeneration[0], 'error', 'تلاش مجدد');
+                                            swalFire('خطا!', response.errors.nullConnectivityType[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullFunctionType) {
+                                            swalFire('خطا!', response.errors.nullFunctionType[0], 'error', 'تلاش مجدد');
                                         }
                                     } else if (response.success) {
                                         // swalFire('ثبت اطلاعات کارت شبکه موفقیت آمیز بود!', response.message.NetworkCardAdded[0], 'success', 'بستن');
@@ -1876,6 +1878,7 @@ $(document).ready(function () {
                             brandForEdit.value = response.company_id;
                             modelForEdit.value = response.model;
                             connectivity_typeForEdit.value = response.connectivity_type;
+                            function_typeForEdit.value = response.function_type;
                         }
                     }
                 });
@@ -1907,6 +1910,8 @@ $(document).ready(function () {
                                             swalFire('خطا!', response.errors.nullModel[0], 'error', 'تلاش مجدد');
                                         } else if (response.errors.nullConnectivityType) {
                                             swalFire('خطا!', response.errors.nullGeneration[0], 'error', 'تلاش مجدد');
+                                        } else if (response.errors.nullFunctionType) {
+                                            swalFire('خطا!', response.errors.nullFunctionType[0], 'error', 'تلاش مجدد');
                                         }
                                     } else if (response.success) {
                                         // swalFire('ویرایش کارت شبکه موفقیت آمیز بود!', response.message.NetworkCardEdited[0], 'success', 'بستن');
@@ -6052,7 +6057,7 @@ $(document).ready(function () {
                         if (response.errors) {
                             if (response.errors.nullPersonnelCode) {
                                 swalFire('خطا!', response.errors.nullPersonnelCode[0], 'error', 'تلاش مجدد');
-                            }else if (response.errors.nullPersonnelEquipment) {
+                            } else if (response.errors.nullPersonnelEquipment) {
                                 swalFire('خطا!', response.errors.nullPersonnelEquipment[0], 'error', 'تلاش مجدد');
                             }
                         }
