@@ -133,20 +133,38 @@ class EquipmentController extends Controller
         $case->cpu = $cpu;
         $case->ram1 = $ram1;
         $case->ram2 = $ram2;
+        if ($ram2 == null or $ram2 == 'فاقد رم') {
+            $case->ram2 = null;
+        }
         $case->ram3 = $ram3;
+        if ($ram3 == null or $ram3 == 'فاقد رم') {
+            $case->ram3 = null;
+        }
         $case->ram4 = $ram4;
+        if ($ram4 == null or $ram4 == 'فاقد رم') {
+            $case->ram4 = null;
+        }
         $case->hdd1 = $hdd1;
         $case->hdd2 = $hdd2;
+        if ($hdd2 == null or $hdd2 == 'فاقد هارد') {
+            $case->hdd2 = null;
+        }
         $case->hdd3 = $hdd3;
+        if ($hdd3 == null or $hdd3 == 'فاقد هارد') {
+            $case->hdd3 = null;
+        }
         $case->hdd4 = $hdd4;
-        if ($graphiccard) {
-            $case->graphic_card = $networkcard;
+        if ($hdd4 == null or $hdd4 == 'فاقد هارد') {
+            $case->hdd4 = null;
         }
-        if ($networkcard) {
-            $case->network_card = $networkcard;
+        if ($graphiccard == null or $graphiccard == 'فاقد کارت گرافیک') {
+            $case->graphic_card = null;
         }
-        if ($odd) {
-            $case->odd = $odd;
+        if ($networkcard == null or $networkcard == 'فاقد کارت شبکه') {
+            $case->network_card = null;
+        }
+        if ($odd == null or $odd == 'فاقد درایو نوری') {
+            $case->odd = null;
         }
         $case->save();
         $this->logActivity('Equipmented Case Added =>' . $case->id, \request()->ip(), \request()->userAgent(), \session('id'));
