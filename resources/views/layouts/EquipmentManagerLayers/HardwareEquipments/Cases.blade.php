@@ -1,7 +1,7 @@
 <form id="new-case">
     @csrf
     <div class=" flex items-center">
-{{--                    <div class="fixed z-10 inset-0 overflow-y-auto " id="addCaseModal">--}}
+        {{--                    <div class="fixed z-10 inset-0 overflow-y-auto " id="addCaseModal">--}}
         <div class="fixed z-10 inset-0 overflow-y-auto hidden" id="addCaseModal">
             <div
                 class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center  sm:block sm:p-0">
@@ -403,7 +403,8 @@
                                 <div class="ml-3 w-full">
                                     <label for="edited_case_property_number"
                                            class="block text-gray-700 text-sm font-bold mb-2">کد اموال*</label>
-                                    <input type="text" id="edited_case_property_number" name="edited_case_property_number" disabled
+                                    <input type="text" id="edited_case_property_number"
+                                           name="edited_case_property_number" disabled
                                            class="border rounded-md w-full mb-4 px-3 py-2 text-right edited_property_number"
                                            placeholder="کد اموال را وارد کنید">
                                 </div>
@@ -434,7 +435,8 @@
                             <div class="mb-4">
                                 <label for="edited_case"
                                        class="block text-gray-700 text-sm font-bold mb-2">کیس*</label>
-                                <select id="edited_case" class="border rounded-md w-96 px-3 py-2 select2" name="edited_case">
+                                <select id="edited_case" class="border rounded-md w-96 px-3 py-2 select2"
+                                        name="edited_case">
                                     <option value="" disabled selected>انتخاب کنید</option>
                                     @php
                                         $cases = \App\Models\Catalogs\Cases::join('companies', 'cases.company_id', '=', 'companies.id')
@@ -469,7 +471,8 @@
                             <div class="mb-4">
                                 <label for="edited_power"
                                        class="block text-gray-700 text-sm font-bold mb-2">منبع تغذیه*</label>
-                                <select id="edited_power" class="border rounded-md w-96 px-3 py-2 select2" name="edited_power">
+                                <select id="edited_power" class="border rounded-md w-96 px-3 py-2 select2"
+                                        name="edited_power">
                                     <option value="" disabled selected>انتخاب کنید</option>
                                     @php
                                         $powers = \App\Models\Catalogs\Power::join('companies', 'powers.company_id', '=', 'companies.id')
@@ -486,7 +489,8 @@
                             <div class="mb-4">
                                 <label for="edited_cpu"
                                        class="block text-gray-700 text-sm font-bold mb-2">پردازنده*</label>
-                                <select id="edited_cpu" class="border rounded-md w-96 px-3 py-2 select2" name="edited_cpu">
+                                <select id="edited_cpu" class="border rounded-md w-96 px-3 py-2 select2"
+                                        name="edited_cpu">
                                     <option value="" disabled selected>انتخاب کنید</option>
                                     @php
                                         $cpus = \App\Models\Catalogs\cpu::join('companies', 'cpus.company_id', '=', 'companies.id')
@@ -505,7 +509,8 @@
                                     <label for="edited_ram1"
                                            class="block text-gray-700 text-sm font-bold mt-3 whitespace-nowrap">رم
                                         1*</label>
-                                    <select id="edited_ram1" class="border rounded-md w-72 px-3 py-2 select2" name="edited_ram1">
+                                    <select id="edited_ram1" class="border rounded-md w-72 px-3 py-2 select2"
+                                            name="edited_ram1">
                                         <option value="" disabled selected>انتخاب کنید</option>
                                         @php
                                             $rams = \App\Models\Catalogs\Ram::join('companies', 'rams.company_id', '=', 'companies.id')
@@ -531,7 +536,8 @@
                                     <label for="edited_ram2"
                                            class="block text-gray-700 text-sm font-bold mt-3 whitespace-nowrap">رم
                                         2</label>
-                                    <select id="edited_ram2" class="border rounded-md w-96 px-3 py-2 select2" name="edited_ram2">
+                                    <select id="edited_ram2" class="border rounded-md w-96 px-3 py-2 select2"
+                                            name="edited_ram2">
                                         <option value="" selected>فاقد رم</option>
                                         @php
                                             $rams = \App\Models\Catalogs\Ram::join('companies', 'rams.company_id', '=', 'companies.id')
@@ -551,7 +557,8 @@
                                     <label for="edited_ram3"
                                            class="block text-gray-700 text-sm font-bold mt-3 whitespace-nowrap">رم
                                         3</label>
-                                    <select id="edited_ram3" class="border rounded-md w-96 px-3 py-2 select2" name="edited_ram3">
+                                    <select id="edited_ram3" class="border rounded-md w-96 px-3 py-2 select2"
+                                            name="edited_ram3">
                                         <option value="" selected>فاقد رم</option>
                                         @php
                                             $rams = \App\Models\Catalogs\Ram::join('companies', 'rams.company_id', '=', 'companies.id')
@@ -571,7 +578,8 @@
                                     <label for="edited_ram4"
                                            class="block text-gray-700 text-sm font-bold mt-3 whitespace-nowrap">رم
                                         4</label>
-                                    <select id="edited_ram4" class="border rounded-md w-96 px-3 py-2 select2" name="edited_ram4">
+                                    <select id="edited_ram4" class="border rounded-md w-96 px-3 py-2 select2"
+                                            name="edited_ram4">
                                         <option value="" selected>فاقد رم</option>
                                         @php
                                             $rams = \App\Models\Catalogs\Ram::join('companies', 'rams.company_id', '=', 'companies.id')
@@ -591,7 +599,8 @@
                                     <label for="edited_hdd1"
                                            class="block text-gray-700 text-sm font-bold mt-3 whitespace-nowrap">هارد
                                         1*</label>
-                                    <select id="edited_hdd1" class="border rounded-md w-72 px-3 py-2 select2" name="edited_hdd1">
+                                    <select id="edited_hdd1" class="border rounded-md w-72 px-3 py-2 select2"
+                                            name="edited_hdd1">
                                         <option value="" disabled selected>انتخاب کنید</option>
                                         @php
                                             $hdds = \App\Models\Catalogs\Harddisk::join('companies', 'harddisks.company_id', '=', 'companies.id')
@@ -618,7 +627,8 @@
                                     <label for="edited_hdd2"
                                            class="block text-gray-700 text-sm font-bold mt-3 whitespace-nowrap">هارد
                                         2</label>
-                                    <select id="edited_hdd2" class="border rounded-md w-96 px-3 py-2 select2" name="edited_hdd2">
+                                    <select id="edited_hdd2" class="border rounded-md w-96 px-3 py-2 select2"
+                                            name="edited_hdd2">
                                         <option value="" selected>فاقد هارد</option>
                                         @php
                                             $hdds = \App\Models\Catalogs\Harddisk::join('companies', 'harddisks.company_id', '=', 'companies.id')
@@ -639,7 +649,8 @@
                                     <label for="edited_hdd3"
                                            class="block text-gray-700 text-sm font-bold mt-3 whitespace-nowrap">هارد
                                         3</label>
-                                    <select id="edited_hdd3" class="border rounded-md w-96 px-3 py-2 select2" name="edited_hdd3">
+                                    <select id="edited_hdd3" class="border rounded-md w-96 px-3 py-2 select2"
+                                            name="edited_hdd3">
                                         <option value="" selected>فاقد هارد</option>
                                         @php
                                             $hdds = \App\Models\Catalogs\Harddisk::join('companies', 'harddisks.company_id', '=', 'companies.id')
@@ -660,7 +671,8 @@
                                     <label for="edited_hdd4"
                                            class="block text-gray-700 text-sm font-bold mt-3 whitespace-nowrap">هارد
                                         4</label>
-                                    <select id="edited_hdd4" class="border rounded-md w-96 px-3 py-2 select2" name="edited_hdd4">
+                                    <select id="edited_hdd4" class="border rounded-md w-96 px-3 py-2 select2"
+                                            name="edited_hdd4">
                                         <option value="" selected>فاقد هارد</option>
                                         @php
                                             $hdds = \App\Models\Catalogs\Harddisk::join('companies', 'harddisks.company_id', '=', 'companies.id')
@@ -715,7 +727,8 @@
                             <div>
                                 <label for="edited_odd"
                                        class="block text-gray-700 text-sm font-bold mb-2">درایو نوری*</label>
-                                <select id="edited_odd" class="border rounded-md w-96 px-3 py-2 select2" name="edited_odd">
+                                <select id="edited_odd" class="border rounded-md w-96 px-3 py-2 select2"
+                                        name="edited_odd">
                                     <option value="" selected>فاقد درایو نوری</option>
                                     @php
                                         $odds = \App\Models\Catalogs\Odd::join('companies', 'odds.company_id', '=', 'companies.id')
@@ -778,42 +791,42 @@
                 if (response) {
                     $(".eq_id").val(response.id);
                     $(".eq_type").val('case');
-                    edited_case_property_number.value=response.property_number;
-                    edited_stamp_number.value=response.stamp_number;
-                    edited_computer_name.value=response.computer_name;
-                    edited_case_delivery_date.value=response.delivery_date;
+                    edited_case_property_number.value = response.property_number;
+                    edited_stamp_number.value = response.stamp_number;
+                    edited_computer_name.value = response.computer_name;
+                    edited_case_delivery_date.value = response.delivery_date;
                     $("#edited_case").val(response.case).trigger("change");
                     $("#edited_motherboard").val(response.motherboard).trigger("change");
                     $("#edited_power").val(response.power).trigger("change");
                     $("#edited_cpu").val(response.cpu).trigger("change");
-                    if (response.ram1){
+                    if (response.ram1) {
                         $("#edited_ram1").val(response.ram1).trigger("change");
                         edited_ram1Div.classList.remove('hidden');
                     }
-                    if (response.ram2){
+                    if (response.ram2) {
                         $("#edited_ram2").val(response.ram2).trigger("change");
                         edited_ram2Div.classList.remove('hidden');
                     }
-                    if (response.ram3){
+                    if (response.ram3) {
                         $("#edited_ram3").val(response.ram3).trigger("change");
                         edited_ram3Div.classList.remove('hidden');
                     }
-                    if (response.ram4){
+                    if (response.ram4) {
                         $("#edited_ram4").val(response.ram4).trigger("change");
                         edited_ram4Div.classList.remove('hidden');
                     }
-                    if (response.hdd1){
+                    if (response.hdd1) {
                         $("#edited_hdd1").val(response.hdd1).trigger("change");
                     }
-                    if (response.hdd2){
+                    if (response.hdd2) {
                         $("#edited_hdd2").val(response.hdd2).trigger("change");
                         edited_hdd2Div.classList.remove('hidden');
                     }
-                    if (response.hdd3){
+                    if (response.hdd3) {
                         $("#edited_hdd3").val(response.hdd3).trigger("change");
                         edited_hdd3Div.classList.remove('hidden');
                     }
-                    if (response.hdd4){
+                    if (response.hdd4) {
                         $("#edited_hdd4").val(response.hdd4).trigger("change");
                         edited_hdd4Div.classList.remove('hidden');
                     }
@@ -836,35 +849,35 @@
                     $("#motherboard").val(bundleInfo.motherboard).trigger("change");
                     $("#power").val(bundleInfo.power).trigger("change");
                     $("#cpu").val(bundleInfo.cpu).trigger("change");
-                    if (bundleInfo.ram1){
+                    if (bundleInfo.ram1) {
                         $("#ram1").val(bundleInfo.ram1).trigger("change");
                         ram1Div.classList.remove('hidden');
                     }
-                    if (bundleInfo.ram2){
+                    if (bundleInfo.ram2) {
                         $("#ram2").val(bundleInfo.ram2).trigger("change");
                         ram2Div.classList.remove('hidden');
                     }
-                    if (bundleInfo.ram3){
+                    if (bundleInfo.ram3) {
                         $("#ram3").val(bundleInfo.ram3).trigger("change");
                         ram3Div.classList.remove('hidden');
                     }
-                    if (bundleInfo.ram4){
+                    if (bundleInfo.ram4) {
                         $("#ram4").val(bundleInfo.ram4).trigger("change");
                         ram4Div.classList.remove('hidden');
                         addRAM.classList.add('hidden');
                     }
-                    if (bundleInfo.hdd1){
+                    if (bundleInfo.hdd1) {
                         $("#hdd1").val(bundleInfo.hdd1).trigger("change");
                     }
-                    if (bundleInfo.hdd2){
+                    if (bundleInfo.hdd2) {
                         $("#hdd2").val(bundleInfo.hdd2).trigger("change");
                         hdd2Div.classList.remove('hidden');
                     }
-                    if (bundleInfo.hdd3){
+                    if (bundleInfo.hdd3) {
                         $("#hdd3").val(bundleInfo.hdd3).trigger("change");
                         hdd3Div.classList.remove('hidden');
                     }
-                    if (bundleInfo.hdd4){
+                    if (bundleInfo.hdd4) {
                         $("#hdd4").val(bundleInfo.hdd4).trigger("change");
                         hdd4Div.classList.remove('hidden');
                         addHDD.classList.add('hidden');
@@ -883,29 +896,29 @@
         @php
             $eq_cases=\App\Models\EquipmentedCase::where('person_id',$personId)->get();
         @endphp
-            <table class="w-full border-collapse rounded-lg overflow-hidden text-center">
-                <thead>
-                <tr class="bg-gradient-to-r from-blue-400 to-purple-500 items-center text-center text-white">
-                    <th class=" font-bold w-8">
-                        <button type="submit"
-                                class="px-4 py-2 mr-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300 AddCase">
-                            جدید
-                        </button>
-                    </th>
-                    <th class="font-bold ">کد اموال</th>
-                    <th class="font-bold ">کد پلمپ</th>
-                    <th class="font-bold ">نام کامپیوتر</th>
-                    <th class="font-bold ">کیس</th>
-                    <th class="font-bold ">پاور</th>
-                    <th class="font-bold ">مادربورد</th>
-                    <th class="font-bold ">پردازنده</th>
-                    <th class="font-bold ">رم</th>
-                    <th class="font-bold ">کارت گرافیک</th>
-                    <th class="font-bold ">هارد</th>
-                    <th class="font-bold ">عملیات</th>
-                </tr>
-                </thead>
-                @if(!$eq_cases->isEmpty())
+        <table class="w-full border-collapse rounded-lg overflow-hidden text-center">
+            <thead>
+            <tr class="bg-gradient-to-r from-blue-400 to-purple-500 items-center text-center text-white">
+                <th class=" font-bold w-8">
+                    <button type="submit"
+                            class="px-4 py-2 mr-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300 AddCase">
+                        جدید
+                    </button>
+                </th>
+                <th class="font-bold ">کد اموال</th>
+                <th class="font-bold ">کد پلمپ</th>
+                <th class="font-bold ">نام کامپیوتر</th>
+                <th class="font-bold ">کیس</th>
+                <th class="font-bold ">پاور</th>
+                <th class="font-bold ">مادربورد</th>
+                <th class="font-bold ">پردازنده</th>
+                <th class="font-bold ">رم</th>
+                <th class="font-bold ">کارت گرافیک</th>
+                <th class="font-bold ">هارد</th>
+                <th class="font-bold ">عملیات</th>
+            </tr>
+            </thead>
+            @if(!$eq_cases->isEmpty())
                 <tbody>
                 @foreach($eq_cases as $case)
                     <tr class="even:bg-gray-300 odd:bg-white">
@@ -986,12 +999,12 @@
                         </td>
                         <td class=" px-3 py-1 ">
                             @if($case->graphic_card)
-                            @php
-                                $graphicCardInfo = \App\Models\Catalogs\GraphicCard::join('companies', 'graphic_cards.company_id', '=', 'companies.id')
-                                ->select('graphic_cards.*', 'companies.name as company_name')
-                                ->find($case->graphic_card);
-                            @endphp
-                            {{ $graphicCardInfo->company_name . ' ' . $graphicCardInfo->model. ' ' . $graphicCardInfo->ram_size }}
+                                @php
+                                    $graphicCardInfo = \App\Models\Catalogs\GraphicCard::join('companies', 'graphic_cards.company_id', '=', 'companies.id')
+                                    ->select('graphic_cards.*', 'companies.name as company_name')
+                                    ->find($case->graphic_card);
+                                @endphp
+                                {{ $graphicCardInfo->company_name . ' ' . $graphicCardInfo->model. ' ' . $graphicCardInfo->ram_size }}
                             @else
                                 Onboard
                             @endif
@@ -1043,7 +1056,7 @@
                     </tr>
                 @endforeach
                 </tbody>
-                @endif
-            </table>
+            @endif
+        </table>
     </div>
 </div>

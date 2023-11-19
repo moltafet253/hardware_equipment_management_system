@@ -14,7 +14,7 @@ class EditEquipmentController extends Controller
     public function editEquipment(Request $request)
     {
         $eq_id = $request->input('eq_id');
-        $eq_type=$request->input('eq_type');
+        $eq_type = $request->input('eq_type');
         if ($eq_id) {
             switch ($eq_type) {
                 case 'case':
@@ -57,9 +57,6 @@ class EditEquipmentController extends Controller
                     if (!$hdd1) {
                         return $this->alerts(false, 'nullHDD', 'هارد انتخاب نشده است');
                     }
-                    if (!$networkcard) {
-                        $networkcard = 1;
-                    }
 
                     $equipmentedDevice = EquipmentedCase::find($eq_id);
 
@@ -81,7 +78,9 @@ class EditEquipmentController extends Controller
                     $equipmentedDevice->hdd3 = $hdd3;
                     $equipmentedDevice->hdd4 = $hdd4;
                     $equipmentedDevice->graphic_card = $graphiccard;
-                    $equipmentedDevice->network_card = $networkcard;
+                    if ($networkcard) {
+                        $equipmentedDevice->network_card = $networkcard;
+                    }
                     $equipmentedDevice->save();
 
                     $updatedData = [
@@ -184,13 +183,13 @@ class EditEquipmentController extends Controller
             //Equipment Changes Log
             $changes = array_diff_assoc($updatedData, $originalData);
 
-            if ($changes){
-                $lastLog=EquipmentLog::where('property_number',$equipmentedDevice->property_number)->orderBy('id','desc')->first();
-                $eq_log=new EquipmentLog();
-                $eq_log->equipment_id=$eq_id;
-                $eq_log->equipment_type=$eq_type;
-                $eq_log->property_number=$lastLog->property_number;
-                $eq_log->personal_code=$lastLog->personal_code;
+            if ($changes) {
+                $lastLog = EquipmentLog::where('property_number', $equipmentedDevice->property_number)->orderBy('id', 'desc')->first();
+                $eq_log = new EquipmentLog();
+                $eq_log->equipment_id = $eq_id;
+                $eq_log->equipment_type = $eq_type;
+                $eq_log->property_number = $lastLog->property_number;
+                $eq_log->personal_code = $lastLog->personal_code;
 
                 $changesArray = [];
                 foreach ($changes as $field => $value) {
@@ -203,7 +202,7 @@ class EditEquipmentController extends Controller
                 }
 
                 $eq_log->title = json_encode($changesArray);
-                $eq_log->operator=session('id');
+                $eq_log->operator = session('id');
                 $eq_log->save();
             }
 

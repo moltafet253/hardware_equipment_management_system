@@ -55,8 +55,8 @@ class EquipmentController extends Controller
 
     public function checkPropertyNumber($pNumber)
     {
-        $check=EquipmentLog::where('property_number',$pNumber)->first();
-        if ($check){
+        $check = EquipmentLog::where('property_number', $pNumber)->first();
+        if ($check) {
             return true;
         }
         return false;
@@ -70,7 +70,7 @@ class EquipmentController extends Controller
         }
 
         $property_number = $request->input('property_number');
-        if ($this->checkPropertyNumber($property_number)){
+        if ($this->checkPropertyNumber($property_number)) {
             return $this->alerts(false, 'duplicatePropertyNumber', 'کد اموال تکراری وارد شده است');
         }
 
@@ -119,9 +119,6 @@ class EquipmentController extends Controller
         if (!$hdd1) {
             return $this->alerts(false, 'nullHDD', 'هارد انتخاب نشده است');
         }
-        if (!$networkcard) {
-            $networkcard = 1;
-        }
 
         $case = new EquipmentedCase();
         $case->person_id = $personID;
@@ -142,13 +139,15 @@ class EquipmentController extends Controller
         $case->hdd3 = $hdd3;
         $case->hdd4 = $hdd4;
         $case->graphic_card = $graphiccard;
-        $case->network_card = $networkcard;
+        if ($networkcard) {
+            $case->network_card = $networkcard;
+        }
         $case->save();
         $this->logActivity('Equipmented Case Added =>' . $case->id, \request()->ip(), \request()->userAgent(), \session('id'));
 
-        $person=Person::find($personID);
+        $person = Person::find($personID);
         $this->logEquipmentChanges('Equipment Added', $case->id, 'case', $property_number, \session('id'), $personID);
-        $this->logEquipmentChanges('Assigned to this user => ' . $person->personnel_code , $case->id, 'case', $property_number, \session('id'), $personID);
+        $this->logEquipmentChanges('Assigned to this user => ' . $person->personnel_code, $case->id, 'case', $property_number, \session('id'), $personID);
         return $this->success(true, 'caseAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
 
     }
@@ -161,7 +160,7 @@ class EquipmentController extends Controller
         }
 
         $property_number = $request->input('property_number');
-        if ($this->checkPropertyNumber($property_number)){
+        if ($this->checkPropertyNumber($property_number)) {
             return $this->alerts(false, 'duplicatePropertyNumber', 'کد اموال تکراری وارد شده است');
         }
 
@@ -186,9 +185,9 @@ class EquipmentController extends Controller
         $newmonitor->save();
         $this->logActivity('Equipmented Monitor Added =>' . $newmonitor->id, \request()->ip(), \request()->userAgent(), \session('id'));
 
-        $person=Person::find($personID);
+        $person = Person::find($personID);
         $this->logEquipmentChanges('Equipment Added', $newmonitor->id, 'monitor', $property_number, \session('id'), $personID);
-        $this->logEquipmentChanges('Assigned to this user => ' . $person->personnel_code , $newmonitor->id, 'monitor', $property_number, \session('id'), $personID);
+        $this->logEquipmentChanges('Assigned to this user => ' . $person->personnel_code, $newmonitor->id, 'monitor', $property_number, \session('id'), $personID);
         return $this->success(true, 'monitorAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
 
     }
@@ -201,7 +200,7 @@ class EquipmentController extends Controller
         }
 
         $property_number = $request->input('property_number');
-        if ($this->checkPropertyNumber($property_number)){
+        if ($this->checkPropertyNumber($property_number)) {
             return $this->alerts(false, 'duplicatePropertyNumber', 'کد اموال تکراری وارد شده است');
         }
 
@@ -226,9 +225,9 @@ class EquipmentController extends Controller
         $newprinter->save();
         $this->logActivity('Equipmented Printer Added =>' . $newprinter->id, \request()->ip(), \request()->userAgent(), \session('id'));
 
-        $person=Person::find($personID);
+        $person = Person::find($personID);
         $this->logEquipmentChanges('Equipment Added', $newprinter->id, 'printer', $property_number, \session('id'), $personID);
-        $this->logEquipmentChanges('Assigned to this user => ' . $person->personnel_code , $newprinter->id, 'printer', $property_number, \session('id'), $personID);
+        $this->logEquipmentChanges('Assigned to this user => ' . $person->personnel_code, $newprinter->id, 'printer', $property_number, \session('id'), $personID);
         return $this->success(true, 'printerAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
@@ -240,7 +239,7 @@ class EquipmentController extends Controller
         }
 
         $property_number = $request->input('property_number');
-        if ($this->checkPropertyNumber($property_number)){
+        if ($this->checkPropertyNumber($property_number)) {
             return $this->alerts(false, 'duplicatePropertyNumber', 'کد اموال تکراری وارد شده است');
         }
 
@@ -265,9 +264,9 @@ class EquipmentController extends Controller
         $newscanner->save();
         $this->logActivity('Equipmented Scanner Added =>' . $newscanner->id, \request()->ip(), \request()->userAgent(), \session('id'));
 
-        $person=Person::find($personID);
+        $person = Person::find($personID);
         $this->logEquipmentChanges('Equipment Added', $newscanner->id, 'scanner', $property_number, \session('id'), $personID);
-        $this->logEquipmentChanges('Assigned to this user => ' . $person->personnel_code , $newscanner->id, 'scanner', $property_number, \session('id'), $personID);
+        $this->logEquipmentChanges('Assigned to this user => ' . $person->personnel_code, $newscanner->id, 'scanner', $property_number, \session('id'), $personID);
         return $this->success(true, 'scannerAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
@@ -279,7 +278,7 @@ class EquipmentController extends Controller
         }
 
         $property_number = $request->input('property_number');
-        if ($this->checkPropertyNumber($property_number)){
+        if ($this->checkPropertyNumber($property_number)) {
             return $this->alerts(false, 'duplicatePropertyNumber', 'کد اموال تکراری وارد شده است');
         }
 
@@ -304,9 +303,9 @@ class EquipmentController extends Controller
         $newcopymachine->save();
         $this->logActivity('Equipmented Copy Machine Added =>' . $newcopymachine->id, \request()->ip(), \request()->userAgent(), \session('id'));
 
-        $person=Person::find($personID);
+        $person = Person::find($personID);
         $this->logEquipmentChanges('Equipment Added', $newcopymachine->id, 'copy machine', $property_number, \session('id'), $personID);
-        $this->logEquipmentChanges('Assigned to this user => ' . $person->personnel_code , $newcopymachine->id, 'copy machine', $property_number, \session('id'), $personID);
+        $this->logEquipmentChanges('Assigned to this user => ' . $person->personnel_code, $newcopymachine->id, 'copy machine', $property_number, \session('id'), $personID);
         return $this->success(true, 'copymachineAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
@@ -318,7 +317,7 @@ class EquipmentController extends Controller
         }
 
         $property_number = $request->input('property_number');
-        if ($this->checkPropertyNumber($property_number)){
+        if ($this->checkPropertyNumber($property_number)) {
             return $this->alerts(false, 'duplicatePropertyNumber', 'کد اموال تکراری وارد شده است');
         }
 
@@ -343,9 +342,9 @@ class EquipmentController extends Controller
         $newVOIP->save();
         $this->logActivity('Equipmented VOIP Added =>' . $newVOIP->id, \request()->ip(), \request()->userAgent(), \session('id'));
 
-        $person=Person::find($personID);
+        $person = Person::find($personID);
         $this->logEquipmentChanges('Equipment Added', $newVOIP->id, 'voip', $property_number, \session('id'), $personID);
-        $this->logEquipmentChanges('Assigned to this user => ' . $person->personnel_code , $newVOIP->id, 'voip', $property_number, \session('id'), $personID);
+        $this->logEquipmentChanges('Assigned to this user => ' . $person->personnel_code, $newVOIP->id, 'voip', $property_number, \session('id'), $personID);
         return $this->success(true, 'VOIPAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
@@ -357,7 +356,7 @@ class EquipmentController extends Controller
         }
 
         $property_number = $request->input('property_number');
-        if ($this->checkPropertyNumber($property_number)){
+        if ($this->checkPropertyNumber($property_number)) {
             return $this->alerts(false, 'duplicatePropertyNumber', 'کد اموال تکراری وارد شده است');
         }
 
@@ -382,9 +381,9 @@ class EquipmentController extends Controller
         $newswitch->save();
         $this->logActivity('Equipmented Switch Added =>' . $newswitch->id, \request()->ip(), \request()->userAgent(), \session('id'));
 
-        $person=Person::find($personID);
+        $person = Person::find($personID);
         $this->logEquipmentChanges('Equipment Added', $newswitch->id, 'switch', $property_number, \session('id'), $personID);
-        $this->logEquipmentChanges('Assigned to this user => ' . $person->personnel_code , $newswitch->id, 'switch', $property_number, \session('id'), $personID);
+        $this->logEquipmentChanges('Assigned to this user => ' . $person->personnel_code, $newswitch->id, 'switch', $property_number, \session('id'), $personID);
         return $this->success(true, 'switchAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
@@ -396,7 +395,7 @@ class EquipmentController extends Controller
         }
 
         $property_number = $request->input('property_number');
-        if ($this->checkPropertyNumber($property_number)){
+        if ($this->checkPropertyNumber($property_number)) {
             return $this->alerts(false, 'duplicatePropertyNumber', 'کد اموال تکراری وارد شده است');
         }
 
@@ -421,9 +420,9 @@ class EquipmentController extends Controller
         $newModem->save();
         $this->logActivity('Equipmented Modem Added =>' . $newModem->id, \request()->ip(), \request()->userAgent(), \session('id'));
 
-        $person=Person::find($personID);
+        $person = Person::find($personID);
         $this->logEquipmentChanges('Equipment Added', $newModem->id, 'modem', $property_number, \session('id'), $personID);
-        $this->logEquipmentChanges('Assigned to this user => ' . $person->personnel_code , $newModem->id, 'modem', $property_number, \session('id'), $personID);
+        $this->logEquipmentChanges('Assigned to this user => ' . $person->personnel_code, $newModem->id, 'modem', $property_number, \session('id'), $personID);
         return $this->success(true, 'modemAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
@@ -435,7 +434,7 @@ class EquipmentController extends Controller
         }
 
         $property_number = $request->input('property_number');
-        if ($this->checkPropertyNumber($property_number)){
+        if ($this->checkPropertyNumber($property_number)) {
             return $this->alerts(false, 'duplicatePropertyNumber', 'کد اموال تکراری وارد شده است');
         }
 
@@ -460,9 +459,9 @@ class EquipmentController extends Controller
         $newLaptop->save();
         $this->logActivity('Equipmented Modem Added =>' . $newLaptop->id, \request()->ip(), \request()->userAgent(), \session('id'));
 
-        $person=Person::find($personID);
+        $person = Person::find($personID);
         $this->logEquipmentChanges('Equipment Added', $newLaptop->id, 'laptop', $property_number, \session('id'), $personID);
-        $this->logEquipmentChanges('Assigned to this user => ' . $person->personnel_code , $newLaptop->id, 'laptop', $property_number, \session('id'), $personID);
+        $this->logEquipmentChanges('Assigned to this user => ' . $person->personnel_code, $newLaptop->id, 'laptop', $property_number, \session('id'), $personID);
         return $this->success(true, 'modemAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
@@ -474,7 +473,7 @@ class EquipmentController extends Controller
         }
 
         $property_number = $request->input('property_number');
-        if ($this->checkPropertyNumber($property_number)){
+        if ($this->checkPropertyNumber($property_number)) {
             return $this->alerts(false, 'duplicatePropertyNumber', 'کد اموال تکراری وارد شده است');
         }
 
@@ -499,9 +498,9 @@ class EquipmentController extends Controller
         $newMobile->save();
         $this->logActivity('Equipmented Mobile Added =>' . $newMobile->id, \request()->ip(), \request()->userAgent(), \session('id'));
 
-        $person=Person::find($personID);
+        $person = Person::find($personID);
         $this->logEquipmentChanges('Equipment Added', $newMobile->id, 'mobile', $property_number, \session('id'), $personID);
-        $this->logEquipmentChanges('Assigned to this user => ' . $person->personnel_code , $newMobile->id, 'mobile', $property_number, \session('id'), $personID);
+        $this->logEquipmentChanges('Assigned to this user => ' . $person->personnel_code, $newMobile->id, 'mobile', $property_number, \session('id'), $personID);
         return $this->success(true, 'mobileAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
@@ -513,7 +512,7 @@ class EquipmentController extends Controller
         }
 
         $property_number = $request->input('property_number');
-        if ($this->checkPropertyNumber($property_number)){
+        if ($this->checkPropertyNumber($property_number)) {
             return $this->alerts(false, 'duplicatePropertyNumber', 'کد اموال تکراری وارد شده است');
         }
 
@@ -538,9 +537,9 @@ class EquipmentController extends Controller
         $newTablet->save();
         $this->logActivity('Equipmented Tablet Added =>' . $newTablet->id, \request()->ip(), \request()->userAgent(), \session('id'));
 
-        $person=Person::find($personID);
+        $person = Person::find($personID);
         $this->logEquipmentChanges('Equipment Added', $newTablet->id, 'tablet', $property_number, \session('id'), $personID);
-        $this->logEquipmentChanges('Assigned to this user => ' . $person->personnel_code , $newTablet->id, 'tablet', $property_number, \session('id'), $personID);
+        $this->logEquipmentChanges('Assigned to this user => ' . $person->personnel_code, $newTablet->id, 'tablet', $property_number, \session('id'), $personID);
         return $this->success(true, 'tabletAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
@@ -552,7 +551,7 @@ class EquipmentController extends Controller
         }
 
         $property_number = $request->input('property_number');
-        if ($this->checkPropertyNumber($property_number)){
+        if ($this->checkPropertyNumber($property_number)) {
             return $this->alerts(false, 'duplicatePropertyNumber', 'کد اموال تکراری وارد شده است');
         }
 
@@ -577,9 +576,9 @@ class EquipmentController extends Controller
         $newWebcam->save();
         $this->logActivity('Equipmented Webcam Added =>' . $newWebcam->id, \request()->ip(), \request()->userAgent(), \session('id'));
 
-        $person=Person::find($personID);
+        $person = Person::find($personID);
         $this->logEquipmentChanges('Equipment Added', $newWebcam->id, 'webcam', $property_number, \session('id'), $personID);
-        $this->logEquipmentChanges('Assigned to this user => ' . $person->personnel_code , $newWebcam->id, 'webcam', $property_number, \session('id'), $personID);
+        $this->logEquipmentChanges('Assigned to this user => ' . $person->personnel_code, $newWebcam->id, 'webcam', $property_number, \session('id'), $personID);
         return $this->success(true, 'webcamAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
@@ -591,7 +590,7 @@ class EquipmentController extends Controller
         }
 
         $property_number = $request->input('property_number');
-        if ($this->checkPropertyNumber($property_number)){
+        if ($this->checkPropertyNumber($property_number)) {
             return $this->alerts(false, 'duplicatePropertyNumber', 'کد اموال تکراری وارد شده است');
         }
 
@@ -616,9 +615,9 @@ class EquipmentController extends Controller
         $newRecorder->save();
         $this->logActivity('Equipmented Recorder Added =>' . $newRecorder->id, \request()->ip(), \request()->userAgent(), \session('id'));
 
-        $person=Person::find($personID);
+        $person = Person::find($personID);
         $this->logEquipmentChanges('Equipment Added', $newRecorder->id, 'recorder', $property_number, \session('id'), $personID);
-        $this->logEquipmentChanges('Assigned to this user => ' . $person->personnel_code , $newRecorder->id, 'recorder', $property_number, \session('id'), $personID);
+        $this->logEquipmentChanges('Assigned to this user => ' . $person->personnel_code, $newRecorder->id, 'recorder', $property_number, \session('id'), $personID);
         return $this->success(true, 'recorderAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
@@ -630,7 +629,7 @@ class EquipmentController extends Controller
         }
 
         $property_number = $request->input('property_number');
-        if ($this->checkPropertyNumber($property_number)){
+        if ($this->checkPropertyNumber($property_number)) {
             return $this->alerts(false, 'duplicatePropertyNumber', 'کد اموال تکراری وارد شده است');
         }
 
@@ -655,9 +654,9 @@ class EquipmentController extends Controller
         $newHeadphone->save();
         $this->logActivity('Equipmented Headphone Added =>' . $newHeadphone->id, \request()->ip(), \request()->userAgent(), \session('id'));
 
-        $person=Person::find($personID);
+        $person = Person::find($personID);
         $this->logEquipmentChanges('Equipment Added', $newHeadphone->id, 'headphone', $property_number, \session('id'), $personID);
-        $this->logEquipmentChanges('Assigned to this user => ' . $person->personnel_code , $newHeadphone->id, 'headphone', $property_number, \session('id'), $personID);
+        $this->logEquipmentChanges('Assigned to this user => ' . $person->personnel_code, $newHeadphone->id, 'headphone', $property_number, \session('id'), $personID);
         return $this->success(true, 'headphoneAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
@@ -669,7 +668,7 @@ class EquipmentController extends Controller
         }
 
         $property_number = $request->input('property_number');
-        if ($this->checkPropertyNumber($property_number)){
+        if ($this->checkPropertyNumber($property_number)) {
             return $this->alerts(false, 'duplicatePropertyNumber', 'کد اموال تکراری وارد شده است');
         }
 
@@ -694,9 +693,9 @@ class EquipmentController extends Controller
         $newSpeaker->save();
         $this->logActivity('Equipmented Speaker Added =>' . $newSpeaker->id, \request()->ip(), \request()->userAgent(), \session('id'));
 
-        $person=Person::find($personID);
+        $person = Person::find($personID);
         $this->logEquipmentChanges('Equipment Added', $newSpeaker->id, 'speaker', $property_number, \session('id'), $personID);
-        $this->logEquipmentChanges('Assigned to this user => ' . $person->personnel_code , $newSpeaker->id, 'speaker', $property_number, \session('id'), $personID);
+        $this->logEquipmentChanges('Assigned to this user => ' . $person->personnel_code, $newSpeaker->id, 'speaker', $property_number, \session('id'), $personID);
         return $this->success(true, 'speakerAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
@@ -708,7 +707,7 @@ class EquipmentController extends Controller
         }
 
         $property_number = $request->input('property_number');
-        if ($this->checkPropertyNumber($property_number)){
+        if ($this->checkPropertyNumber($property_number)) {
             return $this->alerts(false, 'duplicatePropertyNumber', 'کد اموال تکراری وارد شده است');
         }
 
@@ -733,9 +732,9 @@ class EquipmentController extends Controller
         $newVideoProjector->save();
         $this->logActivity('Equipmented Video Projector Added =>' . $newVideoProjector->id, \request()->ip(), \request()->userAgent(), \session('id'));
 
-        $person=Person::find($personID);
+        $person = Person::find($personID);
         $this->logEquipmentChanges('Equipment Added', $newVideoProjector->id, 'video projector', $property_number, \session('id'), $personID);
-        $this->logEquipmentChanges('Assigned to this user => ' . $person->personnel_code , $newVideoProjector->id, 'video projector', $property_number, \session('id'), $personID);
+        $this->logEquipmentChanges('Assigned to this user => ' . $person->personnel_code, $newVideoProjector->id, 'video projector', $property_number, \session('id'), $personID);
         return $this->success(true, 'videoProjectorAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
@@ -747,7 +746,7 @@ class EquipmentController extends Controller
         }
 
         $property_number = $request->input('property_number');
-        if ($this->checkPropertyNumber($property_number)){
+        if ($this->checkPropertyNumber($property_number)) {
             return $this->alerts(false, 'duplicatePropertyNumber', 'کد اموال تکراری وارد شده است');
         }
 
@@ -772,9 +771,9 @@ class EquipmentController extends Controller
         $newVideoProjectorCurtain->save();
         $this->logActivity('Equipmented Video Projector Curtain Added =>' . $newVideoProjectorCurtain->id, \request()->ip(), \request()->userAgent(), \session('id'));
 
-        $person=Person::find($personID);
+        $person = Person::find($personID);
         $this->logEquipmentChanges('Equipment Added', $newVideoProjectorCurtain->id, 'video projector curtain', $property_number, \session('id'), $personID);
-        $this->logEquipmentChanges('Assigned to this user => ' . $person->personnel_code , $newVideoProjectorCurtain->id, 'video projector curtain', $property_number, \session('id'), $personID);
+        $this->logEquipmentChanges('Assigned to this user => ' . $person->personnel_code, $newVideoProjectorCurtain->id, 'video projector curtain', $property_number, \session('id'), $personID);
         return $this->success(true, 'videoProjectorCurtainAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
 
