@@ -44,7 +44,7 @@ class BundledCaseController extends Controller
             return $this->alerts(false, 'nullHDD', 'هارد انتخاب نشده است');
         }
         if (!$networkcard) {
-            $networkcard = 1;
+            $networkcard = null;
         }
 
         $data = [
@@ -61,7 +61,7 @@ class BundledCaseController extends Controller
             'hdd3' => $hdd3,
             'hdd4' => $hdd4,
             'graphiccard' => $graphiccard,
-            'networkcard' => $networkcard,
+            'networkcard' => $networkcard
         ];
 
         $bundle = json_encode($data);
@@ -72,6 +72,7 @@ class BundledCaseController extends Controller
         $this->logActivity('Bundled Case Added =>' . $case->id, \request()->ip(), \request()->userAgent(), \session('id'));
         return $this->success(true, 'caseAdded', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
     }
+
     public function getBundledCaseInfo(Request $request)
     {
         $BundledCaseID = $request->input('id');
@@ -84,13 +85,14 @@ class BundledCaseController extends Controller
     {
         $BundledCaseID = $request->input('id');
         if ($BundledCaseID) {
-            $case=BundledCase::find($BundledCaseID);
+            $case = BundledCase::find($BundledCaseID);
             $case->delete();
             $this->logActivity('Bundled Case Deleted =>' . $case->id, \request()->ip(), \request()->userAgent(), \session('id'));
             return $this->success(true, 'caseDeleted', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
         }
-            return $this->alerts(false, 'nullCase', 'کیس انتخاب نشده است');
+        return $this->alerts(false, 'nullCase', 'کیس انتخاب نشده است');
     }
+
     public function index()
     {
         $bundledCaseList = BundledCase::paginate(20);
