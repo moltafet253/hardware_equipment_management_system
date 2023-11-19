@@ -538,7 +538,7 @@
                                         2</label>
                                     <select id="edited_ram2" class="border rounded-md w-96 px-3 py-2 select2"
                                             name="edited_ram2">
-                                        <option value="" selected>فاقد رم</option>
+                                        <option value="فاقد رم" selected>فاقد رم</option>
                                         @php
                                             $rams = \App\Models\Catalogs\Ram::join('companies', 'rams.company_id', '=', 'companies.id')
                                                 ->where('rams.active',1)->orderBy('companies.name')
@@ -559,7 +559,7 @@
                                         3</label>
                                     <select id="edited_ram3" class="border rounded-md w-96 px-3 py-2 select2"
                                             name="edited_ram3">
-                                        <option value="" selected>فاقد رم</option>
+                                        <option value="فاقد رم" selected>فاقد رم</option>
                                         @php
                                             $rams = \App\Models\Catalogs\Ram::join('companies', 'rams.company_id', '=', 'companies.id')
                                                 ->where('rams.active',1)->orderBy('companies.name')
@@ -580,7 +580,7 @@
                                         4</label>
                                     <select id="edited_ram4" class="border rounded-md w-96 px-3 py-2 select2"
                                             name="edited_ram4">
-                                        <option value="" selected>فاقد رم</option>
+                                        <option value="فاقد رم" selected>فاقد رم</option>
                                         @php
                                             $rams = \App\Models\Catalogs\Ram::join('companies', 'rams.company_id', '=', 'companies.id')
                                                 ->where('rams.active',1)->orderBy('companies.name')
@@ -629,7 +629,7 @@
                                         2</label>
                                     <select id="edited_hdd2" class="border rounded-md w-96 px-3 py-2 select2"
                                             name="edited_hdd2">
-                                        <option value="" selected>فاقد هارد</option>
+                                        <option value="فاقد هارد" selected>فاقد هارد</option>
                                         @php
                                             $hdds = \App\Models\Catalogs\Harddisk::join('companies', 'harddisks.company_id', '=', 'companies.id')
                                                 ->where('harddisks.type','!=','External')
@@ -651,7 +651,7 @@
                                         3</label>
                                     <select id="edited_hdd3" class="border rounded-md w-96 px-3 py-2 select2"
                                             name="edited_hdd3">
-                                        <option value="" selected>فاقد هارد</option>
+                                        <option value="فاقد هارد" selected>فاقد هارد</option>
                                         @php
                                             $hdds = \App\Models\Catalogs\Harddisk::join('companies', 'harddisks.company_id', '=', 'companies.id')
                                                 ->where('harddisks.type','!=','External')
@@ -673,7 +673,7 @@
                                         4</label>
                                     <select id="edited_hdd4" class="border rounded-md w-96 px-3 py-2 select2"
                                             name="edited_hdd4">
-                                        <option value="" selected>فاقد هارد</option>
+                                        <option value="فاقد هارد" selected>فاقد هارد</option>
                                         @php
                                             $hdds = \App\Models\Catalogs\Harddisk::join('companies', 'harddisks.company_id', '=', 'companies.id')
                                                 ->where('harddisks.type','!=','External')
@@ -693,7 +693,7 @@
                                        class="block text-gray-700 text-sm font-bold mb-2">کارت گرافیک مجزا*</label>
                                 <select id="edited_graphiccard" class="border rounded-md w-96 px-3 py-2 select2"
                                         name="edited_graphiccard">
-                                    <option value="" selected>فاقد کارت گرافیک</option>
+                                    <option value="فاقد کارت گرافیک" selected>فاقد کارت گرافیک</option>
                                     @php
                                         $graphic_cards = \App\Models\Catalogs\GraphicCard::join('companies', 'graphic_cards.company_id', '=', 'companies.id')
                                             ->where('graphic_cards.active',1)->orderBy('companies.name')
@@ -711,7 +711,7 @@
                                        class="block text-gray-700 text-sm font-bold mb-2">کارت شبکه*</label>
                                 <select id="edited_networkcard" class="border rounded-md w-96 px-3 py-2 select2"
                                         name="edited_networkcard">
-                                    <option value="" selected>فاقد کارت شبکه</option>
+                                    <option value="فاقد کارت شبکه" >فاقد کارت شبکه</option>
                                     @php
                                         $networkcards = \App\Models\Catalogs\NetworkCard::join('companies', 'network_cards.company_id', '=', 'companies.id')
                                             ->where('network_cards.active',1)->orderBy('companies.name')
@@ -729,7 +729,7 @@
                                        class="block text-gray-700 text-sm font-bold mb-2">درایو نوری*</label>
                                 <select id="edited_odd" class="border rounded-md w-96 px-3 py-2 select2"
                                         name="edited_odd">
-                                    <option value="" selected>فاقد درایو نوری</option>
+                                    <option value="فاقد درایو نوری">فاقد درایو نوری</option>
                                     @php
                                         $odds = \App\Models\Catalogs\Odd::join('companies', 'odds.company_id', '=', 'companies.id')
                                             ->where('odds.active',1)->orderBy('companies.name')

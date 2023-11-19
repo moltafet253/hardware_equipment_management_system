@@ -35,6 +35,7 @@ class EditEquipmentController extends Controller
                     $hdd4 = $request->input('edited_hdd4');
                     $graphiccard = $request->input('edited_graphiccard');
                     $networkcard = $request->input('edited_networkcard');
+                    $odd = $request->input('edited_odd');
 
                     if (!$stamp_number) {
                         return $this->alerts(false, 'nullStampNumber', 'شماره پلمپ وارد نشده است');
@@ -71,15 +72,38 @@ class EditEquipmentController extends Controller
                     $equipmentedDevice->cpu = $cpu;
                     $equipmentedDevice->ram1 = $ram1;
                     $equipmentedDevice->ram2 = $ram2;
+                    if ($ram2 == null or $ram2 == 'فاقد رم') {
+                        $equipmentedDevice->ram2 = null;
+                    }
                     $equipmentedDevice->ram3 = $ram3;
+                    if ($ram3 == null or $ram3 == 'فاقد رم') {
+                        $equipmentedDevice->ram3 = null;
+                    }
                     $equipmentedDevice->ram4 = $ram4;
+                    if ($ram4 == null or $ram4 == 'فاقد رم') {
+                        $equipmentedDevice->ram4 = null;
+                    }
                     $equipmentedDevice->hdd1 = $hdd1;
                     $equipmentedDevice->hdd2 = $hdd2;
+                    if ($hdd2 == null or $hdd2 == 'فاقد هارد') {
+                        $equipmentedDevice->hdd2 = null;
+                    }
                     $equipmentedDevice->hdd3 = $hdd3;
+                    if ($hdd3 == null or $hdd3 == 'فاقد هارد') {
+                        $equipmentedDevice->hdd3 = null;
+                    }
                     $equipmentedDevice->hdd4 = $hdd4;
-                    $equipmentedDevice->graphic_card = $graphiccard;
-                    if ($networkcard) {
-                        $equipmentedDevice->network_card = $networkcard;
+                    if ($hdd4 == null or $hdd4 == 'فاقد هارد') {
+                        $equipmentedDevice->hdd4 = null;
+                    }
+                    if ($graphiccard == null or $graphiccard == 'فاقد کارت گرافیک') {
+                        $equipmentedDevice->graphic_card = null;
+                    }
+                    if ($networkcard == null or $networkcard == 'فاقد کارت شبکه') {
+                        $equipmentedDevice->network_card = null;
+                    }
+                    if ($odd == null or $odd == 'فاقد درایو نوری') {
+                        $equipmentedDevice->odd = null;
                     }
                     $equipmentedDevice->save();
 
@@ -101,6 +125,7 @@ class EditEquipmentController extends Controller
                         'hdd4' => $hdd4,
                         'graphic_card' => $graphiccard,
                         'network_card' => $networkcard,
+                        'odd' => $odd,
                     ];
 
                     $this->logActivity('Equipmented Case Edited =>' . $equipmentedDevice->id, \request()->ip(), \request()->userAgent(), \session('id'));

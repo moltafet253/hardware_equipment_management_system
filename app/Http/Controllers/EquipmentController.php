@@ -91,6 +91,7 @@ class EquipmentController extends Controller
         $hdd4 = $request->input('hdd4');
         $graphiccard = $request->input('graphiccard');
         $networkcard = $request->input('networkcard');
+        $odd = $request->input('odd');
 
         if (!$personID) {
             return $this->alerts(false, 'nullPersonnelCode', 'کد پرسنلی وارد نشده است');
@@ -138,9 +139,14 @@ class EquipmentController extends Controller
         $case->hdd2 = $hdd2;
         $case->hdd3 = $hdd3;
         $case->hdd4 = $hdd4;
-        $case->graphic_card = $graphiccard;
+        if ($graphiccard) {
+            $case->graphic_card = $networkcard;
+        }
         if ($networkcard) {
             $case->network_card = $networkcard;
+        }
+        if ($odd) {
+            $case->odd = $odd;
         }
         $case->save();
         $this->logActivity('Equipmented Case Added =>' . $case->id, \request()->ip(), \request()->userAgent(), \session('id'));
