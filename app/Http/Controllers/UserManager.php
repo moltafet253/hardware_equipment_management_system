@@ -108,6 +108,8 @@ class UserManager extends Controller
         $user->subject = $subject;
         if ($type == 2 and $request->input('province')) {
             $user->province_id = $request->input('province');
+        } elseif ($type == 1) {
+            $user->province_id = 35;
         }
         $user->save();
         $this->logActivity('Added User With Name => ' . $username, request()->ip(), request()->userAgent(), session('id'));
@@ -126,6 +128,8 @@ class UserManager extends Controller
         }
         if ($type == 2) {
             $province = $request->input('editedProvince');
+        } elseif ($type == 1) {
+            $province = 35;
         }
         switch ($type) {
             case 1:
@@ -141,6 +145,7 @@ class UserManager extends Controller
             $user->family = $family;
             $user->type = $type;
             $user->subject = $subject;
+
             $user->province_id = $province;
         }
         $user->save();
