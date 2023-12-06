@@ -16,13 +16,11 @@ class DatabaseBackupController extends Controller
     public function createBackup()
     {
         $command=Artisan::call('database:backup');
-        return response()->json([ 'output' => $command]);
-//
-//        if (Artisan::call('database:backup')) {
-//            $this->logActivity('Backup created!', request()->ip(), request()->userAgent(), session('id'));
-//            return response()->json(['status' => 'success', 'output' => $output]);
-//        } else {
-//            return $this->alerts(false, 'error', 'اجرای دستور با خطا مواجه شد.');
-//        }
+        if ($command===0) {
+            $this->logActivity('Backup created!', request()->ip(), request()->userAgent(), session('id'));
+            return $this->success(200, 'success', 'بکاپ با موفقیت ایجاد شد!');
+        } else {
+            return $this->alerts(false, 'error', 'اجرای دستور با خطا مواجه شد.');
+        }
     }
 }
