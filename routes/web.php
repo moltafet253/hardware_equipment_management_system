@@ -1,5 +1,6 @@
 <?php
 
+use App\Console\Commands\DatabaseBackup;
 use App\Http\Controllers\Catalogs\AssistanceController;
 use App\Http\Controllers\Catalogs\BrandController;
 use App\Http\Controllers\Catalogs\BundledCaseController;
@@ -37,10 +38,12 @@ use App\Http\Controllers\EditEquipmentController;
 use App\Http\Controllers\EquipmentController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PersonController;
+use App\Http\Controllers\Reports\DatabaseBackupController;
 use App\Http\Controllers\Reports\ExcelAllReportsController;
 use App\Http\Controllers\Reports\PDFReportController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\UserManager;
+
 //use App\Http\Controllers\WorkController;
 use App\Http\Controllers\WorkController;
 use App\Http\Middleware\CheckLoginMiddleware;
@@ -288,6 +291,12 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
             //PDF Reports
             Route::get('/PDFReports', [PDFReportController::class, 'index']);
             Route::post('/GeneratePDF', [PDFReportController::class, 'generatePDF']);
+
+            Route::prefix('BackupDatabase')->group(function () {
+                Route::get('/', [DatabaseBackupController::class, 'index']);
+                Route::post('/', [DatabaseBackupController::class, 'createBackup']);
+            });
+
             //End Reports
         });
 
