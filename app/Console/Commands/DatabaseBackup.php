@@ -37,7 +37,7 @@ class DatabaseBackup extends Command
      */
     public function handle()
     {
-        $filename = "backup-" . Carbon::now()->format('Y-m-d H-i-s') . ".sql";
+        $filename = "backup-" . Carbon::now()->format('Y-m-d-H-i-s') . ".sql";
         // Create backup folder and set permission if not exist.
         $storageAt = storage_path() . "/app/backup/";
         if (!File::exists($storageAt)) {
