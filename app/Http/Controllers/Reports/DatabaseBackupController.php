@@ -15,7 +15,9 @@ class DatabaseBackupController extends Controller
 
     public function createBackup()
     {
-        Artisan::call('database:backup');
+        $command=Artisan::call('database:backup');
+        return response()->json([ 'output' => $command]);
+//
 //        if (Artisan::call('database:backup')) {
 //            $this->logActivity('Backup created!', request()->ip(), request()->userAgent(), session('id'));
 //            return response()->json(['status' => 'success', 'output' => $output]);

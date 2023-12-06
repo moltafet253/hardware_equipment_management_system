@@ -6093,13 +6093,14 @@ $(document).ready(function () {
                     type: 'POST', url: '/BackupDatabase', headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                     }, success: function (response) {
-                        if (response.errors) {
-                            if (response.errors.error) {
-                                swalFire('خطا!', response.errors.error[0], 'error', 'تلاش مجدد');
-                            }
-                        } else {
-                            location.reload();
-                        }
+                        console.log(response);
+                        // if (response.errors) {
+                        //     if (response.errors.error) {
+                        //         swalFire('خطا!', response.errors.error[0], 'error', 'تلاش مجدد');
+                        //     }
+                        // } else {
+                        //     location.reload();
+                        // }
                     }
                 });
             });
