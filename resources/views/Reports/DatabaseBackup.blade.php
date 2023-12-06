@@ -36,7 +36,7 @@
                                 <td class="py-2">{{ $formattedJalaliDate }}</td>
                                 <td class="py-2">{{ $backup->creatorInfo->name .' '. $backup->creatorInfo->family }}</td>
                                 <td class="py-2">
-                                    <a href="{{ storage_path('app/backup/').$backup->filename }}">
+                                    <a href="{{ env('APP_URL').'/storage/backup/'.$backup->filename }}">
                                         دانلود
                                     </a>
                                     </td>

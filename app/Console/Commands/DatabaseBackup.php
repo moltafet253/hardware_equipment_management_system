@@ -44,7 +44,7 @@ class DatabaseBackup extends Command
         $table->save();
 
         // Create backup folder and set permission if not exist.
-        $storageAt = storage_path() . "/app/backup/";
+        $storageAt = storage_path() . "/app/public/backup/";
         if (!File::exists($storageAt)) {
             File::makeDirectory($storageAt, 0755, true, true);
         }
