@@ -28,7 +28,10 @@
                         @foreach($backups as $backup)
                             <tr>
                                 <td class="py-2">{{ $loop->iteration }}</td>
-                                <td class="py-2">{{ $backup->filename }}</td>
+                                @php
+                                    $afterSlash = strstr($backup->filename, '/');
+                                @endphp
+                                <td class="py-2">{{ substr($afterSlash, 1) }}</td>
                                 @php
                                     $jalaliDate = Jalalian::fromDateTime($backup->created_at);
                                     $formattedJalaliDate = $jalaliDate->format('Y/m/d H:i:s');
