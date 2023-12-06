@@ -1,3 +1,4 @@
+@php use Morilog\Jalali\Jalalian; @endphp
 @extends('layouts.PanelMaster')
 
 @section('content')
@@ -12,6 +13,41 @@
                     </button>
                 </form>
                 <hr>
+                <div>
+                    <table class="w-full border-collapse rounded-lg overflow-hidden text-center mt-3">
+                        <thead>
+                        <tr class="bg-gradient-to-r from-blue-400 to-purple-500 items-center text-center text-white">
+                            <th class=" px-6 py-3 w-9 font-bold ">ردیف</th>
+                            <th class=" px-3 py-3  font-bold ">نام فایل</th>
+                            <th class=" px-3 py-3  font-bold ">تاریخ ایجاد</th>
+                            <th class=" px-3 py-3  font-bold ">کاربر ایجاد کننده</th>
+                            <th class=" px-3 py-3  font-bold ">فایل</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($backups as $backup)
+                            <tr>
+                                <td class="py-2">{{ $loop->iteration }}</td>
+                                <td class="py-2">{{ $backup->filename }}</td>
+                                @php
+                                    $jalaliDate = Jalalian::fromDateTime($backup->created_at);
+                                    $formattedJalaliDate = $jalaliDate->format('Y/m/d H:i:s');
+                                @endphp
+                                <td class="py-2">{{ $formattedJalaliDate }}</td>
+                                <td class="py-2">{{ $backup->creatorInfo->name .' '. $backup->creatorInfo->family }}</td>
+                                <td class="py-2">
+                                    <a href="{{ storage_path('app/backup/').$backup->filename }}">
+                                        دانلود
+                                    </a>
+                                    </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                    <div dir="ltr" class="mt-4 flex justify-center" id="laravel-next-prev">
+                        {{ $backups->links() }}
+                    </div>
+                </div>
             </div>
         </div>
     </main>

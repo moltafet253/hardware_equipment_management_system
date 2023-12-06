@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Reports;
 
 use App\Http\Controllers\Controller;
+use App\Models\DatabaseBackup;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 
@@ -10,7 +11,8 @@ class DatabaseBackupController extends Controller
 {
     public function index()
     {
-        return view('Reports.DatabaseBackup');
+        $backups=DatabaseBackup::with('creatorInfo')->orderBy('id','desc')->paginate(15);
+        return view('Reports.DatabaseBackup',compact('backups'));
     }
 
     public function createBackup()
