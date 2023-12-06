@@ -18,8 +18,6 @@ class DatabaseBackupController extends Controller
         $exitCode = Artisan::call('database:backup');
         // دریافت خروجی و خطاها
         $output = Artisan::output();
-        $errorOutput = Artisan::error();
-        // بررسی خروجی دستور
         if ($exitCode === 0) {
             $this->logActivity('Backup created!', request()->ip(), request()->userAgent(), session('id'));
             return response()->json(['status' => 'success', 'output' => $output]);
