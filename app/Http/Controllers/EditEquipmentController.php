@@ -18,6 +18,7 @@ class EditEquipmentController extends Controller
         if ($eq_id) {
             switch ($eq_type) {
                 case 'case':
+                    $property_number = $request->input('edited_case_property_number');
                     $stamp_number = $request->input('edited_stamp_number');
                     $computer_name = $request->input('edited_computer_name');
                     $delivery_date = $request->input('edited_case_delivery_date');
@@ -37,6 +38,9 @@ class EditEquipmentController extends Controller
                     $networkcard = $request->input('edited_networkcard');
                     $odd = $request->input('edited_odd');
 
+                    if (!$property_number) {
+                        return $this->alerts(false, 'nullPropertyNumber', 'کد اموال وارد نشده است');
+                    }
                     if (!$stamp_number) {
                         return $this->alerts(false, 'nullStampNumber', 'شماره پلمپ وارد نشده است');
                     }
@@ -59,10 +63,16 @@ class EditEquipmentController extends Controller
                         return $this->alerts(false, 'nullHDD', 'هارد انتخاب نشده است');
                     }
 
-                    $equipmentedDevice = EquipmentedCase::find($eq_id);
+                    $equipmentedDevice = EquipmentedCase::with('personInfo')->find($eq_id);
+                    $checkPropertyNumber=EquipmentedCase::where('id','!=',$eq_id)->where('property_number',$property_number)->first();
+
+                    if ($checkPropertyNumber!=null){
+                        return $this->alerts(false, 'dupPropertyNumber', 'کد اموال مربوط به کیس دیگری است');
+                    }
 
                     $originalData = $equipmentedDevice->getOriginal();
 
+                    $equipmentedDevice->property_number = $property_number;
                     $equipmentedDevice->stamp_number = $stamp_number;
                     $equipmentedDevice->computer_name = $computer_name;
                     $equipmentedDevice->delivery_date = $delivery_date;
@@ -108,6 +118,7 @@ class EditEquipmentController extends Controller
                     $equipmentedDevice->save();
 
                     $updatedData = [
+                        'property_number' => $property_number,
                         'stamp_number' => $stamp_number,
                         'computer_name' => $computer_name,
                         'delivery_date' => $delivery_date,
@@ -132,22 +143,31 @@ class EditEquipmentController extends Controller
 
                     break;
                 case 'monitor':
+                    $property_number = $request->input('edited_monitor_property_number');
                     $delivery_date = $request->input('edited_monitor_delivery_date');
                     $monitor = $request->input('edited_monitor');
 
                     if (!$monitor) {
                         return $this->alerts(false, 'nullMonitor', 'مانیتور انتخاب نشده است');
                     }
+                    if (!$property_number) {
+                        return $this->alerts(false, 'nullPropertyNumber', 'کد اموال وارد نشده است');
+                    }
+                    $equipmentedDevice = EquipmentedMonitor::with('personInfo')->find($eq_id);
+                    $checkPropertyNumber=EquipmentedMonitor::where('id','!=',$eq_id)->where('property_number',$property_number)->first();
 
-                    $equipmentedDevice = EquipmentedMonitor::find($eq_id);
-
+                    if ($checkPropertyNumber!=null){
+                        return $this->alerts(false, 'dupPropertyNumber', 'کد اموال مربوط به مانیتور دیگری است');
+                    }
                     $originalData = $equipmentedDevice->getOriginal();
 
+                    $equipmentedDevice->property_number = $property_number;
                     $equipmentedDevice->delivery_date = $delivery_date;
                     $equipmentedDevice->monitor_id = $monitor;
                     $equipmentedDevice->save();
 
                     $updatedData = [
+                        'property_number' => $property_number,
                         'delivery_date' => $delivery_date,
                         'monitor_id' => $monitor,
                     ];
@@ -163,7 +183,7 @@ class EditEquipmentController extends Controller
                         return $this->alerts(false, 'nullPrinter', 'پرینتر انتخاب نشده است');
                     }
 
-                    $equipmentedDevice = EquipmentedPrinter::find($eq_id);
+                    $equipmentedDevice = EquipmentedPrinter::with('personInfo')->find($eq_id);
 
                     $originalData = $equipmentedDevice->getOriginal();
 
@@ -187,7 +207,7 @@ class EditEquipmentController extends Controller
                         return $this->alerts(false, 'nullPrinter', 'پرینتر انتخاب نشده است');
                     }
 
-                    $equipmentedDevice = EquipmentedScanner::find($eq_id);
+                    $equipmentedDevice = EquipmentedScanner::with('personInfo')->find($eq_id);
 
                     $originalData = $equipmentedDevice->getOriginal();
 
@@ -213,8 +233,13 @@ class EditEquipmentController extends Controller
                 $eq_log = new EquipmentLog();
                 $eq_log->equipment_id = $eq_id;
                 $eq_log->equipment_type = $eq_type;
-                $eq_log->property_number = $lastLog->property_number;
-                $eq_log->personal_code = $lastLog->personal_code;
+                if ($lastLog!=null) {
+                    $eq_log->property_number = $lastLog->property_number;
+                    $eq_log->personal_code = $lastLog->personal_code;
+                }else{
+                    $eq_log->property_number = $equipmentedDevice->property_number;
+                    $eq_log->personal_code = $equipmentedDevice->personInfo->id;
+                }
 
                 $changesArray = [];
                 foreach ($changes as $field => $value) {

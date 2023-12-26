@@ -5039,6 +5039,7 @@ $(document).ready(function () {
                             headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                             }, success: function (response) {
+                                console.log(response);
                                 if (response.errors) {
                                     if (response.errors.nullPersonnelCode) {
                                         swalFire('خطا!', response.errors.nullPersonnelCode[0], 'error', 'تلاش مجدد');
@@ -5060,6 +5061,8 @@ $(document).ready(function () {
                                         swalFire('خطا!', response.errors.nullHDD[0], 'error', 'تلاش مجدد');
                                     } else if (response.errors.wrongPerson) {
                                         swalFire('خطا!', response.errors.wrongPerson[0], 'error', 'تلاش مجدد');
+                                    } else if (response.errors.dupPropertyNumber) {
+                                        swalFire('خطا!', response.errors.dupPropertyNumber[0], 'error', 'تلاش مجدد');
                                     }
                                 } else if (response.success) {
                                     // swalFire('ثبت کیس جدید موفقیت آمیز بود!', response.message.caseAdded[0], 'success', 'بستن');
