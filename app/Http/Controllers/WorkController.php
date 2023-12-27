@@ -32,7 +32,7 @@ class WorkController extends Controller
             $message="کد اموال وارد نشده است!";
             return \view('History.HistoryFromPropertyNumber', compact('message'));
         }
-        $equipment_log = EquipmentLog::where('property_number', $property_number)->get();
+        $equipment_log = EquipmentLog::with('personInfo')->where('property_number', $property_number)->get();
 
         if ($equipment_log->count() == 0) {
             $message="دستگاهی با این کد اموال یافت نشد!";

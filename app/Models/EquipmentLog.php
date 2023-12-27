@@ -19,4 +19,8 @@ class EquipmentLog extends Model
         'title',
         'operator',
     ];
+    public function personInfo()
+    {
+        return $this->belongsTo(Person::class,'person_id','id');
+    }
 }

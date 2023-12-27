@@ -249,6 +249,10 @@ class EditEquipmentController extends Controller
                         'from' => $previousValue,
                         'to' => $value,
                     ];
+                    if ($field=='property_number'){
+                        $this->logEquipmentChanges("Assigned to this user => " . $equipmentedDevice->personInfo->personnel_code , $eq_id, $eq_type, $value, \session('id'), $equipmentedDevice->personInfo->id);
+                        $this->logEquipmentChanges("Changed property number from => $previousValue to $value" , $eq_id, $eq_type, $previousValue, \session('id'), $equipmentedDevice->personInfo->id);
+                    }
                 }
 
                 $eq_log->title = json_encode($changesArray);

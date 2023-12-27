@@ -2,5 +2,6 @@
     "Showing" : "نمایش",
     "to" : "تا",
     "of" : "از",
-    "results" : "نتیجه‌"
+    "results" : "نتیجه‌",
+    "changed_property_number": "تغییر شماره اموال از => :from به :to"
 }
