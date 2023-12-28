@@ -9,6 +9,8 @@
     use App\Models\Catalogs\GraphicCard;
     use App\Models\Catalogs\NetworkCard;
     use App\Models\Catalogs\Odd;
+    use App\Models\Catalogs\Printer;
+    use App\Models\Catalogs\Scanner;
 @endphp
 
 @switch($logs->equipment_type)
@@ -116,6 +118,54 @@
                         $to = Monitor::find($change['to']);
                         $to_company = Company::find($to->company_id);
                         echo 'تغییر مانیتور از: ' . $from_company->name . ' ' . $from->model . ' به: ' . $to_company->name . ' ' . $to->model;
+                        break;
+                    case 'delivery_date':
+                        echo 'تغییر تاریخ تحویل از: ' . $change['from'] . ' به: ' . $change['to'];
+                        break;
+                    case 'property_number':
+                        echo 'تغییر کد اموال از: ' . $change['from'] . ' به: ' . $change['to'];
+                        break;
+                }
+                echo '<br>';
+            }
+        @endphp
+    @break
+
+    @case('printer')
+        @php
+            $eq_logs = json_decode($logs->title, true);
+            foreach ($eq_logs as $change) {
+                switch ($change['field']) {
+                    case 'printer_id':
+                        $from = Printer::find($change['from']);
+                        $from_company = Company::find($from->company_id);
+                        $to = Printer::find($change['to']);
+                        $to_company = Company::find($to->company_id);
+                        echo 'تغییر پرینتر از: ' . $from_company->name . ' ' . $from->model . ' ' . $from->function_type . ' به: ' . $to_company->name . ' ' . $to->model . ' ' . $to->function_type;
+                        break;
+                    case 'delivery_date':
+                        echo 'تغییر تاریخ تحویل از: ' . $change['from'] . ' به: ' . $change['to'];
+                        break;
+                    case 'property_number':
+                        echo 'تغییر کد اموال از: ' . $change['from'] . ' به: ' . $change['to'];
+                        break;
+                }
+                echo '<br>';
+            }
+        @endphp
+    @break
+
+    @case('scanner')
+        @php
+            $eq_logs = json_decode($logs->title, true);
+            foreach ($eq_logs as $change) {
+                switch ($change['field']) {
+                    case 'scanner_id':
+                        $from = Scanner::find($change['from']);
+                        $from_company = Company::find($from->company_id);
+                        $to = Scanner::find($change['to']);
+                        $to_company = Company::find($to->company_id);
+                        echo 'تغییر اسکنر از: ' . $from_company->name . ' ' . $from->model . ' ' . $from->function_type . ' به: ' . $to_company->name . ' ' . $to->model . ' ' . $to->function_type;
                         break;
                     case 'delivery_date':
                         echo 'تغییر تاریخ تحویل از: ' . $change['from'] . ' به: ' . $change['to'];

@@ -64,9 +64,9 @@ class EditEquipmentController extends Controller
                     }
 
                     $equipmentedDevice = EquipmentedCase::with('personInfo')->find($eq_id);
-                    $checkPropertyNumber=EquipmentedCase::where('id','!=',$eq_id)->where('property_number',$property_number)->first();
+                    $checkPropertyNumber = EquipmentedCase::where('id', '!=', $eq_id)->where('property_number', $property_number)->first();
 
-                    if ($checkPropertyNumber!=null){
+                    if ($checkPropertyNumber != null) {
                         return $this->alerts(false, 'dupPropertyNumber', 'کد اموال مربوط به کیس دیگری است');
                     }
 
@@ -154,9 +154,9 @@ class EditEquipmentController extends Controller
                         return $this->alerts(false, 'nullPropertyNumber', 'کد اموال وارد نشده است');
                     }
                     $equipmentedDevice = EquipmentedMonitor::with('personInfo')->find($eq_id);
-                    $checkPropertyNumber=EquipmentedMonitor::where('id','!=',$eq_id)->where('property_number',$property_number)->first();
+                    $checkPropertyNumber = EquipmentedMonitor::where('id', '!=', $eq_id)->where('property_number', $property_number)->first();
 
-                    if ($checkPropertyNumber!=null){
+                    if ($checkPropertyNumber != null) {
                         return $this->alerts(false, 'dupPropertyNumber', 'کد اموال مربوط به مانیتور دیگری است');
                     }
                     $originalData = $equipmentedDevice->getOriginal();
@@ -176,22 +176,32 @@ class EditEquipmentController extends Controller
 
                     break;
                 case 'printer':
+                    $property_number = $request->input('edited_printer_property_number');
                     $delivery_date = $request->input('edited_printer_delivery_date');
                     $printer = $request->input('edited_printer');
 
                     if (!$printer) {
                         return $this->alerts(false, 'nullPrinter', 'پرینتر انتخاب نشده است');
                     }
+                    if (!$property_number) {
+                        return $this->alerts(false, 'nullPropertyNumber', 'کد اموال وارد نشده است');
+                    }
+                    $checkPropertyNumber = EquipmentedPrinter::where('id', '!=', $eq_id)->where('property_number', $property_number)->first();
 
+                    if ($checkPropertyNumber != null) {
+                        return $this->alerts(false, 'dupPropertyNumber', 'کد اموال مربوط به پرینتر دیگری است');
+                    }
                     $equipmentedDevice = EquipmentedPrinter::with('personInfo')->find($eq_id);
 
                     $originalData = $equipmentedDevice->getOriginal();
 
+                    $equipmentedDevice->property_number = $property_number;
                     $equipmentedDevice->delivery_date = $delivery_date;
                     $equipmentedDevice->printer_id = $printer;
                     $equipmentedDevice->save();
 
                     $updatedData = [
+                        'property_number' => $property_number,
                         'delivery_date' => $delivery_date,
                         'printer_id' => $printer,
                     ];
@@ -200,22 +210,33 @@ class EditEquipmentController extends Controller
 
                     break;
                 case 'scanner':
+                    $property_number = $request->input('edited_scanner_property_number');
                     $delivery_date = $request->input('edited_scanner_delivery_date');
                     $scanner = $request->input('edited_scanner');
 
                     if (!$scanner) {
                         return $this->alerts(false, 'nullPrinter', 'پرینتر انتخاب نشده است');
                     }
+                    if (!$property_number) {
+                        return $this->alerts(false, 'nullPropertyNumber', 'کد اموال وارد نشده است');
+                    }
+                    $checkPropertyNumber = EquipmentedScanner::where('id', '!=', $eq_id)->where('property_number', $property_number)->first();
 
+                    if ($checkPropertyNumber != null) {
+                        return $this->alerts(false, 'dupPropertyNumber', 'کد اموال مربوط به اسکنر دیگری است');
+                    }
                     $equipmentedDevice = EquipmentedScanner::with('personInfo')->find($eq_id);
 
                     $originalData = $equipmentedDevice->getOriginal();
+
+                    $equipmentedDevice->property_number = $property_number;
 
                     $equipmentedDevice->delivery_date = $delivery_date;
                     $equipmentedDevice->scanner_id = $scanner;
                     $equipmentedDevice->save();
 
                     $updatedData = [
+                        'property_number' => $property_number,
                         'delivery_date' => $delivery_date,
                         'scanner_id' => $scanner,
                     ];
@@ -233,10 +254,10 @@ class EditEquipmentController extends Controller
                 $eq_log = new EquipmentLog();
                 $eq_log->equipment_id = $eq_id;
                 $eq_log->equipment_type = $eq_type;
-                if ($lastLog!=null) {
+                if ($lastLog != null) {
                     $eq_log->property_number = $lastLog->property_number;
                     $eq_log->personal_code = $lastLog->personal_code;
-                }else{
+                } else {
                     $eq_log->property_number = $equipmentedDevice->property_number;
                     $eq_log->personal_code = $equipmentedDevice->personInfo->id;
                 }
@@ -249,9 +270,9 @@ class EditEquipmentController extends Controller
                         'from' => $previousValue,
                         'to' => $value,
                     ];
-                    if ($field=='property_number'){
-                        $this->logEquipmentChanges("Assigned to this user => " . $equipmentedDevice->personInfo->personnel_code , $eq_id, $eq_type, $value, \session('id'), $equipmentedDevice->personInfo->id);
-                        $this->logEquipmentChanges("Changed property number from => $previousValue to $value" , $eq_id, $eq_type, $previousValue, \session('id'), $equipmentedDevice->personInfo->id);
+                    if ($field == 'property_number') {
+                        $this->logEquipmentChanges("Assigned to this user => " . $equipmentedDevice->personInfo->personnel_code, $eq_id, $eq_type, $value, \session('id'), $equipmentedDevice->personInfo->id);
+                        $this->logEquipmentChanges("Changed property number from => $previousValue to $value", $eq_id, $eq_type, $previousValue, \session('id'), $equipmentedDevice->personInfo->id);
                     }
                 }
 
@@ -261,7 +282,6 @@ class EditEquipmentController extends Controller
             }
 
             return $this->success(true, 'Edited', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
-
         }
     }
 }
