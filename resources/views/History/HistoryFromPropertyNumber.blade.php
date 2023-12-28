@@ -11,14 +11,13 @@
 @section('content')
     <main class="flex-1 bg-cu-light py-6 px-8">
         <div class="mx-auto lg:mr-72 mb-4">
-            <form id="showHistory" action="/History/getPropertyNumberHistory" method="post">
-                @csrf
+            <form id="showHistory" action="{{ route('getPropertyNumberHistory') }}" method="get">
                 <div class="flex bg-white rounded shadow px-6 py-4">
                     <p class="pt-2 ml-3 font-bold">
                         برای نمایش تاریخچه تغییرات، کد اموال را وارد نمایید:
                     </p>
                     <input type="text" id="property_number" name="property_number"
-                        @if (isset($_POST['property_number'])) value="{{ $_POST['property_number'] }}" @endif
+                        @if (isset($_GET['property_number'])) value="{{ $_GET['property_number'] }}" @endif
                         class="border rounded-md w-32 px-3 py-2 text-right" placeholder="کد اموال">
                     <button type="submit"
                         class="px-4 py-2 mr-3 h-11 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300">
@@ -27,7 +26,7 @@
                 </div>
             </form>
         </div>
-        @if (isset($_POST['property_number']))
+        @if (isset($_GET['property_number']))
             <div class="mx-auto lg:mr-72">
                 <h1 class="text-2xl font-bold mb-4">تاریخچه تغییرات بر اساس کد اموال</h1>
                 <div class="bg-white rounded shadow p-6">

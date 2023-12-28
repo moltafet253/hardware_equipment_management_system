@@ -278,8 +278,8 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
             Route::prefix('History')->group(function () {
                 Route::get('/PropertyNumber', [WorkController::class, 'indexPropertyNumber']);
                 Route::get('/PersonalCode', [WorkController::class, 'indexPersonalCode']);
-                Route::post('/getPropertyNumberHistory', [WorkController::class, 'getPropertyNumberHistory'])->name('getPropertyNumberHistory');
-                Route::post('/getPersonalCodeHistory', [WorkController::class, 'getPersonalCodeHistory'])->name('getPersonalCodeHistory');
+                Route::get('/getPropertyNumberHistory', [WorkController::class, 'getPropertyNumberHistory'])->name('getPropertyNumberHistory');
+                Route::get('/getPersonalCodeHistory', [WorkController::class, 'getPersonalCodeHistory'])->name('getPersonalCodeHistory');
             });
             //End Works Manager
 
