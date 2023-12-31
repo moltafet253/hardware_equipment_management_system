@@ -335,6 +335,7 @@ Route::middleware(CheckLoginMiddleware::class)->middleware(MenuMiddleware::class
 
         Route::get('/getEquipmentInfo', [EquipmentController::class, 'getEquipmentInfo']);
         Route::post('/editEquipment', [EditEquipmentController::class, 'editEquipment']);
+        Route::post('/moveEquipment', [EditEquipmentController::class, 'moveEquipment']);
 
         //End equipment status
 

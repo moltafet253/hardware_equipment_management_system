@@ -4919,11 +4919,17 @@ $(document).ready(function () {
             $('#cancel-edit-case').on('click', function () {
                 toggleModal(editCaseModal.id);
             });
+            $('#cancel-move-case').on('click', function () {
+                toggleModal(moveCaseModal.id);
+            });
             $('.absolute.inset-0.bg-gray-500.opacity-75.addcase').on('click', function () {
                 toggleModal(addCaseModal.id)
             });
             $('.absolute.inset-0.bg-gray-500.opacity-75.editcase').on('click', function () {
                 toggleModal(editCaseModal.id)
+            });
+            $('.absolute.inset-0.bg-gray-500.opacity-75.movecase').on('click', function () {
+                toggleModal(moveCaseModal.id)
             });
             $('#addRAM').on('click', function () {
                 if (ram2Div.classList.contains('hidden')) {
@@ -5039,7 +5045,6 @@ $(document).ready(function () {
                             headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                             }, success: function (response) {
-                                console.log(response);
                                 if (response.errors) {
                                     if (response.errors.nullPersonnelCode) {
                                         swalFire('خطا!', response.errors.nullPersonnelCode[0], 'error', 'تلاش مجدد');
@@ -5064,6 +5069,51 @@ $(document).ready(function () {
                                     } else if (response.errors.dupPropertyNumber) {
                                         swalFire('خطا!', response.errors.dupPropertyNumber[0], 'error', 'تلاش مجدد');
                                     }
+                                } else if (response.success) {
+                                    // swalFire('ثبت کیس جدید موفقیت آمیز بود!', response.message.caseAdded[0], 'success', 'بستن');
+                                    // toggleModal(addCaseModal.id);
+                                    location.reload();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+            $('#move-case').on('submit', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'آیا مطمئن هستید؟',
+                    text: 'این دستگاه منتقل خواهد شد.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'خیر',
+                    confirmButtonText: 'بله',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        showLoadingPopup();
+                        var form = $(this);
+                        var data = form.serialize();
+                        $.ajax({
+                            type: 'POST',
+                            url: '/moveEquipment',
+                            data: data,
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            }, success: function (response) {
+                                if (response.errors) {
+                                    if (response.errors.nullEquipment) {
+                                        swalFire('خطا!', response.errors.nullEquipment[0], 'error', 'تلاش مجدد');
+                                    }
+                                    else if (response.errors.nullEquipmentType) {
+                                        swalFire('خطا!', response.errors.nullEquipmentType[0], 'error', 'تلاش مجدد');
+                                    }
+                                    else if (response.errors.nullPerson) {
+                                        swalFire('خطا!', response.errors.nullPerson[0], 'error', 'تلاش مجدد');
+                                    }
+                                    else if (response.errors.error) {
+                                        swalFire('خطا!', response.errors.error[0], 'error', 'تلاش مجدد');
+                                    }
+                                    hideLoadingPopup();
                                 } else if (response.success) {
                                     // swalFire('ثبت کیس جدید موفقیت آمیز بود!', response.message.caseAdded[0], 'success', 'بستن');
                                     // toggleModal(addCaseModal.id);

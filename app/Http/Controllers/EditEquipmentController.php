@@ -271,7 +271,6 @@ class EditEquipmentController extends Controller
                         'to' => $value,
                     ];
                     if ($field == 'property_number') {
-                        $this->logEquipmentChanges("Assigned to this user => " . $equipmentedDevice->personInfo->personnel_code, $eq_id, $eq_type, $value, \session('id'), $equipmentedDevice->personInfo->id);
                         $this->logEquipmentChanges("Changed property number from => $previousValue to $value", $eq_id, $eq_type, $previousValue, \session('id'), $equipmentedDevice->personInfo->id);
                     }
                 }
@@ -283,5 +282,37 @@ class EditEquipmentController extends Controller
 
             return $this->success(true, 'Edited', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
         }
+        abort(403);
+    }
+
+    public function moveEquipment(Request $request)
+    {
+        $eq_id = $request->input('eq_id');
+        $eq_type = $request->input('eq_type');
+        $person = $request->input('person');
+        if (!$eq_id) {
+            return $this->alerts(false, 'nullEquipment', 'دستگاه انتخاب نشده است');
+        }
+        if (!$eq_type) {
+            return $this->alerts(false, 'nullEquipmentType', 'نوع دستگاه وارد نشده است');
+        }
+        if (!$person or $person==null) {
+            return $this->alerts(false, 'nullPerson', 'پرسنل انتخاب نشده است');
+        }
+        switch ($eq_type){
+            case 'case':
+                $equipment=EquipmentedCase::find($eq_id);
+                break;
+            default:
+                return $this->alerts(false, 'error', 'خطای ناشناخته');
+        }
+        $fromPerson=$equipment->person_id;
+        $equipment->person_id=$person;
+        $equipment->save();
+
+        $log=['message'=>'Moved equipment', 'from'=>$fromPerson, 'to'=>$person];
+        $this->logEquipmentChanges(json_encode($log), $eq_id, $eq_type, $equipment->property_number, \session('id'), $equipment->person_id);
+        return $this->success(true, 'Moved', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
+
     }
 }

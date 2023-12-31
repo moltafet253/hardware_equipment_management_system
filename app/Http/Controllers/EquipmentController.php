@@ -40,7 +40,8 @@ class EquipmentController extends Controller
             }
             abort(403, 'access denied');
         }
-        return view('EquipmentStatus', ['personId' => $personId]);
+        $allPersons = Person::where('id', '!=', $personId)->orderby('family','asc')->get();
+        return view('EquipmentStatus', ['personId' => $personId, 'allPersons' => $allPersons]);
     }
 
     public function checkAccessingPerson($personId)
