@@ -3,9 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\EquipmentedCase;
+use App\Models\EquipmentedCopyMachine;
 use App\Models\EquipmentedMonitor;
+use App\Models\EquipmentedNetworkDevices\EquipmentedModem;
+use App\Models\EquipmentedNetworkDevices\EquipmentedSwitch;
+use App\Models\EquipmentedOtherDevices\EquipmentedHeadphone;
+use App\Models\EquipmentedOtherDevices\EquipmentedMobile;
+use App\Models\EquipmentedOtherDevices\EquipmentedRecorder;
+use App\Models\EquipmentedOtherDevices\EquipmentedSpeaker;
+use App\Models\EquipmentedOtherDevices\EquipmentedTablet;
+use App\Models\EquipmentedOtherDevices\EquipmentedVideoProjector;
+use App\Models\EquipmentedOtherDevices\EquipmentedVideoProjectorCurtain;
+use App\Models\EquipmentedOtherDevices\EquipmentedWebcam;
 use App\Models\EquipmentedPrinter;
 use App\Models\EquipmentedScanner;
+use App\Models\EquipmentedVoip;
 use App\Models\EquipmentLog;
 use Illuminate\Http\Request;
 
@@ -302,6 +314,51 @@ class EditEquipmentController extends Controller
         switch ($eq_type){
             case 'case':
                 $equipment=EquipmentedCase::find($eq_id);
+                break;
+            case 'monitor':
+                $equipment=EquipmentedMonitor::find($eq_id);
+                break;
+            case 'printer':
+                $equipment=EquipmentedPrinter::find($eq_id);
+                break;
+            case 'scanner':
+                $equipment=EquipmentedScanner::find($eq_id);
+                break;
+            case 'copy machine':
+                $equipment=EquipmentedCopyMachine::find($eq_id);
+                break;
+            case 'voip':
+                $equipment=EquipmentedVoip::find($eq_id);
+                break;
+            case 'modem':
+                $equipment=EquipmentedModem::find($eq_id);
+                break;
+            case 'switch':
+                $equipment=EquipmentedSwitch::find($eq_id);
+                break;
+            case 'headphone':
+                $equipment=EquipmentedHeadphone::find($eq_id);
+                break;
+            case 'mobile':
+                $equipment=EquipmentedMobile::find($eq_id);
+                break;
+            case 'recorder':
+                $equipment=EquipmentedRecorder::find($eq_id);
+                break;
+            case 'speaker':
+                $equipment=EquipmentedSpeaker::find($eq_id);
+                break;
+            case 'tablet':
+                $equipment=EquipmentedTablet::find($eq_id);
+                break;
+            case 'video projector curtain':
+                $equipment=EquipmentedVideoProjectorCurtain::find($eq_id);
+                break;
+            case 'video projector':
+                $equipment=EquipmentedVideoProjector::find($eq_id);
+                break;
+            case 'webcam':
+                $equipment=EquipmentedWebcam::find($eq_id);
                 break;
             default:
                 return $this->alerts(false, 'error', 'خطای ناشناخته');

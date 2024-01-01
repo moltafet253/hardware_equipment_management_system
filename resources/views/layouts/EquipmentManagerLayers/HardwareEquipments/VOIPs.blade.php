@@ -71,22 +71,22 @@
         @php
             $eq_VOIPs=\App\Models\EquipmentedVoip::where('person_id',$personId)->get();
         @endphp
-            <table class="w-full border-collapse rounded-lg overflow-hidden text-center">
-                <thead>
-                <tr class="bg-gradient-to-r from-blue-400 to-purple-500 items-center text-center text-white">
-                    <th class="font-bold w-8">
-                        <button type="submit"
-                                class="px-4 py-2 mr-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300 AddVOIP">
-                            جدید
-                        </button>
-                    </th>
-                    <th class="font-bold ">کد اموال VOIP</th>
-                    <th class="font-bold ">شرکت سازنده VOIP</th>
-                    <th class="font-bold ">مدل VOIP</th>
-                    <th class="font-bold ">عملیات</th>
-                </tr>
-                </thead>
-                @if(!$eq_VOIPs->isEmpty())
+        <table class="w-full border-collapse rounded-lg overflow-hidden text-center">
+            <thead>
+            <tr class="bg-gradient-to-r from-blue-400 to-purple-500 items-center text-center text-white">
+                <th class="font-bold w-8">
+                    <button type="submit"
+                            class="px-4 py-2 mr-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300 AddVOIP">
+                        جدید
+                    </button>
+                </th>
+                <th class="font-bold ">کد اموال VOIP</th>
+                <th class="font-bold ">شرکت سازنده VOIP</th>
+                <th class="font-bold ">مدل VOIP</th>
+                <th class="font-bold ">عملیات</th>
+            </tr>
+            </thead>
+            @if(!$eq_VOIPs->isEmpty())
                 <tbody>
                 @foreach($eq_VOIPs as $VOIPs)
                     <tr class="even:bg-gray-300 odd:bg-white">
@@ -104,15 +104,23 @@
                             {{ $VOIPInfo->model }}
                         </td>
                         <td class=" px-3 py-1 ">
-                            <button type="submit"
-                                    class="px-1 py-1 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 EditVOIP">
-                                ویرایش
-                            </button>
+                            <div class="mb-2">
+                                <button type="submit"
+                                        class="px-1 py-1 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 EditVOIP">
+                                    ویرایش
+                                </button>
+                            </div>
+                            <div>
+                                <button type="submit" data-type="voip" data-id="{{ $VOIPs->id }}"
+                                        class="px-1 py-1 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 MoveEquipment">
+                                    انتقال
+                                </button>
+                            </div>
                         </td>
                     </tr>
                 @endforeach
                 </tbody>
-                @endif
-            </table>
+            @endif
+        </table>
     </div>
 </div>

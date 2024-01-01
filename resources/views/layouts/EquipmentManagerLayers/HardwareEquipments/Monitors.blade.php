@@ -87,14 +87,16 @@
                                 <div class="ml-3 w-full">
                                     <label for="edited_monitor_property_number"
                                            class="block text-gray-700 text-sm font-bold mb-2">کد اموال*</label>
-                                    <input type="text" id="edited_monitor_property_number" name="edited_monitor_property_number"
+                                    <input type="text" id="edited_monitor_property_number"
+                                           name="edited_monitor_property_number"
                                            class="border rounded-md w-full mb-4 px-3 py-2 text-right "
                                            placeholder="کد اموال را وارد کنید">
                                 </div>
                                 <div class="w-full">
                                     <label for="edited_monitor_delivery_date"
                                            class="block text-gray-700 text-sm font-bold mb-2">تاریخ تحویل</label>
-                                    <input type="text" id="edited_monitor_delivery_date" name="edited_monitor_delivery_date"
+                                    <input type="text" id="edited_monitor_delivery_date"
+                                           name="edited_monitor_delivery_date"
                                            class="border rounded-md w-full mb-4 px-3 py-2 text-right deliveryDate"
                                            placeholder="با فرمت : 1402/05/04">
                                 </div>
@@ -102,7 +104,8 @@
                             <div class="mb-4">
                                 <label for="edited_monitor"
                                        class="block text-gray-700 text-sm font-bold mb-2">مانیتور*</label>
-                                <select id="edited_monitor" class="border rounded-md w-96 px-3 py-2 select2" name="edited_monitor">
+                                <select id="edited_monitor" class="border rounded-md w-96 px-3 py-2 select2"
+                                        name="edited_monitor">
                                     <option value="" disabled selected>انتخاب کنید</option>
                                     @php
                                         $monitors = \App\Models\Catalogs\Monitor::join('companies', 'monitors.company_id', '=', 'companies.id')
@@ -163,8 +166,8 @@
                 if (response) {
                     $(".eq_id").val(response.id);
                     $(".eq_type").val('monitor');
-                    edited_monitor_property_number.value=response.property_number;
-                    edited_monitor_delivery_date.value=response.delivery_date;
+                    edited_monitor_property_number.value = response.property_number;
+                    edited_monitor_delivery_date.value = response.delivery_date;
                     $("#edited_monitor").val(response.monitor_id).trigger("change");
                 }
             }
@@ -177,23 +180,23 @@
         @php
             $eq_monitors=\App\Models\EquipmentedMonitor::where('person_id',$personId)->get();
         @endphp
-            <table class="w-full border-collapse rounded-lg overflow-hidden text-center">
-                <thead>
-                <tr class="bg-gradient-to-r from-blue-400 to-purple-500 items-center text-center text-white">
-                    <th class="font-bold w-8">
-                        <button type="submit"
-                                class="px-4 py-2 mr-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300 AddMonitor">
-                            جدید
-                        </button>
-                    </th>
-                    <th class="font-bold">کد اموال مانیتور</th>
-                    <th class="font-bold">شرکت سازنده مانیتور</th>
-                    <th class="font-bold">مدل مانیتور</th>
-                    <th class="font-bold">سایز مانیتور</th>
-                    <th class="font-bold">عملیات</th>
-                </tr>
-                </thead>
-                @if(!$eq_monitors->isEmpty())
+        <table class="w-full border-collapse rounded-lg overflow-hidden text-center">
+            <thead>
+            <tr class="bg-gradient-to-r from-blue-400 to-purple-500 items-center text-center text-white">
+                <th class="font-bold w-8">
+                    <button type="submit"
+                            class="px-4 py-2 mr-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300 AddMonitor">
+                        جدید
+                    </button>
+                </th>
+                <th class="font-bold">کد اموال مانیتور</th>
+                <th class="font-bold">شرکت سازنده مانیتور</th>
+                <th class="font-bold">مدل مانیتور</th>
+                <th class="font-bold">سایز مانیتور</th>
+                <th class="font-bold">عملیات</th>
+            </tr>
+            </thead>
+            @if(!$eq_monitors->isEmpty())
                 <tbody>
                 @foreach($eq_monitors as $monitors)
                     <tr class="even:bg-gray-300 odd:bg-white">
@@ -214,15 +217,23 @@
                             {{ $monitorInfo->size }}
                         </td>
                         <td class="px-3 py-1">
-                            <button type="submit" data-type="monitor" data-id="{{ $monitors->id }}"
-                                    class="px-1 py-1 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 EditEqMonitor">
-                                ویرایش
-                            </button>
+                            <div class="mb-2">
+                                <button type="submit" data-type="monitor" data-id="{{ $monitors->id }}"
+                                        class="px-1 py-1 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 EditEqMonitor">
+                                    ویرایش
+                                </button>
+                            </div>
+                            <div>
+                                <button type="submit" data-type="monitor" data-id="{{ $monitors->id }}"
+                                        class="px-1 py-1 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 MoveEquipment">
+                                    انتقال
+                                </button>
+                            </div>
                         </td>
                     </tr>
                 @endforeach
                 </tbody>
-                @endif
-            </table>
+            @endif
+        </table>
     </div>
 </div>

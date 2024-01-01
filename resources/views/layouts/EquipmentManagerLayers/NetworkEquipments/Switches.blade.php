@@ -103,10 +103,18 @@
                             {{ $switchInfo->model }}
                         </td>
                         <td class=" px-3 py-3 ">
-                            <button type="submit"
-                                    class="px-4 py-2 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 EditSwitch">
-                                ویرایش
-                            </button>
+                            <div class="mb-2">
+                                <button type="submit"
+                                        class="px-4 py-2 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 EditSwitch">
+                                    ویرایش
+                                </button>
+                            </div>
+                            <div>
+                                <button type="submit" data-type="switch" data-id="{{ $switches->id }}"
+                                        class="px-1 py-1 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 MoveEquipment">
+                                    انتقال
+                                </button>
+                            </div>
                         </td>
                     </tr>
                 @endforeach

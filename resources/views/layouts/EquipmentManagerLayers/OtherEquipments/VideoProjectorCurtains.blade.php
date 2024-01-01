@@ -33,7 +33,8 @@
                             <div class="mb-4">
                                 <label for="videoprojectorcurtain"
                                        class="block text-gray-700 text-sm font-bold mb-2">پرده ویدئو پروژکتور*</label>
-                                <select id="videoprojectorcurtain" class="border rounded-md w-96 px-3 py-2 select2" name="videoprojectorcurtain">
+                                <select id="videoprojectorcurtain" class="border rounded-md w-96 px-3 py-2 select2"
+                                        name="videoprojectorcurtain">
                                     <option value="" disabled selected>انتخاب کنید</option>
                                     @php
                                         $videoprojectorcurtains = \App\Models\Catalogs\OtherEquipments\VideoProjectorCurtain::join('companies', 'video_projector_curtains.company_id', '=', 'companies.id')
@@ -107,10 +108,18 @@
                             {{ $videoprojectorcurtainInfo->size }}
                         </td>
                         <td class=" px-3 py-3 ">
-                            <button type="submit"
-                                    class="px-4 py-2 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 EditVideoProjectorCurtain">
-                                ویرایش
-                            </button>
+                            <div class="mb-2">
+                                <button type="submit"
+                                        class="px-1 py-1 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 EditVideoProjectorCurtain">
+                                    ویرایش
+                                </button>
+                            </div>
+                            <div>
+                                <button type="submit" data-type="video projector curtain" data-id="{{ $videoprojectorcurtain->id }}"
+                                        class="px-1 py-1 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 MoveEquipment">
+                                    انتقال
+                                </button>
+                            </div>
                         </td>
                     </tr>
                 @endforeach

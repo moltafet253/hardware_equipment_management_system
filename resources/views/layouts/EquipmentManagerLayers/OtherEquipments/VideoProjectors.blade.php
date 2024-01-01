@@ -33,7 +33,8 @@
                             <div class="mb-4">
                                 <label for="videoprojector"
                                        class="block text-gray-700 text-sm font-bold mb-2">ویدئو پروژکتور*</label>
-                                <select id="videoprojector" class="border rounded-md w-96 px-3 py-2 select2" name="videoprojector">
+                                <select id="videoprojector" class="border rounded-md w-96 px-3 py-2 select2"
+                                        name="videoprojector">
                                     <option value="" disabled selected>انتخاب کنید</option>
                                     @php
                                         $videoprojectors = \App\Models\Catalogs\OtherEquipments\VideoProjector::join('companies', 'video_projectors.company_id', '=', 'companies.id')
@@ -103,10 +104,19 @@
                             {{ $videoprojectorInfo->model }}
                         </td>
                         <td class=" px-3 py-3 ">
-                            <button type="submit"
-                                    class="px-4 py-2 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 EditVideoProjector">
-                                ویرایش
-                            </button>
+                            <div class="mb-2">
+                                <button type="submit"
+                                        class="px-1 py-1 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 EditVideoProjector">
+                                    ویرایش
+                                </button>
+                            </div>
+                            <div>
+                                <button type="submit" data-type="video projector"
+                                        data-id="{{ $videoprojector->id }}"
+                                        class="px-1 py-1 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 MoveEquipment">
+                                    انتقال
+                                </button>
+                            </div>
                         </td>
                     </tr>
                 @endforeach

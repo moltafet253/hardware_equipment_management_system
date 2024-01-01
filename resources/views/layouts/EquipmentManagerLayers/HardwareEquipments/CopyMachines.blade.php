@@ -72,22 +72,22 @@
         @php
             $eq_copy_machines=\App\Models\EquipmentedCopyMachine::where('person_id',$personId)->get();
         @endphp
-            <table class="w-full border-collapse rounded-lg overflow-hidden text-center">
-                <thead>
-                <tr class="bg-gradient-to-r from-blue-400 to-purple-500 items-center text-center text-white">
-                    <th class="font-bold w-8">
-                        <button type="submit"
-                                class="px-4 py-2 mr-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300 AddCopyMachine">
-                             جدید
-                        </button>
-                    </th>
-                    <th class="font-bold ">کد اموال دستگاه کپی</th>
-                    <th class="font-bold ">شرکت سازنده دستگاه کپی</th>
-                    <th class="font-bold ">مدل دستگاه کپی</th>
-                    <th class="font-bold ">عملیات</th>
-                </tr>
-                </thead>
-                @if(!$eq_copy_machines->isEmpty())
+        <table class="w-full border-collapse rounded-lg overflow-hidden text-center">
+            <thead>
+            <tr class="bg-gradient-to-r from-blue-400 to-purple-500 items-center text-center text-white">
+                <th class="font-bold w-8">
+                    <button type="submit"
+                            class="px-4 py-2 mr-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300 AddCopyMachine">
+                        جدید
+                    </button>
+                </th>
+                <th class="font-bold ">کد اموال دستگاه کپی</th>
+                <th class="font-bold ">شرکت سازنده دستگاه کپی</th>
+                <th class="font-bold ">مدل دستگاه کپی</th>
+                <th class="font-bold ">عملیات</th>
+            </tr>
+            </thead>
+            @if(!$eq_copy_machines->isEmpty())
                 <tbody>
                 @foreach($eq_copy_machines as $copy_machines)
                     <tr class="even:bg-gray-300 odd:bg-white">
@@ -105,16 +105,24 @@
                             {{ $copy_machineInfo->model }}
                         </td>
                         <td class=" px-3 py-1 ">
-                            <button type="submit"
-                                    class="px-1 py-1 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 EditCopyMachine">
-                                ویرایش
-                            </button>
+                            <div class="mb-2">
+                                <button type="submit"
+                                        class="px-1 py-1 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 EditCopyMachine">
+                                    ویرایش
+                                </button>
+                            </div>
+                            <div>
+                                <button type="submit" data-type="copy machine" data-id="{{ $copy_machines->id }}"
+                                        class="px-1 py-1 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 MoveEquipment">
+                                    انتقال
+                                </button>
+                            </div>
                         </td>
                     </tr>
                 @endforeach
                 </tbody>
-                @endif
+            @endif
 
-            </table>
+        </table>
     </div>
 </div>

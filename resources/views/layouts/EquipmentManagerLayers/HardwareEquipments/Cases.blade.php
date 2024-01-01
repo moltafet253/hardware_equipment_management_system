@@ -762,61 +762,10 @@
     </div>
 </form>
 
-<form id="move-case">
-    @csrf
-    <div class="flex items-center">
-        {{--            <div class="fixed z-10 inset-0 overflow-y-auto " id="addCaseModal">--}}
-        <div class="fixed z-10 inset-0 overflow-y-auto hidden" id="moveCaseModal">
-            <div
-                class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center  sm:block sm:p-0">
-                <div class="fixed inset-0 transition-opacity" aria-hidden="true">
-                    <div class="absolute inset-0 bg-gray-500 opacity-75 movecase"></div>
-                </div>
-                <div
-                    class="inline-block align-bottom bg-white rounded-lg text-right overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:w-full sm:max-w-[550px]">
-                    <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                        <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
-                            ویرایش کیس تخصیص داده شده به کاربر
-                        </h3>
-                        <div class="mt-4">
-                            <div class="flex">
-                                <div class="ml-3 w-full">
-                                    <label for="person"
-                                           class="block text-gray-700 text-sm font-bold mb-2">پرسنلی که میخواهید دستگاه انتخاب شده را به آن منتقل کنید*</label>
-                                    <select id="person" class="border rounded-md w-96 px-3 py-2 select2"
-                                            name="person">
-                                        <option value="انتخاب کنید">انتخاب کنید</option>
-                                        @foreach($allPersons as $person)
-                                            <option value="{{ $person->id }}">
-                                                {{ "$person->name - $person->family - $person->personnel_code - $person->national_code" }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                        <input type="hidden" name="eq_id" value="" class="eq_id">
-                        <input type="hidden" name="eq_type" value="" class="eq_type">
-                        <button type="submit"
-                                class="px-4 py-2 mr-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300">
-                            انتقال
-                        </button>
-                        <button id="cancel-move-case" type="button"
-                                class="mt-3 w-full inline-flex justify-center px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring focus:border-blue-300 sm:mt-0 sm:w-auto">
-                            انصراف
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
+
 
 <script>
     $(".select2").val('').trigger("change");
-
     function toggleModal(modalID) {
         var modal = document.getElementById(modalID);
         if (modal.classList.contains('modal-active')) {
@@ -832,7 +781,6 @@
             modal.classList.add('animate-fade-in');
         }
     }
-
     $(document).on('click', '.EditEqCase', function () {
         toggleModal(editCaseModal.id);
         $.ajax({
@@ -889,12 +837,6 @@
             }
         });
     });
-    $(document).on('click', '.MoveEqCase', function () {
-        toggleModal(moveCaseModal.id);
-        $('.eq_id').val($(this).data('id'));
-        $('.eq_type').val($(this).data('type'));
-    });
-
     $('#bundled-case').on('change', function () {
         $.ajax({
             type: 'GET', url: '/getBundledCaseInfo', data: {
@@ -1113,7 +1055,7 @@
                             </div>
                             <div>
                                 <button type="submit" data-type="case" data-id="{{ $case->id }}"
-                                        class="px-1 py-1 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 MoveEqCase">
+                                        class="px-1 py-1 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 MoveEquipment">
                                     انتقال
                                 </button>
                             </div>

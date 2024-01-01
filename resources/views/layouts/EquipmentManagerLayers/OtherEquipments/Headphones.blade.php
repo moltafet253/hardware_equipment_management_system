@@ -33,7 +33,8 @@
                             <div class="mb-4">
                                 <label for="headphone"
                                        class="block text-gray-700 text-sm font-bold mb-2">هدفون*</label>
-                                <select id="headphone" class="border rounded-md w-96 px-3 py-2 select2" name="headphone">
+                                <select id="headphone" class="border rounded-md w-96 px-3 py-2 select2"
+                                        name="headphone">
                                     <option value="" disabled selected>انتخاب کنید</option>
                                     @php
                                         $headphones = \App\Models\Catalogs\OtherEquipments\Headphone::join('companies', 'headphones.company_id', '=', 'companies.id')
@@ -103,10 +104,19 @@
                             {{ $headphoneInfo->model }}
                         </td>
                         <td class=" px-3 py-3 ">
-                            <button type="submit"
-                                    class="px-4 py-2 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 EditHeadphone">
-                                ویرایش
-                            </button>
+                            <div class="mb-2">
+                                <button type="submit"
+                                        class="px-4 py-2 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 EditHeadphone">
+                                    ویرایش
+                                </button>
+                            </div>
+                            <div>
+                                <button type="submit" data-type="headphone"
+                                        data-id="{{ $headphones->id }}"
+                                        class="px-1 py-1 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 MoveEquipment">
+                                    انتقال
+                                </button>
+                            </div>
                         </td>
                     </tr>
                 @endforeach

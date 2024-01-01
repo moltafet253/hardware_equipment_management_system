@@ -4919,7 +4919,7 @@ $(document).ready(function () {
             $('#cancel-edit-case').on('click', function () {
                 toggleModal(editCaseModal.id);
             });
-            $('#cancel-move-case').on('click', function () {
+            $('#cancel-move-equipment').on('click', function () {
                 toggleModal(moveCaseModal.id);
             });
             $('.absolute.inset-0.bg-gray-500.opacity-75.addcase').on('click', function () {
@@ -4928,8 +4928,13 @@ $(document).ready(function () {
             $('.absolute.inset-0.bg-gray-500.opacity-75.editcase').on('click', function () {
                 toggleModal(editCaseModal.id)
             });
-            $('.absolute.inset-0.bg-gray-500.opacity-75.movecase').on('click', function () {
-                toggleModal(moveCaseModal.id)
+            $('.absolute.inset-0.bg-gray-500.opacity-75.moveequipment').on('click', function () {
+                toggleModal(moveEquipmentModal.id)
+            });
+            $(document).on('click', '.MoveEquipment', function () {
+                toggleModal(moveEquipmentModal.id);
+                $('.eq_id').val($(this).data('id'));
+                $('.eq_type').val($(this).data('type'));
             });
             $('#addRAM').on('click', function () {
                 if (ram2Div.classList.contains('hidden')) {
@@ -5079,7 +5084,7 @@ $(document).ready(function () {
                     }
                 });
             });
-            $('#move-case').on('submit', function (e) {
+            $('#move-equipment').on('submit', function (e) {
                 e.preventDefault();
                 Swal.fire({
                     title: 'آیا مطمئن هستید؟',

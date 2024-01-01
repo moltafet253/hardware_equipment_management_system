@@ -87,14 +87,16 @@
                                 <div class="ml-3 w-full">
                                     <label for="edited_printer_property_number"
                                            class="block text-gray-700 text-sm font-bold mb-2">کد اموال*</label>
-                                    <input type="text" id="edited_printer_property_number" name="edited_printer_property_number"
+                                    <input type="text" id="edited_printer_property_number"
+                                           name="edited_printer_property_number"
                                            class="border rounded-md w-full mb-4 px-3 py-2 text-right "
                                            placeholder="کد اموال را وارد کنید">
                                 </div>
                                 <div class="w-full">
                                     <label for="edited_printer_delivery_date"
                                            class="block text-gray-700 text-sm font-bold mb-2">تاریخ تحویل</label>
-                                    <input type="text" id="edited_printer_delivery_date" name="edited_printer_delivery_date"
+                                    <input type="text" id="edited_printer_delivery_date"
+                                           name="edited_printer_delivery_date"
                                            class="border rounded-md w-full mb-4 px-3 py-2 text-right deliveryDate"
                                            placeholder="با فرمت : 1402/05/04">
                                 </div>
@@ -102,7 +104,8 @@
                             <div class="mb-4">
                                 <label for="edited_printer"
                                        class="block text-gray-700 text-sm font-bold mb-2">پرینتر*</label>
-                                <select id="edited_printer" class="border rounded-md w-96 px-3 py-2 select2" name="edited_printer">
+                                <select id="edited_printer" class="border rounded-md w-96 px-3 py-2 select2"
+                                        name="edited_printer">
                                     <option value="" disabled selected>انتخاب کنید</option>
                                     @php
                                         $printers = \App\Models\Catalogs\Printer::join('companies', 'printers.company_id', '=', 'companies.id')
@@ -163,8 +166,8 @@
                 if (response) {
                     $(".eq_id").val(response.id);
                     $(".eq_type").val('printer');
-                    edited_printer_property_number.value=response.property_number;
-                    edited_printer_delivery_date.value=response.delivery_date;
+                    edited_printer_property_number.value = response.property_number;
+                    edited_printer_delivery_date.value = response.delivery_date;
                     $("#edited_printer").val(response.printer_id).trigger("change");
                 }
             }
@@ -177,27 +180,27 @@
         @php
             $eq_printers=\App\Models\EquipmentedPrinter::where('person_id',$personId)->get();
         @endphp
-            <table class="w-full border-collapse rounded-lg overflow-hidden text-center">
-                <thead>
-                <tr class="bg-gradient-to-r from-blue-400 to-purple-500 items-center text-center text-white">
-                    <th class="font-bold w-8">
-                        <button type="submit"
-                                class="px-4 py-2 mr-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300 AddPrinter">
-                            جدید
-                        </button>
-                    </th>
-                    <th class="font-bold ">کد اموال پرینتر</th>
-                    <th class="font-bold ">شرکت سازنده پرینتر</th>
-                    <th class="font-bold ">مدل پرینتر</th>
-                    <th class="font-bold ">نوع کارکرد پرینتر</th>
-                    <th class="font-bold ">عملیات</th>
-                </tr>
-                </thead>
-                @if(!$eq_printers->isEmpty())
+        <table class="w-full border-collapse rounded-lg overflow-hidden text-center">
+            <thead>
+            <tr class="bg-gradient-to-r from-blue-400 to-purple-500 items-center text-center text-white">
+                <th class="font-bold w-8">
+                    <button type="submit"
+                            class="px-4 py-2 mr-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300 AddPrinter">
+                        جدید
+                    </button>
+                </th>
+                <th class="font-bold ">کد اموال پرینتر</th>
+                <th class="font-bold ">شرکت سازنده پرینتر</th>
+                <th class="font-bold ">مدل پرینتر</th>
+                <th class="font-bold ">نوع کارکرد پرینتر</th>
+                <th class="font-bold ">عملیات</th>
+            </tr>
+            </thead>
+            @if(!$eq_printers->isEmpty())
                 <tbody>
                 @foreach($eq_printers as $printers)
                     <tr class="even:bg-gray-300 odd:bg-white">
-                        <td class=" px-3 py-1 "> </td>
+                        <td class=" px-3 py-1 "></td>
                         <td class=" px-3 py-1 "> {{ $printers->property_number }}</td>
                         <td class=" px-3 py-1 ">
                             @php
@@ -214,15 +217,23 @@
                             {{ $printerInfo->function_type }}
                         </td>
                         <td class=" px-3 py-1 ">
-                            <button type="submit" data-type="printer" data-id="{{ $printers->id }}"
-                                    class="px-1 py-1 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 EditEqPrinter">
-                                ویرایش
-                            </button>
+                            <div class="mb-2">
+                                <button type="submit" data-type="printer" data-id="{{ $printers->id }}"
+                                        class="px-1 py-1 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 EditEqPrinter">
+                                    ویرایش
+                                </button>
+                            </div>
+                            <div>
+                                <button type="submit" data-type="printer" data-id="{{ $printers->id }}"
+                                        class="px-1 py-1 mr-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 MoveEquipment">
+                                    انتقال
+                                </button>
+                            </div>
                         </td>
                     </tr>
                 @endforeach
                 </tbody>
-                @endif
-            </table>
+            @endif
+        </table>
     </div>
 </div>
