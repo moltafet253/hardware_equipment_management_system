@@ -2,6 +2,7 @@
 
 namespace App\Models\EquipmentedNetworkDevices;
 
+use App\Models\Catalogs\NetworkEquipments\Modem;
 use App\Models\Person;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -15,5 +16,9 @@ class EquipmentedModem extends Model
     public function personInfo()
     {
         return $this->belongsTo(Person::class,'person_id','id');
+    }
+    public function equipmentInfo()
+    {
+        return $this->belongsTo(Modem::class,'modem_id','id');
     }
 }

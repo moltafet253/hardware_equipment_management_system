@@ -49,7 +49,7 @@
                         <table class="w-full border-collapse rounded-lg overflow-hidden text-center datasheet">
                             <thead>
                             <tr
-                                    class="bg-gradient-to-r from-blue-400 to-purple-500 items-center text-center text-white">
+                                class="bg-gradient-to-r from-blue-400 to-purple-500 items-center text-center text-white">
                                 <th class="px-6 py-2  font-bold ">ردیف</th>
                                 <th class="px-6 py-2  font-bold ">پرسنل</th>
                                 <th class="px-6 py-2  font-bold ">عنوان</th>
@@ -59,6 +59,9 @@
                             </thead>
                             <tbody class="divide-y divide-gray-300">
                             @foreach ($equipment_log as $logs)
+                                @if (str_contains($logs->title, 'Device removed from personnel property'))
+                                    @continue;
+                                @endif
                                 <tr class="bg-white">
                                     <td class="px-6 py-1">{{ $loop->iteration }}</td>
                                     <td class="px-6 py-1">

@@ -62,7 +62,5 @@ class WorkController extends Controller
             return \view('History.HistoryFromPersonalCode', compact('message'));
         }
         return \view('History.HistoryFromPersonalCode', compact('equipment_log'));
-
-
     }
 }

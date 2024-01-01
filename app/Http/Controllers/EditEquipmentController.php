@@ -19,6 +19,7 @@ use App\Models\EquipmentedPrinter;
 use App\Models\EquipmentedScanner;
 use App\Models\EquipmentedVoip;
 use App\Models\EquipmentLog;
+use App\Models\Person;
 use Illuminate\Http\Request;
 
 class EditEquipmentController extends Controller
@@ -367,8 +368,13 @@ class EditEquipmentController extends Controller
         $equipment->person_id=$person;
         $equipment->save();
 
+        $fromPersonInfo=Person::find($fromPerson);
+        $toPersonInfo=Person::find($person);
         $log=['message'=>'Moved equipment', 'from'=>$fromPerson, 'to'=>$person];
-        $this->logEquipmentChanges(json_encode($log), $eq_id, $eq_type, $equipment->property_number, \session('id'), $equipment->person_id);
+        $this->logEquipmentChanges(json_encode($log), $eq_id, $eq_type, $equipment->property_number, \session('id'), $fromPerson);
+        $this->logEquipmentChanges('Assigned to this user => ' . $toPersonInfo->personnel_code, $eq_id, $eq_type, $equipment->property_number, \session('id'), $person);
+        $log=['message'=>'Device removed from personnel property','Device_info'=>$eq_id,'Device_type'=>$eq_type,'Personnel'=>$toPersonInfo->personnel_code];
+        $this->logEquipmentChanges(json_encode($log,true), $eq_id, $eq_type, $equipment->property_number, \session('id'), $fromPerson);
         return $this->success(true, 'Moved', 'برای نمایش اطلاعات جدید، لطفا صفحه را رفرش نمایید.');
 
     }

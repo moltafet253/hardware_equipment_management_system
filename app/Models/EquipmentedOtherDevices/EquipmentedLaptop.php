@@ -2,6 +2,7 @@
 
 namespace App\Models\EquipmentedOtherDevices;
 
+use App\Models\Catalogs\OtherEquipments\Laptop;
 use App\Models\Person;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -15,5 +16,9 @@ class EquipmentedLaptop extends Model
     public function personInfo()
     {
         return $this->belongsTo(Person::class,'person_id','id');
+    }
+    public function equipmentInfo()
+    {
+        return $this->belongsTo(Laptop::class,'laptop_id','id');
     }
 }

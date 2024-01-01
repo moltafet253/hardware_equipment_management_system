@@ -2,6 +2,7 @@
 
 namespace App\Models\EquipmentedOtherDevices;
 
+use App\Models\Catalogs\OtherEquipments\VideoProjectorCurtain;
 use App\Models\Person;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -15,5 +16,9 @@ class EquipmentedVideoProjectorCurtain extends Model
     public function personInfo()
     {
         return $this->belongsTo(Person::class,'person_id','id');
+    }
+    public function equipmentInfo()
+    {
+        return $this->belongsTo(VideoProjectorCurtain::class,'vp_curtain_id','id');
     }
 }

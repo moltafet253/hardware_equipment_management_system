@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Catalogs\Printer;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -14,5 +15,9 @@ class EquipmentedPrinter extends Model
     public function personInfo()
     {
         return $this->belongsTo(Person::class,'person_id','id');
+    }
+    public function equipmentInfo()
+    {
+        return $this->belongsTo(Printer::class,'printer_id','id');
     }
 }
