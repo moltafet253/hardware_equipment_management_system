@@ -61,49 +61,49 @@ class EquipmentController extends Controller
                 $check = EquipmentedCase::where('property_number', $pNumber)->first();
                 break;
             case 'monitor':
-                $equipment=EquipmentedMonitor::where('property_number', $pNumber)->first();
+                $check=EquipmentedMonitor::where('property_number', $pNumber)->first();
                 break;
             case 'printer':
-                $equipment=EquipmentedPrinter::where('property_number', $pNumber)->first();
+                $check=EquipmentedPrinter::where('property_number', $pNumber)->first();
                 break;
             case 'scanner':
-                $equipment=EquipmentedScanner::where('property_number', $pNumber)->first();
+                $check=EquipmentedScanner::where('property_number', $pNumber)->first();
                 break;
             case 'copy machine':
-                $equipment=EquipmentedCopyMachine::where('property_number', $pNumber)->first();
+                $check=EquipmentedCopyMachine::where('property_number', $pNumber)->first();
                 break;
             case 'voip':
-                $equipment=EquipmentedVoip::where('property_number', $pNumber)->first();
+                $check=EquipmentedVoip::where('property_number', $pNumber)->first();
                 break;
             case 'modem':
-                $equipment=EquipmentedModem::where('property_number', $pNumber)->first();
+                $check=EquipmentedModem::where('property_number', $pNumber)->first();
                 break;
             case 'switch':
-                $equipment=EquipmentedSwitch::where('property_number', $pNumber)->first();
+                $check=EquipmentedSwitch::where('property_number', $pNumber)->first();
                 break;
             case 'headphone':
-                $equipment=EquipmentedHeadphone::where('property_number', $pNumber)->first();
+                $check=EquipmentedHeadphone::where('property_number', $pNumber)->first();
                 break;
             case 'mobile':
-                $equipment=EquipmentedMobile::where('property_number', $pNumber)->first();
+                $check=EquipmentedMobile::where('property_number', $pNumber)->first();
                 break;
             case 'recorder':
-                $equipment=EquipmentedRecorder::where('property_number', $pNumber)->first();
+                $check=EquipmentedRecorder::where('property_number', $pNumber)->first();
                 break;
             case 'speaker':
-                $equipment=EquipmentedSpeaker::where('property_number', $pNumber)->first();
+                $check=EquipmentedSpeaker::where('property_number', $pNumber)->first();
                 break;
             case 'tablet':
-                $equipment=EquipmentedTablet::where('property_number', $pNumber)->first();
+                $check=EquipmentedTablet::where('property_number', $pNumber)->first();
                 break;
             case 'video projector curtain':
-                $equipment=EquipmentedVideoProjectorCurtain::where('property_number', $pNumber)->first();
+                $check=EquipmentedVideoProjectorCurtain::where('property_number', $pNumber)->first();
                 break;
             case 'video projector':
-                $equipment=EquipmentedVideoProjector::where('property_number', $pNumber)->first();
+                $check=EquipmentedVideoProjector::where('property_number', $pNumber)->first();
                 break;
             case 'webcam':
-                $equipment=EquipmentedWebcam::where('property_number', $pNumber)->first();
+                $check=EquipmentedWebcam::where('property_number', $pNumber)->first();
                 break;
             default:
                 return $this->alerts(false, 'error', 'خطای ناشناخته');
