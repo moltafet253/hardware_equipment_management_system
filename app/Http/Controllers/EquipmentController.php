@@ -236,7 +236,7 @@ class EquipmentController extends Controller
         }
 
         $property_number = $request->input('property_number');
-        if ($this->checkPropertyNumber($property_number)) {
+        if ($this->checkPropertyNumber($property_number,'monitor')) {
             return $this->alerts(false, 'duplicatePropertyNumber', 'کد اموال تکراری وارد شده است');
         }
 
@@ -276,7 +276,7 @@ class EquipmentController extends Controller
         }
 
         $property_number = $request->input('property_number');
-        if ($this->checkPropertyNumber($property_number)) {
+        if ($this->checkPropertyNumber($property_number,'printer')) {
             return $this->alerts(false, 'duplicatePropertyNumber', 'کد اموال تکراری وارد شده است');
         }
 
@@ -315,7 +315,7 @@ class EquipmentController extends Controller
         }
 
         $property_number = $request->input('property_number');
-        if ($this->checkPropertyNumber($property_number)) {
+        if ($this->checkPropertyNumber($property_number,'scanner')) {
             return $this->alerts(false, 'duplicatePropertyNumber', 'کد اموال تکراری وارد شده است');
         }
 
@@ -354,7 +354,7 @@ class EquipmentController extends Controller
         }
 
         $property_number = $request->input('property_number');
-        if ($this->checkPropertyNumber($property_number)) {
+        if ($this->checkPropertyNumber($property_number,'copy machine')) {
             return $this->alerts(false, 'duplicatePropertyNumber', 'کد اموال تکراری وارد شده است');
         }
 
@@ -393,7 +393,7 @@ class EquipmentController extends Controller
         }
 
         $property_number = $request->input('property_number');
-        if ($this->checkPropertyNumber($property_number)) {
+        if ($this->checkPropertyNumber($property_number,'voip')) {
             return $this->alerts(false, 'duplicatePropertyNumber', 'کد اموال تکراری وارد شده است');
         }
 
@@ -432,7 +432,7 @@ class EquipmentController extends Controller
         }
 
         $property_number = $request->input('property_number');
-        if ($this->checkPropertyNumber($property_number)) {
+        if ($this->checkPropertyNumber($property_number,'switch')) {
             return $this->alerts(false, 'duplicatePropertyNumber', 'کد اموال تکراری وارد شده است');
         }
 
@@ -471,7 +471,7 @@ class EquipmentController extends Controller
         }
 
         $property_number = $request->input('property_number');
-        if ($this->checkPropertyNumber($property_number)) {
+        if ($this->checkPropertyNumber($property_number,'modem')) {
             return $this->alerts(false, 'duplicatePropertyNumber', 'کد اموال تکراری وارد شده است');
         }
 
@@ -510,7 +510,7 @@ class EquipmentController extends Controller
         }
 
         $property_number = $request->input('property_number');
-        if ($this->checkPropertyNumber($property_number)) {
+        if ($this->checkPropertyNumber($property_number,'laptop')) {
             return $this->alerts(false, 'duplicatePropertyNumber', 'کد اموال تکراری وارد شده است');
         }
 
@@ -549,7 +549,7 @@ class EquipmentController extends Controller
         }
 
         $property_number = $request->input('property_number');
-        if ($this->checkPropertyNumber($property_number)) {
+        if ($this->checkPropertyNumber($property_number,'mobile')) {
             return $this->alerts(false, 'duplicatePropertyNumber', 'کد اموال تکراری وارد شده است');
         }
 
@@ -588,7 +588,7 @@ class EquipmentController extends Controller
         }
 
         $property_number = $request->input('property_number');
-        if ($this->checkPropertyNumber($property_number)) {
+        if ($this->checkPropertyNumber($property_number,'tablet')) {
             return $this->alerts(false, 'duplicatePropertyNumber', 'کد اموال تکراری وارد شده است');
         }
 
@@ -627,7 +627,7 @@ class EquipmentController extends Controller
         }
 
         $property_number = $request->input('property_number');
-        if ($this->checkPropertyNumber($property_number)) {
+        if ($this->checkPropertyNumber($property_number,'webcam')) {
             return $this->alerts(false, 'duplicatePropertyNumber', 'کد اموال تکراری وارد شده است');
         }
 
@@ -666,7 +666,7 @@ class EquipmentController extends Controller
         }
 
         $property_number = $request->input('property_number');
-        if ($this->checkPropertyNumber($property_number)) {
+        if ($this->checkPropertyNumber($property_number,'recorder')) {
             return $this->alerts(false, 'duplicatePropertyNumber', 'کد اموال تکراری وارد شده است');
         }
 
@@ -705,7 +705,7 @@ class EquipmentController extends Controller
         }
 
         $property_number = $request->input('property_number');
-        if ($this->checkPropertyNumber($property_number)) {
+        if ($this->checkPropertyNumber($property_number,'headphone')) {
             return $this->alerts(false, 'duplicatePropertyNumber', 'کد اموال تکراری وارد شده است');
         }
 
@@ -744,7 +744,7 @@ class EquipmentController extends Controller
         }
 
         $property_number = $request->input('property_number');
-        if ($this->checkPropertyNumber($property_number)) {
+        if ($this->checkPropertyNumber($property_number,'speaker')) {
             return $this->alerts(false, 'duplicatePropertyNumber', 'کد اموال تکراری وارد شده است');
         }
 
@@ -783,7 +783,7 @@ class EquipmentController extends Controller
         }
 
         $property_number = $request->input('property_number');
-        if ($this->checkPropertyNumber($property_number)) {
+        if ($this->checkPropertyNumber($property_number,'video projector')) {
             return $this->alerts(false, 'duplicatePropertyNumber', 'کد اموال تکراری وارد شده است');
         }
 
@@ -822,7 +822,7 @@ class EquipmentController extends Controller
         }
 
         $property_number = $request->input('property_number');
-        if ($this->checkPropertyNumber($property_number)) {
+        if ($this->checkPropertyNumber($property_number,'video projector curtain')) {
             return $this->alerts(false, 'duplicatePropertyNumber', 'کد اموال تکراری وارد شده است');
         }
 
