@@ -1965,7 +1965,7 @@ $(document).ready(function () {
             });
             $('#new-Monitor').on('submit', function (e) {
                 e.preventDefault();
-                if (!hasOnlyEnglishCharacters(modelForEdit.value)) {
+                if (!hasOnlyEnglishCharacters(model.value)) {
                     swalFire('خطا!', 'مدل اشتباه وارد شده است.', 'error', 'تلاش مجدد');
                 } else if (isNaN(size.value)) {
                     swalFire('خطا!', 'سایز صفحه اشتباه وارد شده است.', 'error', 'تلاش مجدد');
