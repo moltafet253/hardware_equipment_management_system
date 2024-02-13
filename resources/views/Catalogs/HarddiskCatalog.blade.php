@@ -75,11 +75,17 @@
                                                     <option value="512GB">512GB</option>
                                                     <option value="1TB">1TB</option>
                                                     <option value="2TB">2TB</option>
+                                                    <option value="3TB">3TB</option>
                                                     <option value="4TB">4TB</option>
                                                     <option value="6TB">6TB</option>
                                                     <option value="8TB">8TB</option>
                                                     <option value="10TB">10TB</option>
                                                     <option value="12TB">12TB</option>
+                                                    <option value="14TB">14TB</option>
+                                                    <option value="16TB">16TB</option>
+                                                    <option value="18TB">18TB</option>
+                                                    <option value="20TB">20TB</option>
+                                                    <option value="24TB">24TB</option>
                                                 </select>
                                             </div>
                                             <div class="flex flex-col items-right mb-2">
@@ -179,11 +185,17 @@
                                                     <option value="512GB">512GB</option>
                                                     <option value="1TB">1TB</option>
                                                     <option value="2TB">2TB</option>
+                                                    <option value="3TB">3TB</option>
                                                     <option value="4TB">4TB</option>
                                                     <option value="6TB">6TB</option>
                                                     <option value="8TB">8TB</option>
                                                     <option value="10TB">10TB</option>
                                                     <option value="12TB">12TB</option>
+                                                    <option value="14TB">14TB</option>
+                                                    <option value="16TB">16TB</option>
+                                                    <option value="18TB">18TB</option>
+                                                    <option value="20TB">20TB</option>
+                                                    <option value="24TB">24TB</option>
                                                 </select>
                                             </div>
                                             <div class="flex flex-col items-right mb-2">
